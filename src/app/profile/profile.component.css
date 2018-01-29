@@ -1,0 +1,143 @@
+.profile-content{
+    margin-top: 20px;
+    width: 60%;
+    padding-top: 20px;
+    height: 100%;
+    padding-bottom: 20px;
+    /* border: 2px solid white; */
+}
+
+/* .row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    text-align:left;
+    margin-right:-4px;
+} */
+
+.main {
+    /* border: 4px solid lightblue; */
+    width: 100%;
+    height: auto;
+    /* padding: 10px; */
+}
+
+/** Profile-info starts here **/
+
+.profile-info{
+    width: 100%;
+    height: auto;
+    margin:0 auto;
+    border: 1px solid white;
+    color: rgb(71, 71, 71);
+    background-color: white;
+    border-radius: 5px;
+}
+
+.profile-info-background{
+    padding-top: 4px;
+}
+
+.profile-info-avatar .avatar{
+        width:128px;
+        margin-top: -70px;
+        border:4px solid white;
+        border-radius: 500px;
+        -webkit-border-radius: 500px;
+        -moz-border-radius: 500px;
+        box-shadow: 0px 0px 10px black;
+}
+
+.profile-info-content-user-name{
+    font-size: 20px;
+}
+
+.profile-info-user-designation {
+    margin-top: -20px;
+}
+
+.profile-info-user-location {
+    margin-top: -20px;
+}
+
+/** Profile-info ends here **/
+
+
+
+/** Profile-dashboard starts here **/
+.profile-dashboard {
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: auto;
+    padding-bottom: 30px;
+}
+
+.profile-dashboard-header-title{
+    padding-top: 15px;
+    margin-bottom: -10px;
+    font-size: 18px;
+}
+
+.profile-dashboard-stats {
+    width: 100%;
+    display: table;
+    margin-top: 1.5em;
+}
+
+.profile-dashboard-stats .stat {
+    width: 25%;
+    height: 90px;
+    text-align: center;
+    display: table-cell;
+    padding: 0;
+    position: relative;
+    border-right: 1px solid #CCC;
+    border-left: 1px solid #FFF;
+}
+
+
+/** Profile-info-skills-tags**/
+.profile-info-skills-tags {
+    display:inline-block;
+    margin-bottom: 25px;
+    padding: 5px;
+}
+
+.profile-info-skills-tags .tags {
+    padding-bottom: 2px; 
+    padding-top: 2px;
+    font-size: 10px; 
+    text-align:center;
+    background-color: rgb(0, 176, 230);
+}
+
+
+
+/** Profile-education starts here **/
+.profile-education {
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: auto;
+    padding-bottom: 30px;
+}
+
+.profile-education .title {
+    padding-top: 10px;
+}
+
+.profile-education-info{ 
+    padding-left: 40px;
+    padding-right: 20px;
+    text-align: left;
+}
+
+.profile-education-dates{
+    text-align: left;
+    padding-left: 40px;
+}
