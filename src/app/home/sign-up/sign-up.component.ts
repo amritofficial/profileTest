@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger,group, state, animateChild } from '@angular/animations';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class SignUpComponent implements OnInit {
   educationStep: boolean = false;
   finishRegisterStep: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { 
+
+  }
 
   ngOnInit() {
   }
@@ -48,7 +51,8 @@ export class SignUpComponent implements OnInit {
   }
 
   jumpToDashboard() {
-    
+    console.log('It should navigate');
+    this.router.navigate([{outlets: {'main-outlet': ['dashboard']}}]);
   }
 
 }
