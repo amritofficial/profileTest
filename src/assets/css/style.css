@@ -143,7 +143,7 @@ ul.navbar-nav {
 .top-content .top-big-link {
 	margin-top: 35px;
 }
-
+/* 
 .form-top {
 	overflow: hidden;
 	padding: 0 25px 15px 25px;
@@ -183,7 +183,7 @@ ul.navbar-nav {
 
 .form-bottom form .input-error {
 	border-color: #19b9e7;
-}
+} */
 
 
 /***** Media queries *****/
