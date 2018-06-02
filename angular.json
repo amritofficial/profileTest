@@ -26,12 +26,6 @@
               "src/assets/css/form-elements.css",
               "src/assets/css/style.css",
               "src/styles.css"
-            ],
-            "scripts": [
-              "src/js/jquery-1.11.1.min.js",
-              "src/js/jquery.backstretch.min.js",
-              "src/js/retina-1.1.0.min.js",
-              "src/js/scripts.js"
             ]
           },
           "configurations": {

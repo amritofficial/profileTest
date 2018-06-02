@@ -1,3 +1,4 @@
+<div class="home-body">
 <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -9,16 +10,26 @@
         <li>
           <span class="li-text">
             Put some text or
-          </span> 
-          <a href="#"><strong>links</strong></a> 
+          </span>
+          <a href="#">
+            <strong>links</strong>
+          </a>
           <span class="li-text">
-            here, or some icons: 
-          </span> 
+            here, or some icons:
+          </span>
           <span class="li-social">
-            <a href="#"><i class="fa fa-facebook"></i></a> 
-            <a href="#"><i class="fa fa-twitter"></i></a> 
-            <a href="#"><i class="fa fa-envelope"></i></a> 
-            <a href="#"><i class="fa fa-skype"></i></a>
+            <a href="#">
+              <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-envelope"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-skype"></i>
+            </a>
           </span>
         </li>
       </ul>
@@ -26,30 +37,34 @@
   </div>
 </nav>
 
-    <!-- Top content -->
-    <div class="top-content">
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-7 text">
-                        <h1><strong>Bootstrap</strong> Registration Form</h1>
-                        <div class="description">
-                          <p>
-                            This is a free responsive registration form made with Bootstrap. 
-                            Download it on <a href="http://azmind.com"><strong>AZMIND</strong></a>, customize and use it as you like!
-                          </p>
-                        </div>
-                        <div class="top-big-link">
-                          <a class="btn btn-link-1" [routerLink]="[{outlets: {'form-outlet': ['login']}}]">Login</a>
-                          <a class="btn btn-link-2" [routerLink]="[{outlets: {'form-outlet': ['register']}}]">Register</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-5 form-box">
-                      <router-outlet name="form-outlet"></router-outlet>
-                      <!-- <app-login></app-login> -->
-                      <!-- <app-sign-up></app-sign-up> -->
-                    </div>
-                </div>
-            </div>
+<!-- Top content -->
+<div class="top-content">
+  <div class="inner-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-7 text">
+          <h1>
+            <strong>Bootstrap</strong> Registration Form</h1>
+          <div class="description">
+            <p>
+              This is a free responsive registration form made with Bootstrap. Download it on
+              <a href="http://azmind.com">
+                <strong>AZMIND</strong>
+              </a>, customize and use it as you like!
+            </p>
+          </div>
+          <div class="top-big-link">
+            <a class="btn btn-link-1" [routerLink]="[{outlets: {'form-outlet': ['login']}}]">Login</a>
+            <a class="btn btn-link-2" [routerLink]="[{outlets: {'form-outlet': ['register']}}]">Register</a>
+          </div>
         </div>
+        <div class="col-sm-5 form-box">
+          <router-outlet name="form-outlet"></router-outlet>
+          <!-- <app-login></app-login> -->
+          <!-- <app-sign-up></app-sign-up> -->
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
