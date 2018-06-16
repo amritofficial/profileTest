@@ -11,6 +11,7 @@ import { SignUpComponent } from './home/sign-up/sign-up.component';
 import { LoginComponent } from './home/login/login.component';
 import { appRoutes } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeedComponent } from './dashboard/feed/feed.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ProfileComponent,
     SignUpComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,

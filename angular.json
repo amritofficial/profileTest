@@ -25,7 +25,9 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "src/assets/css/form-elements.css",
               "src/assets/css/style.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/bootstrap-grid.css",
+              "src/assets/css/bootstrap-reboot.css"
             ]
           },
           "configurations": {

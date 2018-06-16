@@ -6,7 +6,7 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 
 export const appRoutes: Routes = [
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: '', redirectTo: '/(main-outlet:home)', pathMatch: 'full'},
     {path: 'home', component: HomeComponent, outlet: 'main-outlet',
         children: [
             {path: 'login', component: LoginComponent, outlet: 'form-outlet'},
