@@ -39,8 +39,8 @@ img { max-width: 100%; }
 
 .blue { color: #19b9e7; }
 
-::-moz-selection { background: #19b9e7; color: #fff; text-shadow: none; }
-::selection { background: #19b9e7; color: #fff; text-shadow: none; }
+::-moz-selection { background: #f5731dbe; color: #fff; text-shadow: none; }
+::selection { background: #f5731dbe; color: #fff; text-shadow: none; }
 
 
 .btn-link-1 {
