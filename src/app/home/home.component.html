@@ -1,70 +1,70 @@
-<div class="home-body">
-<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">Bootstrap Registration Form Template</a>
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="top-navbar-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <span class="li-text">
-            Put some text or
-          </span>
-          <a href="#">
-            <strong>links</strong>
-          </a>
-          <span class="li-text">
-            here, or some icons:
-          </span>
-          <span class="li-social">
-            <a href="#">
-              <i class="fa fa-facebook"></i>
-            </a>
-            <a href="#">
-              <i class="fa fa-twitter"></i>
-            </a>
-            <a href="#">
-              <i class="fa fa-envelope"></i>
-            </a>
-            <a href="#">
-              <i class="fa fa-skype"></i>
-            </a>
-          </span>
-        </li>
-      </ul>
-    </div>
+<div class="home-body landing-page">
+  <div class="content-bg-wrap">
+      <div class="content-bg"></div>
   </div>
-</nav>
-
-<!-- Top content -->
-<div class="top-content">
-  <div class="inner-bg">
+  <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
     <div class="container">
-      <div class="row">
-        <div class="col-sm-7 text">
-          <h1>
-            <strong>Bootstrap</strong> Registration Form</h1>
-          <div class="description">
-            <p>
-              This is a free responsive registration form made with Bootstrap. Download it on
-              <a href="http://azmind.com">
-                <strong>AZMIND</strong>
-              </a>, customize and use it as you like!
-            </p>
+      <div class="navbar-header">
+        <a class="navbar-brand">Bootstrap Registration Form Template</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="top-navbar-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <span class="li-text">
+              Put some text or
+            </span>
+            <div>
+              <strong>links</strong>
+            </div>
+            <span class="li-text">
+              here, or some icons:
+            </span>
+            <span class="li-social">
+              <div>
+                <i class="fa fa-facebook"></i>
+              </div>
+              <div>
+                <i class="fa fa-twitter"></i>
+              </div>
+              <div>
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div>
+                <i class="fa fa-skype"></i>
+              </div>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Top content -->
+  <div class="top-content">
+    <div class="inner-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7 text">
+            <h1>
+              <strong>"For Developers, By Developers"</strong></h1>
+            <div class="description">
+              <p>
+                Welcome to <strong style="font-size: 18px;">DevFinder</strong>! The very First Social Media Platform to offer what you need! 
+              </p>
+            </div>
+            <div class="top-big-link">
+              <a class="btn btn-link-1" [routerLink]="[{outlets: {'form-outlet': ['login']}}]">Login</a>
+              <a class="btn btn-link-2" [routerLink]="[{outlets: {'form-outlet': ['register']}}]">Register</a>
+            </div>
           </div>
-          <div class="top-big-link">
-            <a class="btn btn-link-1" [routerLink]="[{outlets: {'form-outlet': ['login']}}]">Login</a>
-            <a class="btn btn-link-2" [routerLink]="[{outlets: {'form-outlet': ['register']}}]">Register</a>
+          <div class="col-sm-5 form-box">
+            <router-outlet name="form-outlet"></router-outlet>
+            <!-- <app-login></app-login> -->
+            <!-- <app-sign-up></app-sign-up> -->
           </div>
-        </div>
-        <div class="col-sm-5 form-box">
-          <router-outlet name="form-outlet"></router-outlet>
-          <!-- <app-login></app-login> -->
-          <!-- <app-sign-up></app-sign-up> -->
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

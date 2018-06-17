@@ -454,11 +454,12 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(255, 94, 58, 0.95);
+    /* background-color: rgba(255, 94, 58, 0.95); */
+    background-color: rgba(45, 146, 230, 0.95);
     opacity: 1;
     z-index: auto; }
   .landing-page .content-bg:before {
-    background: url("../img/landing-users.png") repeat 0 0; }
+    background: url("../../assets/img/landing-users.png") repeat 0 0; }
   .landing-page .content-bg {
     background-color: rgba(255, 94, 58, 0.95);
     animation-name: sidedownscroll; }
