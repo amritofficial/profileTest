@@ -2056,7 +2056,7 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
   float: left;
   width: 100%; }
   .add-options-message button {
-    margin-bottom: 0;
+    padding-bottom: 55px;
     float: right; }
     .add-options-message button + button {
       margin-right: 15px; }

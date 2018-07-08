@@ -12,6 +12,7 @@ import { LoginComponent } from './home/login/login.component';
 import { appRoutes } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FeedComponent } from './dashboard/feed/feed.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FeedComponent } from './dashboard/feed/feed.component';
     SignUpComponent,
     LoginComponent,
     DashboardComponent,
-    FeedComponent
+    FeedComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
