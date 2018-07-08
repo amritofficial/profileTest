@@ -39,8 +39,8 @@ img { max-width: 100%; }
 
 .blue { color: #19b9e7; }
 
-::-moz-selection { background: #19b9e7; color: #fff; text-shadow: none; }
-::selection { background: #19b9e7; color: #fff; text-shadow: none; }
+::-moz-selection { background: #f5731dbe; color: #fff; text-shadow: none; }
+::selection { background: #f5731dbe; color: #fff; text-shadow: none; }
 
 
 .btn-link-1 {
@@ -48,7 +48,7 @@ img { max-width: 100%; }
 	height: 50px;
 	margin: 0 5px;
 	padding: 16px 20px 0 20px;
-	background: #19b9e7;
+	background: #f5731dbe;
 	font-size: 16px;
     font-weight: 300;
     line-height: 16px;
@@ -61,8 +61,8 @@ img { max-width: 100%; }
 	display: inline-block;
 	height: 50px;
 	margin: 0 5px;
-	padding: 15px 20px 0 20px;
-	background: rgba(0, 0, 0, 0.3);
+	padding: 15px 25px 0 20px;
+	background: rgba(2, 17, 155, 0.664);
 	border: 1px solid #fff;
 	font-size: 16px;
     font-weight: 300;
