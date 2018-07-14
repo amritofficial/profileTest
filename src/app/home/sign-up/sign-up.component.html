@@ -115,7 +115,7 @@
     </div>
   </div>
   <div class="form-bottom">
-    <tag-input [ngModel]="items" [displayBy]="'name'" (onAdd)="onItemAdded($event)"></tag-input>
+    <tag-input [ngModel]="items" style="text-transform:uppercase" [displayBy]="'name'" (onAdd)="onItemAdded($event)" theme='bootstrap'></tag-input>
     <button type="submit" class="btn" (click)="finishRegister()">Next!</button>
   </div>
 </div>
