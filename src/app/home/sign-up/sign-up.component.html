@@ -98,13 +98,27 @@
           <textarea name="form-about-yourself" placeholder="About yourself..." 
                 class="form-about-yourself form-control" id="form-about-yourself"></textarea>
         </div>
-        <button type="submit" class="btn" (click)="finishRegister()">Next!</button>
+        <button type="submit" class="btn" (click)="jumpToSkills()">Next!</button>
     </form>
   </div>
 </div>
 
 <!-- Skill Section -->
-
+<div *ngIf="skillsStep" class="skillsRegister" [@ngIfAnimation]>
+  <div class="form-top">
+    <div class="form-top-left">
+      <h3>Skills</h3>
+        <p>Lets get your skills/expertise</p>
+    </div>
+    <div class="form-top-right">
+      <i class="fa fa-book"></i>
+    </div>
+  </div>
+  <div class="form-bottom">
+    <tag-input [ngModel]="items" [displayBy]="'name'" (onAdd)="onItemAdded($event)"></tag-input>
+    <button type="submit" class="btn" (click)="finishRegister()">Next!</button>
+  </div>
+</div>
 
 
 <!-- Finish Register -->

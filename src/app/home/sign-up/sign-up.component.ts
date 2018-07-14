@@ -22,9 +22,11 @@ import { Router } from '@angular/router';
     ]
 })
 export class SignUpComponent implements OnInit {
+  items = [];
   mainStep: boolean = true;
   workStep: boolean = false;
   educationStep: boolean = false;
+  skillsStep: boolean = false;
   finishRegisterStep: boolean = false;
 
   constructor(private router: Router) { 
@@ -45,14 +47,26 @@ export class SignUpComponent implements OnInit {
     this.mainStep = false;  
   }
 
-  finishRegister() {
+  jumpToSkills() {
+    this.skillsStep = true;
     this.educationStep = false;
+  }
+
+  finishRegister() {
+    this.skillsStep = false;
     this.finishRegisterStep = true;
+    console.log(this.items);
   }
 
   jumpToDashboard() {
     console.log('It should navigate');
     this.router.navigate([{outlets: {'main-outlet': ['dashboard']}}]);
+  }
+
+  id = 0;
+  onItemAdded(item) {
+    this.items.push({id: this.id, value: item.value});
+    this.id +=1;
   }
 
 }

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
+import { TagInputModule } from 'ngx-chips';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -29,6 +31,9 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    TagInputModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
