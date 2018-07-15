@@ -1,73 +1,34 @@
-<div class="container profile-content">
+<navbar></navbar>
+<div class="header-spacer"></div>
+
+<div class="container">
   <div class="row">
-    <div class="col-lg-12 col-xs-12">
-      <div class="main">
-
-        <div class="profile-info">
-          <div class="profile-info-background">
-            <img src="http://hddesktopwallpapers.in/wp-content/uploads/2015/07/abstract-wallpapers-hd-waves-wide.jpg" width="99%" height="200px" alt="">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="ui-block">
+        <div class="top-header">
+          <div class="top-header-thumb">
+            <img src="../../assets/img/nature.jpg" alt="nature">
           </div>
-          <div class="profile-info-content">
-            <section>
-              <div class="profile-info-avatar">
-                <img class="avatar" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAMABADGAAwAAQAAAAAAAA5QAAAAJDcyNjIxOTY5LTE4NmYtNGYxMi04NTdlLTk2N2Q4ZGNmNmY4Mw.jpg" alt="">
-              </div>
-              <div class="profile-info-section-content">
-                <h1 class="profile-info-content-user-name"><strong>Amrit Singh</strong></h1>
-                <p class="profile-info-user-designation">Software Programmer</p>
-                <p class="profile-info-user-location">Toronto, Ontario, Canada</p>
-                <hr style="width: 80%;">
-                <h1 style="font-size: 20px"><strong>Personal Statement</strong></h1>
-                <p class="profile-info-user-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>
-                <hr style="width: 80%;">
-
-                <div class="profile-info-skills">
-                  <h1 style="font-size: 20px"><strong>Skills</strong></h1>
-                  <div class="profile-info-skills-tags" *ngFor="let skills of skillTagsArray">
-                    <span class="btn btn-info tags"><strong>{{ skills }}</strong></span>
-                  </div>
-                </div>
-
-              </div>
-            </section>  
-          </div>
-        </div> <!-- Profile-Info ends here -->
-
-        <div class="profile-dashboard">
-          <div class="profile-dashboard-header">
-            <h1 class="profile-dashboard-header-title"><strong>My Dashboard</strong></h1>
-          </div>
-          <hr style="width: 95%">
-          <div class="profile-dashboard-stats">
-                <div class="stat">Followers<br><span class="value">851</span> </div>
-                <div class="stat">Following<br><span class="value">423</span> </div>
-                <div class="stat">Connections<br><span class="value">922</span> </div>
-          </div>
-        </div> <!-- Profile-dashboard ends here -->
-
-        <div class="profile-education">
-          <h1 style="font-size: 20px" class="title"><strong>Education / Certification</strong></h1>
-          <hr style="width: 95%">
-          <div class="row">
-            <div class="profile-education-info col-md-8 col-xs-12">
-              <div class="designation">
-                <p>Software Programmer</p>
-              </div>
-              <div class="description">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a g</p>
-              </div>
-            </div>
-            <div class="profile-education-dates col-md-4 col-xs-12">
-                <p>MM/DD/YY - MM/DD/YY</p>
-            </div>
-          </div>
+          <profile-option></profile-option>
+          <profile-thumb></profile-thumb>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="profile-experience">
+<!-- ... end Top Header -->
 
-        </div> <!-- Profile-experience ends here -->
-
-      </div> <!-- Main ends here -->
+<div class="container">
+  <div class="row">
+    <div class="col-xl-3">
+      <profile-intro></profile-intro>
+    </div>
+    <div class="col-xl-6">
+      <profile-feed></profile-feed>
+    </div>
+    <div class="col-xl-3">
+      <profile-right-sidebar></profile-right-sidebar>
     </div>
   </div>
 </div>

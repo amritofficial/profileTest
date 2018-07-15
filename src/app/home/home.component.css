@@ -1,0 +1,45 @@
+.home-body {
+    background-color: transparent;
+}
+
+
+blockquote {
+font-family: Georgia, serif;
+font-size: 18px;
+font-style: italic;
+width: 500px;
+line-height: 1.45;
+color: #ffffff;
+}
+
+blockquote:before {
+display: block;
+padding-left: 10px;
+content: "\201C";
+font-size: 80px;
+color: white;
+}
+
+blockquote cite {
+color: #999999;
+font-size: 14px;
+display: block;
+margin-top: 5px;
+}
+ 
+blockquote cite:before {
+content: "\2014 \2009";
+}
+
+.slogan {
+    margin-top: -100px;
+}
+
+.quotes {
+    margin-left: -50px;
+    margin-top: -60px;
+}
+
+.form-box {
+    margin-top: -60px;
+}
