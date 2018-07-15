@@ -6,12 +6,12 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 
 export const appRoutes: Routes = [
-    {path: '', redirectTo: '/(main-outlet:home/(form-outlet:login))', pathMatch: 'full'},
-    {path: 'home', component: HomeComponent, outlet: 'main-outlet',
+    {path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full'},
+    {path: 'home', component: HomeComponent,
         children: [
             {path: 'login', component: LoginComponent, outlet: 'form-outlet'},
             {path: 'register', component: SignUpComponent, outlet: 'form-outlet'}
             ]},
-    {path: 'dashboard', component: DashboardComponent, outlet: 'main-outlet'},
-    {path: 'profile', component: ProfileComponent, outlet: 'main-outlet'}
+    {path: 'dashboard', component: DashboardComponent},
+    {path: 'profile', component: ProfileComponent}
 ]

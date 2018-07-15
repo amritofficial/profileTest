@@ -60,7 +60,7 @@ export class SignUpComponent implements OnInit {
 
   jumpToDashboard() {
     console.log('It should navigate');
-    this.router.navigate([{outlets: {'main-outlet': ['dashboard']}}]);
+    this.router.navigate(['dashboard']);
   }
 
   id = 0;
