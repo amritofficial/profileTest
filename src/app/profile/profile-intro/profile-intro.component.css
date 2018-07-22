@@ -1,0 +1,9 @@
+.edit-profile-intro-icon :hover {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.edit-profile-intro-icon {
+    float: right;
+}

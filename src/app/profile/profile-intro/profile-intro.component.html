@@ -1,17 +1,18 @@
 <!-- Left Sidebar -->
-<div class="container">
+<div *ngIf="profileService.editProfileIntro === false" class="container">
   <div class="row">
     <div>
       <div class="ui-block">
         <div class="ui-block-title">
           <h6 class="title">Profile Intro</h6>
+          <span class="edit-profile-intro-icon" (click)="editProfileIntro()"><i class="fa fa-pencil"></i></span>
         </div>
         <div class="ui-block-content">
           <ul class="widget w-personal-info item-block">
             <li>
               <span class="title">About Me:</span>
               <br>
-              <span class="text">Hi, I’m James, I’m 36 and I work as a Digital Designer for the “Daydreams” Agency in Pier 56.</span>
+              <span class="text">{{userProfile.aboutUser}}</span>
             </li>
             <li>
               <span class="title">Favourite TV Shows:</span>

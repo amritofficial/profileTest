@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileService } from '../../shared/services/profile.service';
+import { Profile } from '../../shared/models/profile';
 
 @Component({
   selector: 'profile-intro',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileIntroComponent implements OnInit {
 
-  constructor() { }
+  userProfile: Profile = {
+    userName: '',
+    aboutUser: 'Hi, I’m James, I’m 36 and I work as a Digital Designer for the “Daydreams” Agency in Pier 56.'
+  }
+
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
+    console.log(this.profileService.editProfileIntro);
+  }
+
+  editProfileIntro() {
+    this.profileService.editProfileIntro = true;
   }
 
 }
