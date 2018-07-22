@@ -1,4 +1,4 @@
 export class Profile {
-    userName: string;
-    aboutUser: string;
+    constructor(userName: string,
+                aboutUser: string) {}
 }
