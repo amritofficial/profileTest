@@ -2,3 +2,9 @@
 body {
     width: 100%;
 }
+
+.clickable-edit-icons {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
