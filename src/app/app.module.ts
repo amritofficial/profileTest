@@ -22,7 +22,7 @@ import { ProfileIntroComponent } from './profile/profile-intro/profile-intro.com
 import { ProfileRightSidebarComponent } from './profile/profile-right-sidebar/profile-right-sidebar.component';
 import { ProfileIntroEditComponent } from './profile/edit/profile-intro-edit/profile-intro-edit.component';
 import { ProfileService } from './shared/services/profile.service';
-import { FindLinkComponent } from './find-link/find-link.component';
+import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.component';
 
 
 @NgModule({
@@ -41,7 +41,7 @@ import { FindLinkComponent } from './find-link/find-link.component';
     ProfileIntroComponent,
     ProfileRightSidebarComponent,
     ProfileIntroEditComponent,
-    FindLinkComponent
+    DevfinderPortalComponent
   ],
   imports: [
     BrowserModule,

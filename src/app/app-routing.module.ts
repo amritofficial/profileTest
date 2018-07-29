@@ -4,7 +4,7 @@ import { SignUpComponent } from "./home/sign-up/sign-up.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { FindLinkComponent } from "./find-link/find-link.component";
+import { DevfinderPortalComponent } from "./devfinder-portal/devfinder-portal.component";
 
 export const appRoutes: Routes = [
     {path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full'},
@@ -15,5 +15,5 @@ export const appRoutes: Routes = [
             ]},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'profile', component: ProfileComponent},
-    {path: 'find', component: FindLinkComponent}
+    {path: 'devfinder-portal', component: DevfinderPortalComponent}
 ]

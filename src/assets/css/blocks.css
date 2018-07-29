@@ -3420,7 +3420,7 @@ figure {
 
 /*------------- #W-ACTION --------------*/
 .w-action {
-  background-image: url("../img/landing-bg.jpg");
+  /* background-image: url("../img/landing-bg.jpg"); */
   padding: 50px 45px 40px;
   text-align: center;
   color: #fff;

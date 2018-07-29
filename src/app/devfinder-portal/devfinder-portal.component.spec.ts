@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FindLinkComponent } from './find-link.component';
+import { DevfinderPortalComponent } from './devfinder-portal.component';
 
-describe('FindLinkComponent', () => {
-  let component: FindLinkComponent;
-  let fixture: ComponentFixture<FindLinkComponent>;
+describe('DevfinderPortalComponent', () => {
+  let component: DevfinderPortalComponent;
+  let fixture: ComponentFixture<DevfinderPortalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FindLinkComponent ]
+      declarations: [ DevfinderPortalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FindLinkComponent);
+    fixture = TestBed.createComponent(DevfinderPortalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
