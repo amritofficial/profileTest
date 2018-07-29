@@ -1727,6 +1727,8 @@ ul {
   list-style: none;
   padding: 0; }
 
+/* linkcolor link-find-friend*/
+
 a {
   transition: all .15s ease; }
   a:hover {
