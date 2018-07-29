@@ -15,6 +15,14 @@ import { appRoutes } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FeedComponent } from './dashboard/feed/feed.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileOptionComponent } from './profile/profile-option/profile-option.component';
+import { ProfileThumbComponent } from './profile/profile-thumb/profile-thumb.component';
+import { ProfileFeedComponent } from './profile/profile-feed/profile-feed.component';
+import { ProfileIntroComponent } from './profile/profile-intro/profile-intro.component';
+import { ProfileRightSidebarComponent } from './profile/profile-right-sidebar/profile-right-sidebar.component';
+import { ProfileIntroEditComponent } from './profile/edit/profile-intro-edit/profile-intro-edit.component';
+import { ProfileService } from './shared/services/profile.service';
+import { FindLinkComponent } from './find-link/find-link.component';
 
 
 @NgModule({
@@ -26,7 +34,14 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginComponent,
     DashboardComponent,
     FeedComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfileOptionComponent,
+    ProfileThumbComponent,
+    ProfileFeedComponent,
+    ProfileIntroComponent,
+    ProfileRightSidebarComponent,
+    ProfileIntroEditComponent,
+    FindLinkComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +51,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
