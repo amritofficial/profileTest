@@ -31,9 +31,11 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.5",
     "@angular/cli": "^6.0.5",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
+    "@types/googlemaps": "^3.30.11",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
@@ -49,7 +51,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3",
-    "@angular-devkit/build-angular": "~0.6.5"
+    "typescript": "~2.5.3"
   }
 }
