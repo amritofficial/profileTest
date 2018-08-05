@@ -379,3 +379,8 @@ agm-map {
 .sidenav .info-card {
   margin-top: -10px;
 }
+
+.box-shadow {
+  -webkit-box-shadow: 0 0 8px rgba(65, 65, 65, 0.781);
+        box-shadow: 0 0 8px rgb(65, 65, 65,  0.781);
+}
