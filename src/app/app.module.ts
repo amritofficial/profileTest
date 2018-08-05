@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
+import { MatSidenavModule, MatCardModule } from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -23,7 +25,6 @@ import { ProfileRightSidebarComponent } from './profile/profile-right-sidebar/pr
 import { ProfileIntroEditComponent } from './profile/edit/profile-intro-edit/profile-intro-edit.component';
 import { ProfileService } from './shared/services/profile.service';
 import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.component';
-
 
 @NgModule({
   declarations: [
@@ -49,6 +50,11 @@ import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.co
     TagInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSidenavModule,
+    MatCardModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
+    }),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ProfileService],
