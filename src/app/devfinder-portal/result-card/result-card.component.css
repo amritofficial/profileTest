@@ -1,0 +1,78 @@
+.result-card {
+    margin: 5px;
+    box-shadow: 0 0 8px rgb(65, 65, 65,  0.500);
+  }
+  
+  .result-card :hover {
+    cursor: pointer;
+  }
+  
+  .avatar {
+    float: left;
+  }
+  
+  /* font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif; */
+    /* font-family: 'Raleway', sans-serif; */
+  
+    /** if the size of the navbar is changed, the Left Margin of the following fields has to be adjusted **/
+  .name-title {
+    font-size: 14px;
+    float: left;
+    color: rgb(102, 102, 102);
+    font-weight: 1000;
+    margin-top: 4px;
+    margin-left: -50px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .job-title {
+    font-size: 12px;
+    float: left;
+    color: rgb(102, 102, 102);
+    margin-top: 20px;
+    margin-left: -80px;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  .btn-options .btn-connect {
+    background-color: rgba(45, 146, 230, 1.00);
+    margin-left:1px;
+    height: 30px;
+    display: inline;
+  }
+  
+  .btn-options .btn-group {
+    float: left;
+    margin-left: -50px;
+  }
+  
+  button i {
+    float: left;
+    margin-left: -20px;
+    margin-top: 3px;
+    margin-right: 5px;
+    font-size: 12px;
+    padding: 5px;
+  }
+  
+  button p {
+    font-size: 11px;
+    margin-top: -10px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Circular Badge, round badge */
+  
+  .person-info .badge {
+    float: right;
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 15px;
+  }
