@@ -7,7 +7,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatSidenavModule, MatCardModule } from '@angular/material';
 
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
