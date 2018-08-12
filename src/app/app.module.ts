@@ -53,7 +53,7 @@ import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.co
     MatSidenavModule,
     MatCardModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
     }),
     RouterModule.forRoot(appRoutes)
   ],

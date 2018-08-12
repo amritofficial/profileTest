@@ -11,12 +11,12 @@
 <div class='pulse'></div> -->
 <div class="map-container">
   <div class="map">
-    <agm-map [latitude]="43.6486151" [longitude]="-79.72776199999998">
+    <agm-map [latitude]="43.6486151" [zoom]="12" [longitude]="-79.72776199999998">
       <agm-marker class="avatar" [iconUrl]="gravatar" [latitude]="43.65192589999999" [longitude]="-79.73264919999997"></agm-marker>
       <agm-marker class="avatar" [iconUrl]="icon" [latitude]="43.65192589999999" [longitude]="-79.73264919999997"></agm-marker>
       <!-- <agm-marker [latitude]="43.650617" [longitude]="-79.73452499999996"></agm-marker> -->
-      <agm-circle [latitude]="43.65192589999999" [longitude]="-79.73264919999997" [radius]="5000" [fillColor]="'red'" [circleDraggable]="false"
-        [editable]="false"></agm-circle>
+      <agm-circle [latitude]="43.65192589999999" [longitude]="-79.73264919999997" [radius]="5000" [fillColor]="'rgba(45, 146, 230, 1.00)'"
+        [circleDraggable]="false" [editable]="false"></agm-circle>
     </agm-map>
   </div>
 
@@ -26,6 +26,31 @@
     </div>
     <div class="card info-card box-shadow">
       <img style="border-radius: 4px;" src="../../assets/img/devfinder-portal.jpg" alt="">
+    </div>
+    <div class="card result-container">
+      <h5 class="results-text">Results: 10 of 20</h5>
+      <div class="card result-card clickable">
+        <div class="row">
+          <div class="col-xs-5 col-md-5 col-lg-5">
+            <div class="author-thumb">
+              <img class="avatar" height="90px" width="100px" src="../../assets/img/author-page.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-xs-7 col-md-7 col-lg-7">
+            <div class="person-info">
+              <h5 class="name-title">Amrit Singh</h5>
+              <p class="job-title">Full-Stack Developer at RBC</p>
+              <div class="btn-options">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary btn-connect btn-sm">Apple</button>
+                  <button type="button" class="btn btn-primary btn-connect btn-sm">Samsung</button>
+                  <button type="button" class="btn btn-primary btn-connect btn-sm">Sony</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

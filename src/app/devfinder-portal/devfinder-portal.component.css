@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Lato|Merriweather|Montserrat|Open+Sans|Poppins|Raleway|Roboto');
 
   html { height: 100% }
   body { height: 100%; margin: 0; padding: 0 }
@@ -383,4 +383,70 @@ agm-map {
 .box-shadow {
   -webkit-box-shadow: 0 0 8px rgba(65, 65, 65, 0.781);
         box-shadow: 0 0 8px rgb(65, 65, 65,  0.781);
+}
+
+.result-container {
+  margin-top: 2px;
+  text-align: center;
+}
+
+.results-text {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(116, 116, 116);
+}
+
+/** Result card styles **/
+
+.result-card {
+  margin: 5px;
+}
+
+.avatar {
+  float: left;
+}
+
+/* font-family: 'Roboto', sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans', sans-serif; */
+  /* font-family: 'Raleway', sans-serif; */
+
+.name-title {
+  font-size: 14px;
+  float: left;
+  color: rgb(102, 102, 102);
+  font-weight: 1000;
+  margin-top: 4px;
+  margin-left: -30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.job-title {
+  font-size: 12px;
+  float: left;
+  color: rgb(102, 102, 102);
+  margin-top: 20px;
+  margin-left: -80px;
+  font-family: 'Lato', sans-serif;
+}
+
+/* .btn-group-xs > .btn, .btn-xs {
+  padding  : .25rem .4rem;
+  font-size  : .700rem;
+  line-height  : .3;
+  border-radius : .2rem;
+  height: 10px;
+} */
+
+.btn-options .btn-connect {
+  background-color: rgba(45, 146, 230, 1.00);
+  margin-left:1px;
+}
+
+.btn-sm {
+  font-size: 10px;
+  border-radius: 5px;
+  width:50%;
 }
