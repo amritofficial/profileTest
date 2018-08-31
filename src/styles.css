@@ -10,3 +10,7 @@ body {
     opacity: 50%;
     color: rgb(99, 99, 99);
 }
+
+.btn-primary {
+    background-color: #19b9e7
+}

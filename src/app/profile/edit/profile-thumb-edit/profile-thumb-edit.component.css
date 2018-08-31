@@ -1,0 +1,37 @@
+.wrapper {
+    width:150px;
+    height:150px;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius:50%;
+    position: relative;
+  }
+  
+  .wrapper img {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+
+  img {
+      border-radius: 25%;
+      border: 20px solid red;
+  }
+
+.select-image {
+    margin: 25px auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+.btn-primary {
+    width: 300px;
+    background-color: #19b9e7;
+    border-color: #19b9e7;
+}
+
+.modal-header {
+    font-family: 'Lato', sans-serif;
+}

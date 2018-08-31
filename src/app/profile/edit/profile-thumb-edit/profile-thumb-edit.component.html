@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h4 class="modal-title">Change Avatar!</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="wrapper">
+    <img src="../../assets/img/author-page.jpg" alt="author">
+  </div>
+  <div class="select-image">
+    <a href="#" class="btn btn-sq-xl btn-primary">
+      <i class="fa fa-image fa-5x"></i><br/> Select Image <br>
+    </a>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" style="padding-top: -20px;" (click)="activeModal.close('Close click')">Close</button>
+</div>
