@@ -6,14 +6,55 @@
 </div>
 <div class="modal-body">
   <div class="wrapper">
-    <img src="../../assets/img/author-page.jpg" alt="author">
+    <!-- <img src="../../assets/img/author-page.jpg" alt="author"> -->
+    <img [src]="data2.image" onError="this.src='../../assets/img/author-page.jpg';" alt="author">
   </div>
   <div class="select-image">
-    <a href="#" class="btn btn-sq-xl btn-primary">
+    <input type="file" (change)="fileChangeListener($event)" /><i class="fa fa-image fa-5x"></i><br/> Select Image <br>
+    <!-- <a (change)="fileChangeListener($event)" type="file" class="btn btn-sq-xl btn-primary" style="color:white">
       <i class="fa fa-image fa-5x"></i><br/> Select Image <br>
-    </a>
+    </a> -->
   </div>
+  <div class="image-cropper" *ngIf="imageSelected">
+    <img-cropper
+       (imageCroppedFile)="croppedImageFile($event)"
+       #cropper (onCrop)="imageCropped($event)" (imageCroppedBase64)="imageCropped($event)"
+      [image]="data2" [settings]="cropperSettings2"></img-cropper>
+  </div>
+
+  <img [src]="croppedImage" alt="">
+
+  <!-- <br>
+  <span class="result rounded" *ngIf="data2.image">
+    <img [src]="data2.image" [width]="cropperSettings2.croppedWidth" [height]="cropperSettings2.croppedHeight">
+  </span> -->
+
+  <!-- <input type="file" (change)="fileChangeEvent($event)" />Upload -->
+
+  <!-- <div class="pull-left">
+    <h3>
+      Sample cropper 2
+      <div class="file-upload">
+        <span class="text">upload</span>
+        <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+      </div>
+    </h3>
+
+
+    <img-cropper #cropper [image]="data2" [settings]="cropperSettings2"></img-cropper>
+    <br>
+    <span class="result rounded" *ngIf="data2.image">
+      <img [src]="data2.image" [width]="cropperSettings2.croppedWidth" [height]="cropperSettings2.croppedHeight">
+    </span>
+  </div> -->
+
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" style="padding-top: -20px;" (click)="activeModal.close('Close click')">Close</button>
+  <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">
+    <i class="fa fa-window-close"></i><br/> Cancel <br>
+  </a>
+  <a (click)="saveImage()" class="btn save-button btn-primary" style="color:white;">
+    <i class="fa fa-save"></i><br/> Save <br>
+  </a>
+  <!-- <button type="button" class="btn btn-outline-dark" style="margin-top: -20px;" (click)="activeModal.close('Close click')">Close</button> -->
 </div>

@@ -15,7 +15,9 @@ export class ProfileOptionComponent implements OnInit {
   constructor(private profileService: ProfileService, private modalService: NgbModal) { }
 
   open() {
-    this.modalService.open(ProfileThumbEditComponent);
+    this.modalService.open(ProfileThumbEditComponent, {
+      size: 'lg'
+    });
   }
 
   ngOnInit() {

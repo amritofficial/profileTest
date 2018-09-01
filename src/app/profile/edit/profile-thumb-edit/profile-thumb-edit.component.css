@@ -5,25 +5,46 @@
     overflow: hidden;
     border-radius:50%;
     position: relative;
+    border: 6px solid#19b9e7;
+    /* border-radius: 500px; */
   }
   
   .wrapper img {
     position: absolute;
     top:50%;
+    bottom: 10%;
     left:50%;
     transform: translate(-50%,-50%);
   }
 
-  img {
-      border-radius: 25%;
-      border: 20px solid red;
-  }
+  /* img {
+    border:10px solid red;
+    border-radius: 500px;
+  } */
 
 .select-image {
+    padding: 10px;
+    height: 120px;
+    width: 200px;
     margin: 25px auto;
     overflow: hidden;
     position: relative;
     text-align: center;
+    color: white;
+    background-color: #19b9e7;
+    border-color: #19b9e7;
+    border-radius: 4px; 
+}
+
+.select-image input {
+    height: 120px;
+    width: 200px;
+}
+
+.select-image:hover {
+    cursor: pointer;
+    background-color: #ff723a;
+    border-color: #ff723a;
 }
 
 .btn-primary {
@@ -34,4 +55,77 @@
 
 .modal-header {
     font-family: 'Lato', sans-serif;
+}
+
+.close-button {
+    background-color: #ff723a;
+    border-color: #ff5e3a;
+}
+
+.close-button:hover {
+    background-color: rgb(88, 88, 88);
+    border-color: rgb(88, 88, 88);
+}
+
+
+
+  .result {
+      margin-top: 30px;
+      border: 1px solid rgba(125,125,125,0.6);
+      display: inline-block;
+      padding: 1px;
+  }
+
+  .result.rounded > img {
+      border-radius: 100px;
+  }
+
+  .file-upload {
+    height: 25px;
+    width: 200px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* float: right; */
+
+    margin: 25px auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    
+    border: 1px solid #FFF;
+    background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
+    background-size: 100% 200%;
+    transition: all 1s;
+    color: #FFF;
+    font-size: 10px;
+  }
+  
+  .file-upload:hover {
+    background-position: 0 -100%;
+    color: #2590Eb;
+  }
+  
+  .text {
+    font-size: 14px;
+  }
+  
+  input[type='file'] {
+    height: 25px;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+.image-cropper {
+    text-align: center;
+    margin: 25px auto;
+}
+
+.save-button {
+    width: 10%;
 }

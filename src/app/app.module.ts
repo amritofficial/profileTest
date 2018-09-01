@@ -27,6 +27,7 @@ import { ProfileService } from './shared/services/profile.service';
 import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.component';
 import { ResultCardComponent } from './devfinder-portal/result-card/result-card.component';
 import { ProfileThumbEditComponent } from './profile/edit/profile-thumb-edit/profile-thumb-edit.component';
+import { ImageCropperComponent } from 'ngx-img-cropper';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProfileThumbEditComponent } from './profile/edit/profile-thumb-edit/pro
     ProfileIntroEditComponent,
     DevfinderPortalComponent,
     ResultCardComponent,
-    ProfileThumbEditComponent
+    ProfileThumbEditComponent,
+    ImageCropperComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [
