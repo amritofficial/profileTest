@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger,group, state, animateChild } from '@angular/animations';
 import { Router } from '@angular/router';
+import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
 
 
 @Component({
@@ -28,9 +29,39 @@ export class SignUpComponent implements OnInit {
   educationStep: boolean = false;
   skillsStep: boolean = false;
   finishRegisterStep: boolean = false;
+  avatarStep: boolean = false;
 
-  constructor(private router: Router) { 
+  data2: any;
+  imageSelected: boolean = false;
+  imageChangeEvent: any = '';
+  croppedImage: any;
+  cropperSettings2: CropperSettings;
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
+  constructor(private router: Router) {
+    //Cropper settings 2
+    this.cropperSettings2 = new CropperSettings();
+    this.cropperSettings2.width = 100;
+    this.cropperSettings2.height = 100;
+    this.cropperSettings2.keepAspect = false;
+
+    this.cropperSettings2.croppedWidth = 200;
+    this.cropperSettings2.croppedHeight = 200;
+
+    this.cropperSettings2.canvasWidth = 400;
+    this.cropperSettings2.canvasHeight = 200;
+
+    this.cropperSettings2.minWidth = 100;
+    this.cropperSettings2.minHeight = 100;
+
+    this.cropperSettings2.rounded = true;
+    this.cropperSettings2.minWithRelativeToResolution = false;
+
+    this.cropperSettings2.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+    this.cropperSettings2.cropperDrawSettings.strokeWidth = 2;
+    this.cropperSettings2.noFileInput = true;
+
+    this.data2 = {};
   }
 
   ngOnInit() {
@@ -52,8 +83,14 @@ export class SignUpComponent implements OnInit {
     this.educationStep = false;
   }
 
-  finishRegister() {
+  jumpToAvatar() {
     this.skillsStep = false;
+    this.avatarStep = true;
+  }
+
+  finishRegister() {
+    this.saveImage();
+    this.avatarStep = false;
     this.finishRegisterStep = true;
     console.log(this.items);
   }
@@ -67,6 +104,37 @@ export class SignUpComponent implements OnInit {
   onItemAdded(item) {
     this.items.push({id: this.id, value: item.value});
     this.id +=1;
+  }
+
+  fileChangeListener($event) {
+    this.imageChangeEvent = $event;
+    var image: any = new Image();
+    var file: File = $event.target.files[0];
+    var myReader: FileReader = new FileReader();
+    var that = this;
+    myReader.onloadend = function (loadEvent: any) {
+      image.src = loadEvent.target.result;
+      that.cropper.setImage(image);
+
+    };
+    this.imageSelected = true;
+    myReader.readAsDataURL(file);
+    // this.croppedImage = data2.image;
+  }
+
+  imageCropped(image: string) {
+    //this.croppedImage = image;
+    console.log("Cropped");
+    this.croppedImage = this.data2.image;
+  }
+
+  croppedImageFile(event: any) {
+    console.log("File")
+  }
+
+  saveImage() {
+    console.log("Image Save!")
+    // Save this.croppedImage
   }
 
 }
