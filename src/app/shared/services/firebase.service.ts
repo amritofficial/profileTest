@@ -8,11 +8,13 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { ParseService } from './parse.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class FirebaseService {
 
   currentFireUserData: AngularFireList<User>;
+  fireUsers: Observable<any>
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
 
@@ -33,22 +35,11 @@ export class FirebaseService {
   }
 
   getFireUserData(userId: any) {
-    this.angularFireDatabase.object(`/users/${userId}`).valueChanges()
-      .subscribe((data) => {
-        console.log(data);
-      })
+    return this.angularFireDatabase.object(`/users/${userId}`).valueChanges();
+  }
 
-    // this.angularFireStore.collection('users').valueChanges()
-    //   .subscribe(data => {
-    //     console.log(data);
-    //   })
-    // this.currentFireUserData = this.angularFireDatabase.list('/users')
-    // .valueChanges().subscribe((data) => {
-    //   console.log('Firebase');
-    //   console.log(data)
-    // });
-
-    // console.log(this.currentFireUserData);
+  getAllFireUsers() {
+    return this.angularFireDatabase.object('/users').valueChanges();
   }
 
 }
