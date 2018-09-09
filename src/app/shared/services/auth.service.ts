@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ParseService } from './parse.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
+  private user: Observable<firebase.User>;
+  authState: any;
+  private userData: any;
 
   constructor(private parseService: ParseService) { }
 
@@ -19,6 +23,7 @@ export class AuthService {
   }
 
   getAuthenticated(): boolean {
+    console.log(":::: " + this.parseService.currentUser);
     return this.parseService.currentUser !== null;
   }
 }

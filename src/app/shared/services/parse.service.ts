@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FirebaseService } from './firebase.service';
 
 const Parse = require('parse');
 
 @Injectable()
 export class ParseService {
 
-  constructor() {
+  constructor(private firebaseService: FirebaseService) {
     console.log('Parse initialized!')
     Parse.initialize("angular-parse-chat");
     Parse.serverURL = 'https://angular-parse-chat.herokuapp.com/parse'
@@ -67,6 +68,7 @@ export class ParseService {
       user.set("username", username);
       user.set("password", password);
       user.signUp().then((data) => {
+        this.firebaseService.storeUserData(username, email, data.id);
         console.log(data.id);
       }).catch((e: any) => Observable.throw(this.errorHandler(e)));
       // console.log(userObject);
