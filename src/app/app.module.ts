@@ -28,6 +28,8 @@ import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.co
 import { ResultCardComponent } from './devfinder-portal/result-card/result-card.component';
 import { ProfileThumbEditComponent } from './profile/edit/profile-thumb-edit/profile-thumb-edit.component';
 import { ImageCropperComponent } from 'ngx-img-cropper';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { MessengerComponent } from './messenger/messenger.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ImageCropperComponent } from 'ngx-img-cropper';
     DevfinderPortalComponent,
     ResultCardComponent,
     ProfileThumbEditComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
+    ChatBoxComponent,
+    MessengerComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [

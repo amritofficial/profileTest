@@ -2314,11 +2314,11 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
     top: 0;
     transform: translateY(0); }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .popup-chat-responsive {
     opacity: 1;
     visibility: visible;
-    display: block; } }
+    display: block; } } */
 
 /*------------- #OVERLAY-MENU --------------*/
 body {
