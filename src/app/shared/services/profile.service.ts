@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class ProfileService {
 
   editProfileIntro: boolean = false;
+  editProfileThumb: boolean = false;
 
   constructor() { }
 

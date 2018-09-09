@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileThumbComponent implements OnInit {
 
+  changeProfilePicture: boolean = false;
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }

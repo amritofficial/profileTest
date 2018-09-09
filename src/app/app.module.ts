@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { AgmCoreModule } from '@agm/core';
+import { MatSidenavModule, MatCardModule } from '@angular/material';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';;
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +25,11 @@ import { ProfileRightSidebarComponent } from './profile/profile-right-sidebar/pr
 import { ProfileIntroEditComponent } from './profile/edit/profile-intro-edit/profile-intro-edit.component';
 import { ProfileService } from './shared/services/profile.service';
 import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.component';
-
+import { ResultCardComponent } from './devfinder-portal/result-card/result-card.component';
+import { ProfileThumbEditComponent } from './profile/edit/profile-thumb-edit/profile-thumb-edit.component';
+import { ImageCropperComponent } from 'ngx-img-cropper';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { MessengerComponent } from './messenger/messenger.component';
 
 @NgModule({
   declarations: [
@@ -41,15 +47,27 @@ import { DevfinderPortalComponent } from './devfinder-portal/devfinder-portal.co
     ProfileIntroComponent,
     ProfileRightSidebarComponent,
     ProfileIntroEditComponent,
-    DevfinderPortalComponent
+    DevfinderPortalComponent,
+    ResultCardComponent,
+    ProfileThumbEditComponent,
+    ImageCropperComponent,
+    ChatBoxComponent,
+    MessengerComponent
   ],
+  entryComponents: [ProfileThumbEditComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     TagInputModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    MatSidenavModule,
+    MatCardModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
+    }),
+    RouterModule.forRoot(appRoutes),
+    NgbModule.forRoot()
   ],
   providers: [ProfileService],
   bootstrap: [AppComponent]

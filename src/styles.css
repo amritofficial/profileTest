@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Lato|Merriweather|Montserrat|Open+Sans|Poppins|Raleway|Roboto');
 body {
     width: 100%;
 }
@@ -7,4 +9,8 @@ body {
     cursor: pointer;
     opacity: 50%;
     color: rgb(99, 99, 99);
+}
+
+.btn-primary {
+    background-color: #19b9e7
 }

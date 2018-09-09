@@ -1,0 +1,13 @@
+.message-scroll {
+    overflow: auto;
+    height: 400px;
+}
+
+textarea {
+    height: 30px;
+}
+
+.message-list-scroll {
+    height: 590px;
+    overflow: auto;
+}
