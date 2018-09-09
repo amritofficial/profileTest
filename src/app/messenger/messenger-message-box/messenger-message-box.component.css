@@ -1,0 +1,8 @@
+.message-scroll {
+    overflow: auto;
+    height: 362px;
+}
+
+textarea {
+    height: 30px;
+}
