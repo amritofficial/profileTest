@@ -1,6 +1,9 @@
+<ngx-loading [show]="loading" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
 <div class="chat-field">
   <div class="ui-block-title">
-    <h6 class="title">Elaine Dreyfuss</h6>
+    <h6 class="title">{{ selectedUser.username }}</h6>
     <a href="#" class="more"><svg class="olymp-three-dots-icon">
         <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
       </svg></a>
@@ -55,11 +58,12 @@
     </ul>
   </div>
 
-  <form>
+  <form #messageForm="ngForm" (keyup.enter)="sendMessage($event)">
 
     <div class="form-group label-floating is-empty">
-      <label class="control-label">Write your reply here...</label>
-      <textarea class="form-control" placeholder=""></textarea>
+      <!-- <label class="control-label">Write your reply here...</label> -->
+      <input type="text" name="messageBody" placeholder="Write your reply here..." [(ngModel)]="messageBody" class="form-control">
+      <!-- <textarea class="form-control" placeholder="">{{ messageBody }}</textarea> -->
     </div>
 
   </form>

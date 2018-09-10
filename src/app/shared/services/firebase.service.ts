@@ -9,12 +9,12 @@ import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { ParseService } from './parse.service';
 import { Observable } from 'rxjs';
+import { Message } from '../models/message';
 
 @Injectable()
 export class FirebaseService {
 
   currentFireUserData: AngularFireList<User>;
-  fireUsers: Observable<any>
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
 
@@ -26,7 +26,8 @@ export class FirebaseService {
       userId: userId,
       username: username,
       email: email,
-      userStatus: 0
+      userStatus: 0,
+      avatar: 'NO AVATAR'
     }
 
     this.angularFireDatabase.object(path).update(userData)
@@ -38,8 +39,15 @@ export class FirebaseService {
     return this.angularFireDatabase.object(`/users/${userId}`).valueChanges();
   }
 
-  getAllFireUsers() {
-    return this.angularFireDatabase.object('/users').valueChanges();
+  getAllFireUsers(): Observable<any> {
+    return this.angularFireDatabase.list('/users').valueChanges();
+  }
+
+  saveMessage(messageData: Message, path: any) {
+    let messageNode = this.angularFireDatabase.list(path)
+    messageNode.push(messageData);
+    console.log('Message Sent')
+    // return this.angularFireDatabase.object(path).
   }
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FirebaseService } from './firebase.service';
+import { catchError } from 'rxjs/operators';
 
 const Parse = require('parse');
 
@@ -72,7 +73,7 @@ export class ParseService {
         console.log(data.id);
       }).catch((e: any) => Observable.throw(this.errorHandler(e)));
       // console.log(userObject);
-    }).catch((e: any) => Observable.throw(this.errorHandler(e)));
+    })
 
     return observer;
     // return new Observable(success => {

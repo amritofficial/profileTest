@@ -14,7 +14,7 @@ export class AuthService {
     return this.parseService.login(email, password);
   }
 
-  signup(username: string, email: string, password: string) {
+  signup(username: string, email: string, password: string, avatar: any) {
     return this.parseService.register(username, email, password);
   }
 

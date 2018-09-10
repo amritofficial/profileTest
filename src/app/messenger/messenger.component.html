@@ -708,11 +708,11 @@
 
 				<div class="row">
 					<div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-xs-12 padding-r-0">
-						<messenger-user-card></messenger-user-card>
+						<messenger-user-card (selectedUserEntry)="getSelectedUser($event)"></messenger-user-card>
 					</div>
 
 					<div class="col-xl-7 col-lg-6 col-md-12 col-sm-12 col-xs-12 padding-l-0">
-						<messenger-message-box></messenger-message-box>
+						<messenger-message-box [selectedUser]="selectedUser"></messenger-message-box>
 					</div>
 				</div>
 

@@ -5,8 +5,12 @@ import { RouterModule } from "@angular/router";
 import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
-import { MatSidenavModule, MatCardModule } from '@angular/material';
-import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';;
+import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { LoadingModule } from 'ngx-loading';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -30,6 +34,15 @@ import { ProfileThumbEditComponent } from './profile/edit/profile-thumb-edit/pro
 import { ImageCropperComponent } from 'ngx-img-cropper';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { MessengerComponent } from './messenger/messenger.component';
+import { ParseService } from './shared/services/parse.service';
+import { AuthService } from './shared/services/auth.service';
+import { environment } from 'environments/environment';
+import { FirebaseService } from './shared/services/firebase.service';
+import { MessengerUserCardComponent } from './messenger/messenger-user-card/messenger-user-card.component';
+import { MessengerMessageBoxComponent } from './messenger/messenger-message-box/messenger-message-box.component';
+import { MessengerUserOptionsComponent } from './messenger/messenger-user-options/messenger-user-options.component';
+import { MessengerService } from './shared/services/messenger.service';
+import { MessengerUsersResolver } from './shared/resolvers/messenger-users.resolver';
 
 @NgModule({
   declarations: [
@@ -52,7 +65,10 @@ import { MessengerComponent } from './messenger/messenger.component';
     ProfileThumbEditComponent,
     ImageCropperComponent,
     ChatBoxComponent,
-    MessengerComponent
+    MessengerComponent,
+    MessengerUserCardComponent,
+    MessengerMessageBoxComponent,
+    MessengerUserOptionsComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [
@@ -62,6 +78,11 @@ import { MessengerComponent } from './messenger/messenger.component';
     FormsModule,
     ReactiveFormsModule,
     MatSidenavModule,
+    MatProgressSpinnerModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    LoadingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     MatCardModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
@@ -69,7 +90,7 @@ import { MessengerComponent } from './messenger/messenger.component';
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

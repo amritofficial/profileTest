@@ -6,6 +6,7 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { DevfinderPortalComponent } from "./devfinder-portal/devfinder-portal.component";
 import { MessengerComponent } from "./messenger/messenger.component";
+import { MessengerUsersResolver } from "./shared/resolvers/messenger-users.resolver";
 
 export const appRoutes: Routes = [
     {path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full'},
@@ -15,7 +16,8 @@ export const appRoutes: Routes = [
             {path: 'register', component: SignUpComponent, outlet: 'form-outlet'}
             ]},
     {path: 'dashboard', component: DashboardComponent},
-    {path: 'messenger', component: MessengerComponent},
+    {path: 'messenger', component: MessengerComponent
+    },
     {path: 'profile', component: ProfileComponent},
     {path: 'devfinder-portal', component: DevfinderPortalComponent}
 ]
