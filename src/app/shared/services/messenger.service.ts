@@ -21,6 +21,10 @@ export class MessengerService {
     return user.id;
   }
 
+  getCurrentUserName() {
+    return this.firebaseService.getFireUserData(this.getCurrentUserId());
+  }
+
   getMessengerRoomPath(selectedUserId: any) {
     let currentUserId = this.getCurrentUserId();
     let path = selectedUserId > currentUserId ? selectedUserId+currentUserId : selectedUserId < currentUserId ? currentUserId+selectedUserId : currentUserId+selectedUserId;
@@ -31,6 +35,10 @@ export class MessengerService {
     let path = `messages/${this.getMessengerRoomPath(messageData.receiverId)}`;
     console.log(messageData + " " + path);
     return this.firebaseService.saveMessage(messageData, path);
+  }
+
+  getAllMessages(selectedUserId: any) {
+    return this.firebaseService.getAllMessagesFromRoomPath(this.getMessengerRoomPath(selectedUserId));
   }
 
 }

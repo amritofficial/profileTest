@@ -43,6 +43,10 @@ export class FirebaseService {
     return this.angularFireDatabase.list('/users').valueChanges();
   }
 
+  getAllMessagesFromRoomPath(path: any): Observable<any> {
+    return this.angularFireDatabase.list(`/messages/${path}`).valueChanges();
+  }
+
   saveMessage(messageData: Message, path: any) {
     let messageNode = this.angularFireDatabase.list(path)
     messageNode.push(messageData);

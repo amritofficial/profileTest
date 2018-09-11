@@ -40,6 +40,7 @@ export class MessengerUserCardComponent implements OnInit {
 
   selectedUser(selectedUser: User) {
     this.selectedUserEntry.emit(selectedUser);
+    let messageNodePath = this.messengerService.getMessengerRoomPath(selectedUser.userId);
     // this.selectedUserEntry = selectedUser;
     // this.messengerService.getMessengerRoomsWithUserIds(selectedUser);
   }
