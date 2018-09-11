@@ -43,6 +43,8 @@ import { MessengerMessageBoxComponent } from './messenger/messenger-message-box/
 import { MessengerUserOptionsComponent } from './messenger/messenger-user-options/messenger-user-options.component';
 import { MessengerService } from './shared/services/messenger.service';
 import { MessengerUsersResolver } from './shared/resolvers/messenger-users.resolver';
+import { MainComponent } from './main/main.component';
+import { UserListBarComponent } from './user-list-bar/user-list-bar.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { MessengerUsersResolver } from './shared/resolvers/messenger-users.resol
     MessengerComponent,
     MessengerUserCardComponent,
     MessengerMessageBoxComponent,
-    MessengerUserOptionsComponent
+    MessengerUserOptionsComponent,
+    MainComponent,
+    UserListBarComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [
