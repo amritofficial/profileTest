@@ -27,7 +27,7 @@ export class MessengerMessageBoxComponent implements OnInit, OnChanges {
       this.loading = true;
     }
 
-    this.messengerService.getCurrentUserName().pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
+    this.messengerService.getCurrentUserData().pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
       console.log(":::CURRENT USERDATA:::");
       // this.currentUsername = user.username
       this.currentUserData = user;

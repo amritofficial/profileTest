@@ -18,7 +18,15 @@ li:hover {
 }
 
 .online {
-    background-color: #32CD32; 
+    background-color: rgb(22, 177, 22); 
+}
+
+.chat-box {
+    position: fixed;
+    bottom: 0;
+    z-index: 10000;
+    margin-bottom: -10px;
+    margin-left: 60%;
 }
 
 .offline {

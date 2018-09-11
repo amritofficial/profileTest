@@ -21,7 +21,7 @@ export class MessengerService {
     return user.id;
   }
 
-  getCurrentUserName() {
+  getCurrentUserData() {
     return this.firebaseService.getFireUserData(this.getCurrentUserId());
   }
 

@@ -6,7 +6,7 @@
 
     <div *ngIf="!loading" class="mCustomScrollbar" data-mcs-theme="dark">
       <ul class="chat-users">
-        <li *ngFor="let user of users;" class="inline-items js-chat-open">
+        <li *ngFor="let user of users;" (click)="selectedUserFromList(user)" class="inline-items js-chat-open">
           <div class="author-thumb">
             <img alt="author" src="../../assets/img/avatar67-sm.jpg" class="avatar">
             <span class="user-name">{{ user.username }}</span>
@@ -94,4 +94,8 @@
 
   </div>
 
+</div>
+
+<div class="chat-box">
+  <chat-box [selectedUser]="selectedUser"></chat-box>
 </div>

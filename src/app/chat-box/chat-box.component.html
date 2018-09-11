@@ -1,215 +1,66 @@
-<div class="ui-block popup-chat">
-  <div class="ui-block-title">
-    <span class="icon-status online"></span>
-    <h6 class="title">Chat</h6>
-    <div class="more">
-      <svg class="olymp-three-dots-icon">
-        <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-      </svg>
-      <svg class="olymp-little-delete js-chat-open">
-        <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
-      </svg>
+<div class="ui-block chat-box">
+  <div *ngIf="chatService.openChatBox">
+    <div class="ui-block-title" style="background-color: #ff5e3a">
+      <!-- <span class="icon-status-custom online"></span> -->
+      <span class="fa fa-circle" style="color:rgb(0, 158, 61);"></span>
+      <h6 class="title">{{ selectedUser.username }}</h6>
+      <a (click)="closeChatBox()" class="close-icon"><span class="fa fa-times-circle"></span></a>
     </div>
-  </div>
-  <div class="message-scroll">
-    <ul class="notification-list chat-message chat-message-field">
-      <li>
-        <div class="author-thumb">
-          <img src="../../assets/img/avatar14-sm.jpg" alt="author" class="mCS_img_loaded">
-        </div>
-        <div class="notification-event">
-          <span class="chat-message-item">Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling
-            the gifts and Jake’s gonna get the drinks</span>
-          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
-              8:10pm</time></span>
-        </div>
-      </li>
+    <div class="message-scroll">
 
-      <li>
-        <div class="author-thumb">
-          <img src="../../assets/img/author-page.jpg" alt="author" class="mCS_img_loaded">
-        </div>
-        <div class="notification-event">
-          <span class="chat-message-item">Don’t worry Mathilda!</span>
-          <span class="chat-message-item">I already bought everything</span>
-          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
-              8:29pm</time></span>
-        </div>
-      </li>
+      <ngx-loading [show]="loading" [config]="{
+          backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+          primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
 
-      <li>
-        <div class="author-thumb">
-          <img src="../../assets/img/avatar14-sm.jpg" alt="author" class="mCS_img_loaded">
-        </div>
-        <div class="notification-event">
-          <span class="chat-message-item">Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling
-            the gifts and Jake’s gonna get the drinks</span>
-          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
-              8:10pm</time></span>
-        </div>
-      </li>
-    </ul>
-  </div>
+      <ul *ngIf="!loading" class="notification-list chat-message chat-message-field">
+        <li *ngFor="let message of messages;">
+          <div class="author-thumb" [ngClass]="{'sender': message.senderId == currentUserId}">
+            <img src="../../assets/img/avatar14-sm.jpg" alt="author" class="mCS_img_loaded">
+          </div>
+          <div class="notification-event" [ngClass]="{'sender': message.senderId == currentUserId}">
+            <span class="chat-message-item" [ngStyle]="getStyle(message)">{{ message.body }}</span><br>
+            <span class="notification-date" [ngStyle]="{'float': message.senderId == currentUserId ? 'left' : 'right' }"><time
+                class="entry-date updated" datetime="2004-07-24T18:18">{{ message.timeSent }}</time></span>
+          </div>
+        </li>
+        <!-- 
+        <li>
+          <div class="author-thumb sender">
+            <img src="../../assets/img/author-page.jpg" alt="author" class="mCS_img_loaded">
+          </div>
+          <div class="notification-event sender">
+            <span class="chat-message-item">Don’t worry Mathilda!</span>
+            <span class="notification-date" style="float: left;"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday
+                at
+                8:29pm</time></span>
+          </div>
+        </li>
 
-  <form>
+        <li>
+          <div class="author-thumb">
+            <img src="../../assets/img/avatar14-sm.jpg" alt="author" class="mCS_img_loaded">
+          </div>
+          <div class="notification-event">
+            <span class="chat-message-item">Hi James! Please remember to buy the food for tomorrow! I’m gonna be
+              handling
+              the gifts and Jake’s gonna get the drinks</span>
+            <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
+                8:10pm</time></span>
+          </div>
+        </li> -->
+      </ul>
+    </div>
 
-    <div class="form-group label-floating is-empty">
-      <label class="control-label">Press enter to post...</label>
-      <textarea class="form-control" placeholder=""></textarea>
-      <div class="add-options-message">
-        <a class="options-message">
-          <svg class="olymp-computer-icon">
-            <use xlink:href="icons/icons.svg#olymp-computer-icon"></use>
-          </svg>
-        </a>
-        <div class="options-message smile-block">
+    <form #chatForm="ngForm" (keyup.enter)="sendMessage($event)">
 
-          <svg class="olymp-happy-sticker-icon">
-            <use xlink:href="icons/icons.svg#olymp-happy-sticker-icon"></use>
-          </svg>
-
-          <ul class="more-dropdown more-with-triangle triangle-bottom-right">
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat1.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat2.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat3.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat4.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat5.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat6.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat7.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat8.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat9.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat10.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat11.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat12.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat13.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat14.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat15.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat16.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat17.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat18.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat19.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat20.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat21.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat22.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat23.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat24.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat25.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat26.png" alt="icon">
-              </a>
-            </li>
-            <li>
-              <a>
-                <img src="../../assets/img/icon-chat27.png" alt="icon">
-              </a>
-            </li>
-          </ul>
-        </div>
+      <div class="form-group label-floating is-empty">
+        <!-- <label class="control-label">Press enter to post...</label>
+      <textarea class="form-control" placeholder=""></textarea> -->
+        <input type="text" name="messageBody" class="form-control" [(ngModel)]="messageBody" placeholder="Press enter to post...">
       </div>
-    </div>
 
-  </form>
+    </form>
+  </div>
 
 
 </div>
