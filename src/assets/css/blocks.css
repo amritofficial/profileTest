@@ -2101,7 +2101,7 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
   display: inline-block;
   margin-right: 8px; }
   .icon-status.online {
-    background-color: #32e4cd; }
+    background-color: #32CD32; }
   .icon-status.away {
     background-color: #ffd52f; }
   .icon-status.disconected {
