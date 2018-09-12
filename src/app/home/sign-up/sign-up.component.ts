@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger,group, state, animateChild } from '@angular/animations';
 import { Router } from '@angular/router';
 import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
+import { AuthService } from '../../shared/services/auth.service';
+import { ParseService } from '../../shared/services/parse.service';
 
 
 @Component({
@@ -23,6 +25,11 @@ import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper"
     ]
 })
 export class SignUpComponent implements OnInit {
+
+  username: string = '';
+  email: string = '';
+  password: string = '';
+
   items = [];
   mainStep: boolean = true;
   workStep: boolean = false;
@@ -34,11 +41,11 @@ export class SignUpComponent implements OnInit {
   data2: any;
   imageSelected: boolean = false;
   imageChangeEvent: any = '';
-  croppedImage: any;
+  croppedImage: any = null;
   cropperSettings2: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService, private parseService: ParseService) {
     //Cropper settings 2
     this.cropperSettings2 = new CropperSettings();
     this.cropperSettings2.width = 100;
@@ -90,6 +97,8 @@ export class SignUpComponent implements OnInit {
 
   finishRegister() {
     this.saveImage();
+    console.log(this.username + ' ' + this.email +  ' ' + this.password);
+    this.signUp();
     this.avatarStep = false;
     this.finishRegisterStep = true;
     console.log(this.items);
@@ -104,6 +113,20 @@ export class SignUpComponent implements OnInit {
   onItemAdded(item) {
     this.items.push({id: this.id, value: item.value});
     this.id +=1;
+  }
+
+  signUp() {
+    this.authService.signup(this.username, this.email, this.password, this.croppedImage)
+      .subscribe(success => {
+        console.log(success);
+        console.log('User created successfully !');
+        //this.router.navigateByUrl('/home');
+      }, error => {
+        alert(error.message)
+      });
+    // if(this.parseService.currentUser !== null) {
+    //   console.log(this.parseService.currentUser);
+    // }
   }
 
   fileChangeListener($event) {

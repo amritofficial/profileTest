@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<main></main>
+<user-list-bar *ngIf="authService.getAuthenticated()"></user-list-bar>
+<!-- <chat-box></chat-box> -->

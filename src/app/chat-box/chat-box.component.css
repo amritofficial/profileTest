@@ -3,4 +3,121 @@
     height: 250px;
 }
 
+.icon-status-custom {
+    width: 10px;
+    height: 1px;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 8px; 
+    background-color: red;
+}
+
+.ui-block-title-custom {
+    background-color:#ff5e3a;
+}
+
+/* .chat-box.chat .chat-message-field li {
+    overflow: hidden;
+    padding: 9px 25px; 
+} */
+
+.chat-box {
+    width: 320px;
+    box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
+    overflow: hidden;
+    position: relative;
+    z-index: 5; }
+    .chat-box .mCustomScrollbar {
+      overflow: hidden;
+      max-height: 350px; }
+    .chat-box .ps > .ps__scrollbar-y-rail, .chat-box .ps:hover > .ps__scrollbar-y-rail {
+      opacity: 0;
+      z-index: -1;
+      visibility: hidden; }
+    .chat-box .ui-block-title {
+      background-color: #ff5e3a;
+      padding: 17px; }
+      .chat-box .ui-block-title .title {
+        color: #fff; }
+    .chat-box .notification-event {
+      padding-left: 10px;
+      width: 75%; }
+    .chat-box .chat-message-item {
+      padding: 12px;
+      background-color: #f0f4f9;
+      margin-top: 0;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      font-size: 12px; }
+    .chat-box .notification-date {
+      /* display: block; */
+
+      float: left; }
+    .chat-box .author-thumb {
+      width: 30px;
+      height: 30px; }
+    .chat-box .chat-message-field li {
+      overflow: hidden;
+      padding: 6px 20px; }
+      /* .chat-box .chat-message-field li:last-child {
+        margin-bottom: 40px; }
+      .chat-box .chat-message-field li:nth-child(2n) .chat-message-item {
+        background-color: #ff5e3a;
+        color: #fff; }
+      .chat-box .chat-message-field li:nth-child(2n) .author-thumb {
+        float: right; }
+      .chat-box .chat-message-field li:nth-child(2n) .chat-message-item {
+        float: right; }
+      .chat-box .chat-message-field li:nth-child(2n) .notification-event {
+        float: right;
+        padding-left: 0;
+        padding-right: 10px; } */
+    .chat-box .add-options-message {
+      position: absolute;
+      right: 20px;
+      bottom: 15px;
+      width: auto;
+      padding: 0; }
+      .chat-box .add-options-message .options-message + .options-message {
+        margin-left: 15px; }
+    .chat-box .form-group.label-floating textarea.form-control {
+      padding-right: 80px; }
+    .chat-box .form-group {
+      margin-bottom: 0; }
+    .chat-box textarea {
+      min-height: 60px;
+      height: 60px;
+      transition: all .3s ease;
+      border-radius: 0; }
+      .chat-box textarea:focus {
+        min-height: 100px; }
+
+.chat-message-field .notification-date {
+  /* position: absolute; */
+}
+
+.sender {
+    /* background-color: #ff5e3a; */
+    float: right;
+}
+
+.sender.chat-message-item {
+    padding: 13px;
+    background-color: #ff5e3a !important;
+    margin-top: 0;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-size: 12px; 
+}
+
+.close-icon {
+  float: right;
+  cursor: pointer;
+}
+.close-icon span {
+  color: white;
+}
+
+/* #ff5e3a */
+
 /* background-color: #f5680a */

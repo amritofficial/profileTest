@@ -1,0 +1,116 @@
+<ngx-loading [show]="loading" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+<div class="chat-field">
+  <div class="ui-block-title">
+    <h6 class="title">{{ selectedUser.username }}</h6>
+  </div>
+
+  <div class="message-scroll" data-mcs-theme="dark">
+    <ul *ngIf="selectedUser.userId === null" class="notification-list chat-message chat-message-field">
+      <li>
+        <div class="author-thumb">
+          <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+        </div>
+        <div class="notification-event">
+          <a href="#" class="h6 notification-friend">Elaine Dreyfuss</a>
+          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
+              8:10pm</time></span>
+          <span class="chat-message-item">Hi James, How are your doing? Please remember that next week we are going to
+            Gotham Bar to celebrate Marina’s Birthday.</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="author-thumb">
+          <img src="../../assets/img/author-page.jpg" alt="author">
+        </div>
+        <div class="notification-event">
+          <a href="#" class="h6 notification-friend">James Spiegel</a>
+          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
+              8:30pm</time></span>
+          <span class="chat-message-item">Hi Elaine! I have a question, do you think that tomorrow we could talk to
+            the client to iron out some details before the presentation? I already finished the first screen but
+            I need to ask him something before moving on. Anyway, here’s a preview!
+          </span>
+          <div class="added-photos">
+            <img src="../../assets/img/photo-message1.jpg" alt="photo">
+            <img src="../../assets/img/photo-message2.jpg" alt="photo">
+            <span class="photos-name">icons.jpeg; bunny.jpeg</span>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="author-thumb">
+          <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+        </div>
+        <div class="notification-event">
+          <a href="#" class="h6 notification-friend">Elaine Dreyfuss</a>
+          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
+              9:56pm</time></span>
+          <span class="chat-message-item">We’ll have to check that at the office and see if the client is on board with
+            it. I think That looks really good!</span>
+        </div>
+      </li>
+    </ul>
+
+    <ul *ngIf="selectedUser.userId !== null" class="notification-list chat-message chat-message-field">
+      <li *ngFor="let message of messages;">
+        <div class="author-thumb author-icon">
+          <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+        </div>
+        <div class="notification-event" style="display: inline;">
+          <a href="#" class="h6 notification-friend">{{ message.user.username }}</a>
+          <span class="notification-date message-time"><time class="entry-date updated" datetime="2004-07-24T18:18">{{
+              message.timeSent }}</time></span><br>
+          <span class="chat-message-item">{{ message.body }}</span>
+        </div>
+      </li>
+
+      <!-- <li>
+        <div class="author-thumb">
+          <img src="../../assets/img/author-page.jpg" alt="author">
+        </div>
+        <div class="notification-event">
+          <a href="#" class="h6 notification-friend">James Spiegel</a>
+          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
+              8:30pm</time></span>
+          <span class="chat-message-item">Hi Elaine! I have a question, do you think that tomorrow we could talk to
+            the client to iron out some details before the presentation? I already finished the first screen but
+            I need to ask him something before moving on. Anyway, here’s a preview!
+          </span>
+          <div class="added-photos">
+            <img src="../../assets/img/photo-message1.jpg" alt="photo">
+            <img src="../../assets/img/photo-message2.jpg" alt="photo">
+            <span class="photos-name">icons.jpeg; bunny.jpeg</span>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="author-thumb">
+          <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+        </div>
+        <div class="notification-event">
+          <a href="#" class="h6 notification-friend">Elaine Dreyfuss</a>
+          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
+              9:56pm</time></span>
+          <span class="chat-message-item">We’ll have to check that at the office and see if the client is on board with
+            it. I think That looks really good!</span>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+
+  <form #messageForm="ngForm" (keyup.enter)="sendMessage($event)">
+
+    <div class="form-group label-floating is-empty">
+      <!-- <label class="control-label">Write your reply here...</label> -->
+      <input type="text" name="messageBody" placeholder="Write your reply here..." [(ngModel)]="messageBody" class="form-control">
+      <!-- <textarea class="form-control" placeholder="">{{ messageBody }}</textarea> -->
+    </div>
+
+  </form>
+
+</div>

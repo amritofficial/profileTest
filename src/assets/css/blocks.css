@@ -921,7 +921,7 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
 .fixed-sidebar {
   position: fixed;
   z-index: 22;
-  width: 70px;
+  width: 120px;
   min-height: 1000vh; }
   .fixed-sidebar .logo {
     height: 70px; }
@@ -1017,7 +1017,7 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
   padding-bottom: 140px;
   box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1); }
   .fixed-sidebar-right.sidebar--small {
-    width: 70px;
+    width: 160px;
     transition-delay: .3s; }
   .fixed-sidebar-right.sidebar--large {
     width: 270px;
@@ -2101,7 +2101,7 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
   display: inline-block;
   margin-right: 8px; }
   .icon-status.online {
-    background-color: #32e4cd; }
+    background-color: #32CD32; }
   .icon-status.away {
     background-color: #ffd52f; }
   .icon-status.disconected {

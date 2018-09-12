@@ -1,0 +1,8 @@
+.message-list-scroll {
+    height: 554px;
+    overflow: auto;
+}
+
+li:hover {
+    cursor: pointer;
+}

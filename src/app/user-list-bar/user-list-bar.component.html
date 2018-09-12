@@ -1,0 +1,101 @@
+<div class="fixed-sidebar right">
+  <div class="fixed-sidebar-right sidebar--small" id="sidebar-right">
+    <ngx-loading [show]="loading" [config]="{
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+        primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+
+    <div *ngIf="!loading" class="mCustomScrollbar" data-mcs-theme="dark">
+      <ul class="chat-users">
+        <li *ngFor="let user of users;" (click)="selectedUserFromList(user)" class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar67-sm.jpg" class="avatar">
+            <span class="user-name">{{ user.username }}</span>
+            <span class="icon-status" [ngClass]="{'online' : user.userStatus == 0, offline: user.userStatus == 1}"></span>
+          </div>
+        </li>
+        <!-- <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar62-sm.jpg" class="avatar">
+            <span class="icon-status online"></span>
+          </div>
+        </li>
+
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar68-sm.jpg" class="avatar">
+            <span class="icon-status online"></span>
+          </div>
+        </li>
+
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar69-sm.jpg" class="avatar">
+            <span class="icon-status away"></span>
+          </div>
+        </li>
+
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar70-sm.jpg" class="avatar">
+            <span class="icon-status disconected"></span>
+          </div>
+        </li>
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar64-sm.jpg" class="avatar">
+            <span class="icon-status online"></span>
+          </div>
+        </li>
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar71-sm.jpg" class="avatar">
+            <span class="icon-status online"></span>
+          </div>
+        </li>
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" onerror="" src="../../assets/img/avatar72-sm.jpg" class="avatar">
+            <span class="icon-status away"></span>
+          </div>
+        </li>
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar63-sm.jpg" class="avatar">
+            <span class="icon-status status-invisible"></span>
+          </div>
+        </li>
+        <li class="inline-items js-chat-open">
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar72-sm.jpg" class="avatar">
+            <span class="icon-status away"></span>
+          </div>
+        </li>
+        <li class="inline-items js-chat-open">
+
+          <div class="author-thumb">
+            <img alt="author" src="../../assets/img/avatar71-sm.jpg" class="avatar">
+            <span class="icon-status online"></span>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-sidebar right fixed-sidebar-responsive">
+
+  <div class="fixed-sidebar-right sidebar--small" id="sidebar-right-responsive">
+
+    <a class="olympus-chat inline-items js-chat-open">
+      <svg class="olymp-chat---messages-icon">
+        <use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use>
+      </svg>
+    </a>
+
+  </div>
+
+</div>
+
+<div class="chat-box">
+  <chat-box [selectedUser]="selectedUser"></chat-box>
+</div>

@@ -1,0 +1,18 @@
+.message-scroll {
+    overflow: auto;
+    min-height: 447px;
+    height: 447px;
+}
+
+textarea {
+    height: 30px;
+}
+
+.author-icon {
+    float:left; 
+    margin-right: 5%;
+}
+
+/* .message-time {
+    margin-right: 80%;
+} */
