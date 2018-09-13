@@ -8,6 +8,20 @@ import { Message } from '../models/message';
 @Injectable()
 export class MessengerService {
 
+  message: Message = {
+    body: '',
+    receiverId: null,
+    senderId: null,
+    timeSent: null,
+    user: {
+      avatar: '',
+      email: '',
+      userId: null,
+      username: '',
+      userStatus: 1
+    } as User
+  }
+
   constructor(private firebaseService: FirebaseService, 
     public parseService: ParseService,
     private angularFireDatabase: AngularFireDatabase) { }
