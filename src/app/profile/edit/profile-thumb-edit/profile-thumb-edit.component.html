@@ -1,7 +1,3 @@
-<ngx-loading [show]="firebaseService.uploadingAvatar" [config]="{
-  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
-  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
-  
 <div class="modal-header">
   <h4 class="modal-title">Change Avatar!</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -9,27 +5,28 @@
   </button>
 </div>
 <div class="modal-body">
+  <ngx-loading [show]="firebaseService.uploadingAvatar" [config]="{
+      backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+      primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
   <div class="wrapper">
     <!-- <img src="../../assets/img/author-page.jpg" alt="author"> -->
     <img [src]="data2.image" onError="this.src='../../assets/img/author-page.jpg';" alt="author">
   </div>
   <div class="select-image">
-    <input type="file" (change)="fileChangeListener($event)" /><i class="fa fa-image fa-5x"></i><br/> Select Image <br>
+    <input type="file" (change)="fileChangeListener($event)" /><i class="fa fa-image fa-5x"></i><br /> Select Image <br>
   </div>
   <div class="image-cropper" *ngIf="imageSelected">
-    <img-cropper
-       (imageCroppedFile)="croppedImageFile($event)"
-       #cropper (onCrop)="imageCropped($event)" (imageCroppedBase64)="imageCropped($event)"
-      [image]="data2" [settings]="cropperSettings2"></img-cropper>
+    <img-cropper (imageCroppedFile)="croppedImageFile($event)" #cropper (onCrop)="imageCropped($event)"
+      (imageCroppedBase64)="imageCropped($event)" [image]="data2" [settings]="cropperSettings2"></img-cropper>
   </div>
   <!-- <img [src]="croppedImage" alt=""> -->
 </div>
 <div class="modal-footer">
   <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">
-    <i class="fa fa-window-close"></i><br/> Cancel <br>
+    <i class="fa fa-window-close"></i><br /> Cancel <br>
   </a>
   <a (click)="saveImage()" class="btn save-button btn-primary" style="color:white;">
-    <i class="fa fa-save"></i><br/> Save <br>
+    <i class="fa fa-save"></i><br /> Save <br>
   </a>
   <!-- <button type="button" class="btn btn-outline-dark" style="margin-top: -20px;" (click)="activeModal.close('Close click')">Close</button> -->
 </div>

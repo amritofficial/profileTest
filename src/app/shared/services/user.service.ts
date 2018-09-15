@@ -14,6 +14,8 @@ export class UserService {
     userStatus: 1
   }
 
+  userAvatarUrl: string = '';
+
   constructor(private firebaseService: FirebaseService,
     private parseService: ParseService) { }
 

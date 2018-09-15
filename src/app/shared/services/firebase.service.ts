@@ -9,18 +9,19 @@ import { FirebaseStorage } from '@angular/fire';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { ParseService } from './parse.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Message } from '../models/message';
 import { Upload } from '../models/upload';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 export class FirebaseService {
-
   currentFireUserData: AngularFireList<User>;
   private basePath: string = '/avatars';
   avatarUrl: string = '';
   uploadingAvatar: boolean = false;
   avatarUploaded: boolean = false;
+  closeChooseAvatarModal = new BehaviorSubject<boolean>(false);
   // private imageUrl = "amrit"
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
@@ -64,7 +65,7 @@ export class FirebaseService {
   storeImage(upload: Upload) {
     console.log("CALLED")
     this.avatarUploaded = false;
-
+    
     let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
     let uploadTask = storageRef.putString(upload.imageFile, 'data_url');
     let uploadUrl = '';
@@ -73,7 +74,6 @@ export class FirebaseService {
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
         console.log('Image Upload in progress');
-        this.uploadingAvatar = true;
       },
       (error) => {
         console.log("HERE")
@@ -87,6 +87,7 @@ export class FirebaseService {
         storageRef.getDownloadURL().then(url => {
           this.avatarUrl = url;
           this.angularFireDatabase.object(`/users/${upload.user.userId}`).update({avatar: url});
+          this.closeChooseAvatarModal.next(true);
         })
       }
     )
@@ -95,16 +96,13 @@ export class FirebaseService {
   storeImageAndUpdateUser(upload: Upload) {
     console.log("CALLED")
     this.avatarUploaded = false;
-
+    this.uploadingAvatar = true;
     let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
     this.deleteAvatarUrl(upload.user.userId);
     this.storeImage(upload);
-    // storageRef.delete().then(() => {
-    //   this.deleteAvatarUrl(upload.user.userId);
-    //   this.storeImage(upload);
-    // }).catch(error => console.log(error));
   }
 
+  // the reason of this function is to refresh the profile url
   deleteAvatarUrl(userId: any) {
     this.angularFireDatabase.object(`/users/${userId}`).update({avatar: ''});
   }
