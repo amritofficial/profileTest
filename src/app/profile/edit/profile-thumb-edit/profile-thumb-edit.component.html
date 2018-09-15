@@ -10,7 +10,7 @@
       primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
   <div class="wrapper">
     <!-- <img src="../../assets/img/author-page.jpg" alt="author"> -->
-    <img [src]="data2.image" onError="this.src='../../assets/img/author-page.jpg';" alt="author">
+    <img [src]="data2.image" onError="this.src='userService.userAvatarUrl';" alt="author">
   </div>
   <div class="select-image">
     <input type="file" (change)="fileChangeListener($event)" /><i class="fa fa-image fa-5x"></i><br /> Select Image <br>

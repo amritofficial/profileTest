@@ -5,6 +5,7 @@ import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper"
 import { Upload } from '../../../shared/models/upload';
 import { ParseService } from '../../../shared/services/parse.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'profile-thumb-edit',
@@ -23,7 +24,8 @@ export class ProfileThumbEditComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private parseService: ParseService,
-    private firebaseService: FirebaseService) {
+    private firebaseService: FirebaseService,
+    private userService: UserService) {
     //Cropper settings 2
     this.cropperSettings2 = new CropperSettings();
     this.cropperSettings2.width = 200;

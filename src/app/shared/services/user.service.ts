@@ -5,7 +5,7 @@ import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
-
+  loadingUser: boolean = false;
   user: User = {
     avatar: '',
     email: '',
@@ -13,7 +13,13 @@ export class UserService {
     username: '',
     userStatus: 1
   }
-
+  currentUser: User = {
+    avatar: '',
+    email: '',
+    userId: null,
+    username: '',
+    userStatus: 1
+  };
   userAvatarUrl: string = '';
 
   constructor(private firebaseService: FirebaseService,

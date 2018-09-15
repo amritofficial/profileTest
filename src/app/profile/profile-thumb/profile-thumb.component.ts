@@ -11,18 +11,13 @@ import { User } from '../../shared/models/user';
 })
 export class ProfileThumbComponent implements OnInit {
   private ngUnsubscribe = new Subject();
-  currentUser: User = this.userService.user;
 
   changeProfilePicture: boolean = false;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((user: User) => {
-        this.currentUser = user;
-        console.log('Subscribed Firebase User');
-        console.log(this.currentUser);
-      });
+    // this.userService.loadingUser = true;
+    
   }
 
 
