@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger,group, state, animateChild } from '@angular/animations';
+import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
 import { AuthService } from '../../shared/services/auth.service';
 import { ParseService } from '../../shared/services/parse.service';
+import { FirebaseService } from '../../shared/services/firebase.service';
+import { Upload } from '../../shared/models/upload';
+import { User } from 'firebase';
 
 
 @Component({
@@ -29,6 +33,7 @@ export class SignUpComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
+  avatarUrl: string = '';
 
   items = [];
   mainStep: boolean = true;
@@ -45,7 +50,10 @@ export class SignUpComponent implements OnInit {
   cropperSettings2: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
-  constructor(private router: Router, private authService: AuthService, private parseService: ParseService) {
+  constructor(private router: Router, 
+    private authService: AuthService, 
+    private parseService: ParseService,
+    private firebaseService: FirebaseService) {
     //Cropper settings 2
     this.cropperSettings2 = new CropperSettings();
     this.cropperSettings2.width = 100;
@@ -72,17 +80,22 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.avatarStep = true;
+    this.mainStep = false;
   }
 
   jumpToWorkExperience() {
-    this.mainStep = false;
+    console.log(this.firebaseService.avatarUrl);
+    // this.saveImage();
+    this.avatarStep = false;
+    // this.mainStep = false;
     this.workStep = true;
   }
 
   jumpToEducation() {
     this.educationStep = true;
     this.workStep = false;
-    this.mainStep = false;  
+    // this.mainStep = false;  
   }
 
   jumpToSkills() {
@@ -91,14 +104,15 @@ export class SignUpComponent implements OnInit {
   }
 
   jumpToAvatar() {
-    this.skillsStep = false;
+    this.mainStep = false;
+    // this.skillsStep = false;
     this.avatarStep = true;
   }
 
   finishRegister() {
     this.saveImage();
     console.log(this.username + ' ' + this.email +  ' ' + this.password);
-    this.signUp();
+    // this.signUp();
     this.avatarStep = false;
     this.finishRegisterStep = true;
     console.log(this.items);
@@ -145,10 +159,12 @@ export class SignUpComponent implements OnInit {
     // this.croppedImage = data2.image;
   }
 
-  imageCropped(image: string) {
+  imageCropped(event: any) {
     //this.croppedImage = image;
     console.log("Cropped");
+    
     this.croppedImage = this.data2.image;
+    // console.log(this.croppedImage);
   }
 
   croppedImageFile(event: any) {
@@ -156,7 +172,31 @@ export class SignUpComponent implements OnInit {
   }
 
   saveImage() {
-    console.log("Image Save!")
+    let uploadData: Upload = {
+      imageFile: this.croppedImage,
+      imageUrl: '',
+      user: {
+        avatar: null,
+        email: 'test@test.com',
+        userId: null,
+        username: this.username,
+        userStatus: 1
+      }
+    }
+
+    // TO DO
+    // The firebase storage auth has to be null to upload, make sure to do that
+    // then try again the same method over again to upload an image
+    const storage: firebase.storage.Reference = firebase.storage().ref('/photos/url1.jpg');
+
+    this.firebaseService.storeImage(uploadData);
+    
+    // this.firebaseService.storeImage(uploadData);
+    // const meta: firebase.storage.UploadMetadata = {'content-type': this.croppedImage.type}
+    // storage.putString(this.croppedImage, 'data_url');
+    console.log("Image Save!");
+    // console.log(storage.getDownloadURL());
+    // this.firebaseService.storeImage(this.croppedImage);
     // Save this.croppedImage
   }
 

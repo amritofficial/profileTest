@@ -1,9 +1,13 @@
+
 <div class="top-header-author">
+    <ngx-loading [show]="userService.loadingUser" [config]="{
+      backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+      primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
   <div class="author-thumb">
-    <img src="../../assets/img/author-page.jpg" alt="author">
+    <img src="{{ userService.currentUser.avatar }}"  alt="author">
   </div>
   <div class="author-content">
-    <a href="02-ProfilePage.html" class="h4 author-name">Amrit Singh</a>
+    <a class="h4 author-name">{{ userService.currentUser.username }}</a>
     <div class="country">Toronto, ON</div>
   </div>
 </div>

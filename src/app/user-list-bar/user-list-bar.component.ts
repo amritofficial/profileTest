@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from '../shared/models/user';
 import { ChatService } from '../shared/services/chat.service';
 import { AuthService } from '../shared/services/auth.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'user-list-bar',
@@ -19,16 +20,18 @@ export class UserListBarComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
     private chatService: ChatService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.loading = true;
     
-      this.firebaseService.getAllFireUsers()
+      this.userService.getAllUsersFromFirebase()
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((users: User[]) => {
           this.users = users;
           console.log("LIST OF USERS: ");
           console.log(this.users);
+          this.userService.listOfUsers = users;
           this.loading = false;
         });
     

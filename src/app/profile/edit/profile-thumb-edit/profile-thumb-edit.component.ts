@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfileService } from '../../../shared/services/profile.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
+import { Upload } from '../../../shared/models/upload';
+import { ParseService } from '../../../shared/services/parse.service';
+import { FirebaseService } from '../../../shared/services/firebase.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'profile-thumb-edit',
@@ -17,7 +21,11 @@ export class ProfileThumbEditComponent implements OnInit {
   cropperSettings2: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) {
+  constructor(public activeModal: NgbActiveModal,
+    private modalService: NgbModal,
+    private parseService: ParseService,
+    private firebaseService: FirebaseService,
+    private userService: UserService) {
     //Cropper settings 2
     this.cropperSettings2 = new CropperSettings();
     this.cropperSettings2.width = 200;
@@ -79,10 +87,51 @@ export class ProfileThumbEditComponent implements OnInit {
   }
 
   saveImage() {
-    // Save this.croppedImage
+    console.log('USER:::: ');
+    let currentUser = this.parseService.currentUser;
+    let userId = currentUser.id;
+
+    currentUser.fetch().then((user) => {
+
+      let uploadData: Upload = {
+        imageFile: this.croppedImage,
+        imageUrl: '',
+        user: {
+          avatar: null,
+          email: user.getEmail(),
+          userId: userId,
+          username: user.getUsername(),
+          userStatus: 0
+        }
+      }
+      this.firebaseService.storeImageAndUpdateUser(uploadData);
+    });
+    // let uploadData: Upload = {
+    //   imageFile: this.croppedImage,
+    //   imageUrl: '',
+    //   user: {
+    //     avatar: null,
+    //     email: 
+    //   }
+    // }
+    // let uploadData: Upload = {
+    //   imageFile: this.croppedImage,
+    //   imageUrl: '',
+    //   user: {
+    //     avatar: null,
+    //     email: 'test@test.com',
+    //     userId: null,
+    //     username: this.username,
+    //     userStatus: 1
+    //   }
+    // }
+
+    // this.firebaseService.storeImage(uploadData);
+
   }
 
   ngOnInit() {
+    this.data2.image = this.userService.currentUser.avatar;
   }
 
 }

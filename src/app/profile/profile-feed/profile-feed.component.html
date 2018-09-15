@@ -8,7 +8,7 @@
           <article class="hentry post">
 
             <div class="post__author author vcard inline-items">
-              <img src="../../assets/img/author-page.jpg" alt="author">
+              <img [src]="userService.currentUser.avatar" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';" alt="author">
 
               <div class="author-date">
                 <a class="h6 post__author-name fn">Amrit Singh</a>

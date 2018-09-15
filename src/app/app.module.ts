@@ -46,6 +46,7 @@ import { MessengerUsersResolver } from './shared/resolvers/messenger-users.resol
 import { MainComponent } from './main/main.component';
 import { UserListBarComponent } from './user-list-bar/user-list-bar.component';
 import { ChatService } from './shared/services/chat.service';
+import { UserService } from './shared/services/user.service';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,7 @@ import { ChatService } from './shared/services/chat.service';
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
