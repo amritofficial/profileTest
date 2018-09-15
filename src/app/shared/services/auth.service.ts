@@ -23,7 +23,6 @@ export class AuthService {
   }
 
   getAuthenticated(): boolean {
-    console.log(":::: " + this.parseService.currentUser);
     return this.parseService.currentUser !== null;
   }
 }
