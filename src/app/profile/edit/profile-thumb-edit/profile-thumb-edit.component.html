@@ -1,3 +1,7 @@
+<ngx-loading [show]="firebaseService.uploadingAvatar" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+  
 <div class="modal-header">
   <h4 class="modal-title">Change Avatar!</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -18,8 +22,7 @@
        #cropper (onCrop)="imageCropped($event)" (imageCroppedBase64)="imageCropped($event)"
       [image]="data2" [settings]="cropperSettings2"></img-cropper>
   </div>
-
-  <img [src]="croppedImage" alt="">
+  <!-- <img [src]="croppedImage" alt=""> -->
 </div>
 <div class="modal-footer">
   <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">

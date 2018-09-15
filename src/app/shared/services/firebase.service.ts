@@ -86,9 +86,27 @@ export class FirebaseService {
         // upload.imageUrl = uploadTask.snapshot.downloadURL;
         storageRef.getDownloadURL().then(url => {
           this.avatarUrl = url;
+          this.angularFireDatabase.object(`/users/${upload.user.userId}`).update({avatar: url});
         })
       }
     )
+  }
+
+  storeImageAndUpdateUser(upload: Upload) {
+    console.log("CALLED")
+    this.avatarUploaded = false;
+
+    let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
+    this.deleteAvatarUrl(upload.user.userId);
+    this.storeImage(upload);
+    // storageRef.delete().then(() => {
+    //   this.deleteAvatarUrl(upload.user.userId);
+    //   this.storeImage(upload);
+    // }).catch(error => console.log(error));
+  }
+
+  deleteAvatarUrl(userId: any) {
+    this.angularFireDatabase.object(`/users/${userId}`).update({avatar: ''});
   }
 
 }

@@ -13,6 +13,7 @@ import { User } from '../../shared/models/user';
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
+  loading: boolean = false;
 
   fireUsersArray: User;
 
@@ -25,9 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     this.authService.login(this.email, this.password)
       .subscribe(success => {
         console.log('Login Success');
+        this.loading = false;
         this.router.navigateByUrl('/dashboard');
         if (success) {
           // this.router.navigateByUrl('/dashboard');

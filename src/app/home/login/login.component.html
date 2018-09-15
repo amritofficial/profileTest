@@ -18,7 +18,12 @@
           <label class="sr-only" for="form-email">Password</label>
           <input type="text" name="form-email" [(ngModel)]="password" required placeholder="Password" class="form-email form-control" id="form-email" ngModel>
         </div>
-        <button type="submit" [disabled]="loginForm.form.invalid" (click)="login()" class="btn">Next</button>
+
+        <ngx-loading [show]="loading" [config]="{
+          backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+          primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+          
+        <button type="submit" [disabled]="loginForm.form.invalid" (click)="login()" class="btn">Login</button>
     </form>
   </div>
 </div>
