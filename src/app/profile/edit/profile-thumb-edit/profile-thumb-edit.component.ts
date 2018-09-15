@@ -131,6 +131,7 @@ export class ProfileThumbEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.data2.image = this.userService.currentUser.avatar;
   }
 
 }
