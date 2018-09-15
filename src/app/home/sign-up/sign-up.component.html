@@ -9,10 +9,11 @@
     </div>
   </div>
   <div class="form-bottom">
-    <form  #registerForm="ngForm" role="form" action="" method="post" class="registration-form" >
+    <form #registerForm="ngForm" role="form" action="" method="post" class="registration-form">
       <div class="form-group">
         <label class="sr-only" for="form-first-name">User name</label>
-        <input type="text" name="form-first-name" [(ngModel)]="username" required placeholder="User name..." class="form-first-name form-control" id="form-first-name" ngModel>
+        <input type="text" name="form-first-name" [(ngModel)]="username" required placeholder="User name..." class="form-first-name form-control"
+          id="form-first-name" ngModel>
       </div>
       <!-- <div class="form-group">
         <label class="sr-only" for="form-last-name">Last name</label>
@@ -20,11 +21,13 @@
       </div> -->
       <div class="form-group">
         <label class="sr-only" for="form-email">Email</label>
-        <input type="text" name="form-email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="email" required placeholder="Email..." class="form-email form-control" id="form-email" ngModel>
+        <input type="text" name="form-email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="email"
+          required placeholder="Email..." class="form-email form-control" id="form-email" ngModel>
       </div>
       <div class="form-group">
         <label class="sr-only" for="form-password">Password</label>
-        <input type="password" name="form-password" [(ngModel)]="password" required placeholder="Password..." class="form-password form-control" id="form-password" ngModel> 
+        <input type="password" name="form-password" [(ngModel)]="password" required placeholder="Password..." class="form-password form-control"
+          id="form-password" ngModel>
       </div>
       <!-- TODO to uncomment this line and delete the finish register -->
       <!-- <button type="submit" (click)="jumpToWorkExperience()" class="btn">Next</button> -->
@@ -45,20 +48,27 @@
     </div>
   </div>
   <div class="form-bottom">
+
+    <ngx-loading [show]="firebaseService.uploadingAvatar" [config]="{
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+        primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+
     <div class="wrapper">
       <!-- <img src="../../assets/img/author-page.jpg" alt="author"> -->
       <img [src]="data2.image" onError="this.src='../../assets/img/author-page.jpg';" alt="author">
     </div>
     <div class="select-image">
-      <input type="file" (change)="fileChangeListener($event)" /><i class="fa fa-image fa-5x"></i><br/> Select Image <br>
+      <input type="file" (change)="fileChangeListener($event)" /><i class="fa fa-image fa-5x"></i><br /> Select Image
+      <br>
     </div>
     <div class="image-cropper" *ngIf="imageSelected">
-      <img-cropper (imageCroppedFile)="croppedImageFile($event)" #cropper type="file" (onCrop)="imageCropped($event)" (imageCroppedBase64)="imageCropped($event)"
-        [image]="data2" [settings]="cropperSettings2"></img-cropper>
+      <img-cropper (imageCroppedFile)="croppedImageFile($event)" #cropper type="file" (onCrop)="imageCropped($event)"
+        (imageCroppedBase64)="imageCropped($event)" [image]="data2" [settings]="cropperSettings2"></img-cropper>
     </div>
     <!-- <img src="https://firebasestorage.googleapis.com/v0/b/devfinder-chat.appspot.com/o/photos%2Furl1?alt=media&token=1dcb9067-dba8-4fd5-8f2c-eca2202d0607" height="200px" width="200px" alt=""> -->
     <!-- <button type="submit" class="btn" (click)="jumpToWorkExperience()">Next!</button> -->
-    <button type="submit" class="btn" (click)="saveImage()">Next!</button>
+    <button type="submit" *ngIf="!firebaseService.avatarUploaded" [disabled]="firebaseService.uploadingAvatar" class="btn" (click)="saveImage()">Save</button>
+    <button type="submit" *ngIf="firebaseService.avatarUploaded" class="btn" (click)="jumpToWorkExperience()">Next!</button>
   </div>
 </div>
 
@@ -77,7 +87,8 @@
     <form role="form" action="" method="post" class="registration-form">
       <div class="form-group">
         <label class="sr-only" for="form-work-place">Workplace</label>
-        <input type="text" name="form-work-place" placeholder="Enter your Workplace" class="form-work-place form-control" id="form-work-place">
+        <input type="text" name="form-work-place" placeholder="Enter your Workplace" class="form-work-place form-control"
+          id="form-work-place">
       </div>
       <div class="form-group">
         <label class="sr-only" for="form-last-name">Last name</label>
@@ -89,7 +100,8 @@
       </div>
       <div class="form-group">
         <label class="sr-only" for="form-about-yourself">About yourself</label>
-        <textarea name="form-about-yourself" placeholder="About yourself..." class="form-about-yourself form-control" id="form-about-yourself"></textarea>
+        <textarea name="form-about-yourself" placeholder="About yourself..." class="form-about-yourself form-control"
+          id="form-about-yourself"></textarea>
       </div>
       <button type="submit" (click)="jumpToEducation()" class="btn">Next</button>
     </form>
@@ -124,7 +136,8 @@
       </div>
       <div class="form-group">
         <label class="sr-only" for="form-about-yourself">About yourself</label>
-        <textarea name="form-about-yourself" placeholder="About yourself..." class="form-about-yourself form-control" id="form-about-yourself"></textarea>
+        <textarea name="form-about-yourself" placeholder="About yourself..." class="form-about-yourself form-control"
+          id="form-about-yourself"></textarea>
       </div>
       <button type="submit" class="btn" (click)="jumpToSkills()">Next!</button>
     </form>
@@ -143,7 +156,8 @@
     </div>
   </div>
   <div class="form-bottom">
-    <tag-input [ngModel]="items" style="text-transform:uppercase" [displayBy]="'name'" (onAdd)="onItemAdded($event)" theme='bootstrap'></tag-input>
+    <tag-input [ngModel]="items" style="text-transform:uppercase" [displayBy]="'name'" (onAdd)="onItemAdded($event)"
+      theme='bootstrap'></tag-input>
     <button type="submit" class="btn" (click)="jumpToAvatar()">Next!</button>
   </div>
 </div>
@@ -181,7 +195,8 @@
     <div class="form-top-left">
       <h3>Finish</h3>
       <p>Thanks for registering</p>
-      <p>We just got some basic information. You can always edit your information from your profile. Please click to navigate to the page</p>
+      <p>We just got some basic information. You can always edit your information from your profile. Please click to
+        navigate to the page</p>
     </div>
     <div class="form-top-right">
       <i class="fa fa-book"></i>

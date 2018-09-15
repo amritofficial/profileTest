@@ -18,6 +18,9 @@ export class FirebaseService {
 
   currentFireUserData: AngularFireList<User>;
   private basePath: string = '/avatars';
+  avatarUrl: string = '';
+  uploadingAvatar: boolean = false;
+  avatarUploaded: boolean = false;
   // private imageUrl = "amrit"
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
@@ -60,27 +63,32 @@ export class FirebaseService {
 
   storeImage(upload: Upload) {
     console.log("CALLED")
+    this.avatarUploaded = false;
 
-    let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}`);
-    // let uploadTask = storageRef.child(`${this.basePath}/${upload.user.email}.jpg`).putString(upload.imageFile);
+    let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
+    let uploadTask = storageRef.putString(upload.imageFile, 'data_url');
+    let uploadUrl = '';
 
-    storageRef.putString(upload.imageFile);
-    console.log("DONE");
-    // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-    //   (snapshot) => {
-    //     console.log('Image Upload in progress');
-    //   },
-    //   (error) => {
-    //     console.log("HERE")
-    //     console.log(error)
-    //   },
-    //   () => {
-    //     console.log("DONE")
-    //     upload.imageUrl = uploadTask.snapshot.downloadURL;
-    //     console.log("::: " + upload.imageUrl);
-        
-    //   }
-    // )
+    // storageRef.putString(upload.imageFile, 'data_url');
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        console.log('Image Upload in progress');
+        this.uploadingAvatar = true;
+      },
+      (error) => {
+        console.log("HERE")
+        console.log(error)
+      },
+      () => {
+        console.log("DONE")
+        this.uploadingAvatar = false;
+        this.avatarUploaded = true;
+        // upload.imageUrl = uploadTask.snapshot.downloadURL;
+        storageRef.getDownloadURL().then(url => {
+          this.avatarUrl = url;
+        })
+      }
+    )
   }
 
 }

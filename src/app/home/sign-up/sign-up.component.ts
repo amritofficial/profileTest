@@ -33,6 +33,7 @@ export class SignUpComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
+  avatarUrl: string = '';
 
   items = [];
   mainStep: boolean = true;
@@ -84,7 +85,8 @@ export class SignUpComponent implements OnInit {
   }
 
   jumpToWorkExperience() {
-    this.saveImage();
+    console.log(this.firebaseService.avatarUrl);
+    // this.saveImage();
     this.avatarStep = false;
     // this.mainStep = false;
     this.workStep = true;
@@ -175,7 +177,7 @@ export class SignUpComponent implements OnInit {
       imageUrl: '',
       user: {
         avatar: null,
-        email: this.email,
+        email: 'test@test.com',
         userId: null,
         username: this.username,
         userStatus: 1
@@ -187,9 +189,11 @@ export class SignUpComponent implements OnInit {
     // then try again the same method over again to upload an image
     const storage: firebase.storage.Reference = firebase.storage().ref('/photos/url1.jpg');
 
+    this.firebaseService.storeImage(uploadData);
+    
     // this.firebaseService.storeImage(uploadData);
     // const meta: firebase.storage.UploadMetadata = {'content-type': this.croppedImage.type}
-    storage.putString(this.croppedImage, 'data_url');
+    // storage.putString(this.croppedImage, 'data_url');
     console.log("Image Save!");
     // console.log(storage.getDownloadURL());
     // this.firebaseService.storeImage(this.croppedImage);
