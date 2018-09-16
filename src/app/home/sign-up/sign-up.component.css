@@ -199,3 +199,12 @@ input[type='file'] {
 .save-button {
   width: 10%;
 }
+
+.date-class:hover {
+    cursor: pointer;
+}
+
+.button-position {
+    float: right;
+    margin-bottom: -50px;
+}

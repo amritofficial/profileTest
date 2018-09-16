@@ -6,7 +6,7 @@ import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
-import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -90,6 +90,8 @@ import { UserService } from './shared/services/user.service';
     LoadingModule,
     AngularFireModule.initializeApp(environment.firebase),
     MatCardModule,
+    NgbDatepickerModule,
+    NgbButtonsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
     }),

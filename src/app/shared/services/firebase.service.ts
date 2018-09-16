@@ -22,6 +22,7 @@ export class FirebaseService {
   uploadingAvatar: boolean = false;
   avatarUploaded: boolean = false;
   closeChooseAvatarModal = new BehaviorSubject<boolean>(false);
+  currentUser: User;
   // private imageUrl = "amrit"
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
@@ -37,6 +38,9 @@ export class FirebaseService {
       userStatus: 0,
       avatar: 'NO AVATAR'
     }
+    // everytime a user signs up, the current user object is stored in the service 
+    // to be used by other classes because of subscription not working issue
+    this.currentUser = userData;
 
     this.angularFireDatabase.object(path).update(userData)
       .catch(error => console.log("Error " + error));
@@ -68,7 +72,6 @@ export class FirebaseService {
     
     let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
     let uploadTask = storageRef.putString(upload.imageFile, 'data_url');
-    let uploadUrl = '';
 
     // storageRef.putString(upload.imageFile, 'data_url');
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -98,6 +101,7 @@ export class FirebaseService {
     this.avatarUploaded = false;
     this.uploadingAvatar = true;
     let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
+    // the following line simply performs a refresh of the url
     this.deleteAvatarUrl(upload.user.userId);
     this.storeImage(upload);
   }

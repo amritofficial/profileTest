@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FirebaseService } from './firebase.service';
 import { catchError } from 'rxjs/operators';
+import { Education } from '../models/education';
+import { WorkExperience } from '../models/work-experience';
 
 const Parse = require('parse');
 
 @Injectable()
 export class ParseService {
 
+  signingUp: boolean = false;
   constructor(private firebaseService: FirebaseService) {
     console.log('Parse initialized!')
     Parse.initialize("angular-parse-chat");
@@ -64,12 +67,15 @@ export class ParseService {
 
   public register(username: string, email: string, password: string): Observable<any> {
     let userObject;
-    const observer = new Observable( (observer) => { var user = new Parse.User()
+    this.signingUp = true;
+    const observer = new Observable((observer) => {
+      var user = new Parse.User()
       user.set("email", email);
       user.set("username", username);
       user.set("password", password);
       user.signUp().then((data) => {
         this.firebaseService.storeUserData(username, email, data.id);
+        this.signingUp = false;
         console.log(data.id);
       }).catch((e: any) => Observable.throw(this.errorHandler(e)));
       // console.log(userObject);
@@ -93,6 +99,10 @@ export class ParseService {
     //   });
     // });
   }
+
+  // public registerAndStoreData(username: string, email: string, password: string, education: Education, workExperience: WorkExperience) {
+
+  // }
 
   errorHandler(error: any): void {
     console.log(error);
