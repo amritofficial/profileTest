@@ -16,16 +16,16 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.loadingUser = true;
-    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((user: User) => {
-        this.currentUser = user;
-        this.userService.currentUser = user;
-        // this.userService.userAvatarUrl = this.currentUser.avatar;
-        this.userService.loadingUser = false;
-        console.log('Subscribed Firebase User');
-        console.log(this.currentUser);
-      });
+    // this.userService.loadingUser = true;
+    // this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+    //   .subscribe((user: User) => {
+    //     this.currentUser = user;
+    //     this.userService.currentUser = user;
+    //     // this.userService.userAvatarUrl = this.currentUser.avatar;
+    //     this.userService.loadingUser = false;
+    //     console.log('Subscribed Firebase User');
+    //     console.log(this.currentUser);
+    //   });
   }
 
 }

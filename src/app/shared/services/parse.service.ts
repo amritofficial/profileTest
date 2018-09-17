@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FirebaseService } from './firebase.service';
 import { catchError } from 'rxjs/operators';
 import { Education } from '../models/education';
@@ -22,7 +22,7 @@ const httpOptions = {
 
 @Injectable()
 export class ParseService {
-  subscription: Subscription;
+
   signingUp: boolean = false;
   constructor(private firebaseService: FirebaseService,
     private http: HttpClient) {
@@ -133,8 +133,6 @@ export class ParseService {
         "X-Parse-Session-Token": window.sessionStorage.getItem('session_token')
       })
     }
-    
-    
     return this.http.get(Parse.serverURL + "/users/me", httpCustomOption);
   }
 

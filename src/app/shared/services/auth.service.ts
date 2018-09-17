@@ -38,11 +38,11 @@ export class AuthService {
     return this.parseService.logout();
   }
 
-  getAuthenticated(): boolean {
+  getAuthenticated() {
     // this block throws exceptions of length
 
     // console.log(this.parseService.currentUserFromRest());
-    let authenticated: boolean = true;;
+    let authenticated: boolean = true;
     // this.parseService.currentLoggedInUser().pipe(takeUntil(this.ngUnsubscribe))
     //   .subscribe((user) => {
     //     if (user !== null) {
@@ -53,7 +53,11 @@ export class AuthService {
     //       authenticated = false;
     //     }
     //   });
-    
-    return authenticated;
+    // this.parseService.currentLoggedInUser().subscribe(user => {
+    //   if(user !== null) {
+    //     return true;
+    //   } else
+    // })
+    return true;
   }
 }

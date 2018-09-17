@@ -15,7 +15,7 @@
       <ul *ngIf="!loading" class="notification-list chat-message chat-message-field">
         <li *ngFor="let message of messages;">
           <div class="author-thumb" [ngClass]="{'sender': message.senderId == currentUserId}">
-            <img src="../../assets/img/avatar14-sm.jpg" alt="author" class="mCS_img_loaded">
+            <img [src]="getAvatar(message)" alt="author" class="mCS_img_loaded">
           </div>
           <div class="notification-event" [ngClass]="{'sender': message.senderId == currentUserId}">
             <span class="chat-message-item" [ngStyle]="getStyle(message)">{{ message.body }}</span><br>
