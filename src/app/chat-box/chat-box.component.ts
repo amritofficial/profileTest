@@ -79,6 +79,7 @@ export class ChatBoxComponent implements OnInit, OnChanges {
       timeSent: this.formatAMPM(),
       user: this.currentUserData
     }
+    console.log(messageData);
     console.log('sent');
     // console.log(this.messageBody);
     this.messengerService.sendAndSaveMessage(messageData)

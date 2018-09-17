@@ -10,6 +10,8 @@ import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'app';
   currentUrl: string;
+  showUserList: boolean = true;
+
   constructor(private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -19,6 +21,15 @@ export class AppComponent implements OnInit{
       // console.log(event);
       if (event instanceof NavigationEnd ) {
         this.currentUrl = event.url;
+        if(this.currentUrl === '/home/(form-outlet:login)') {
+          this.showUserList = false;
+        } 
+        else if(this.currentUrl === '/home/(form-outlet:register)') {
+          this.showUserList = false;
+        }
+        else {
+          this.showUserList = true;
+        }
         console.log(this.currentUrl)
       }
     })

@@ -12,6 +12,10 @@ import { CustomDate } from '../../shared/models/custom-date';
 import { WorkExperience } from '../../shared/models/work-experience';
 import { UserService } from '../../shared/services/user.service';
 import { Education } from '../../shared/models/education';
+import { Location } from '../../shared/models/location';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { RegisterUser } from '../../shared/models/register-user';
 
 
 @Component({
@@ -33,6 +37,7 @@ import { Education } from '../../shared/models/education';
   ]
 })
 export class SignUpComponent implements OnInit {
+  private ngUnsubscribe = new Subject();
 
   username: string = '';
   email: string = '';
@@ -61,6 +66,8 @@ export class SignUpComponent implements OnInit {
   workCity: string = 'Toronto';
 
   postalCode: any;
+  currentLat: any;
+  currentLong: any;
 
   school: string = 'Sheridan';
   schoolProgram: string = 'SDNE';
@@ -139,21 +146,36 @@ export class SignUpComponent implements OnInit {
 
   jumpToLocation() {
     this.tagStep = false;
+    this.findMe();
     this.locationStep = true;
   }
 
   finishRegister() {
     // this.saveImage();
     // this.signUp();
-    let workExperience: WorkExperience = this.createWorkExperience();
-    let education = this.createEducation();
-    console.log(workExperience);
-    console.log(education);
-    this.locationStep = false;
-    this.finishRegisterStep = true;
+    this.storeData();
+    // this.locationStep = false;
+    // this.finishRegisterStep = true;
     console.log(this.tags);
   }
 
+  jumpToDashboard() {
+    console.log('It should navigate');
+    this.router.navigate(['dashboard']);
+  }
+
+  //return a location object
+  createLocation() {
+    let location: Location = {
+      lat: this.currentLat,
+      long: this.currentLong,
+      postal: this.postalCode,
+      user: this.firebaseService.currentUser
+    }
+    return location;
+  }
+
+  // return a work experience object
   createWorkExperience() {
     let workExperience: WorkExperience = {
       city: this.workCity,
@@ -169,6 +191,7 @@ export class SignUpComponent implements OnInit {
     return workExperience;
   }
 
+  // return an education object
   createEducation() {
     let education: Education = {
       description: this.programDescription,
@@ -183,9 +206,42 @@ export class SignUpComponent implements OnInit {
     return education;
   }
 
-  jumpToDashboard() {
-    console.log('It should navigate');
-    this.router.navigate(['dashboard']);
+  findMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.showPosition(position);
+      });
+    } else {
+      alert("This application requires to access Geolocation for the best experience");
+    }
+  }
+
+  showPosition(position) {
+    this.currentLat = position.coords.latitude;
+    this.currentLong = position.coords.longitude;
+    console.log(this.currentLat);
+    console.log(this.currentLat + " " + this.currentLong);
+  }
+
+  storeData() {
+    let workExperience: WorkExperience = this.createWorkExperience();
+    let education: Education = this.createEducation();
+    let location: Location = this.createLocation();
+    this.userService.storeWorkExperience(workExperience)
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe((success) => {
+        console.log("work stored");
+      });
+    this.userService.storeEducation(education)
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe(success => {
+        console.log("education stored");
+      });
+    this.userService.storeLocation(location)
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe(success => {
+        console.log("location stored");
+        this.locationStep = false;
+        this.finishRegisterStep = true;
+      });
+
   }
 
   id = 0;
@@ -199,15 +255,32 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp() {
-    this.authService.signup(this.username, this.email, this.password)
-      .subscribe(success => {
-        console.log(success);
-        console.log('User created successfully !');
-        //this.router.navigateByUrl('/home');
-      }, error => {
-        alert(error.message)
-      });
-    this.signupComplete = true;
+    this.signupLoading = true;
+    this.authService.signupUsingRest(this.email, this.password, this.username)
+    .subscribe((data: RegisterUser) => {
+      this.signupComplete = true;
+      window.sessionStorage.setItem('current_user_id', data.objectId);
+      window.sessionStorage.setItem('session_token', data.sessionToken);
+      this.firebaseService.storeUserData(this.username, this.email, data.objectId);
+      this.signupLoading = false;
+      // console.log(data);
+      // this.parseService.CurrentLoggedInUser.subscribe(data => {
+      //   console.log(data);
+      // }); 
+      // this.parseService.CurrentLoggedInUser
+      // console.log(object.id);
+      // console.log(this.parseService.currentUser.id);
+      // this.firebaseService.storeUserData(this.username, this.email, data.id);
+      // console.log(data);
+    })
+    // this.authService.signup(this.username, this.email, this.password)
+    //   .subscribe(success => {
+    //     console.log(success);
+    //     console.log('User created successfully !');
+    //     //this.router.navigateByUrl('/home');
+    //   }, error => {
+    //     alert(error.message)
+    //   });
   }
 
   fileChangeListener($event) {
@@ -230,7 +303,6 @@ export class SignUpComponent implements OnInit {
     console.log("Cropped");
     this.croppedImage = this.data2.image;
   }
-
 
   saveImage() {
     let uploadData: Upload = {

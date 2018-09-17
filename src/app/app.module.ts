@@ -11,6 +11,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoadingModule } from 'ngx-loading';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -80,6 +81,7 @@ import { UserService } from './shared/services/user.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     TagInputModule,
     FormsModule,
     ReactiveFormsModule,

@@ -32,11 +32,15 @@ export class MessengerService {
   
   getCurrentUserId() {
     let user = this.parseService.currentUser;
-    return user.id;
+    let userId = window.sessionStorage.getItem('current_user_id');
+    console.log("Current_user_id");
+    console.log(userId);
+    return userId;
   }
 
   getCurrentUserData() {
-    return this.firebaseService.getFireUserData(this.getCurrentUserId());
+    let userId = this.getCurrentUserId();
+    return this.firebaseService.getFireUserData(userId);
   }
 
   getMessengerRoomPath(selectedUserId: any) {
