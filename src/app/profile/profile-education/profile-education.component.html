@@ -1,6 +1,106 @@
 <div class="ui-block">
   <div class="ui-block-title">
     <h6 class="title">Education and Employement</h6>
+    <span class="add-profile-education-icon" (click)="editProfileIntro()"><i class="fa fa-plus-circle"></i></span>
+    <a href="#" class="more"><svg class="olymp-three-dots-icon">
+        <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
+      </svg></a>
+  </div>
+  <div class="ui-block-content">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li *ngIf="!addProfileEducation">
+            <mat-card>
+              <span class="title">Software Development & Network Engineering</span>
+              <span class="title"><i>Sheridan College</i></span>
+              <span class="edit-profile-education-icon"><i class="fa fa-pencil"></i></span>
+              <span class="date">2001 - 2006</span>
+              <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.</span>
+            </mat-card>
+          </li>
+          <li>
+            <mat-card>
+              <mat-card-title>
+                Add Education
+              </mat-card-title>
+              <div class="row">
+                <span class="title"><input type="text" [(ngModel)]="addEducation.school" placeholder="School"></span>
+              </div>
+              <div class="row">
+                <span class="title"><input type="text"[(ngModel)]="addEducation.program" placeholder="Program"></span>
+              </div><br>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input type="number" class="date" [(ngModel)]="addEducation.startDate.year" placeholder="Start Year">
+                </div>
+                <div class="col-xs-6">
+                  <input type="number" class="date" [(ngModel)]="addEducation.endDate.year" placeholder="End Year">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input type="text" class="date" [(ngModel)]="addEducation.schoolCity" placeholder="City">
+                </div>
+                <div class="col-xs-6">
+                  <input type="text" class="date" [(ngModel)]="addEducation.schoolCountry" placeholder="Country">
+                </div>
+              </div>
+              <div class="row">
+                <textarea name="about" class="text" [(ngModel)]="addEducation.description" cols="100" rows="2"></textarea>
+              </div>
+              <!-- <mat-card-footer> -->
+              <div class="btn-save">
+                <button type="submit" (click)="saveEducation()" class="btn">Save</button>
+              </div>
+
+            </mat-card>
+          </li>
+          <!-- <li>
+            <mat-card>
+              <span class="title">Rembrandt Institute</span>
+              <span class="date">2008</span>
+              <span class="text">Five months Digital Illustration course. Professor: Leonardo Stagg.</span>
+            </mat-card>
+          </li>
+          <li>
+            <mat-card>
+              <span class="title">The Digital College </span>
+              <span class="date">2010</span>
+              <span class="text">6 months intensive Motion Graphics course. After Effects and Premire. Professor:
+                Donatello Urtle. </span>
+            </mat-card>
+          </li> -->
+        </ul>
+      </div>
+      <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li>
+            <span class="title">Digital Design Intern</span>
+            <span class="date">2006-2008</span>
+            <span class="text">Digital Design Intern for the “Multimedz” agency. Was in charge of the communication
+              with the clients.</span>
+          </li>
+          <li>
+            <span class="title">UI/UX Designer</span>
+            <span class="date">2008-2013</span>
+            <span class="text">UI/UX Designer for the “Daydreams” agency. </span>
+          </li>
+          <li>
+            <span class="title">Senior UI/UX Designer</span>
+            <span class="date">2013-Now</span>
+            <span class="text">Senior UI/UX Designer for the “Daydreams” agency. I’m in charge of a ten person group,
+              overseeing all the proyects and talking to potential clients.</span>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="ui-block">
+  <div class="ui-block-title">
+    <h6 class="title">Education and Employement</h6>
     <a href="#" class="more"><svg class="olymp-three-dots-icon">
         <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
       </svg></a>

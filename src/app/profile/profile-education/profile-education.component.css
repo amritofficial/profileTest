@@ -1,0 +1,29 @@
+.edit-profile-education-icon :hover {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.edit-profile-education-icon {
+    float: right;
+}
+
+.add-profile-education-icon :hover {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.add-profile-education-icon {
+    float: right;
+    padding-right: -30px;
+}
+
+.ui-block-title {
+    padding: 15px 10px 10px 20px;
+}
+
+.btn-save {
+    float: right;
+    margin-top: -50px;
+}
