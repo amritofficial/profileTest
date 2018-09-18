@@ -8,6 +8,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Location } from '../models/location';
 import 'rxjs/add/operator/map';
+import { User } from '../models/user';
 
 const Parse = require('parse');
 
@@ -161,6 +162,22 @@ export class ParseService {
   public storeLocation(location: Location) {
     return this.http.post(Parse.serverURL + "/classes/location", location, httpOptions);
   }
+
+  public getCurrentUserEducation(user: User) {
+    return this.http.get(Parse.serverURL + '/classes/Education?where={"$relatedTo":{"object":{"description": "Software Development and Network Engineering"},"key":"Education"}}', httpOptions);
+  }
+
+  // public getEducation() {
+  //   let education = Parse.Object.extend("Education");
+  //   let query = new Parse.Query(education);
+  //   query.get("Wk0YlAw5Bt").then((education) => {
+  //     console.log(education);
+  //   },
+  //   (error) => {
+  //     console.log(error);
+  //   }
+  //   )
+  // }
 
 
 }

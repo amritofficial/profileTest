@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Education } from '../models/education';
 import { ParseService } from './parse.service';
+import { User } from '../models/user';
 
 @Injectable()
 export class ProfileService {
@@ -35,8 +36,8 @@ export class ProfileService {
 
   constructor(private parseService: ParseService) { }
 
-  public getCurrentUserEducation() {
-
+  public getCurrentUserEducation(user: User) {
+    return this.parseService.getCurrentUserEducation(user);
   }
 
   public saveCurrentUserEducation(education: Education) {
