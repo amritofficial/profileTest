@@ -1,10 +1,7 @@
 <div class="ui-block">
   <div class="ui-block-title">
     <h6 class="title">Education and Employement</h6>
-    <span class="add-profile-education-icon" (click)="editProfileIntro()"><i class="fa fa-plus-circle"></i></span>
-    <a href="#" class="more"><svg class="olymp-three-dots-icon">
-        <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-      </svg></a>
+    <span class="add-profile-education-icon" (click)="openAddEducationForm()"><i class="fa fa-plus-circle"></i></span>
   </div>
   <div class="ui-block-content">
     <div class="row">
@@ -19,16 +16,20 @@
               <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.</span>
             </mat-card>
           </li>
-          <li>
+          <li *ngIf="addProfileEducation">
             <mat-card>
+              <ngx-loading [show]="savingEducation" [config]="{
+                  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+                  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
               <mat-card-title>
-                Add Education
+                <p>Add Education</p>
+                <span class="close-add-education-form" (click)="closeAddEducationForm()"><i class="fa fa-times-circle"></i></span>
               </mat-card-title>
               <div class="row">
                 <span class="title"><input type="text" [(ngModel)]="addEducation.school" placeholder="School"></span>
               </div>
               <div class="row">
-                <span class="title"><input type="text"[(ngModel)]="addEducation.program" placeholder="Program"></span>
+                <span class="title"><input type="text" [(ngModel)]="addEducation.program" placeholder="Program"></span>
               </div><br>
               <div class="row">
                 <div class="col-xs-6">
@@ -56,21 +57,6 @@
 
             </mat-card>
           </li>
-          <!-- <li>
-            <mat-card>
-              <span class="title">Rembrandt Institute</span>
-              <span class="date">2008</span>
-              <span class="text">Five months Digital Illustration course. Professor: Leonardo Stagg.</span>
-            </mat-card>
-          </li>
-          <li>
-            <mat-card>
-              <span class="title">The Digital College </span>
-              <span class="date">2010</span>
-              <span class="text">6 months intensive Motion Graphics course. After Effects and Premire. Professor:
-                Donatello Urtle. </span>
-            </mat-card>
-          </li> -->
         </ul>
       </div>
       <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

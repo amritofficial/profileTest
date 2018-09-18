@@ -6,6 +6,7 @@
 
 .edit-profile-education-icon {
     float: right;
+    margin-top: -40px;
 }
 
 .add-profile-education-icon :hover {
@@ -16,7 +17,7 @@
 
 .add-profile-education-icon {
     float: right;
-    padding-right: -30px;
+    margin-right: 20px;
 }
 
 .ui-block-title {
@@ -26,4 +27,15 @@
 .btn-save {
     float: right;
     margin-top: -50px;
+}
+
+.close-add-education-form :hover{
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.close-add-education-form {
+    float: right;
+    margin-top: -40px;
 }
