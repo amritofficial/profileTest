@@ -7,17 +7,30 @@ import { ProfileComponent } from "./profile/profile.component";
 import { DevfinderPortalComponent } from "./devfinder-portal/devfinder-portal.component";
 import { MessengerComponent } from "./messenger/messenger.component";
 import { MessengerUsersResolver } from "./shared/resolvers/messenger-users.resolver";
+import { ProfileEducationComponent } from "./profile/profile-education/profile-education.component";
+import { ProfileWorkExperienceComponent } from "./profile/profile-work-experience/profile-work-experience.component";
 
 export const appRoutes: Routes = [
-    {path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full'},
-    {path: 'home', component: HomeComponent,
+    { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
+    {
+        path: 'home', component: HomeComponent,
         children: [
-            {path: 'login', component: LoginComponent, outlet: 'form-outlet'},
-            {path: 'register', component: SignUpComponent, outlet: 'form-outlet'}
-            ]},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'messenger', component: MessengerComponent
+            { path: 'login', component: LoginComponent, outlet: 'form-outlet' },
+            { path: 'register', component: SignUpComponent, outlet: 'form-outlet' }
+        ]
     },
-    {path: 'profile', component: ProfileComponent},
-    {path: 'devfinder-portal', component: DevfinderPortalComponent}
+    { path: 'dashboard', component: DashboardComponent },
+    {
+        path: 'messenger', component: MessengerComponent
+    },
+    {
+        path: 'profile', component: ProfileComponent,
+        children: [
+            {path: '', redirectTo: 'timeline', pathMatch: 'full'},
+            {path: 'timeline', component: ProfileComponent},
+            {path: 'education', component: ProfileEducationComponent},
+            {path: 'work-experience', component: ProfileWorkExperienceComponent}
+        ]
+    },
+    { path: 'devfinder-portal', component: DevfinderPortalComponent }
 ]

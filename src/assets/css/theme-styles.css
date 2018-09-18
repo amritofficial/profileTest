@@ -494,7 +494,7 @@
   height: 100%;
   width: 100%;
   animation-name: sideupscroll;
-  animation-duration: 30s;
+  animation-duration: 60s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: both;

@@ -48,6 +48,8 @@ import { MainComponent } from './main/main.component';
 import { UserListBarComponent } from './user-list-bar/user-list-bar.component';
 import { ChatService } from './shared/services/chat.service';
 import { UserService } from './shared/services/user.service';
+import { ProfileEducationComponent } from './profile/profile-education/profile-education.component';
+import { ProfileWorkExperienceComponent } from './profile/profile-work-experience/profile-work-experience.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { UserService } from './shared/services/user.service';
     MessengerMessageBoxComponent,
     MessengerUserOptionsComponent,
     MainComponent,
-    UserListBarComponent
+    UserListBarComponent,
+    ProfileEducationComponent,
+    ProfileWorkExperienceComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [
