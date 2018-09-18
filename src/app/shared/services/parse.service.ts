@@ -2,24 +2,57 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FirebaseService } from './firebase.service';
 import { catchError } from 'rxjs/operators';
+import { Education } from '../models/education';
+import { WorkExperience } from '../models/work-experience';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { Location } from '../models/location';
+import 'rxjs/add/operator/map';
 
 const Parse = require('parse');
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'X-Parse-Application-Id': environment.parseServer.appId,
+    'X-Parse-REST-API-Key': environment.parseServer.restAPIKey,
+    'Content-Type': 'application/json'
+  })
+}
+
 
 @Injectable()
 export class ParseService {
 
-  constructor(private firebaseService: FirebaseService) {
+  signingUp: boolean = false;
+  constructor(private firebaseService: FirebaseService,
+    private http: HttpClient) {
     console.log('Parse initialized!')
     Parse.initialize("angular-parse-chat");
     Parse.serverURL = 'https://angular-parse-chat.herokuapp.com/parse'
   }
 
-  public login(email: string, password: string): Observable<any> {
-    return new Observable(success => {
-      Parse.User.logIn(email, password)
-        .then(() => success.next(true));
-    });
+  public loginUsingRest(email: string, password: string) {
+    let user = {
+      email: email,
+      password: password
+    }
+    return this.http.get(Parse.serverURL + "/login?email=" + email + "&password=" + password, httpOptions);
   }
+
+  public registerUsingRest(email: string, password: string, username: string) {
+    var user = new Parse.User();
+    user.set("email", email);
+    user.set("username", username);
+    user.set("password", password);
+    return this.http.post(Parse.serverURL + "/users", user, httpOptions);
+  }
+
+  // public login(email: string, password: string): Observable<any> {
+  //   return new Observable(success => {
+  //     Parse.User.logIn(email, password)
+  //       .then(() => success.next(true));
+  //   });
+  // }
 
   // public register(username: string, email: string, password: string): Observable<boolean> {
   //   console.log(username + email + password);
@@ -62,37 +95,24 @@ export class ParseService {
   //   })
   // }
 
-  public register(username: string, email: string, password: string): Observable<any> {
-    let userObject;
-    const observer = new Observable( (observer) => { var user = new Parse.User()
-      user.set("email", email);
-      user.set("username", username);
-      user.set("password", password);
-      user.signUp().then((data) => {
-        this.firebaseService.storeUserData(username, email, data.id);
-        console.log(data.id);
-      }).catch((e: any) => Observable.throw(this.errorHandler(e)));
-      // console.log(userObject);
-    })
+  // public register(username: string, email: string, password: string): Observable<any> {
+  //   let userObject;
+  //   this.signingUp = true;
+  //   const observer = new Observable((observer) => {
+  //     var user = new Parse.User()
+  //     user.set("email", email);
+  //     user.set("username", username);
+  //     user.set("password", password);
+  //     user.signUp().then((data) => {
+  //       this.firebaseService.storeUserData(username, email, data.id);
+  //       this.signingUp = false;
+  //       console.log(data.id);
+  //     }).catch((e: any) => Observable.throw(this.errorHandler(e)));
+  //     // console.log(userObject);
+  //   })
 
-    return observer;
-    // return new Observable(success => {
-    //   var user = new Parse.User()
-    //   user.set("email", email);
-    //   user.set("username", username);
-    //   user.set("password", password);
-    //   user.signUp(null, {
-    //     success: (user) => {
-    //       console.log("created");
-    //       success.next(true)
-    //       success.complete()
-    //     },
-    //     error: (user, error) => {
-    //       success.error(error)
-    //     }
-    //   });
-    // });
-  }
+  //   return observer;
+  // }
 
   errorHandler(error: any): void {
     console.log(error);
@@ -105,6 +125,17 @@ export class ParseService {
     });
   }
 
+  public currentLoggedInUser() {
+    let httpCustomOption = {
+      headers: new HttpHeaders({
+        'X-Parse-Application-Id': environment.parseServer.appId,
+        'X-Parse-REST-API-Key': environment.parseServer.restAPIKey,
+        "X-Parse-Session-Token": window.sessionStorage.getItem('session_token')
+      })
+    }
+    return this.http.get(Parse.serverURL + "/users/me", httpCustomOption);
+  }
+
   public get currentUser() {
     // this gives the current session token
     // to retreive the current session id use Parse.Session.current()
@@ -112,5 +143,24 @@ export class ParseService {
     // console.log(Parse.Session.sessionToken);
     return Parse.User.current();
   }
+
+  // the http options need to contain session token to work
+  // this method can be used to find out if a user is logged in or not
+  // public CurrentLoggedInUser() {
+  //   return this.http.get(Parse.serverURL + "/users/me", httpOptions);
+  // }
+
+  public storeWorkExperience(workExperience: WorkExperience) {
+    return this.http.post(Parse.serverURL + "/classes/workExperience", workExperience, httpOptions);
+  }
+
+  public storeEducation(education: Education) {
+    return this.http.post(Parse.serverURL + "/classes/Education", education, httpOptions);
+  }
+
+  public storeLocation(location: Location) {
+    return this.http.post(Parse.serverURL + "/classes/location", location, httpOptions);
+  }
+
 
 }

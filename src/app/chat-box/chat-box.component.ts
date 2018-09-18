@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import { Message } from '../shared/models/message';
 import { AuthService } from '../shared/services/auth.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'chat-box',
@@ -23,7 +24,8 @@ export class ChatBoxComponent implements OnInit, OnChanges {
 
   constructor(private chatService: ChatService,
     private messengerService: MessengerService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private userService: UserService) { }
 
   ngOnInit() {
     if (this.authService.getAuthenticated()) {
@@ -79,6 +81,7 @@ export class ChatBoxComponent implements OnInit, OnChanges {
       timeSent: this.formatAMPM(),
       user: this.currentUserData
     }
+    console.log(messageData);
     console.log('sent');
     // console.log(this.messageBody);
     this.messengerService.sendAndSaveMessage(messageData)
@@ -94,6 +97,15 @@ export class ChatBoxComponent implements OnInit, OnChanges {
       return { float: 'right', color: 'white', backgroundColor: '#ff5e3a', marginRight: '10px' }
     } else {
       return { float: 'left', color: 'black', marginLeft: '-15px' }
+    }
+  }
+  
+  // returns an avatar based upon current user id
+  getAvatar(message: Message) {
+    if (message.senderId === this.currentUserId) {
+      return this.currentUserData.avatar !== null ? this.currentUserData.avatar : 'https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';
+    } else {
+      return this.selectedUser.avatar !== null ? this.selectedUser.avatar : 'https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';
     }
   }
 

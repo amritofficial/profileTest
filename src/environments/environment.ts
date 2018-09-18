@@ -12,5 +12,16 @@ export const environment = {
     projectId: "devfinder-chat",
     storageBucket: "devfinder-chat.appspot.com",
     messagingSenderId: "1043034343322"
+  },
+  parseServer: {
+    databaseURI: 'mongodb://<dbuser>:<dbpassword>@ds251002.mlab.com:51002/heroku_bpbtr5cw',
+    appId: 'angular-parse-chat',
+    masterKey: 'AmritSinghOfficialFullStackdeveloper987', //Add your master key here. Keep it secret!
+    serverURL:'https://angular-parse-chat.herokuapp.com/parse',  // Don't forget to change to https if needed
+    clientKey: 'AmritSinghOfficialFullStackdeveloper',
+    restAPIKey: 'DevFinderOfficialAPI',
+    liveQuery: {
+      classNames: ["Posts", "Comments", "chat"] // List of classes to support for query subscriptions
+    }
   }
 };

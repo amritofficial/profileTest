@@ -58,7 +58,7 @@
     <ul *ngIf="selectedUser.userId !== null" class="notification-list chat-message chat-message-field">
       <li *ngFor="let message of messages;">
         <div class="author-thumb author-icon">
-          <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+          <img [src]="getAvatar(message)" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';" alt="author">
         </div>
         <div class="notification-event" style="display: inline;">
           <a href="#" class="h6 notification-friend">{{ message.user.username }}</a>

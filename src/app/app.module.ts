@@ -6,11 +6,12 @@ import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
-import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoadingModule } from 'ngx-loading';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -47,6 +48,8 @@ import { MainComponent } from './main/main.component';
 import { UserListBarComponent } from './user-list-bar/user-list-bar.component';
 import { ChatService } from './shared/services/chat.service';
 import { UserService } from './shared/services/user.service';
+import { ProfileEducationComponent } from './profile/profile-education/profile-education.component';
+import { ProfileWorkExperienceComponent } from './profile/profile-work-experience/profile-work-experience.component';
 
 @NgModule({
   declarations: [
@@ -74,12 +77,15 @@ import { UserService } from './shared/services/user.service';
     MessengerMessageBoxComponent,
     MessengerUserOptionsComponent,
     MainComponent,
-    UserListBarComponent
+    UserListBarComponent,
+    ProfileEducationComponent,
+    ProfileWorkExperienceComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     TagInputModule,
     FormsModule,
     ReactiveFormsModule,
@@ -90,6 +96,8 @@ import { UserService } from './shared/services/user.service';
     LoadingModule,
     AngularFireModule.initializeApp(environment.firebase),
     MatCardModule,
+    NgbDatepickerModule,
+    NgbButtonsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
     }),

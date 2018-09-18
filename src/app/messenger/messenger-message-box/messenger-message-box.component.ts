@@ -74,4 +74,12 @@ export class MessengerMessageBoxComponent implements OnInit, OnChanges {
     this.messageBody = '';
   }
 
+  getAvatar(message: Message) {
+    if (message.senderId === this.currentUserData.userId) {
+      return this.currentUserData.avatar !== null ? this.currentUserData.avatar : 'https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';
+    } else {
+      return this.selectedUser.avatar !== null ? this.selectedUser.avatar : "https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png";
+    }
+  }
+
 }

@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { ParseService } from './parse.service';
 import { User } from '../models/user';
+import { WorkExperience } from '../models/work-experience';
+import { Education } from '../models/education';
+import { Location } from '../models/location';
 
 @Injectable()
 export class UserService {
   loadingUser: boolean = false;
   user: User = {
-    avatar: '',
+    avatar: "https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png",
     email: '',
     userId: null,
     username: '',
@@ -32,13 +35,25 @@ export class UserService {
   }
 
   getCurrentUserId() {
-    let currentUser = this.parseService.currentUser;
-    let currentUserId = currentUser.id
+    // let currentUser = this.parseService.currentUser;
+    let currentUserId = window.sessionStorage.getItem('current_user_id');
     return currentUserId;
   }
 
   getAllUsersFromFirebase() {
     return this.firebaseService.getAllFireUsers();
+  }
+
+  storeWorkExperience(workExperience: WorkExperience) {
+    return this.parseService.storeWorkExperience(workExperience);
+  }
+
+  storeEducation(education: Education) {
+    return this.parseService.storeEducation(education);
+  }
+
+  storeLocation(location: Location) {
+    return this.parseService.storeLocation(location);
   }
 
 }

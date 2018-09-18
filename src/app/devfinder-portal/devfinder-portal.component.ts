@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { } from '@types/googlemaps';
+// import { google } from '@types/googlemaps';
 
 @Component({
   selector: 'app-devfinder-portal',
@@ -8,13 +8,13 @@ import { } from '@types/googlemaps';
 })
 export class DevfinderPortalComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
-  map: google.maps.Map;
+  // map: google.maps.Map;
 
   currentLat: any;
   currentLong: any;
 
   currentLatLng: any;
-  marker: google.maps.Marker;
+  // marker: google.maps.Marker;
 
   isTracking = false;
 
@@ -22,13 +22,13 @@ export class DevfinderPortalComponent implements OnInit {
 
 
   ngOnInit() {
-    var mapProp = {
-      center: new google.maps.LatLng(43.648647, -79.727653),
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var overlay = new google.maps.OverlayView();
-    overlay.draw = function () {
+    // var mapProp = {
+    //   center: new google.maps.LatLng(43.648647, -79.727653),
+    //   zoom: 15,
+    //   mapTypeId: google.maps.MapTypeId.ROADMAP
+    // };
+    // var overlay = new google.maps.OverlayView();
+    // overlay.draw = function () {
      
       // this.getPanes().markerLayer.id = 'markerLayer';
       // var div = this.div= document.createElement('div');
@@ -53,7 +53,7 @@ export class DevfinderPortalComponent implements OnInit {
       //   div.style.top = point.y + 'px';
       // }
 
-    }
+    // }
 
     //this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
     //Custom pins are supposed to go here
@@ -61,51 +61,51 @@ export class DevfinderPortalComponent implements OnInit {
     //overlay.setMap(this.map);
   }
 
-  customIcon = {
-    url: "http://cdn.onlinewebfonts.com/svg/img_311846.png",
-    //state your size parameters in terms of pixels
-    size: new google.maps.Size(70, 60),
-    scaledSize: new google.maps.Size(70, 60),
-    origin: new google.maps.Point(0, 0)
-  }
+  // customIcon = {
+  //   url: "http://cdn.onlinewebfonts.com/svg/img_311846.png",
+  //   //state your size parameters in terms of pixels
+  //   size: new google.maps.Size(70, 60),
+  //   scaledSize: new google.maps.Size(70, 60),
+  //   origin: new google.maps.Point(0, 0)
+  // }
 
-  setMapType(mapTypeId: string) {
-    this.map.setMapTypeId(mapTypeId)
-  }
+  // setMapType(mapTypeId: string) {
+  //   this.map.setMapTypeId(mapTypeId)
+  // }
 
-  findMe() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.showPosition(position);
-      });
-    } else {
-      alert("This application requires to access Geolocation for the best experience");
-    }
-  }
+  // findMe() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       this.showPosition(position);
+  //     });
+  //   } else {
+  //     alert("This application requires to access Geolocation for the best experience");
+  //   }
+  // }
 
   
-  showPosition(position) {
-    this.currentLat = position.coords.latitude;
-    this.currentLong = position.coords.longitude;
-    console.log(position);
-    this.currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  // showPosition(position) {
+  //   this.currentLat = position.coords.latitude;
+  //   this.currentLong = position.coords.longitude;
+  //   console.log(position);
+  //   this.currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    this.map.panTo(location);
+  //   let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //   this.map.panTo(location);
 
-    if (!this.marker) {
-      this.marker = new google.maps.Marker({
-        position: location,
-        map: this.map,
-        optimized: false,
-        title: 'Found you!',
-        shape:{coords:[100, 200,18], type:'circle'},
-        icon: {url:'https://www.gravatar.com/avatar/0a9745ea7ac5c90d7acadb02ab1020cd?s=32&d=identicon&r=PG&f=1'}
-      });
-    } else {
-      this.marker.setPosition(location);
-    }
-  }
+  //   if (!this.marker) {
+  //     this.marker = new google.maps.Marker({
+  //       position: location,
+  //       map: this.map,
+  //       optimized: false,
+  //       title: 'Found you!',
+  //       shape:{coords:[100, 200,18], type:'circle'},
+  //       icon: {url:'https://www.gravatar.com/avatar/0a9745ea7ac5c90d7acadb02ab1020cd?s=32&d=identicon&r=PG&f=1'}
+  //     });
+  //   } else {
+  //     this.marker.setPosition(location);
+  //   }
+  // }
 
   trackMe() {
     if (navigator.geolocation) {
@@ -123,20 +123,20 @@ export class DevfinderPortalComponent implements OnInit {
     this.currentLat = position.coords.latitude;
     this.currentLong = position.coords.longitude;
 
-    let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    this.currentLatLng = location;
-    this.map.panTo(location);
+    // let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    // this.currentLatLng = location;
+    // this.map.panTo(location);
 
-    if (!this.marker) {
-      this.marker = new google.maps.Marker({
-        position: location,
-        map: this.map,
-        title: 'Got you!'
-      });
-    }
-    else {
-      this.marker.setPosition(location);
-    }
+    // if (!this.marker) {
+    //   this.marker = new google.maps.Marker({
+    //     position: location,
+    //     map: this.map,
+    //     title: 'Got you!'
+    //   });
+    // }
+    // else {
+    //   this.marker.setPosition(location);
+    // }
   }
 
 

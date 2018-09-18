@@ -6,6 +6,9 @@ import { Upload } from '../../../shared/models/upload';
 import { ParseService } from '../../../shared/services/parse.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
 import { UserService } from '../../../shared/services/user.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { LoginUser } from '../../../shared/models/login-user';
 
 @Component({
   selector: 'profile-thumb-edit',
@@ -13,6 +16,7 @@ import { UserService } from '../../../shared/services/user.service';
   styleUrls: ['./profile-thumb-edit.component.css', '../../../../assets/css/blocks.css', '../../../../assets/css/theme-styles.css']
 })
 export class ProfileThumbEditComponent implements OnInit {
+  private ngUnsubscribe = new Subject();
 
   data2: any;
   imageSelected: boolean = false;
@@ -89,23 +93,40 @@ export class ProfileThumbEditComponent implements OnInit {
   saveImage() {
     console.log('USER:::: ');
     let currentUser = this.parseService.currentUser;
-    let userId = currentUser.id;
+    let userId = window.sessionStorage.getItem("current_user_id");
 
-    currentUser.fetch().then((user) => {
-
-      let uploadData: Upload = {
-        imageFile: this.croppedImage,
-        imageUrl: '',
-        user: {
-          avatar: null,
-          email: user.getEmail(),
-          userId: userId,
-          username: user.getUsername(),
-          userStatus: 0
+    this.parseService.currentLoggedInUser().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((user: LoginUser) => {
+        let uploadData: Upload = {
+          imageFile: this.croppedImage,
+          imageUrl: '',
+          user: {
+            avatar: null,
+            email: user.email,
+            userId: userId,
+            username: user.username,
+            userStatus: 0
+          }
         }
-      }
-      this.firebaseService.storeImageAndUpdateUser(uploadData);
-    });
+
+        this.firebaseService.storeImageAndUpdateUser(uploadData);
+      });
+
+    // currentUser.fetch().then((user) => {
+
+    //   let uploadData: Upload = {
+    //     imageFile: this.croppedImage,
+    //     imageUrl: '',
+    //     user: {
+    //       avatar: null,
+    //       email: user.getEmail(),
+    //       userId: userId,
+    //       username: user.getUsername(),
+    //       userStatus: 0
+    //     }
+
+    //   this.firebaseService.storeImageAndUpdateUser(uploadData);
+    // });
     // let uploadData: Upload = {
     //   imageFile: this.croppedImage,
     //   imageUrl: '',
