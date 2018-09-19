@@ -54,8 +54,6 @@ export class ProfileEducationComponent implements OnInit {
 
   getCurrentUserEducation() {
       this.profileService.getCurrentUserEducation(this.userService.currentUser.userId).subscribe((education) => {
-
-          console.log(JSON.stringify(education.results));
           let objectArray = JSON.stringify(education.results);
           this.educationArray = JSON.parse(objectArray);
           console.log(this.educationArray);

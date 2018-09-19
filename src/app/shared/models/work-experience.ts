@@ -9,7 +9,7 @@ export class WorkExperience {
     public description: string;
     public startDate: CustomDate;
     public endDate: CustomDate;
-    public user: User;
+    public userId: any;
     public jobStatus: boolean; // job status will take either 0 for current job and 1 for the previous jobs
     constructor() {}
 }

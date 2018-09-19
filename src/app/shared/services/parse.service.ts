@@ -167,6 +167,10 @@ export class ParseService {
     return this.http.get(Parse.serverURL + '/classes/education', httpOptions);
   }
 
+  public getCurrentUserWorkExperience(): Observable<any> {
+    return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
+  }
+
   // public getEducation() {
   //   let education = Parse.Object.extend("Education");
   //   let query = new Parse.Query(education);

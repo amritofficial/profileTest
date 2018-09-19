@@ -186,7 +186,7 @@ export class SignUpComponent implements OnInit {
       startDate: this.workStartDate,
       jobStatus: this.workStatus,
       jobTitle: this.workTitle,
-      user: this.firebaseService.currentUser
+      userId: this.firebaseService.currentUser.userId
     }
     return workExperience;
   }
