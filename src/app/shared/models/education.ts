@@ -9,6 +9,6 @@ export class Education {
     public description: string;
     public startDate: CustomDate;
     public endDate: CustomDate;
-    public user: User;
+    public userId: any;
     constructor() {}
 }

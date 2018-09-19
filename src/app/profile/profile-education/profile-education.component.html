@@ -7,13 +7,13 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="widget w-personal-info item-block">
-          <li *ngIf="!addProfileEducation">
-            <mat-card>
-              <span class="title">Software Development & Network Engineering</span>
-              <span class="title"><i>Sheridan College</i></span>
+          <li *ngFor="let education of filterdEducationArray;">
+            <mat-card *ngIf="!addProfileEducation" >
+              <span class="title">{{ education.program }}</span>
+              <span class="title"><i>{{ education.school }}, {{ education.schoolCity }}, {{ education.schoolCountry }}</i></span>
               <span class="edit-profile-education-icon"><i class="fa fa-pencil"></i></span>
-              <span class="date">2001 - 2006</span>
-              <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.</span>
+              <span class="date">{{ education.startDate.year}} - {{ education.endDate.year}}</span>
+              <span class="text">{{ education.description }}</span>
             </mat-card>
           </li>
           <li *ngIf="addProfileEducation">

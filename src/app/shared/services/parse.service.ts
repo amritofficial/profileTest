@@ -156,15 +156,15 @@ export class ParseService {
   }
 
   public storeEducation(education: Education) {
-    return this.http.post(Parse.serverURL + "/classes/Education", education, httpOptions);
+    return this.http.post(Parse.serverURL + "/classes/education", education, httpOptions);
   }
 
   public storeLocation(location: Location) {
     return this.http.post(Parse.serverURL + "/classes/location", location, httpOptions);
   }
 
-  public getCurrentUserEducation(user: User) {
-    return this.http.get(Parse.serverURL + '/classes/Education?where={"$relatedTo":{"object":{"description": "Software Development and Network Engineering"},"key":"Education"}}', httpOptions);
+  public getCurrentUserEducation(userId: any): Observable<any> {
+    return this.http.get(Parse.serverURL + '/classes/education', httpOptions);
   }
 
   // public getEducation() {

@@ -25,19 +25,13 @@ export class ProfileService {
     school: '',
     schoolCity: '',
     schoolCountry: '',
-    user: {
-      avatar: '',
-      email: '',
-      userId: null,
-      username: '',
-      userStatus: 1
-    }
+    userId: null
   }
 
   constructor(private parseService: ParseService) { }
 
-  public getCurrentUserEducation(user: User) {
-    return this.parseService.getCurrentUserEducation(user);
+  public getCurrentUserEducation(userId: any) {
+    return this.parseService.getCurrentUserEducation(userId);
   }
 
   public saveCurrentUserEducation(education: Education) {
