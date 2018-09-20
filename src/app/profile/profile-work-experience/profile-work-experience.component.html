@@ -21,13 +21,13 @@
               <span class="text">{{ work.description }}</span>
             </mat-card>
           </li>
-          <li *ngIf="addWorkExperience" style="margin-top: -85px;">
+          <li *ngIf="addWorkExperience" style="margin-top: -30px;">
             <mat-card>
               <ngx-loading [show]="savingWorkExperience" [config]="{
                   backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
                   primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
               <mat-card-title>
-                <h5>Add Work Experience</h5>
+                <p>Add Work Experience</p>
                 <span class="close-add-work-experience-form" (click)="closeAddWorkForm()"><i class="fa fa-times-circle"></i></span>
               </mat-card-title>
               <div class="row">
