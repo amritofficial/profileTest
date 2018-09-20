@@ -1,0 +1,362 @@
+@import "https://fonts.googleapis.com/css?family=Ubuntu:400";
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+
+.btnc:not(last-child) {
+  margin-right: 1em;
+}
+
+h2 {
+  padding-bottom: 1em;
+  padding-top: 1em;
+  color: #fff;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+}
+
+.ui-block button {
+    float: right !important;
+    margin-left: 80%;
+}
+
+.btnc {
+  position: absolute;
+  float: right;
+  margin-top: -60px;
+  color: #fff;
+  background-color: transparent;
+  outline: 0;
+  -moz-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.btnc-square {
+  border: 0;
+}
+
+.btnc-round {
+  border: 0;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.btnc-lg {
+  padding: 10px 37.5px 10px 37.5px;
+  font-size: 1.2em;
+}
+
+.btnc-md {
+  padding: 7.5px 30px 7.5px 30px;
+  font-size: 1em;
+}
+
+.btnc-sm {
+  padding: 6px 22.5px 6px 22.5px;
+  font-size: 0.8em;
+}
+
+.btnc-filled-green {
+  background-color: #2ecc71;
+}
+.btnc-filled-green:hover {
+  background-color: #25a25a;
+}
+.btnc-filled-green:active {
+  -moz-box-shadow: inset 0 0 100px #1b7943;
+  -webkit-box-shadow: inset 0 0 100px #1b7943;
+  box-shadow: inset 0 0 100px #1b7943;
+}
+
+.btnc-filled-blue {
+  background-color: #3498db;
+}
+.btnc-filled-blue:hover {
+  background-color: #217dbb;
+}
+.btnc-filled-blue:active {
+  -moz-box-shadow: inset 0 0 100px #196090;
+  -webkit-box-shadow: inset 0 0 100px #196090;
+  box-shadow: inset 0 0 100px #196090;
+}
+
+.btnc-filled-red {
+  background-color: #e74c3c;
+}
+.btnc-filled-red:hover {
+  background-color: #d62c1a;
+}
+.btnc-filled-red:active {
+  -moz-box-shadow: inset 0 0 100px #a82315;
+  -webkit-box-shadow: inset 0 0 100px #a82315;
+  box-shadow: inset 0 0 100px #a82315;
+}
+
+.btnc-filled-orange {
+  background-color: #e67e22;
+}
+.btnc-filled-orange:hover {
+  background-color: #bf6516;
+}
+.btnc-filled-orange:active {
+  -moz-box-shadow: inset 0 0 100px #924d10;
+  -webkit-box-shadow: inset 0 0 100px #924d10;
+  box-shadow: inset 0 0 100px #924d10;
+}
+
+.btnc-filled-yellow {
+  background-color: #f1c40f;
+}
+.btnc-filled-yellow:hover {
+  background-color: #c29d0b;
+}
+.btnc-filled-yellow:active {
+  -moz-box-shadow: inset 0 0 100px #927608;
+  -webkit-box-shadow: inset 0 0 100px #927608;
+  box-shadow: inset 0 0 100px #927608;
+}
+
+.btnc-filled-grey {
+  background-color: #7f8c8d;
+}
+.btnc-filled-grey:hover {
+  background-color: #667273;
+}
+.btnc-filled-grey:active {
+  -moz-box-shadow: inset 0 0 100px #4e5758;
+  -webkit-box-shadow: inset 0 0 100px #4e5758;
+  box-shadow: inset 0 0 100px #4e5758;
+}
+
+.btnc-ghost-green {
+  border: 2px solid #2ecc71;
+}
+.btnc-ghost-green:hover {
+  background-color: #2ecc71;
+}
+.btnc-ghost-green:active {
+  background-color: #25a25a;
+}
+
+.btnc-ghost-blue {
+  border: 2px solid #3498db;
+}
+.btnc-ghost-blue:hover {
+  background-color: #3498db;
+}
+.btnc-ghost-blue:active {
+  background-color: #217dbb;
+}
+
+.btnc-ghost-red {
+  border: 2px solid #e74c3c;
+}
+.btnc-ghost-red:hover {
+  background-color: #e74c3c;
+}
+.btnc-ghost-red:active {
+  background-color: #d62c1a;
+}
+
+.btnc-ghost-orange {
+  border: 2px solid #e67e22;
+}
+.btnc-ghost-orange:hover {
+  background-color: #e67e22;
+}
+.btnc-ghost-orange:active {
+  background-color: #bf6516;
+}
+
+.btnc-ghost-yellow {
+  border: 2px solid #f1c40f;
+}
+.btnc-ghost-yellow:hover {
+  background-color: #f1c40f;
+}
+.btnc-ghost-yellow:active {
+  background-color: #c29d0b;
+}
+
+.btnc-ghost-grey {
+  border: 2px solid #7f8c8d;
+}
+.btnc-ghost-grey:hover {
+  background-color: #7f8c8d;
+}
+.btnc-ghost-grey:active {
+  background-color: #667273;
+}
+
+.btnc {
+  color: #fff;
+  background-color: transparent;
+  outline: 0;
+  -moz-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.btnc-square {
+  border: 0;
+}
+
+.btnc-round {
+  border: 0;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.btnc-lg {
+  padding: 10px 37.5px 10px 37.5px;
+  font-size: 1.2em;
+}
+
+.btnc-md {
+  padding: 7.5px 30px 7.5px 30px;
+  font-size: 1em;
+}
+
+.btnc-sm {
+  padding: 6px 22.5px 6px 22.5px;
+  font-size: 0.8em;
+}
+
+.btnc-filled-green {
+  background-color: #2ecc71;
+}
+.btnc-filled-green:hover {
+  background-color: #25a25a;
+}
+.btnc-filled-green:active {
+  -moz-box-shadow: inset 0 0 100px #1b7943;
+  -webkit-box-shadow: inset 0 0 100px #1b7943;
+  box-shadow: inset 0 0 100px #1b7943;
+}
+
+.btnc-filled-blue {
+  background-color: rgb(0, 82, 189);
+}
+.btnc-filled-blue:hover {
+  background-color: rgba(45, 146, 230, 0.95);
+}
+.btnc-filled-blue:active {
+  -moz-box-shadow: inset 0 0 100px #196090;
+  -webkit-box-shadow: inset 0 0 100px #196090;
+  box-shadow: inset 0 0 100px #196090;
+}
+
+.btnc-filled-red {
+  background-color: #e74c3c;
+}
+.btnc-filled-red:hover {
+  background-color: #d62c1a;
+}
+.btnc-filled-red:active {
+  -moz-box-shadow: inset 0 0 100px #a82315;
+  -webkit-box-shadow: inset 0 0 100px #a82315;
+  box-shadow: inset 0 0 100px #a82315;
+}
+
+.btnc-filled-orange {
+  background-color: #e67e22;
+}
+.btnc-filled-orange:hover {
+  background-color: #bf6516;
+}
+.btnc-filled-orange:active {
+  -moz-box-shadow: inset 0 0 100px #924d10;
+  -webkit-box-shadow: inset 0 0 100px #924d10;
+  box-shadow: inset 0 0 100px #924d10;
+}
+
+.btnc-filled-yellow {
+  background-color: #f1c40f;
+}
+.btnc-filled-yellow:hover {
+  background-color: #c29d0b;
+}
+.btnc-filled-yellow:active {
+  -moz-box-shadow: inset 0 0 100px #927608;
+  -webkit-box-shadow: inset 0 0 100px #927608;
+  box-shadow: inset 0 0 100px #927608;
+}
+
+.btnc-filled-grey {
+  background-color: #7f8c8d;
+}
+.btnc-filled-grey:hover {
+  background-color: #667273;
+}
+.btnc-filled-grey:active {
+  -moz-box-shadow: inset 0 0 100px #4e5758;
+  -webkit-box-shadow: inset 0 0 100px #4e5758;
+  box-shadow: inset 0 0 100px #4e5758;
+}
+
+.btnc-ghost-green {
+  border: 2px solid #2ecc71;
+}
+.btnc-ghost-green:hover {
+  background-color: #2ecc71;
+}
+.btnc-ghost-green:active {
+  background-color: #25a25a;
+}
+
+.btnc-ghost-blue {
+  border: 2px solid #3498db;
+}
+.btnc-ghost-blue:hover {
+  background-color: #3498db;
+}
+.btnc-ghost-blue:active {
+  background-color: #217dbb;
+}
+
+.btnc-ghost-red {
+  border: 2px solid #e74c3c;
+}
+.btnc-ghost-red:hover {
+  background-color: #e74c3c;
+}
+.btnc-ghost-red:active {
+  background-color: #d62c1a;
+}
+
+.btnc-ghost-orange {
+  border: 2px solid #e67e22;
+}
+.btnc-ghost-orange:hover {
+  background-color: #e67e22;
+}
+.btnc-ghost-orange:active {
+  background-color: #bf6516;
+}
+
+.btnc-ghost-yellow {
+  border: 2px solid #f1c40f;
+}
+.btnc-ghost-yellow:hover {
+  background-color: #f1c40f;
+}
+.btnc-ghost-yellow:active {
+  background-color: #c29d0b;
+}
+
+.btnc-ghost-grey {
+  border: 2px solid #7f8c8d;
+}
+.btnc-ghost-grey:hover {
+  background-color: #7f8c8d;
+}
+.btnc-ghost-grey:active {
+  background-color: #667273;
+}
