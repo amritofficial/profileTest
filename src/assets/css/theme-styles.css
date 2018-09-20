@@ -374,8 +374,9 @@
     border: 6px solid #fff;
     margin: 0 auto;
     overflow: hidden;
-    width: 132px;
-    height: 132px;
+    /* Controlls the size of a circular thumb */
+    width: 170px;
+    height: 170px;
     background-color: #FDFBEE; }
     .top-header-author .author-thumb img {
       border-radius: 0; }
