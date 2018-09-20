@@ -181,14 +181,14 @@ export class ParseService {
     query.equalTo("userId", guestId);
 
     return await query.find();
-    // const results = await query.find();
-    // console.log("Successfully retrieved " + results.length + " scores.");
-    // console.log(results);
-    // for (let i = 0; i < results.length; i++) {
-    //   var object = results[i];
-    //   console.log(object.id + ' - ' + object.get('description'));
-    //   console.log(object.attributes);
-    // } 
+  }
+
+  public async getGuestUserWorkExperience(guestId: any) {
+    const workExperience = Parse.Object.extend("workExperience");
+    const query = new Parse.Query(workExperience);
+    query.equalTo("userId", guestId);
+
+    return await query.find();
   }
 
   // public getEducation() {

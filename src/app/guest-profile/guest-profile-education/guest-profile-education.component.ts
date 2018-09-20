@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuestProfileService } from '../../shared/services/guest-profile.service';
 import { Education } from '../../shared/models/education';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'guest-profile-education',
@@ -9,6 +11,7 @@ import { Education } from '../../shared/models/education';
   styleUrls: ['./guest-profile-education.component.css', '../../../assets/css/blocks.css', '../../../assets/css/theme-styles.css']
 })
 export class GuestProfileEducationComponent implements OnInit {
+  private ngUnsubscribe = new Subject();
   guestEducationArray: Education[] = [];
   loadingEducation: boolean = true;
 
@@ -16,14 +19,12 @@ export class GuestProfileEducationComponent implements OnInit {
     private guestProfileService: GuestProfileService) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      console.log(this.guestProfileService.guestId);
+    this.route.parent.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
       this.loadingEducation = true;
-      this.guestProfileService.getGuestProfileEducation("7LkAPhJEYO").then((data) => {
+      this.guestProfileService.getGuestProfileEducation(params.guestId).then((data) => {
         for (let i = 0; i < data.length; i++) {
           var object = data[i];
           this.guestEducationArray.push(object.attributes);
-          console.log(object.attributes);
         }
         this.loadingEducation = false;
       });

@@ -46,6 +46,10 @@ export class GuestProfileService {
     return this.parseService.getGuestUserEducation(guestId);
   }
 
+  getGuestProfileWorkExperience(guestId: any) {
+    return this.parseService.getGuestUserWorkExperience(guestId);
+  }
+
   // getEducation() {
   //   this.parseService.getEducation();
   // }

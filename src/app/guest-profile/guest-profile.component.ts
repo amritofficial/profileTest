@@ -29,12 +29,8 @@ export class GuestProfileComponent implements OnInit {
       this.guestProfileService.getGuestProfile(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
-          console.log(this.guestUser);
         });
     });
-
-
-
     this.checkActivatedRoute();
   }
 
@@ -55,7 +51,6 @@ export class GuestProfileComponent implements OnInit {
           this.showFeed = true;
           this.showRightSidebar = true;
         }
-        console.log(currentUrl);
       }
     });
   }
