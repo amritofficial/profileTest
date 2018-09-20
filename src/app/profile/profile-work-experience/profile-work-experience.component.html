@@ -1,3 +1,96 @@
-<p>
-  profile-work-experience works!
-</p>
+<ngx-loading [show]="loadingProfile" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+<div class="ui-block">
+  <div class="ui-block-title">
+    <h6 class="title">Work Experience</h6>
+    <span class="add-profile-work-icon" (click)="openAddWorkForm()"><i class="fa fa-plus-circle"></i></span>
+  </div>
+  <div class="ui-block-content">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li *ngFor="let work of filteredWorkExperience;">
+            <mat-card *ngIf="!addWorkExperience">
+              <span class="title">{{ work.jobTitle }}</span>
+              <span class="title">{{ work.company }}</span>
+              <span class="title"><i>{{ work.city }}, {{ work.country }}</i></span>
+              <span class="edit-profile-work-icon"><i class="fa fa-pencil"></i></span>
+              <span class="date" *ngIf="!work.jobStatus">{{ work.startDate.year }} - {{ work.endDate.year }}</span>
+              <span class="date" *ngIf="work.jobStatus">{{ work.startDate.year }} - Present</span>
+              <span class="text">{{ work.description }}</span>
+            </mat-card>
+          </li>
+          <li *ngIf="addWorkExperience" style="margin-top: -30px;">
+            <mat-card>
+              <ngx-loading [show]="savingWorkExperience" [config]="{
+                  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+                  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+              <mat-card-title>
+                <p>Add Work Experience</p>
+                <span class="close-add-work-experience-form" (click)="closeAddWorkForm()"><i class="fa fa-times-circle"></i></span>
+              </mat-card-title>
+              <div class="row">
+                <span class="title"><input type="text" [(ngModel)]="workExperience.company" placeholder="Company"></span>
+              </div>
+              <div class="row">
+                <span class="title"><input type="text" [(ngModel)]="workExperience.jobTitle" placeholder="Job Title"></span>
+              </div><br>
+              <div class="row">
+                <span class="title"><input type="checkbox" style="float: left !important; width: 5%; margin-top: 5px;"
+                    (change)="checkValue(workExperience.jobStatus ? 'true':'false')" [(ngModel)]="workExperience.jobStatus">
+                  Is this your present job ?</span>
+              </div><br>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input type="number" class="date" [(ngModel)]="workExperience.startDate.year" placeholder="Start Year">
+                </div>
+                <div class="col-xs-6">
+                  <input type="number" class="date" [disabled]="workExperience.jobStatus" [(ngModel)]="workExperience.endDate.year"
+                    placeholder="End Year">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input type="text" class="date" [(ngModel)]="workExperience.city" placeholder="City">
+                </div>
+                <div class="col-xs-6">
+                  <input type="text" class="date" [(ngModel)]="workExperience.country" placeholder="Country">
+                </div>
+              </div>
+              <div class="row">
+                <textarea name="about" class="text" [(ngModel)]="workExperience.description" cols="100" rows="2"></textarea>
+              </div>
+              <!-- <mat-card-footer> -->
+              <div class="btn-save">
+                <button type="submit" (click)="saveWorkExperience()" class="btn">Save</button>
+              </div>
+
+            </mat-card>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li>
+            <span class="title">Digital Design Intern</span>
+            <span class="date">2006-2008</span>
+            <span class="text">Digital Design Intern for the “Multimedz” agency. Was in charge of the communication
+              with the clients.</span>
+          </li>
+          <li>
+            <span class="title">UI/UX Designer</span>
+            <span class="date">2008-2013</span>
+            <span class="text">UI/UX Designer for the “Daydreams” agency. </span>
+          </li>
+          <li>
+            <span class="title">Senior UI/UX Designer</span>
+            <span class="date">2013-Now</span>
+            <span class="text">Senior UI/UX Designer for the “Daydreams” agency. I’m in charge of a ten person group,
+              overseeing all the proyects and talking to potential clients.</span>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+</div>

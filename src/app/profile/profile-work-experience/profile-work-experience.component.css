@@ -1,0 +1,41 @@
+.edit-profile-work-icon :hover {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.edit-profile-work-icon {
+    float: right;
+    margin-top: -40px;
+}
+
+.add-profile-work-icon :hover {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.add-profile-work-icon {
+    float: right;
+    margin-right: 20px;
+}
+
+.ui-block-title {
+    padding: 15px 10px 10px 20px;
+}
+
+.btn-save {
+    float: right;
+    margin-top: -50px;
+}
+
+.close-add-work-form :hover{
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.close-add-work-experience-form {
+    float: right;
+    margin-top: -40px;
+}

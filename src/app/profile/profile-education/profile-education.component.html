@@ -1,4 +1,72 @@
+<ngx-loading [show]="loadingProfile" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
 <div class="ui-block">
+  <div class="ui-block-title">
+    <h6 class="title">Education and Employement</h6>
+    <span class="add-profile-education-icon" (click)="openAddEducationForm()"><i class="fa fa-plus-circle"></i></span>
+  </div>
+  <div class="ui-block-content">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li *ngFor="let education of filterdEducationArray;">
+            <mat-card *ngIf="!addProfileEducation" >
+              <span class="title">{{ education.program }}</span>
+              <span class="title"><i>{{ education.school }}, {{ education.schoolCity }}, {{ education.schoolCountry }}</i></span>
+              <span class="edit-profile-education-icon"><i class="fa fa-pencil"></i></span>
+              <span class="date">{{ education.startDate.year}} - {{ education.endDate.year}}</span>
+              <span class="text">{{ education.description }}</span>
+            </mat-card>
+          </li>
+          <li *ngIf="addProfileEducation" style="margin-top: -60px;">
+            <mat-card>
+              <ngx-loading [show]="savingEducation" [config]="{
+                  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+                  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+              <mat-card-title>
+                <p>Add Education</p>
+                <span class="close-add-education-form" (click)="closeAddEducationForm()"><i class="fa fa-times-circle"></i></span>
+              </mat-card-title>
+              <div class="row">
+                <span class="title"><input type="text" [(ngModel)]="addEducation.school" placeholder="School"></span>
+              </div>
+              <div class="row">
+                <span class="title"><input type="text" [(ngModel)]="addEducation.program" placeholder="Program"></span>
+              </div><br>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input type="number" class="date" [(ngModel)]="addEducation.startDate.year" placeholder="Start Year">
+                </div>
+                <div class="col-xs-6">
+                  <input type="number" class="date" [(ngModel)]="addEducation.endDate.year" placeholder="End Year">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input type="text" class="date" [(ngModel)]="addEducation.schoolCity" placeholder="City">
+                </div>
+                <div class="col-xs-6">
+                  <input type="text" class="date" [(ngModel)]="addEducation.schoolCountry" placeholder="Country">
+                </div>
+              </div>
+              <div class="row">
+                <textarea name="about" class="text" [(ngModel)]="addEducation.description" cols="100" rows="2"></textarea>
+              </div>
+              <!-- <mat-card-footer> -->
+              <div class="btn-save">
+                <button type="submit" (click)="saveEducation()" class="btn">Save</button>
+              </div>
+
+            </mat-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="ui-block">
   <div class="ui-block-title">
     <h6 class="title">Education and Employement</h6>
     <a href="#" class="more"><svg class="olymp-three-dots-icon">
@@ -50,4 +118,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

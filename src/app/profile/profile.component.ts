@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserService } from '../shared/services/user.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { Education } from '../shared/models/education';
 
 @Component({
   selector: 'app-profile',
