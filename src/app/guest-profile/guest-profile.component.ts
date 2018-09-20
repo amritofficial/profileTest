@@ -20,17 +20,20 @@ export class GuestProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private guestProfileService: GuestProfileService) {}
+    private guestProfileService: GuestProfileService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.guestId = params.guestId;
+      this.guestProfileService.guestId = this.guestId;
       this.guestProfileService.getGuestProfile(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
           console.log(this.guestUser);
         });
     });
+
+
 
     this.checkActivatedRoute();
   }
