@@ -687,7 +687,7 @@
               primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
 
           <img alt="author" [routerLink]="['/profile']" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
-            [src]="userService.currentUser.avatar" height="35px" width="35px" class="avatar">
+            src="{{ userService?.currentUser?.avatar }}" height="35px" width="35px" class="avatar">
           <span class="icon-status online"></span>
           <div class="more-dropdown more-with-triangle">
             <div class="mCustomScrollbar" data-mcs-theme="dark">

@@ -28,7 +28,7 @@ export class ParseService {
   constructor(private firebaseService: FirebaseService,
     private http: HttpClient) {
     console.log('Parse initialized!')
-    Parse.initialize("angular-parse-chat");
+    Parse.initialize("angular-parse-chat", "DevFinderJavascriptAPI");
     Parse.serverURL = 'https://angular-parse-chat.herokuapp.com/parse'
   }
 
@@ -169,6 +169,26 @@ export class ParseService {
 
   public getCurrentUserWorkExperience(): Observable<any> {
     return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
+  }
+
+  // public getGuestUserEducation() {
+  //   return this.http.get(Parse.serverURL + "/classes/education", httpOptions);
+  // }
+
+  public async getGuestUserEducation(guestId: any) {
+    const education = Parse.Object.extend("education");
+    const query = new Parse.Query(education);
+    query.equalTo("userId", guestId);
+
+    return await query.find();
+    // const results = await query.find();
+    // console.log("Successfully retrieved " + results.length + " scores.");
+    // console.log(results);
+    // for (let i = 0; i < results.length; i++) {
+    //   var object = results[i];
+    //   console.log(object.id + ' - ' + object.get('description'));
+    //   console.log(object.attributes);
+    // } 
   }
 
   // public getEducation() {

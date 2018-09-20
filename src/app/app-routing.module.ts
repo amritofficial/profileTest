@@ -10,6 +10,8 @@ import { MessengerUsersResolver } from "./shared/resolvers/messenger-users.resol
 import { ProfileEducationComponent } from "./profile/profile-education/profile-education.component";
 import { ProfileWorkExperienceComponent } from "./profile/profile-work-experience/profile-work-experience.component";
 import { GuestProfileComponent } from "./guest-profile/guest-profile.component";
+import { GuestProfileEducationComponent } from "./guest-profile/guest-profile-education/guest-profile-education.component";
+import { GuestProfileWorkExperienceComponent } from "./guest-profile/guest-profile-work-experience/guest-profile-work-experience.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -27,12 +29,20 @@ export const appRoutes: Routes = [
     {
         path: 'profile', component: ProfileComponent,
         children: [
-            {path: '', redirectTo: 'timeline', pathMatch: 'full'},
-            {path: 'timeline', component: ProfileComponent},
-            {path: 'education', component: ProfileEducationComponent},
-            {path: 'work-experience', component: ProfileWorkExperienceComponent}
+            { path: '', redirectTo: 'timeline', pathMatch: 'full' },
+            { path: 'timeline', component: ProfileComponent },
+            { path: 'education', component: ProfileEducationComponent },
+            { path: 'work-experience', component: ProfileWorkExperienceComponent }
         ]
     },
     { path: 'devfinder-portal', component: DevfinderPortalComponent },
-    { path: 'guest-profile/:guestId', component: GuestProfileComponent}
+    {
+        path: 'guest-profile/:guestId', component: GuestProfileComponent,
+        children: [
+            { path: '', redirectTo: 'timeline', pathMatch: "full"},
+            { path: 'timeline', component: GuestProfileComponent},
+            { path: 'education', component: GuestProfileEducationComponent},
+            { path: 'work-experience', component: GuestProfileWorkExperienceComponent}
+        ]
+    }
 ]
