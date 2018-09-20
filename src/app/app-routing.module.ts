@@ -9,6 +9,7 @@ import { MessengerComponent } from "./messenger/messenger.component";
 import { MessengerUsersResolver } from "./shared/resolvers/messenger-users.resolver";
 import { ProfileEducationComponent } from "./profile/profile-education/profile-education.component";
 import { ProfileWorkExperienceComponent } from "./profile/profile-work-experience/profile-work-experience.component";
+import { GuestProfileComponent } from "./guest-profile/guest-profile.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -32,5 +33,6 @@ export const appRoutes: Routes = [
             {path: 'work-experience', component: ProfileWorkExperienceComponent}
         ]
     },
-    { path: 'devfinder-portal', component: DevfinderPortalComponent }
+    { path: 'devfinder-portal', component: DevfinderPortalComponent },
+    { path: 'guest-profile/:guestId', component: GuestProfileComponent}
 ]

@@ -50,6 +50,7 @@ import { ChatService } from './shared/services/chat.service';
 import { UserService } from './shared/services/user.service';
 import { ProfileEducationComponent } from './profile/profile-education/profile-education.component';
 import { ProfileWorkExperienceComponent } from './profile/profile-work-experience/profile-work-experience.component';
+import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ProfileWorkExperienceComponent } from './profile/profile-work-experienc
     MainComponent,
     UserListBarComponent,
     ProfileEducationComponent,
-    ProfileWorkExperienceComponent
+    ProfileWorkExperienceComponent,
+    GuestProfileComponent
   ],
   entryComponents: [ProfileThumbEditComponent],
   imports: [
