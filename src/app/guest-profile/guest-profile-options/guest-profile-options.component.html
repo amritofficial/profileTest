@@ -1,0 +1,39 @@
+<div class="profile-section">
+  <div class="row">
+    <div class="col-lg-5 col-md-5 ">
+      <ul class="profile-menu">
+        <li>
+          <a [routerLink]="['timeline']" [routerLinkActive]="['active']">Timeline</a>
+        </li>
+        <li>
+          <a [routerLink]="['work-experience']" [routerLinkActive]="['active']">Work Experience</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-5 ml-auto col-md-5">
+      <ul class="profile-menu">
+        <li>
+          <a [routerLink]="['education']" [routerLinkActive]="['active']">Education</a>
+        </li>
+        <li>
+          <a href="09-ProfilePage-Videos.html">Links</a>
+        </li>
+        <li>
+          <div class="more">
+            <svg class="olymp-three-dots-icon">
+              <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
+            </svg>
+            <ul class="more-dropdown more-with-triangle">
+              <li>
+                <a href="#">Report Profile</a>
+              </li>
+              <li>
+                <a href="#">Block Profile</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
