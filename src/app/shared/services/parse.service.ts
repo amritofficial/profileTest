@@ -189,7 +189,10 @@ export class ParseService {
   }
 
   public updateCurrentUserProfile(updatedProfile: Profile, objectId: any) {
-    return this.http.post(Parse.serverURL + `/classes/profile/${objectId}`, updatedProfile, httpOptions);
+    const profile = Parse.Object.extend("profile");
+    const query = new Parse.Query(profile);
+    return query.get(objectId);
+    // return this.http.put(Parse.serverURL + "/classes/profile/" + objectId, updatedProfile, httpOptions);
   }
 
   public async getCurrentUserProfile(userId: any) {

@@ -16,13 +16,13 @@
               <span class="text">{{userProfile?.aboutUser}}</span>
             </li>
             <li>
-              <span class="title">Favourite TV Shows:</span>
+              <span class="title">{{ userProfile?.secondCategory }}</span>
               <br>
-              <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.</span>
+              <span class="text">{{ userProfile?.aboutSecondCategory }}</span>
             </li>
           </ul>
 
-          <ul *ngIf="editProfile" class="widget w-personal-info item-block" style="padding: 10px;">
+          <ul *ngIf="editProfile && userProfileObjectId == null" class="widget w-personal-info item-block" style="padding: 10px;">
             <li>
               <div class="row">
                 <span class="title">About Me:</span>
@@ -43,14 +43,41 @@
               </div>
             </li>
             <li>
-              <div *ngIf="userProfileObjectId != null" class="btn-save">
+              <div *ngIf="userProfileObjectId == null" class="btn-save">
                 <button type="submit" (click)="saveProfileIntro()" class="btn">Save</button>
               </div>
-              <div *ngIf="userProfileObjectId == null" class="btn-save">
+              <div *ngIf="userProfileObjectId != null" class="btn-save">
                 <button type="submit" (click)="updateProfileIntro()" class="btn">Update</button>
               </div>
             </li>
           </ul>
+
+          <ul *ngIf="editProfile && userProfileObjectId != null" class="widget w-personal-info item-block" style="padding: 10px;">
+              <li>
+                <div class="row">
+                  <span class="title">About Me:</span>
+                </div>
+                <br>
+                <div class="row">
+                  <span class="text"><textarea name="about" [(ngModel)]="updatedUserProfile.aboutUser" class="text" placeholder="Write a bit about yourself..."
+                      cols="25" rows="1"></textarea></span>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <span class="title"><input type="text" [(ngModel)]="updatedUserProfile.secondCategory" placeholder="Category: Acheivements, Projects"></span>
+                </div>
+                <br>
+                <div class="row">
+                  <span class="text"><input type="text" [(ngModel)]="updatedUserProfile.aboutSecondCategory" placeholder="About the category..."></span>
+                </div>
+              </li>
+              <li>
+                <div class="btn-save">
+                  <button type="submit" (click)="updateProfileIntro()" class="btn">Update</button>
+                </div>
+              </li>
+            </ul>
 
           <div class="widget w-socials" style="color: white;">
             <h6 class="title">Other Social Networks:</h6>

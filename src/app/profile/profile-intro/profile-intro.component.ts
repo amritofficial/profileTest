@@ -12,12 +12,8 @@ import { Subject } from 'rxjs';
 export class ProfileIntroComponent implements OnInit {
   private ngUnsubscribe = new Subject();
 
-  userProfile: Profile = {
-    userId: null,
-    aboutUser: 'Hi, I’m James, I’m 36 and I work as a Digital Designer for the “Daydreams” Agency in Pier 56.',
-    secondCategory: 'Acheivements',
-    aboutSecondCategory: 'Einstein Genius 2018, Hack the North 2016 Winner',
-  }
+  userProfile: Profile;
+  updatedUserProfile: Profile;
 
   userProfileObjectId: any = null;
 
@@ -55,19 +51,29 @@ export class ProfileIntroComponent implements OnInit {
     this.profileService.getCurrentUserProfile(userId).then((profile) => {
       console.log(profile);
       console.log(profile.attributes);
-      this.userProfileObjectId = profile[0].id;
-      this.userProfile = profile[0].attributes;
-      console.log("::Profile Object Id=> " +this.userProfileObjectId);
-      console.log("Profile Fetched!!!");
-    })
+      console.log(profile);
+      if (!(profile.length <= 0)) {
+        this.userProfileObjectId = profile[0].id;
+        this.userProfile = profile[0].attributes;
+        this.updatedUserProfile = JSON.parse(JSON.stringify(this.userProfile));
+        console.log("::Profile Object Id=> " + this.userProfileObjectId);
+        console.log("Profile Fetched!!!");
+      }
+    });
   }
 
   updateProfileIntro() {
-    this.profileService.updateCurrentUserProfile(this.userProfile, this.userProfileObjectId)
-      .pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
-        console.log(data);
-        console.log("Profile Update Successful!");
-      })
+    console.log("afkhafkhafkahfk");
+    console.log(this.updatedUserProfile);
+    this.profileService.updateCurrentUserProfile(this.updatedUserProfile, this.userProfileObjectId).then((profile) => {
+      profile.set("aboutUser", this.updatedUserProfile.aboutUser);
+      profile.set("secondCategory", this.updatedUserProfile.secondCategory);
+      profile.set("aboutSecondCategory", this.updatedUserProfile.aboutSecondCategory);
+      profile.save();
+      this.getCurrentUserProfile();
+      this.editProfile = false;
+      console.log("profileSaved");
+    });
   }
 
 }
