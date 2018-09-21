@@ -45,7 +45,7 @@ export class ProfileOptionComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   updateProfilePicture() {

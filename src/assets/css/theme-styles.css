@@ -1840,6 +1840,8 @@ blockquote {
       blockquote p {
         font-size: 16px; } }
 
-button.btn {
-  padding: .5rem 1rem; }
+        /* messed up button padding */
+
+/* button.btn {
+  padding: .5rem 1rem; } */
 

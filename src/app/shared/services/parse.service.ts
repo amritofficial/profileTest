@@ -9,6 +9,7 @@ import { environment } from 'environments/environment';
 import { Location } from '../models/location';
 import 'rxjs/add/operator/map';
 import { User } from '../models/user';
+import { Profile } from '../models/profile';
 
 const Parse = require('parse');
 
@@ -163,6 +164,10 @@ export class ParseService {
   //   return this.http.get(Parse.serverURL + "/users/me", httpOptions);
   // }
 
+  public storeProfile(profile: Profile) {
+    return this.http.post(Parse.serverURL + "/classes/profile", profile, httpOptions);
+  }
+
   public storeWorkExperience(workExperience: WorkExperience) {
     return this.http.post(Parse.serverURL + "/classes/workExperience", workExperience, httpOptions);
   }
@@ -183,9 +188,17 @@ export class ParseService {
     return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
   }
 
-  // public getGuestUserEducation() {
-  //   return this.http.get(Parse.serverURL + "/classes/education", httpOptions);
-  // }
+  public updateCurrentUserProfile(updatedProfile: Profile, objectId: any) {
+    return this.http.post(Parse.serverURL + `/classes/profile/${objectId}`, updatedProfile, httpOptions);
+  }
+
+  public async getCurrentUserProfile(userId: any) {
+    const profile = Parse.Object.extend("profile");
+    const query = new Parse.Query(profile);
+    query.equalTo("userId", userId);
+
+    return await query.find();
+  }
 
   public async getGuestUserEducation(guestId: any) {
     const education = Parse.Object.extend("education");

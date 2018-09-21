@@ -1,4 +1,8 @@
 export class Profile {
-    constructor(userName: string,
-                aboutUser: string) {}
+    public aboutUser: string;
+    public userId: any;
+    public secondCategory: string;
+    public aboutSecondCategory: string;
+    // constructor(userName: string,
+    //             aboutUser: string) {}
 }

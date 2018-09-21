@@ -1,50 +1,76 @@
 <!-- Left Sidebar -->
-<div *ngIf="profileService.editProfileIntro === false" class="container">
+<div class="container">
   <div class="row">
     <div>
       <div class="ui-block">
         <div class="ui-block-title">
           <h6 class="title">Profile Intro</h6>
-          <span class="edit-profile-intro-icon" (click)="editProfileIntro()"><i class="fa fa-pencil"></i></span>
+          <span *ngIf="!editProfile" class="edit-profile-intro-icon" (click)="editProfileIntro()"><i class="fa fa-pencil"></i></span>
+          <span *ngIf="editProfile" class="edit-profile-intro-icon" (click)="closeEditProfileIntro()"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ui-block-content">
-          <ul class="widget w-personal-info item-block">
+          <ul *ngIf="!editProfile" class="widget w-personal-info item-block">
             <li>
               <span class="title">About Me:</span>
               <br>
-              <span class="text">{{userProfile.aboutUser}}</span>
+              <span class="text">{{userProfile?.aboutUser}}</span>
             </li>
             <li>
               <span class="title">Favourite TV Shows:</span>
               <br>
               <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.</span>
             </li>
+          </ul>
+
+          <ul *ngIf="editProfile" class="widget w-personal-info item-block" style="padding: 10px;">
             <li>
-              <span class="title">Favourite Music Bands / Artists:</span>
+              <div class="row">
+                <span class="title">About Me:</span>
+              </div>
               <br>
-              <span class="text">Iron Maid, DC/AC, Megablow, The Ill, Kung Fighters, System of a Revenge.</span>
+              <div class="row">
+                <span class="text"><textarea name="about" [(ngModel)]="userProfile.aboutUser" class="text" placeholder="Write a bit about yourself..."
+                    cols="25" rows="1"></textarea></span>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <span class="title"><input type="text" [(ngModel)]="userProfile.secondCategory" placeholder="Category: Acheivements, Projects"></span>
+              </div>
+              <br>
+              <div class="row">
+                <span class="text"><input type="text" [(ngModel)]="userProfile.aboutSecondCategory" placeholder="About the category..."></span>
+              </div>
+            </li>
+            <li>
+              <div *ngIf="userProfileObjectId != null" class="btn-save">
+                <button type="submit" (click)="saveProfileIntro()" class="btn">Save</button>
+              </div>
+              <div *ngIf="userProfileObjectId == null" class="btn-save">
+                <button type="submit" (click)="updateProfileIntro()" class="btn">Update</button>
+              </div>
             </li>
           </ul>
 
-          <div class="widget w-socials">
+          <div class="widget w-socials" style="color: white;">
             <h6 class="title">Other Social Networks:</h6>
-            <a href="#" class="social-item bg-facebook">
+            <a class="social-item bg-facebook">
               <i class="fa fa-facebook" aria-hidden="true"></i>
               Facebook
             </a>
-            <a href="#" class="social-item bg-twitter">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-              Twitter
+            <a class="social-item bg-twitter">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+              LinkedIn
             </a>
-            <a href="#" class="social-item bg-dribbble">
-              <i class="fa fa-dribbble" aria-hidden="true"></i>
-              Dribbble
+            <a class="social-item bg-github">
+              <i class="fa fa-github" aria-hidden="true"></i>
+              Github
             </a>
           </div>
         </div>
       </div>
 
-      <div class="ui-block">
+      <!-- <div class="ui-block">
         <div class="ui-block-title">
           <h6 class="title">James’s Badges</h6>
         </div>
@@ -107,7 +133,7 @@
           </ul>
 
         </div>
-      </div>
+      </div> -->
 
       <div class="ui-block">
         <div class="ui-block-title">

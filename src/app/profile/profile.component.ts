@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   currentUser: User = this.userService.user;
   showFeed: boolean = true;
   showRightSidebar: boolean = true;
+  showRouterOutlet: boolean = false;
 
   constructor(private router: Router,
     private userService: UserService) { }
@@ -41,14 +42,22 @@ export class ProfileComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         let currentUrl = event.url;
         if (currentUrl === '/profile/education') {
+          this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
         }
         else if (currentUrl === '/profile/work-experience') {
+          this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
         }
+        else if (currentUrl === '/profile/timeline') {
+          this.showRouterOutlet = false;
+          this.showFeed = true;
+          this.showRightSidebar = true;
+        }
         else {
+          this.showRouterOutlet = false;
           this.showFeed = true;
           this.showRightSidebar = true;
         }
