@@ -14,8 +14,8 @@ const Parse = require('parse');
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'X-Parse-Application-Id': environment.parseServer.appId,
-    'X-Parse-REST-API-Key': environment.parseServer.restAPIKey,
+    'X-Parse-Application-Id': environment.parseServer.newAppId,
+    'X-Parse-REST-API-Key': environment.parseServer.restNewKey,
     'Content-Type': 'application/json'
   })
 }
@@ -28,8 +28,8 @@ export class ParseService {
   constructor(private firebaseService: FirebaseService,
     private http: HttpClient) {
     console.log('Parse initialized!')
-    Parse.initialize("angular-parse-chat", "DevFinderJavascriptAPI");
-    Parse.serverURL = 'https://angular-parse-chat.herokuapp.com/parse'
+    Parse.initialize("13161197ab22343bdb876503d3edf547cdc4b8bf", "412bf95c90ea08fc4c95cbdd75a404bea254872e");
+    Parse.serverURL = 'https://18.218.232.41/parse'
   }
 
   public loginUsingRest(email: string, password: string) {
@@ -126,11 +126,23 @@ export class ParseService {
     });
   }
 
+  public logoutUsingRest() {
+    console.log(window.sessionStorage.getItem('session_token'));
+    let httpCustomOption = {
+      headers: new HttpHeaders({
+        'X-Parse-Application-Id': environment.parseServer.newAppId,
+        'X-Parse-REST-API-Key': environment.parseServer.restNewKey,
+        "X-Parse-Session-Token": window.sessionStorage.getItem('session_token')
+      })
+    }
+    return this.http.post(Parse.serverURL + "/logout", {}, httpCustomOption);
+  }
+
   public currentLoggedInUser() {
     let httpCustomOption = {
       headers: new HttpHeaders({
-        'X-Parse-Application-Id': environment.parseServer.appId,
-        'X-Parse-REST-API-Key': environment.parseServer.restAPIKey,
+        'X-Parse-Application-Id': environment.parseServer.newAppId,
+        'X-Parse-REST-API-Key': environment.parseServer.restNewKey,
         "X-Parse-Session-Token": window.sessionStorage.getItem('session_token')
       })
     }

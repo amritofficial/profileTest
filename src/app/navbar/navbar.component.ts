@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
+import { ParseService } from '../shared/services/parse.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -8,19 +10,26 @@ import { UserService } from '../shared/services/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private parseService: ParseService,
+    private router: Router) { }
 
   ngOnInit() {
     // TODO
     // Check if this actually works, and re-applies the profile picture once
     // it gets the data
-    if (this.userService.currentUser.avatar === null) {
-      this.userService.currentUser.avatar = 'https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';
-    }
   }
 
   print() {
     console.log("Profile Clicked");
+  }
+
+  logoutUser() {
+    this.parseService.logoutUsingRest().subscribe(data => {
+      console.log("user logged out");
+      window.sessionStorage.setItem("session_token", null);
+      this.router.navigateByUrl('/home/(form-outlet:login)');
+    })
   }
 
 }

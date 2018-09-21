@@ -16,10 +16,12 @@ export const environment = {
   parseServer: {
     databaseURI: 'mongodb://<dbuser>:<dbpassword>@ds251002.mlab.com:51002/heroku_bpbtr5cw',
     appId: 'angular-parse-chat',
+    newAppId: '13161197ab22343bdb876503d3edf547cdc4b8bf',
     masterKey: 'AmritSinghOfficialFullStackdeveloper987', //Add your master key here. Keep it secret!
     serverURL:'https://angular-parse-chat.herokuapp.com/parse',  // Don't forget to change to https if needed
     clientKey: 'AmritSinghOfficialFullStackdeveloper',
     restAPIKey: 'DevFinderOfficialAPI',
+    restNewKey: '412bf95c90ea08fc4c95cbdd75a404bea254872e',
     liveQuery: {
       classNames: ["Posts", "Comments", "chat"] // List of classes to support for query subscriptions
     }

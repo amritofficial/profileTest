@@ -717,10 +717,10 @@
                   </a>
                 </li>
                 <li>
-                  <a>
-                    <svg class="olymp-logout-icon">
+                  <a (click)="logoutUser()">
+                    <!-- <svg class="olymp-logout-icon">
                       <use xlink:href="icons/icons.svg#olymp-logout-icon"></use>
-                    </svg>
+                    </svg> -->
 
                     <span>Log Out</span>
                   </a>
@@ -805,7 +805,7 @@
         </div>
         <a (click)="print()" class="author-name fn">
           <div class="author-title">
-            {{ userService.currentUser.username}}
+            {{ userService?.currentUser?.username}}
             <svg class="olymp-dropdown-arrow-icon">
               <use xlink:href="icons/icons.svg#olymp-dropdown-arrow-icon"></use>
             </svg>
