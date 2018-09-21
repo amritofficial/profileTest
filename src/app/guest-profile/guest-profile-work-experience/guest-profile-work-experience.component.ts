@@ -25,6 +25,7 @@ export class GuestProfileWorkExperienceComponent implements OnInit {
         console.log(params.guestId);
         this.guestProfileService.getGuestProfileWorkExperience(params.guestId).then((data) => {
           console.log(data);
+
           for (let i = 0; i < data.length; i++) {
             var object = data[i];
             this.guestWorkExperienceArray.push(object.attributes);

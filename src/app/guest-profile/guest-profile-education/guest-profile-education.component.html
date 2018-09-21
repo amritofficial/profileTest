@@ -9,6 +9,9 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="widget w-personal-info item-block">
+          <li *ngIf="guestEducationArray.length <= 0">
+            <span class="title">User is currently illiterate or just made a fake account !!!</span>
+          </li>
           <li *ngFor="let education of guestEducationArray;">
             <mat-card>
               <span class="title">{{ education?.program }}</span>
