@@ -1,0 +1,32 @@
+<ul *ngIf="!editProfile" class="widget w-personal-info item-block">
+  <li>
+    <span class="title">Finder Tags:</span>
+    <span *ngIf="!addTag" class="plus-icon" (click)="addTags()"><i class="fa fa-plus-circle"></i></span>
+    <span *ngIf="addTag" class="plus-icon" (click)="closeAddTag()"><i class="fa fa-times-circle"></i></span>
+    <br>
+    <p *ngIf="!addTag && displayFinderTags.userId == null">Finder tags will help you to be discovered by people. Create
+      some good tags.</p>
+    <!-- <span class="text">{{userProfile?.aboutUser}}</span> -->
+  </li>
+  <li *ngIf="!addTag">
+    <ngx-loading [show]="loadingTags" [config]="{
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+        primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+    <span *ngFor="let tag of displayFinderTags.tags" class="badge badge-primary">{{ tag }}</span>
+  </li>
+  <li *ngIf="addTag && displayFinderTags.userId == null">
+    <tag-input [ngModel]="tags" style="text-transform:uppercase" [displayBy]="'name'" (onRemove)="onTagRemoved($event)"
+      (onAdd)="onTagAdded($event)" theme='bootstrap'></tag-input>
+    <div class="btn-save">
+      <button type="submit" [disabled]="finderTags.tags.length <=5" (click)="saveTags()" class="btn">Save</button>
+    </div>
+  </li>
+
+  <li *ngIf="addTag && displayFinderTags.userId != null">
+    <tag-input [ngModel]="updatedFinderTags.tags" style="text-transform:uppercase" [displayBy]="'name'" (onRemove)="onUpdateTagRemoved($event)"
+      (onAdd)="onUpdateTagAdded($event)" theme='bootstrap'></tag-input>
+    <div class="btn-save">
+      <button type="submit" [disabled]="updatedFinderTags.tags.length <=5" (click)="updateFinderTags()" class="btn">Update</button>
+    </div>
+  </li>
+</ul>

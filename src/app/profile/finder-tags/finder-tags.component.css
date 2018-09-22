@@ -1,0 +1,28 @@
+.plus-icon :hover {
+    cursor: pointer;
+    opacity: 50%;
+    color: rgb(99, 99, 99);
+}
+
+.plus-icon {
+    margin-top: -20px;
+    float: right;
+}
+
+tag-input {
+    color: rgb(0, 82, 189);
+    font-size: 12px;
+}
+
+.btn-save {
+    padding: 5px;
+    float: right;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 5px;
+    background-color:rgba(45, 146, 230, 0.95);
+    margin: 2.5px;
+}
+/* blue rgb(0, 82, 189) */

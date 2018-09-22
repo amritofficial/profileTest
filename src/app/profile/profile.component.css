@@ -1,3 +1,6 @@
+@import "https://fonts.googleapis.com/css?family=Ubuntu:400";
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+
 .icon-size {
     font-size: 24px;
     color: rgb(250, 250, 250);
@@ -8,9 +11,6 @@
     margin-left: 80%;
     padding-left: 10px;
 }
-
-@import "https://fonts.googleapis.com/css?family=Ubuntu:400";
-@import url(https://fonts.googleapis.com/css?family=Lobster);
 
 .btnc:not(last-child) {
   margin-right: 1em;

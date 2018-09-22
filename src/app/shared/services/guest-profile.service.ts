@@ -50,6 +50,10 @@ export class GuestProfileService {
     return this.parseService.getGuestUserWorkExperience(guestId);
   }
 
+  getGuestFinderTags(guestId: any) {
+    return this.parseService.getGuestUserFinderTags(guestId);
+  }
+
   // getEducation() {
   //   this.parseService.getEducation();
   // }

@@ -10,6 +10,7 @@ import { Location } from '../models/location';
 import 'rxjs/add/operator/map';
 import { User } from '../models/user';
 import { Profile } from '../models/profile';
+import { FinderTags } from '../models/finder-tags';
 
 const Parse = require('parse');
 
@@ -180,12 +181,30 @@ export class ParseService {
     return this.http.post(Parse.serverURL + "/classes/location", location, httpOptions);
   }
 
+  public storeFinderTags(finderTags: FinderTags) {
+    return this.http.post(Parse.serverURL + "/classes/tags", finderTags, httpOptions);
+  }
+
   public getCurrentUserEducation(userId: any): Observable<any> {
     return this.http.get(Parse.serverURL + '/classes/education', httpOptions);
   }
 
   public getCurrentUserWorkExperience(): Observable<any> {
     return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
+  }
+
+  public async getCurrentUserFinderTags(userId: any) {
+    const tags = Parse.Object.extend("tags");
+    const query = new Parse.Query(tags);
+    query.equalTo("userId", userId);
+
+    return await query.find();
+  }
+
+  public updateCurrentUserFinderTags(objectId: any) {
+    const tags = Parse.Object.extend("tags");
+    const query = new Parse.Query(tags);
+    return query.get(objectId);
   }
 
   public updateCurrentUserProfile(updatedProfile: Profile, objectId: any) {
@@ -199,6 +218,14 @@ export class ParseService {
     const profile = Parse.Object.extend("profile");
     const query = new Parse.Query(profile);
     query.equalTo("userId", userId);
+
+    return await query.find();
+  }
+
+  public async getCurrentUserLocation(user: User) {
+    const location = Parse.Object.extend("location");
+    const query = new Parse.Query(location);
+    query.equalTo("userId", user);
 
     return await query.find();
   }
@@ -218,6 +245,14 @@ export class ParseService {
 
     return await query.find();
   }
+
+  public async getGuestUserFinderTags(guestId: any) {
+    const tags = Parse.Object.extend("tags");
+    const query = new Parse.Query(tags);
+    query.equalTo("userId", guestId);
+
+    return await query.find();
+  } 
 
   // public getEducation() {
   //   let education = Parse.Object.extend("Education");
