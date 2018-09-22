@@ -46,8 +46,11 @@
     <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">
       <i class="fa fa-window-close"></i><br /> Cancel <br>
     </a>
-    <a (click)="saveLocation()" class="btn save-button btn-primary" style="color:white;">
+    <a *ngIf="currentLocation.lat == null" (click)="saveLocation()" class="btn save-button btn-primary" style="color:white;">
       <i class="fa fa-save"></i><br /> Save <br>
+    </a>
+    <a *ngIf="currentLocation.lat != null" (click)="saveLocation()" class="btn save-button btn-primary" style="color:white;">
+      <i class="fa fa-save"></i><br /> Update <br>
     </a>
     <!-- <button type="button" class="btn btn-outline-dark" style="margin-top: -20px;" (click)="activeModal.close('Close click')">Close</button> -->
   </div>

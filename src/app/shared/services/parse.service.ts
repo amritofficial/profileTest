@@ -222,6 +222,14 @@ export class ParseService {
     return await query.find();
   }
 
+  public async getCurrentUserLocation(user: User) {
+    const location = Parse.Object.extend("location");
+    const query = new Parse.Query(location);
+    query.equalTo("userId", user);
+
+    return await query.find();
+  }
+
   public async getGuestUserEducation(guestId: any) {
     const education = Parse.Object.extend("education");
     const query = new Parse.Query(education);

@@ -20,7 +20,21 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
   currentLong: any;
   postalCode: string;
   currentUser: User;
+  currentLocation: Location = {
+    lat: null,
+    long: null,
+    postal: '',
+    status: '',
+    user: {
+      avatar: '',
+      email: '',
+      userId: null,
+      username: '',
+      userStatus: 1
+    }
+  }
 
+  updateLocationObjectId: any;
   radioGroupForm: FormGroup;
 
   constructor(public activeModal: NgbActiveModal,
@@ -30,7 +44,7 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
     private locationService: LocationService) { }
 
   ngOnInit() {
-    this.findMe();
+    this.getSavedLocation();
     this.radioGroupForm = this.formBuilder.group({
       'locationForm': 'public'
     });
@@ -85,6 +99,26 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
         console.log("Location saved");
         this.activeModal.close();
       });
+  }
+
+  getSavedLocation() {
+    let userId = window.sessionStorage.getItem("current_user_id");
+    console.log(userId);
+    this.locationService.getLocation(this.currentUser).then((location) => {
+      if ((location.length !== 0)) {
+        console.log(location);
+        this.currentLocation = location[0].attributes;
+        this.updateLocationObjectId = location[0].id;
+        this.currentLat = location[0].attributes.lat;
+        this.currentLong = location[0].attributes.long;
+        this.postalCode = location[0].attributes.postal;
+        this.radioGroupForm = this.formBuilder.group({
+          'locationForm': location[0].attributes.status
+        });
+      } else {
+        this.findMe();
+      }
+    });
   }
 
 }
