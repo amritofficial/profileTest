@@ -59,6 +59,7 @@ import { GuestProfileEducationComponent } from './guest-profile/guest-profile-ed
 import { GuestProfileWorkExperienceComponent } from './guest-profile/guest-profile-work-experience/guest-profile-work-experience.component';
 import { GuestProfileFeedComponent } from './guest-profile/guest-profile-feed/guest-profile-feed.component';
 import { GuestProfileRightSidebarComponent } from './guest-profile/guest-profile-right-sidebar/guest-profile-right-sidebar.component';
+import { ProfileLocationModalComponent } from './profile/profile-location-modal/profile-location-modal.component';
 
 @NgModule({
   declarations: [
@@ -96,9 +97,10 @@ import { GuestProfileRightSidebarComponent } from './guest-profile/guest-profile
     GuestProfileEducationComponent,
     GuestProfileWorkExperienceComponent,
     GuestProfileFeedComponent,
-    GuestProfileRightSidebarComponent
+    GuestProfileRightSidebarComponent,
+    ProfileLocationModalComponent
   ],
-  entryComponents: [ProfileThumbEditComponent],
+  entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

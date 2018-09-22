@@ -13,7 +13,7 @@ h2 {
   font-weight: 300;
 }
 
-.ui-block button {
+.ui-block .add-link {
     float: right !important;
     margin-left: 80%;
 }

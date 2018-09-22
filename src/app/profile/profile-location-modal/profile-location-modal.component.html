@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Change Avatar!</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <!-- <ngx-loading [show]="firebaseService.uploadingAvatar" [config]="{
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+        primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading> -->
+</div>
+<div class="modal-footer">
+  <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">
+    <i class="fa fa-window-close"></i><br /> Cancel <br>
+  </a>
+  <a (click)="saveImage()" class="btn save-button btn-primary" style="color:white;">
+    <i class="fa fa-save"></i><br /> Save <br>
+  </a>
+  <!-- <button type="button" class="btn btn-outline-dark" style="margin-top: -20px;" (click)="activeModal.close('Close click')">Close</button> -->
+</div>
