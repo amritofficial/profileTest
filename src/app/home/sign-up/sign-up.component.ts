@@ -170,6 +170,7 @@ export class SignUpComponent implements OnInit {
       lat: this.currentLat,
       long: this.currentLong,
       postal: this.postalCode,
+      status: 'public',
       user: this.firebaseService.currentUser
     }
     return location;

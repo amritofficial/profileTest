@@ -1,20 +1,53 @@
 <div class="modal-header">
-  <h4 class="modal-title">Change Avatar!</h4>
+  <h4 class="modal-title">Set Location!</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
+  <p>Location helps you to be discovered & connect with the like minded people. You can set a psuedo location like a
+    restaurant/coffee shop close to
+    your current location by dragging the marker or can set your current location as public or private. Don't worry you
+    would still be
+    discoverable but would not be visible.</p>
   <!-- <ngx-loading [show]="firebaseService.uploadingAvatar" [config]="{
         backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
         primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading> -->
-</div>
-<div class="modal-footer">
-  <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">
-    <i class="fa fa-window-close"></i><br /> Cancel <br>
-  </a>
-  <a (click)="saveImage()" class="btn save-button btn-primary" style="color:white;">
-    <i class="fa fa-save"></i><br /> Save <br>
-  </a>
-  <!-- <button type="button" class="btn btn-outline-dark" style="margin-top: -20px;" (click)="activeModal.close('Close click')">Close</button> -->
-</div>
+  <div class="map">
+    <agm-map [latitude]="currentLat" [zoom]="10" [longitude]="currentLong">
+      <agm-marker [markerDraggable]="true" class="avatar" (dragEnd)="getNewLocationCordinates($event)" [iconUrl]="gravatar"
+        [latitude]="currentLat" [longitude]="currentLong"></agm-marker>
+      <!-- <agm-circle [latitude]="43.65192589999999" [longitude]="-79.73264919999997" [radius]="5000" [fillColor]="'rgba(45, 146, 230, 1.00)'"
+        [circleDraggable]="false" [editable]="false"></agm-circle> -->
+    </agm-map>
+  </div>
+  <br>
+  <p>Please enter your postal code.</p>
+  <input type="text" [(ngModel)]="postalCode" class="form-group">
+  <br>
+  <p>Choose to make your location visible to others?</p>
+  <div class="row">
+    <div class="col-lg-4">
+      <form [formGroup]="radioGroupForm">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="locationForm">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" value="public">Public
+          </label>
+          <label ngbButtonLabel class="btn-secondary">
+            <input ngbButton type="radio" value="private">Private
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+
+  <div class="modal-footer">
+    <a (click)="activeModal.close('Close click')" class="btn close-button btn-outline-dark" style="color:white;">
+      <i class="fa fa-window-close"></i><br /> Cancel <br>
+    </a>
+    <a (click)="saveLocation()" class="btn save-button btn-primary" style="color:white;">
+      <i class="fa fa-save"></i><br /> Save <br>
+    </a>
+    <!-- <button type="button" class="btn btn-outline-dark" style="margin-top: -20px;" (click)="activeModal.close('Close click')">Close</button> -->
+  </div>

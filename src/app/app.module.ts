@@ -5,7 +5,7 @@ import { RouterModule } from "@angular/router";
 import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
-import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule, MatRadioModule } from '@angular/material';
 import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -60,6 +60,7 @@ import { GuestProfileWorkExperienceComponent } from './guest-profile/guest-profi
 import { GuestProfileFeedComponent } from './guest-profile/guest-profile-feed/guest-profile-feed.component';
 import { GuestProfileRightSidebarComponent } from './guest-profile/guest-profile-right-sidebar/guest-profile-right-sidebar.component';
 import { ProfileLocationModalComponent } from './profile/profile-location-modal/profile-location-modal.component';
+import { LocationService } from './shared/services/location.service';
 
 @NgModule({
   declarations: [
@@ -117,13 +118,14 @@ import { ProfileLocationModalComponent } from './profile/profile-location-modal/
     MatCardModule,
     NgbDatepickerModule,
     NgbButtonsModule,
+    MatRadioModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
     }),
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
