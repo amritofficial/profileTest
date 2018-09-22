@@ -201,6 +201,12 @@ export class ParseService {
     return await query.find();
   }
 
+  public updateCurrentUserFinderTags(objectId: any) {
+    const tags = Parse.Object.extend("tags");
+    const query = new Parse.Query(tags);
+    return query.get(objectId);
+  }
+
   public updateCurrentUserProfile(updatedProfile: Profile, objectId: any) {
     const profile = Parse.Object.extend("profile");
     const query = new Parse.Query(profile);
