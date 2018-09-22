@@ -10,6 +10,7 @@ import { Location } from '../models/location';
 import 'rxjs/add/operator/map';
 import { User } from '../models/user';
 import { Profile } from '../models/profile';
+import { FinderTags } from '../models/finder-tags';
 
 const Parse = require('parse');
 
@@ -180,12 +181,24 @@ export class ParseService {
     return this.http.post(Parse.serverURL + "/classes/location", location, httpOptions);
   }
 
+  public storeFinderTags(finderTags: FinderTags) {
+    return this.http.post(Parse.serverURL + "/classes/tags", finderTags, httpOptions);
+  }
+
   public getCurrentUserEducation(userId: any): Observable<any> {
     return this.http.get(Parse.serverURL + '/classes/education', httpOptions);
   }
 
   public getCurrentUserWorkExperience(): Observable<any> {
     return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
+  }
+
+  public async getCurrentUserFinderTags(userId: any) {
+    const tags = Parse.Object.extend("tags");
+    const query = new Parse.Query(tags);
+    query.equalTo("userId", userId);
+
+    return await query.find();
   }
 
   public updateCurrentUserProfile(updatedProfile: Profile, objectId: any) {

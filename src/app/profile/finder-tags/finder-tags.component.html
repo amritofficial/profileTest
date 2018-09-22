@@ -1,0 +1,24 @@
+<ul *ngIf="!editProfile" class="widget w-personal-info item-block">
+  <li>
+    <span class="title">Finder Tags:</span>
+    <span class="plus-icon" (click)="addTags()"><i class="fa fa-plus-circle"></i></span>
+    <br>
+    <p *ngIf="!addTag">Finder tags will help you to be discovered by people. Create some good tags.</p>
+    <!-- <span class="text">{{userProfile?.aboutUser}}</span> -->
+  </li>
+  <li>
+      <span class="badge badge-primary">Python</span>
+      <span class="badge badge-primary">Machine Learning</span>
+      <span class="badge badge-primary">C#</span>
+  </li>
+  <li *ngIf="addTag">
+    <tag-input [ngModel]="tags" style="text-transform:uppercase" [displayBy]="'name'" (onRemove)="onTagRemoved($event)"
+      (onAdd)="onTagAdded($event)" theme='bootstrap'></tag-input>
+    <div class="btn-save">
+      <button type="submit" [disabled]="finderTags.tags.length <=5" (click)="saveTags()" class="btn">Save</button>
+    </div>
+    <!-- <span class="title">{{ userProfile?.secondCategory }}</span>
+    <br>
+    <span class="text">{{ userProfile?.aboutSecondCategory }}</span> -->
+  </li>
+</ul>
