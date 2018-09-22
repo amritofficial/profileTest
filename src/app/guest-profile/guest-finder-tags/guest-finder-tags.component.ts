@@ -33,8 +33,11 @@ export class GuestFinderTagsComponent implements OnInit {
         if(tags.length != 0) {
           this.guestFinderTags = tags[0].attributes;
           console.log(this.guestFinderTags);
+          this.loadingTags = false;
         }
-        this.loadingTags = false;
+        else {
+          this.loadingTags = false;
+        }
       });
     });
   }

@@ -88,6 +88,7 @@ export class FinderTagsComponent implements OnInit {
         this.loadingTags = false;
       } else {
         console.log("nothing found")
+        this.loadingTags = false;
       }
     });
   }

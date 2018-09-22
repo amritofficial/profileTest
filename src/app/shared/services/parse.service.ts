@@ -238,6 +238,14 @@ export class ParseService {
     return await query.find();
   }
 
+  public async getGuestUserFinderTags(guestId: any) {
+    const tags = Parse.Object.extend("tags");
+    const query = new Parse.Query(tags);
+    query.equalTo("userId", guestId);
+
+    return await query.find();
+  } 
+
   // public getEducation() {
   //   let education = Parse.Object.extend("Education");
   //   let query = new Parse.Query(education);

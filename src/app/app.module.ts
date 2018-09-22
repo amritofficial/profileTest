@@ -63,6 +63,7 @@ import { ProfileLocationModalComponent } from './profile/profile-location-modal/
 import { LocationService } from './shared/services/location.service';
 import { FinderTagsComponent } from './profile/finder-tags/finder-tags.component';
 import { TagService } from './shared/services/tag.service';
+import { GuestFinderTagsComponent } from './guest-profile/guest-finder-tags/guest-finder-tags.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { TagService } from './shared/services/tag.service';
     GuestProfileFeedComponent,
     GuestProfileRightSidebarComponent,
     ProfileLocationModalComponent,
-    FinderTagsComponent
+    FinderTagsComponent,
+    GuestFinderTagsComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
