@@ -1,0 +1,27 @@
+<ngx-loading [show]="loadingEducation" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+<div class="ui-block">
+  <div class="ui-block-title">
+    <h6 class="title">Education and Employement</h6>
+  </div>
+  <div class="ui-block-content">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li *ngIf="guestEducationArray.length <= 0">
+            <span class="title">User is currently illiterate or just made a fake account !!!</span>
+          </li>
+          <li *ngFor="let education of guestEducationArray;">
+            <mat-card>
+              <span class="title">{{ education?.program }}</span>
+              <!-- <span class="title"><i>{{ education?.school }}, {{ education?.schoolCity }}, {{ education?.schoolCountry }}</i></span> -->
+              <span class="date">{{ education?.startDate?.year}} - {{ education?.endDate?.year}}</span>
+              <span class="text">{{ education?.description }}</span>
+            </mat-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

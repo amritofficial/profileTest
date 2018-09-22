@@ -50,6 +50,16 @@ import { ChatService } from './shared/services/chat.service';
 import { UserService } from './shared/services/user.service';
 import { ProfileEducationComponent } from './profile/profile-education/profile-education.component';
 import { ProfileWorkExperienceComponent } from './profile/profile-work-experience/profile-work-experience.component';
+import { GuestProfileComponent } from './guest-profile/guest-profile.component';
+import { GuestProfileService } from './shared/services/guest-profile.service';
+import { GuestProfileOptionsComponent } from './guest-profile/guest-profile-options/guest-profile-options.component';
+import { GuestProfileIntroComponent } from './guest-profile/guest-profile-intro/guest-profile-intro.component';
+import { GuestProfileThumbComponent } from './guest-profile/guest-profile-thumb/guest-profile-thumb.component';
+import { GuestProfileEducationComponent } from './guest-profile/guest-profile-education/guest-profile-education.component';
+import { GuestProfileWorkExperienceComponent } from './guest-profile/guest-profile-work-experience/guest-profile-work-experience.component';
+import { GuestProfileFeedComponent } from './guest-profile/guest-profile-feed/guest-profile-feed.component';
+import { GuestProfileRightSidebarComponent } from './guest-profile/guest-profile-right-sidebar/guest-profile-right-sidebar.component';
+import { ProfileLocationModalComponent } from './profile/profile-location-modal/profile-location-modal.component';
 
 @NgModule({
   declarations: [
@@ -79,9 +89,18 @@ import { ProfileWorkExperienceComponent } from './profile/profile-work-experienc
     MainComponent,
     UserListBarComponent,
     ProfileEducationComponent,
-    ProfileWorkExperienceComponent
+    ProfileWorkExperienceComponent,
+    GuestProfileComponent,
+    GuestProfileOptionsComponent,
+    GuestProfileIntroComponent,
+    GuestProfileThumbComponent,
+    GuestProfileEducationComponent,
+    GuestProfileWorkExperienceComponent,
+    GuestProfileFeedComponent,
+    GuestProfileRightSidebarComponent,
+    ProfileLocationModalComponent
   ],
-  entryComponents: [ProfileThumbEditComponent],
+  entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -104,7 +123,7 @@ import { ProfileWorkExperienceComponent } from './profile/profile-work-experienc
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

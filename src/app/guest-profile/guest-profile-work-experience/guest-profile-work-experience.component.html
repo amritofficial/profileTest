@@ -1,0 +1,29 @@
+<ngx-loading [show]="loadingWorkExperience" [config]="{
+  backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+  primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+<div class="ui-block">
+  <div class="ui-block-title">
+    <h6 class="title">Work Experience</h6>
+  </div>
+  <div class="ui-block-content">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="widget w-personal-info item-block">
+          <li *ngIf="guestWorkExperienceArray <= 0">
+            <span class="title">User is currently jobless or homeless !!!</span>
+          </li>
+          <li *ngFor="let work of guestWorkExperienceArray;">
+            <mat-card>
+              <span class="title">{{ work?.jobTitle }}</span>
+              <span class="title">{{ work?.company }}</span>
+              <span class="title"><i>{{ work?.city }}, {{ work?.country }}</i></span>
+              <span class="date" *ngIf="!work.jobStatus">{{ work?.startDate?.year }} - {{ work?.endDate?.year }}</span>
+              <span class="date" *ngIf="work.jobStatus">{{ work?.startDate?.year }} - Present</span>
+              <span class="text">{{ work?.description }}</span>
+            </mat-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

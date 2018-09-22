@@ -7,3 +7,15 @@
 .edit-profile-intro-icon {
     float: right;
 }
+
+.bg-github {
+    background-color: #189635;
+}
+
+.btn-save {
+    float: right;
+}
+
+.save-icon {
+    margin-bottom: 5px;
+}

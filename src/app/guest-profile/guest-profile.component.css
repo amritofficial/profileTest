@@ -1,14 +1,3 @@
-.icon-size {
-    font-size: 24px;
-    color: rgb(250, 250, 250);
-}
-
-.ui-block .set-location {
-    float: right !important;
-    margin-left: 80%;
-    padding-left: 10px;
-}
-
 @import "https://fonts.googleapis.com/css?family=Ubuntu:400";
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 
@@ -26,7 +15,7 @@ h2 {
 
 .ui-block .add-link {
     float: right !important;
-    margin-left: 70%;
+    margin-left: 80%;
 }
 
 .btnc {
@@ -131,7 +120,7 @@ h2 {
 }
 
 .btnc-filled-grey {
-  background-color: #717a7a;
+  background-color: #7f8c8d;
 }
 .btnc-filled-grey:hover {
   background-color: #667273;
@@ -371,5 +360,3 @@ h2 {
 .btnc-ghost-grey:active {
   background-color: #667273;
 }
-
-  

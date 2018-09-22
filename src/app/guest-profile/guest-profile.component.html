@@ -7,11 +7,11 @@
       <div class="ui-block">
         <div class="top-header">
           <div class="top-header-thumb">
-            <img src="../../assets/img/devfinder-portal.jpg" alt="nature">
+            <img src="https://wallpapercave.com/wp/Ou1L18s.jpg" alt="nature">
           </div>
-          <button (click)="setLocation()" class="btnc btnc-square btnc-sm btnc-filled-grey set-location">Set Location<i style="padding: 5px;" class="fa fa-caret-down"></i></button>
-          <profile-option></profile-option>
-          <profile-thumb></profile-thumb>
+          <button class="btnc btnc-square btnc-md btnc-filled-blue add-link">Add Link</button>
+          <guest-profile-option></guest-profile-option>
+          <guest-profile-thumb [guestUser]="guestUser"></guest-profile-thumb>
         </div>
       </div>
     </div>
@@ -23,15 +23,15 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-3 col-sm-3 col-md-3 col-xl-3">
-      <profile-intro></profile-intro>
+      <guest-profile-intro></guest-profile-intro>
     </div>
     <div *ngIf="showFeed" class="col-md-6 col-sm-6 col-md-6 col-xl-6">
-      <profile-feed></profile-feed>
+      <guest-profile-feed [guestUser]="guestUser"></guest-profile-feed>
     </div>
     <div *ngIf="showRightSidebar" class="col-md-3 col-sm-3 col-md-3 col-xl-3">
-      <profile-right-sidebar></profile-right-sidebar>
+      <guest-profile-right-sidebar></guest-profile-right-sidebar>
     </div>
-    <div *ngIf="showRouterOutlet" class="col-lg-9 col-sm-9 col md-9 col-xl-9">
+    <div class="col-lg-9 col-sm-9 col md-9 col-xl-9">
       <router-outlet></router-outlet>
     </div>
   </div>

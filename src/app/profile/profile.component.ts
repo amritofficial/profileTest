@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/models/user';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../shared/services/user.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Education } from '../shared/models/education';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileLocationModalComponent } from './profile-location-modal/profile-location-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,9 +19,14 @@ export class ProfileComponent implements OnInit {
   currentUser: User = this.userService.user;
   showFeed: boolean = true;
   showRightSidebar: boolean = true;
+  showRouterOutlet: boolean = false;
+
+  modalRef: any;
+  subscription: Subscription;
 
   constructor(private router: Router,
-    private userService: UserService) { }
+    private userService: UserService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     // this.userService.loadingUser = true;
@@ -41,20 +48,38 @@ export class ProfileComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         let currentUrl = event.url;
         if (currentUrl === '/profile/education') {
+          this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
         }
         else if (currentUrl === '/profile/work-experience') {
+          this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
         }
+        else if (currentUrl === '/profile/timeline') {
+          this.showRouterOutlet = false;
+          this.showFeed = true;
+          this.showRightSidebar = true;
+        }
         else {
+          this.showRouterOutlet = false;
           this.showFeed = true;
           this.showRightSidebar = true;
         }
         console.log(currentUrl);
       }
     });
+  }
+
+  openSetLocationModal() {
+    this.modalRef = this.modalService.open(ProfileLocationModalComponent, {
+      size: 'lg'
+    });
+  }
+
+  setLocation() {
+    this.openSetLocationModal();
   }
 
 }

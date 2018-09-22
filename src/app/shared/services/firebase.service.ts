@@ -69,7 +69,7 @@ export class FirebaseService {
   storeImage(upload: Upload) {
     console.log("CALLED")
     this.avatarUploaded = false;
-    
+    this.uploadingAvatar = true;
     let storageRef = firebase.storage().ref(`${this.basePath}/${upload.user.email}.jpg`);
     let uploadTask = storageRef.putString(upload.imageFile, 'data_url');
 

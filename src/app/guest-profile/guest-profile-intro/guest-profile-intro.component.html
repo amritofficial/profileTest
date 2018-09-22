@@ -5,79 +5,26 @@
       <div class="ui-block">
         <div class="ui-block-title">
           <h6 class="title">Profile Intro</h6>
-          <span *ngIf="!editProfile" class="edit-profile-intro-icon" (click)="editProfileIntro()"><i class="fa fa-pencil"></i></span>
-          <span *ngIf="editProfile" class="edit-profile-intro-icon" (click)="closeEditProfileIntro()"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ui-block-content">
-          <ul *ngIf="!editProfile" class="widget w-personal-info item-block">
+          <ul class="widget w-personal-info item-block">
             <li>
               <span class="title">About Me:</span>
               <br>
-              <span class="text">{{userProfile?.aboutUser}}</span>
+              <span class="text">Hi, I’m James, I’m 36 and I work as a Digital Designer for the “Daydreams” Agency in
+                Pier 56.</span>
             </li>
             <li>
-              <span class="title">{{ userProfile?.secondCategory }}</span>
+              <span class="title">Favourite TV Shows:</span>
               <br>
-              <span class="text">{{ userProfile?.aboutSecondCategory }}</span>
+              <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead, Found, American Guy.</span>
+            </li>
+            <li>
+              <span class="title">Favourite Music Bands / Artists:</span>
+              <br>
+              <span class="text">Iron Maid, DC/AC, Megablow, The Ill, Kung Fighters, System of a Revenge.</span>
             </li>
           </ul>
-
-          <ul *ngIf="editProfile && userProfileObjectId == null" class="widget w-personal-info item-block" style="padding: 10px;">
-            <li>
-              <div class="row">
-                <span class="title">About Me:</span>
-              </div>
-              <br>
-              <div class="row">
-                <span class="text"><textarea name="about" [(ngModel)]="userProfile.aboutUser" class="text" placeholder="Write a bit about yourself..."
-                    cols="25" rows="1"></textarea></span>
-              </div>
-            </li>
-            <li>
-              <div class="row">
-                <span class="title"><input type="text" [(ngModel)]="userProfile.secondCategory" placeholder="Category: Acheivements, Projects"></span>
-              </div>
-              <br>
-              <div class="row">
-                <span class="text"><input type="text" [(ngModel)]="userProfile.aboutSecondCategory" placeholder="About the category..."></span>
-              </div>
-            </li>
-            <li>
-              <div *ngIf="userProfileObjectId == null" class="btn-save">
-                <button type="submit" (click)="saveProfileIntro()" class="btn">Save</button>
-              </div>
-              <div *ngIf="userProfileObjectId != null" class="btn-save">
-                <button type="submit" (click)="updateProfileIntro()" class="btn">Update</button>
-              </div>
-            </li>
-          </ul>
-
-          <ul *ngIf="editProfile && userProfileObjectId != null" class="widget w-personal-info item-block" style="padding: 10px;">
-              <li>
-                <div class="row">
-                  <span class="title">About Me:</span>
-                </div>
-                <br>
-                <div class="row">
-                  <span class="text"><textarea name="about" [(ngModel)]="updatedUserProfile.aboutUser" class="text" placeholder="Write a bit about yourself..."
-                      cols="25" rows="1"></textarea></span>
-                </div>
-              </li>
-              <li>
-                <div class="row">
-                  <span class="title"><input type="text" [(ngModel)]="updatedUserProfile.secondCategory" placeholder="Category: Acheivements, Projects"></span>
-                </div>
-                <br>
-                <div class="row">
-                  <span class="text"><input type="text" [(ngModel)]="updatedUserProfile.aboutSecondCategory" placeholder="About the category..."></span>
-                </div>
-              </li>
-              <li>
-                <div class="btn-save">
-                  <button type="submit" (click)="updateProfileIntro()" class="btn">Update</button>
-                </div>
-              </li>
-            </ul>
 
           <div class="widget w-socials" style="color: white;">
             <h6 class="title">Other Social Networks:</h6>
@@ -97,7 +44,7 @@
         </div>
       </div>
 
-      <!-- <div class="ui-block">
+      <div class="ui-block">
         <div class="ui-block-title">
           <h6 class="title">James’s Badges</h6>
         </div>
@@ -160,7 +107,7 @@
           </ul>
 
         </div>
-      </div> -->
+      </div>
 
       <div class="ui-block">
         <div class="ui-block-title">

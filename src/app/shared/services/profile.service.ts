@@ -3,6 +3,7 @@ import { Education } from '../models/education';
 import { ParseService } from './parse.service';
 import { User } from '../models/user';
 import { WorkExperience } from '../models/work-experience';
+import { Profile } from '../models/profile';
 
 @Injectable()
 export class ProfileService {
@@ -67,4 +68,15 @@ export class ProfileService {
     return this.parseService.storeWorkExperience(workExperience);
   }
 
+  public saveCurrentUserProfile(profile: Profile) {
+    return this.parseService.storeProfile(profile);
+  }
+
+  public updateCurrentUserProfile(updatedProfile: Profile, objectId: any) {
+    return this.parseService.updateCurrentUserProfile(updatedProfile, objectId);
+  }
+
+  public getCurrentUserProfile(userId: any) {
+    return this.parseService.getCurrentUserProfile(userId);
+  }
 }
