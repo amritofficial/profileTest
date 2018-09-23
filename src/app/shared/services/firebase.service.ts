@@ -13,6 +13,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Message } from '../models/message';
 import { Upload } from '../models/upload';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LinkRequest } from '../models/link-request';
 
 @Injectable()
 export class FirebaseService {
@@ -109,6 +110,16 @@ export class FirebaseService {
   // the reason of this function is to refresh the profile url
   deleteAvatarUrl(userId: any) {
     this.angularFireDatabase.object(`/users/${userId}`).update({avatar: ''});
+  }
+
+  sendLinkRequest(linkRequest: LinkRequest) {
+    let linkRequestNodes = {};
+    // We are dividing the requests into different nodes to handle and are labelling each node with a unique
+    // id based upon from whom we are receiving (RECEVIED NODE EMBEDED WITH fromID)
+    // and sent (SENT NODE EMBEDED WITH toID)
+    linkRequestNodes[`linkRequests/${linkRequest.from.userId}/sent/${linkRequest.to.userId}`] = linkRequest;
+    linkRequestNodes[`linkRequests/${linkRequest.to.userId}/received/${linkRequest.from.userId}`] = linkRequest;
+    return this.angularFireDatabase.database.ref().update(linkRequestNodes);
   }
 
 }

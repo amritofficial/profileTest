@@ -4,6 +4,8 @@ import { GuestProfileService } from '../shared/services/guest-profile.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { User } from '../shared/models/user';
+import { LinkRequest } from '../shared/models/link-request';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'guest-profile',
@@ -18,14 +20,20 @@ export class GuestProfileComponent implements OnInit {
   guestId: any;
   guestUser: User = this.guestProfileService.guestUser;
 
+  currentUser: User;
+
+  linkRequestStatus: string;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private guestProfileService: GuestProfileService) { }
+    private guestProfileService: GuestProfileService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.guestId = params.guestId;
       this.guestProfileService.guestId = this.guestId;
+      this.getCurrentUserData();
       this.guestProfileService.getGuestProfile(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
@@ -53,6 +61,27 @@ export class GuestProfileComponent implements OnInit {
         }
       }
     });
+  }
+
+  addLinkRequest() {
+    let linkRequestData: LinkRequest = {
+      to: this.guestUser,
+      from: this.currentUser,
+      senderId: window.sessionStorage.getItem("current_user_id"),
+      status: "pending"
+    }
+    console.log(linkRequestData);
+    this.userService.sendLinkRequest(linkRequestData);
+    // this.userService.sendLinkRequest(linkRequestData);
+    this.linkRequestStatus = 'pending';
+  }
+
+  getCurrentUserData() {
+    this.userService.getCurrentUserDataFromFirebase()
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
+        this.userService.currentUser = user;
+        this.currentUser = user;
+      });
   }
 
 }

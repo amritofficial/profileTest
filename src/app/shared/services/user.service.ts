@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { WorkExperience } from '../models/work-experience';
 import { Education } from '../models/education';
 import { Location } from '../models/location';
+import { LinkRequest } from '../models/link-request';
 
 @Injectable()
 export class UserService {
@@ -40,6 +41,10 @@ export class UserService {
     return currentUserId;
   }
 
+  getGuestUserFromFirebase(guestId: any) {
+    return this.firebaseService.getFireUserData(guestId);
+  }
+
   getAllUsersFromFirebase() {
     return this.firebaseService.getAllFireUsers();
   }
@@ -54,6 +59,14 @@ export class UserService {
 
   storeLocation(location: Location) {
     return this.parseService.storeLocation(location);
+  }
+
+  sendLinkRequest(linkRequest: LinkRequest) {
+    return this.firebaseService.sendLinkRequest(linkRequest);
+  }
+
+  getReceivedLinkRequest() {
+    
   }
 
 }
