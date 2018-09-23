@@ -7,11 +7,11 @@
       <div class="ui-block">
         <div class="top-header">
           <div class="top-header-thumb">
-            <img src="https://wallpapercave.com/wp/Ou1L18s.jpg" alt="nature">
+            <img src="{{ headerImageSrc }}" alt="nature">
           </div>
           <button *ngIf="guestStatus == ''" (click)="addLinkRequest()" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Add Link</button>
           <button *ngIf="guestStatus == 'sent'" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Sent</button>
-          <button *ngIf="guestStatus == 'approved'" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Friends</button>
+          <button *ngIf="guestStatus == 'approved'" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Linked</button>
           <div *ngIf="guestStatus == 'waiting'" class="request-action-buttons">
             <button class="btnc btnc-square btnc-sm btnc-filled-blue add-link">Approve</button><br>
             <button class="btnc btnc-square btnc-sm btnc-filled-grey decline-link">Decline</button>

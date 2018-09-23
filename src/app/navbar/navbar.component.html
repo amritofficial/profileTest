@@ -264,7 +264,7 @@
 
           <div class="notification-scroll" data-mcs-theme="dark">
             <ul class="notification-list friend-requests">
-              <li *ngFor="let request of linkRequestArray;">
+              <li *ngFor="let request of linkRequestArray; let i=index;">
                 <div class="author-thumb">
                   <img src="{{request?.from?.avatar}}" alt="author">
                 </div>
@@ -273,7 +273,7 @@
                   <!-- <span class="chat-message-item">Mutual Friend: Sarah Hetfield</span> -->
                 </div>
                 <span class="notification-icon">
-                  <a (click)="approveLinkRequest(request)" class="accept-request accept-button">
+                  <a (click)="approveLinkRequest(request, i)" class="accept-request accept-button">
                     Accept
                   </a>
                   <a (click)="declineLinkRequest(request)" class="accept-request request-del">

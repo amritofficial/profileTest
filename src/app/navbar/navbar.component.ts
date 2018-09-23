@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     to: this.userService.user
   }];
 
-  approvedRequestArray: User[] = [];
+  approvedRequestArray: any[] = [];
   showConnectionSuccess: boolean = false;
   currentUserId = window.sessionStorage.getItem("current_user_id");
 
@@ -82,12 +82,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.sentLinkRequestArray = sentRequest;
       this.approvedSentRequestCount = 0;
 
-      for(let i=0; i < this.sentLinkRequestArray.length; i++) {
-        if(this.sentLinkRequestArray[i].status === 'approved') {
-          this.approvedSentRequestCount +=1;
+      for (let i = 0; i < this.sentLinkRequestArray.length; i++) {
+        if (this.sentLinkRequestArray[i].status === 'approved') {
+          this.approvedSentRequestCount += 1;
         }
       }
-      
+
       console.log(this.approvedSentRequestCount);
       // this.approvedSentRequestCount = this.sentLinkRequestArray.length;
       console.log(this.sentLinkRequestArray);
@@ -96,18 +96,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   // toId is current user id to whom the request has been sent
   // Once the response of delete is received, ngIf can be used to display friendship
-  approveLinkRequest(request: LinkRequest) {
+  approveLinkRequest(request: LinkRequest, i: any) {
     console.log(request);
+    console.log("index: " + i)
 
-    this.requestService.approveLinkRequest(request).pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((status) => {
-        if (status === 'approved') {
-          this.approvedRequestArray.push(request.from);
-          console.log(this.approvedRequestArray);
-          this.showConnectionSuccess = true;
-          console.log(status);
-        }
-      });
+    this.requestService.approveLinkRequest(request);
+    // this can throw error
+    this.approvedRequestArray.push(request.from);
+    // Behaviour Subject Subscription was here
   }
 
   declineLinkRequest(request: LinkRequest) {

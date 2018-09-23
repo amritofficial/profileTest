@@ -23,6 +23,17 @@ export class GuestProfileComponent implements OnInit {
   guestUser: User = this.guestProfileService.guestUser;
   guestStatus: string = '';
   loadingGuestStatus: boolean = false;
+  headerImageSrc: any;
+
+  headerImageArray: string[] = [
+    "https://wallpapercave.com/wp/Ou1L18s.jpg",
+    "https://playdauntless.com/images/media-wallpapers/island-mossy-falls-wallpaper-dauntless-tablet2048x2732.jpg",
+    "http://www.wallpapereast.com/static/images/Wallpaper-686.jpg",
+    "http://getwallpapers.com/wallpaper/full/b/5/0/615768.jpg",
+    "https://www.wallpaperflare.com/static/441/970/354/counter-strike-global-offensive-french-gign-sas-4k-wallpaper.jpg",
+    "https://wallpapersultra.net/wp-content/uploads/HD-Wallpaper-High-Quality.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvEm9Ur0S42p90Y7pbJg5gQowrZa5thvqoidMFAHT6YfDhG_r8nw",
+    "https://yo-toronto.com/wp-content/uploads/2017/05/COVER_FINAL02.jpg"]
 
   currentUser: User;
 
@@ -42,6 +53,8 @@ export class GuestProfileComponent implements OnInit {
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
         });
+      this.generateRandomHeaderImage();
+      this.guestStatus = '';
       this.checkGuestStatusType();
     });
     this.checkActivatedRoute();
@@ -78,7 +91,6 @@ export class GuestProfileComponent implements OnInit {
     console.log(linkRequestData);
     this.requestService.sendLinkRequest(linkRequestData);
     // this.userService.sendLinkRequest(linkRequestData);
-    this.guestStatus = 'sent';
   }
 
   getCurrentUserData() {
@@ -96,7 +108,7 @@ export class GuestProfileComponent implements OnInit {
     this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
       if (links.length !== 0) {
         links.forEach(link => {
-          if(link.userId !== this.guestId) {
+          if (link.userId !== this.guestId) {
             this.guestStatus = '';
           } else if (link.userId === this.guestId) {
             this.guestStatus = 'approved';
@@ -105,24 +117,33 @@ export class GuestProfileComponent implements OnInit {
       }
     });
     this.requestService.getReceivedLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((receivedRequest: LinkRequest[]) => {
-      if(receivedRequest.length !== 0) {
+      if (receivedRequest.length !== 0) {
         receivedRequest.forEach(request => {
-          if (request.status === 'waiting') {
-            this.guestStatus = 'waiting';
+          if (request.from.userId === this.guestId) {
+            if (request.status === 'waiting') {
+              this.guestStatus = 'waiting';
+            }
           }
         });
       } else {
         this.requestService.getSentLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((sentRequests: LinkRequest[]) => {
           sentRequests.forEach(request => {
-            if (request.status === 'sent') {
-              this.guestStatus = 'sent';
-            } else if (request.status === 'approved') {
-              this.guestStatus = 'approved';
+            if (request.to.userId === this.guestId) {
+              if (request.status === 'sent') {
+                this.guestStatus = 'sent';
+              } else if (request.status === 'approved') {
+                this.guestStatus = 'approved';
+              }
             }
-          }); 
+          });
         });
       }
     });
+  }
+
+  generateRandomHeaderImage() {
+    let random = Math.floor(Math.random() * this.headerImageArray.length) + 0;
+    this.headerImageSrc = this.headerImageArray[random];
   }
 
 }
