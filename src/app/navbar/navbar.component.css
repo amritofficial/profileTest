@@ -11,3 +11,7 @@
     overflow-y: auto;
     height: 230px;
 }
+
+.accept-button {
+    background-color: rgb(0, 82, 189);
+}

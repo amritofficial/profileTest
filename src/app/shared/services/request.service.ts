@@ -24,7 +24,11 @@ export class RequestService {
   // the card to delete it
   approveLinkRequest(request: LinkRequest) {
     this.firebaseService.approveLinkRequest(request);
-    return this.firebaseService.approveLinkRequestSubject;
+    return this.firebaseService.linkRequestSubject;
+  }
+
+  linkRequestSubscription() {
+    return this.firebaseService.linkRequestSubject;
   }
 
 }

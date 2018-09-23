@@ -24,7 +24,7 @@ export class FirebaseService {
   avatarUploaded: boolean = false;
   closeChooseAvatarModal = new BehaviorSubject<boolean>(false);
   currentUser: User;  
-  approveLinkRequestSubject = new BehaviorSubject("pending");
+  linkRequestSubject = new BehaviorSubject("pending");
   // private imageUrl = "amrit"
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
@@ -120,6 +120,7 @@ export class FirebaseService {
     // and sent (SENT NODE EMBEDED WITH toID)
     linkRequestNodes[`linkRequests/${linkRequest.from.userId}/sent/${linkRequest.to.userId}`] = linkRequest;
     linkRequestNodes[`linkRequests/${linkRequest.to.userId}/received/${linkRequest.from.userId}`] = linkRequest;
+    this.linkRequestSubject.next("sent");
     return this.angularFireDatabase.database.ref().update(linkRequestNodes);
   }
 
@@ -138,7 +139,7 @@ export class FirebaseService {
         console.log("Approved");
         console.log(data);
         this.createLinksList(request).then(() =>{
-          this.approveLinkRequestSubject.next("approved");
+          this.linkRequestSubject.next("approved");
         });
       });
     });
