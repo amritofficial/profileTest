@@ -16,7 +16,7 @@ export class RequestService {
   }
 
   getSentLinkRequest(userId: any) {
-
+    return this.firebaseService.getSentLinkRequest(userId);
   }
 
   // the following method will delete the request from the Received node in firebase

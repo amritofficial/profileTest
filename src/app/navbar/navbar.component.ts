@@ -19,10 +19,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     status: '',
     to: this.userService.user
   }];
+
+  sentLinkRequestArray: LinkRequest[] = [{
+    from: this.userService.user,
+    senderId: null,
+    status: '',
+    to: this.userService.user
+  }];
+
   approvedRequestArray: User[] = [];
   showConnectionSuccess: boolean = false;
+  currentUserId = window.sessionStorage.getItem("current_user_id");
 
   receivedRequestCount: number;
+  approvedSentRequestCount: number;
 
   constructor(private userService: UserService,
     private requestService: RequestService,
@@ -34,6 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Check if this actually works, and re-applies the profile picture once
     // it gets the data
     this.getReceivedLinkRequest();
+    this.getSentLinkRequest();
   }
 
   ngOnDestroy() {
@@ -59,6 +70,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.linkRequestArray = receivedRequest;
       this.receivedRequestCount = this.linkRequestArray.length;
       console.log(this.linkRequestArray);
+    });
+  }
+
+  getSentLinkRequest() {
+    let userId = window.sessionStorage.getItem("current_user_id");
+    this.requestService.getSentLinkRequest(userId).subscribe((sentRequest: LinkRequest[]) => {
+      this.sentLinkRequestArray = sentRequest;
+      this.approvedSentRequestCount = 0;
+
+      for(let i=0; i < this.sentLinkRequestArray.length; i++) {
+        if(this.sentLinkRequestArray[i].status === 'approved') {
+          this.approvedSentRequestCount +=1;
+        }
+      }
+      
+      console.log(this.approvedSentRequestCount);
+      // this.approvedSentRequestCount = this.sentLinkRequestArray.length;
+      console.log(this.sentLinkRequestArray);
     });
   }
 

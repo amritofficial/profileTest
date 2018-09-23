@@ -253,7 +253,7 @@
 
       <div class="control-icon more has-items">
         <span class="fa fa-users icon-size"></span>
-        <div class="label-avatar bg-blue">{{ receivedRequestCount }}</div>
+        <div class="label-avatar bg-blue">{{ receivedRequestCount + approvedSentRequestCount }}</div>
 
         <div class="more-dropdown more-with-triangle triangle-top-center">
           <div class="ui-block-title ui-block-title-small">
@@ -282,7 +282,8 @@
 
                 </span>
               </li>
-              
+
+              <!-- this works when the user approves the request -->
               <div>
                 <li *ngFor="let approvedRequest of approvedRequestArray;" class="accepted">
                   <div class="author-thumb">
@@ -295,6 +296,17 @@
                 </li>
               </div>
 
+              <!-- this works when the user who sent the request gets an approval notification -->
+              <div *ngFor="let sentRequest of sentLinkRequestArray;">
+                <li *ngIf="(sentRequest.status == 'approved') && (sentRequest.to.userId != currentUserId)" class="accepted">
+                  <div class="author-thumb">
+                    <img src="{{ sentRequest?.to?.avatar }}" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a class="h6 notification-friend">{{ sentRequest?.to?.username }}</a> approved your request to link.
+                  </div>
+                </li>
+              </div>
 
             </ul>
           </div>

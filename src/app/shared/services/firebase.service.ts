@@ -127,6 +127,10 @@ export class FirebaseService {
     return this.angularFireDatabase.list(`/linkRequests/${userId}/received`).valueChanges();
   }
 
+  getSentLinkRequest(userId: any): Observable<any> {
+    return this.angularFireDatabase.list(`linkRequests/${userId}/sent`).valueChanges();
+  }
+
   // toId is current user id and fromId is the person from whom the request has been received
   approveLinkRequest(request: LinkRequest) {
     this.angularFireDatabase.database.ref(`/linkRequests/${request.to.userId}/received`).child(`${request.from.userId}`).remove().then(() =>{
