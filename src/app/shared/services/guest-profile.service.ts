@@ -38,7 +38,7 @@ export class GuestProfileService {
   constructor(private firebaseService: FirebaseService,
     private parseService: ParseService) { }
 
-  getGuestProfile(guestId: any) {
+  getGuestUserData(guestId: any) {
     return this.firebaseService.getFireUserData(guestId);
   }
 
@@ -52,6 +52,10 @@ export class GuestProfileService {
 
   getGuestFinderTags(guestId: any) {
     return this.parseService.getGuestUserFinderTags(guestId);
+  }
+
+  getGuestUserProfile(guestId: any) {
+    return this.parseService.getGuestUserProfile(guestId);
   }
 
   // getEducation() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, DoCheck, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -22,14 +22,14 @@ export class GuestFinderTagsComponent implements OnInit, OnChanges {
 
   constructor(private route: ActivatedRoute,
     private guestProfileService: GuestProfileService) {
-      route.params.subscribe(params => {
-        this.requestFinderTags(params.guestId);
-      });
+    route.params.subscribe(params => {
+      this.requestFinderTags(params.guestId);
+    });
   }
 
   ngOnInit() {
     this.loadingTags = true;
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
       console.log(params)
       console.log(params.guestId);
       this.guestId = params.guestId;
@@ -52,6 +52,10 @@ export class GuestFinderTagsComponent implements OnInit, OnChanges {
         this.loadingTags = false;
       }
       else {
+        this.guestFinderTags = {
+          userId: null,
+          tags: []
+        }
         this.loadingTags = false;
       }
     });

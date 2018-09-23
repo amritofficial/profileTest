@@ -29,7 +29,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-3 col-sm-3 col-md-3 col-xl-3">
-      <guest-profile-intro></guest-profile-intro>
+      <guest-profile-intro [guestProfileIntro]="guestProfile"></guest-profile-intro>
     </div>
     <div *ngIf="showFeed" class="col-md-6 col-sm-6 col-md-6 col-xl-6">
       <guest-profile-feed [guestUser]="guestUser"></guest-profile-feed>

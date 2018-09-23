@@ -8,6 +8,8 @@ import { LinkRequest } from '../shared/models/link-request';
 import { UserService } from '../shared/services/user.service';
 import { RequestService } from '../shared/services/request.service';
 import { LinkService } from '../shared/services/link.service';
+import { Profile } from '../shared/models/profile';
+import { FinderTags } from '../shared/models/finder-tags';
 
 @Component({
   selector: 'guest-profile',
@@ -36,7 +38,18 @@ export class GuestProfileComponent implements OnInit {
     "https://yo-toronto.com/wp-content/uploads/2017/05/COVER_FINAL02.jpg"]
 
   currentUser: User;
+  guestProfile: Profile = {
+    aboutUser: 'Write a bit about yourself',
+    aboutSecondCategory: '',
+    secondCategory: '',
+    userId: null
+  };
 
+  guestFinderTags: FinderTags = {
+    userId: null,
+    tags: []
+  };
+  
   constructor(private route: ActivatedRoute,
     private router: Router,
     private guestProfileService: GuestProfileService,
@@ -48,8 +61,10 @@ export class GuestProfileComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.guestId = params.guestId;
       this.guestProfileService.guestId = this.guestId;
+      // this.getGuestUserFinderTags();
       this.getCurrentUserData();
-      this.guestProfileService.getGuestProfile(this.guestId)
+      this.getGuestUserProfile();
+      this.guestProfileService.getGuestUserData(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
         });
@@ -99,6 +114,28 @@ export class GuestProfileComponent implements OnInit {
         this.userService.currentUser = user;
         this.currentUser = user;
       });
+  }
+
+  getGuestUserProfile() {
+    this.guestProfileService.getGuestUserProfile(this.guestId).then((profile) => {
+      console.log(profile);
+      console.log(profile.attributes);
+      console.log(profile);
+      if (!(profile.length <= 0)) {
+        this.guestProfile = profile[0].attributes;
+      }
+    });
+  }
+
+  // the method is not being called yet
+  getGuestUserFinderTags() {
+    this.guestProfileService.getGuestFinderTags(this.guestId).then((tags) => {
+      if (!(tags.length <= 0)) {
+        this.guestFinderTags = tags[0].attributes;
+        console.log("TAGS")
+        console.log(this.guestFinderTags.tags)
+      }
+    });
   }
 
   // the method performs a real-time check if the visited guest is a friend or a person whom the request has been sent

@@ -230,6 +230,14 @@ export class ParseService {
     return await query.find();
   }
 
+  public async getGuestUserProfile(guestId: any) {
+    const profile = Parse.Object.extend("profile");
+    const query = new Parse.Query(profile);
+    query.equalTo("userId", guestId);
+
+    return await query.find();
+  }
+
   public async getGuestUserEducation(guestId: any) {
     const education = Parse.Object.extend("education");
     const query = new Parse.Query(education);
@@ -246,12 +254,12 @@ export class ParseService {
     return await query.find();
   }
 
-  public async getGuestUserFinderTags(guestId: any) {
+  public getGuestUserFinderTags(guestId: any) {
     const tags = Parse.Object.extend("tags");
     const query = new Parse.Query(tags);
     query.equalTo("userId", guestId);
 
-    return await query.find();
+    return query.find();
   } 
 
   // public getEducation() {
