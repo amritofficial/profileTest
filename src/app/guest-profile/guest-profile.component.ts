@@ -34,7 +34,7 @@ export class GuestProfileComponent implements OnInit {
     "http://getwallpapers.com/wallpaper/full/b/5/0/615768.jpg",
     "https://www.wallpaperflare.com/static/441/970/354/counter-strike-global-offensive-french-gign-sas-4k-wallpaper.jpg",
     "https://wallpapersultra.net/wp-content/uploads/HD-Wallpaper-High-Quality.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvEm9Ur0S42p90Y7pbJg5gQowrZa5thvqoidMFAHT6YfDhG_r8nw",
+    "https://wallpaperstudio10.com/static/wpdb/wallpapers/1920x1080/180921.jpg",
     "https://yo-toronto.com/wp-content/uploads/2017/05/COVER_FINAL02.jpg"]
 
   currentUser: User;
@@ -105,6 +105,7 @@ export class GuestProfileComponent implements OnInit {
     }
     console.log(linkRequestData);
     this.requestService.sendLinkRequest(linkRequestData);
+    this.checkGuestStatusType();
     // this.userService.sendLinkRequest(linkRequestData);
   }
 
