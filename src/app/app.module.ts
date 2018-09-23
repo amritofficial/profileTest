@@ -64,6 +64,8 @@ import { LocationService } from './shared/services/location.service';
 import { FinderTagsComponent } from './profile/finder-tags/finder-tags.component';
 import { TagService } from './shared/services/tag.service';
 import { GuestFinderTagsComponent } from './guest-profile/guest-finder-tags/guest-finder-tags.component';
+import { LinkRequestCardComponent } from './navbar/link-request-card/link-request-card.component';
+import { RequestService } from './shared/services/request.service';
 
 @NgModule({
   declarations: [
@@ -104,7 +106,8 @@ import { GuestFinderTagsComponent } from './guest-profile/guest-finder-tags/gues
     GuestProfileRightSidebarComponent,
     ProfileLocationModalComponent,
     FinderTagsComponent,
-    GuestFinderTagsComponent
+    GuestFinderTagsComponent,
+    LinkRequestCardComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
@@ -130,7 +133,7 @@ import { GuestFinderTagsComponent } from './guest-profile/guest-finder-tags/gues
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

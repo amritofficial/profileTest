@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { User } from '../shared/models/user';
 import { LinkRequest } from '../shared/models/link-request';
 import { UserService } from '../shared/services/user.service';
+import { RequestService } from '../shared/services/request.service';
 
 @Component({
   selector: 'guest-profile',
@@ -27,7 +28,8 @@ export class GuestProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private guestProfileService: GuestProfileService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private requestService: RequestService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -71,7 +73,7 @@ export class GuestProfileComponent implements OnInit {
       status: "pending"
     }
     console.log(linkRequestData);
-    this.userService.sendLinkRequest(linkRequestData);
+    this.requestService.sendLinkRequest(linkRequestData);
     // this.userService.sendLinkRequest(linkRequestData);
     this.linkRequestStatus = 'pending';
   }

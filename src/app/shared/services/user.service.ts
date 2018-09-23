@@ -61,12 +61,4 @@ export class UserService {
     return this.parseService.storeLocation(location);
   }
 
-  sendLinkRequest(linkRequest: LinkRequest) {
-    return this.firebaseService.sendLinkRequest(linkRequest);
-  }
-
-  getReceivedLinkRequest() {
-    
-  }
-
 }
