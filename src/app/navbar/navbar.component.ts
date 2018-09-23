@@ -99,7 +99,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   approveLinkRequest(request: LinkRequest) {
     console.log(request);
 
-    this.requestService.approveLinkRequest(request)
+    this.requestService.approveLinkRequest(request).pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((status) => {
         if (status === 'approved') {
           this.approvedRequestArray.push(request.from);

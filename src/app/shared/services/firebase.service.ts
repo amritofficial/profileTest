@@ -115,12 +115,16 @@ export class FirebaseService {
 
   sendLinkRequest(linkRequest: LinkRequest) {
     let linkRequestNodes = {};
+    let senderLinkRequest: LinkRequest = JSON.parse(JSON.stringify(linkRequest));
+    senderLinkRequest.status = 'sent';
+    let receiverLinkRequest: LinkRequest = JSON.parse(JSON.stringify(linkRequest));
+    receiverLinkRequest.status = 'waiting';
     // We are dividing the requests into different nodes to handle and are labelling each node with a unique
     // id based upon from whom we are receiving (RECEVIED NODE EMBEDED WITH fromID)
     // and sent (SENT NODE EMBEDED WITH toID)
-    linkRequestNodes[`linkRequests/${linkRequest.from.userId}/sent/${linkRequest.to.userId}`] = linkRequest;
-    linkRequestNodes[`linkRequests/${linkRequest.to.userId}/received/${linkRequest.from.userId}`] = linkRequest;
-    this.linkRequestSubject.next("sent");
+    linkRequestNodes[`linkRequests/${linkRequest.from.userId}/sent/${linkRequest.to.userId}`] = senderLinkRequest;
+    linkRequestNodes[`linkRequests/${linkRequest.to.userId}/received/${linkRequest.from.userId}`] = receiverLinkRequest;
+    this.linkRequestSubject.next("sent")
     return this.angularFireDatabase.database.ref().update(linkRequestNodes);
   }
 

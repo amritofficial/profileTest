@@ -40,13 +40,9 @@ export class GuestProfileComponent implements OnInit {
       this.getCurrentUserData();
       this.guestProfileService.getGuestProfile(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
-          // this.checkGuestStatus();
           this.guestUser = user;
         });
-
-      this.requestService.linkRequestSubscription().subscribe(() => {
-        this.checkGuestStatus();
-      });
+      this.checkGuestStatusType();
     });
     this.checkActivatedRoute();
   }
@@ -93,30 +89,40 @@ export class GuestProfileComponent implements OnInit {
       });
   }
 
-  // the method will perform a check if the visited guest is a friend, sender or receiver of a request
-  checkGuestStatus() {
-    this.loadingGuestStatus = true;
-    for (let i = 0; i < this.linkService.links.length; i++) {
-      if (this.guestId === this.linkService.links[i].userId) {
-        this.guestStatus = "approved";
+  // the method performs a real-time check if the visited guest is a friend or a person whom the request has been sent
+  // or has been received from
+  checkGuestStatusType() {
+    let userId = window.sessionStorage.getItem("current_user_id");
+    this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
+      if (links.length !== 0) {
+        links.forEach(link => {
+          if(link.userId !== this.guestId) {
+            this.guestStatus = '';
+          } else if (link.userId === this.guestId) {
+            this.guestStatus = 'approved';
+          }
+        });
       }
-    }
-
-    for (let i = 0; i < this.linkService.receivedRequests.length; i++) {
-      if (this.guestId === this.linkService.receivedRequests[i].from.userId) {
-        this.guestStatus = "pending";
+    });
+    this.requestService.getReceivedLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((receivedRequest: LinkRequest[]) => {
+      if(receivedRequest.length !== 0) {
+        receivedRequest.forEach(request => {
+          if (request.status === 'waiting') {
+            this.guestStatus = 'waiting';
+          }
+        });
+      } else {
+        this.requestService.getSentLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((sentRequests: LinkRequest[]) => {
+          sentRequests.forEach(request => {
+            if (request.status === 'sent') {
+              this.guestStatus = 'sent';
+            } else if (request.status === 'approved') {
+              this.guestStatus = 'approved';
+            }
+          }); 
+        });
       }
-    }
-
-    for (let i = 0; i < this.linkService.sentRequests.length; i++) {
-      if ((this.guestId === this.linkService.sentRequests[i].to.userId) && (this.linkService.sentRequests[i].status !== 'approved')) {
-        this.guestStatus = "sent";
-      }
-    }
-    this.loadingGuestStatus = false;
-    console.log("Status");
-    console.log(this.guestStatus);
-
+    });
   }
 
 }

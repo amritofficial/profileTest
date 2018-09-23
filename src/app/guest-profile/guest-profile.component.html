@@ -12,7 +12,7 @@
           <button *ngIf="guestStatus == ''" (click)="addLinkRequest()" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Add Link</button>
           <button *ngIf="guestStatus == 'sent'" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Sent</button>
           <button *ngIf="guestStatus == 'approved'" class="btnc btnc-square btnc-md btnc-filled-blue common-button">Friends</button>
-          <div *ngIf="guestStatus == 'pending'" class="request-action-buttons">
+          <div *ngIf="guestStatus == 'waiting'" class="request-action-buttons">
             <button class="btnc btnc-square btnc-sm btnc-filled-blue add-link">Approve</button><br>
             <button class="btnc btnc-square btnc-sm btnc-filled-grey decline-link">Decline</button>
           </div>

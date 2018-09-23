@@ -31,4 +31,8 @@ export class RequestService {
     return this.firebaseService.linkRequestSubject;
   }
 
+  getAllRequests() {
+    
+  }
+
 }
