@@ -5,10 +5,10 @@
   <li>
     <span class="title">Finder Tags:</span>
     <br>
-    <p *ngIf="guestFinderTags.userId == null">The person hasn't set the tags yet.</p>
+    <p *ngIf="guestFinderTags?.userId == null">The person hasn't set the tags yet.</p>
     <!-- <span class="text">{{userProfile?.aboutUser}}</span> -->
   </li>
   <li>
-    <span *ngFor="let tag of guestFinderTags.tags" class="badge badge-primary">{{ tag }}</span>
+    <span *ngFor="let tag of guestFinderTags?.tags" class="badge badge-primary">{{ tag }}</span>
   </li>
 </ul>

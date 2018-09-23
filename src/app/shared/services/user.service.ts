@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { WorkExperience } from '../models/work-experience';
 import { Education } from '../models/education';
 import { Location } from '../models/location';
+import { LinkRequest } from '../models/link-request';
 
 @Injectable()
 export class UserService {
@@ -38,6 +39,10 @@ export class UserService {
     // let currentUser = this.parseService.currentUser;
     let currentUserId = window.sessionStorage.getItem('current_user_id');
     return currentUserId;
+  }
+
+  getGuestUserFromFirebase(guestId: any) {
+    return this.firebaseService.getFireUserData(guestId);
   }
 
   getAllUsersFromFirebase() {

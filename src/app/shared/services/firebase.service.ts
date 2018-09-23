@@ -13,6 +13,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Message } from '../models/message';
 import { Upload } from '../models/upload';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LinkRequest } from '../models/link-request';
 
 @Injectable()
 export class FirebaseService {
@@ -22,7 +23,8 @@ export class FirebaseService {
   uploadingAvatar: boolean = false;
   avatarUploaded: boolean = false;
   closeChooseAvatarModal = new BehaviorSubject<boolean>(false);
-  currentUser: User;
+  currentUser: User;  
+  linkRequestSubject = new BehaviorSubject('sent');
   // private imageUrl = "amrit"
 
   constructor(private angularFireDatabase: AngularFireDatabase) { }
@@ -109,6 +111,62 @@ export class FirebaseService {
   // the reason of this function is to refresh the profile url
   deleteAvatarUrl(userId: any) {
     this.angularFireDatabase.object(`/users/${userId}`).update({avatar: ''});
+  }
+
+  sendLinkRequest(linkRequest: LinkRequest) {
+    let linkRequestNodes = {};
+    let senderLinkRequest: LinkRequest = JSON.parse(JSON.stringify(linkRequest));
+    senderLinkRequest.status = 'sent';
+    let receiverLinkRequest: LinkRequest = JSON.parse(JSON.stringify(linkRequest));
+    receiverLinkRequest.status = 'waiting';
+    // We are dividing the requests into different nodes to handle and are labelling each node with a unique
+    // id based upon from whom we are receiving (RECEVIED NODE EMBEDED WITH fromID)
+    // and sent (SENT NODE EMBEDED WITH toID)
+    linkRequestNodes[`linkRequests/${linkRequest.from.userId}/sent/${linkRequest.to.userId}`] = senderLinkRequest;
+    linkRequestNodes[`linkRequests/${linkRequest.to.userId}/received/${linkRequest.from.userId}`] = receiverLinkRequest;
+    // this.linkRequestSubject.next()
+    return this.angularFireDatabase.database.ref().update(linkRequestNodes);
+  }
+
+  getReceivedLinkRequest(userId: any): Observable<any> {
+    return this.angularFireDatabase.list(`/linkRequests/${userId}/received`).valueChanges();
+  }
+
+  getSentLinkRequest(userId: any): Observable<any> {
+    return this.angularFireDatabase.list(`linkRequests/${userId}/sent`).valueChanges();
+  }
+
+  // toId is current user id and fromId is the person from whom the request has been received
+  approveLinkRequest(request: LinkRequest) {
+    this.angularFireDatabase.database.ref(`/linkRequests/${request.to.userId}/received`).child(`${request.from.userId}`).remove().then(() =>{
+      this.angularFireDatabase.object(`/linkRequests/${request.from.userId}/sent/${request.to.userId}`).update({status: 'approved'}).then((data) =>{
+        console.log("Approved");
+        console.log(data);
+        this.createLinksList(request);
+      });
+    });
+  }
+
+  // the function would create a link list (friend list) for both the users, once the 
+  // request is approved by the user. Both of the users will be added to the friend list database
+  createLinksList(request: LinkRequest) {
+    let linksNode = {};
+
+    linksNode[`links/${request.to.userId}/${request.from.userId}`] = request.from;
+    linksNode[`links/${request.from.userId}/${request.to.userId}`] = request.to;
+    return this.angularFireDatabase.database.ref().update(linksNode);
+  }
+
+  getCurrentUserLinks(userId: any) {
+    return this.angularFireDatabase.list(`/links/${userId}`).valueChanges();
+  }
+
+  getCurrentUserReceivedRequests(userId: any) {
+    return this.angularFireDatabase.list(`/linkRequests/${userId}/received`).valueChanges();
+  }
+
+  getCurrentUserSentRequests(userId: any) {
+    return this.angularFireDatabase.list(`/linkRequests/${userId}/sent`).valueChanges();
   }
 
 }

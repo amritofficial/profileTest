@@ -12,7 +12,12 @@ import { Subject } from 'rxjs';
 export class ProfileIntroComponent implements OnInit {
   private ngUnsubscribe = new Subject();
 
-  userProfile: Profile;
+  userProfile: Profile = {
+    aboutUser: 'Write a bit about yourself',
+    aboutSecondCategory: '',
+    secondCategory: '',
+    userId: null
+  };
   updatedUserProfile: Profile;
 
   userProfileObjectId: any = null;
