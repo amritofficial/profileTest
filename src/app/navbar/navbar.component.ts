@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { LinkRequest } from '../shared/models/link-request';
 import { RequestService } from '../shared/services/request.service';
 import { User } from '../shared/models/user';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'navbar',
@@ -12,6 +14,7 @@ import { User } from '../shared/models/user';
   styleUrls: ['./navbar.component.css', '../../assets/css/blocks.css', '../../assets/css/theme-styles.css', '../../assets/css/magnific-popup.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject();
 
   linkRequestArray: LinkRequest[] = [{
     from: this.userService.user,
@@ -65,7 +68,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getReceivedLinkRequest() {
     let userId = window.sessionStorage.getItem("current_user_id");
-    this.requestService.getReceivedLinkRequest(userId).subscribe((receivedRequest: LinkRequest[]) => {
+    this.requestService.getReceivedLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((receivedRequest: LinkRequest[]) => {
       console.log("request");
       this.linkRequestArray = receivedRequest;
       this.receivedRequestCount = this.linkRequestArray.length;
@@ -75,7 +78,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getSentLinkRequest() {
     let userId = window.sessionStorage.getItem("current_user_id");
-    this.requestService.getSentLinkRequest(userId).subscribe((sentRequest: LinkRequest[]) => {
+    this.requestService.getSentLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((sentRequest: LinkRequest[]) => {
       this.sentLinkRequestArray = sentRequest;
       this.approvedSentRequestCount = 0;
 
@@ -111,10 +114,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   }
 
-  // showConnectionSuccessCard(request: LinkRequest) {
-  //   if(request.from.userId !== this.approvedRequestArray[this.approvedRequestArray.indexOf(request.from)].userId) {
-
-  //   }
-  // }
+  // ToDo remove the sent request node on click from firebase database
+  removeApprovedRequestNotification() {
+    console.log("Removed Notification");
+  }
 
 }

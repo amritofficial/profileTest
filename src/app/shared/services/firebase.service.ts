@@ -154,4 +154,16 @@ export class FirebaseService {
     return this.angularFireDatabase.database.ref().update(linksNode);
   }
 
+  getCurrentUserLinks(userId: any) {
+    return this.angularFireDatabase.list(`/links/${userId}`).valueChanges();
+  }
+
+  getCurrentUserReceivedRequests(userId: any) {
+    return this.angularFireDatabase.list(`/linkRequests/${userId}/received`).valueChanges();
+  }
+
+  getCurrentUserSentRequests(userId: any) {
+    return this.angularFireDatabase.list(`/linkRequests/${userId}/sent`).valueChanges();
+  }
+
 }

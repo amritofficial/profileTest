@@ -297,7 +297,7 @@
               </div>
 
               <!-- this works when the user who sent the request gets an approval notification -->
-              <div *ngFor="let sentRequest of sentLinkRequestArray;">
+              <div (click)="removeApprovedRequestNotification()" *ngFor="let sentRequest of sentLinkRequestArray;">
                 <li *ngIf="(sentRequest.status == 'approved') && (sentRequest.to.userId != currentUserId)" class="accepted">
                   <div class="author-thumb">
                     <img src="{{ sentRequest?.to?.avatar }}" alt="author">
