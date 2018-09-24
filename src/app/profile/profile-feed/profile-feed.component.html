@@ -25,6 +25,7 @@
                         <img src="../../assets/img/author-page.jpg" alt="author">
                       </div> -->
                   <div class="form-group with-icon label-floating is-empty">
+                    <span>{{ timeStamp | timeAgo }}</span>
                     <textarea class="form-control" name="feedBody" [(ngModel)]="feedBody" style="margin-left: -20px;" placeholder="Share what you are thinking here..."></textarea>
                   </div>
                   <div class="add-options-message" style="height: 100px !important;">
@@ -55,26 +56,24 @@
           </div>
         </div>
 
-        <div class="ui-block">
+        <div *ngFor="let feed of feedArray;" class="ui-block">
           <article class="hentry post">
 
             <div class="post__author author vcard inline-items">
-              <img [src]="userService.currentUser.avatar" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
+              <img src="{{ feed?.user?.avatar }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
                 alt="author">
 
               <div class="author-date">
-                <a class="h6 post__author-name fn">Amrit Singh</a>
+                <a class="h6 post__author-name fn">{{ feed?.user?.username }}</a>
                 <div class="post__date">
-                  <time class="published" datetime="2017-03-24T18:18">
-                    19 hours ago
+                  <time class="published">
+                    {{ feed?.timeStamp | timeAgo}}
                   </time>
                 </div>
               </div>
 
               <div class="more">
-                <svg class="olymp-three-dots-icon">
-                  <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                </svg>
+                <span class="fa fa-ellipsis-h"></span>
                 <ul class="more-dropdown">
                   <li>
                     <a>Edit Post</a>
@@ -82,31 +81,18 @@
                   <li>
                     <a>Delete Post</a>
                   </li>
-                  <li>
-                    <a>Turn Off Notifications</a>
-                  </li>
-                  <li>
-                    <a>Select as Featured</a>
-                  </li>
                 </ul>
               </div>
 
             </div>
 
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur
-              sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed
-              ut
-              perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
-            </p>
+            <p>{{ feed?.feedBody }}</p>
 
             <div class="post-additional-info inline-items">
 
               <a class="post-add-icon inline-items">
-                <svg class="olymp-heart-icon">
-                  <use xlink:href="icons/icons.svg#olymp-heart-icon"></use>
-                </svg>
-                <span>8</span>
+                <span (click)="likeFeed(feed)" class="fa fa-thumbs-up"></span>
+                <span>{{ feed?.like?.length }}</span>
               </a>
 
               <ul class="friends-harmonic">
@@ -115,7 +101,7 @@
                     <img src="../../assets/img/friend-harmonic7.jpg" alt="friend">
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a>
                     <img src="../../assets/img/friend-harmonic8.jpg" alt="friend">
                   </a>
@@ -134,7 +120,7 @@
                   <a>
                     <img src="../../assets/img/friend-harmonic11.jpg" alt="friend">
                   </a>
-                </li>
+                </li> -->
               </ul>
 
               <div class="names-people-likes">
@@ -146,17 +132,13 @@
 
               <div class="comments-shared">
                 <a class="post-add-icon inline-items">
-                  <svg class="olymp-speech-balloon-icon">
-                    <use xlink:href="icons/icons.svg#olymp-speech-balloon-icon"></use>
-                  </svg>
+                  <span class="fa fa-comment"></span>
                   <span>17</span>
                 </a>
 
                 <a class="post-add-icon inline-items">
-                  <svg class="olymp-share-icon">
-                    <use xlink:href="icons/icons.svg#olymp-share-icon"></use>
-                  </svg>
-                  <span>24</span>
+                  <span class="fa fa-share"></span>
+                  <span></span>
                 </a>
               </div>
 

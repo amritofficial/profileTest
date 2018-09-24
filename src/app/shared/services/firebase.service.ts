@@ -15,6 +15,7 @@ import { Upload } from '../models/upload';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LinkRequest } from '../models/link-request';
 import { Feed } from '../models/feed';
+import { Like } from '../models/like';
 
 @Injectable()
 export class FirebaseService {
@@ -170,11 +171,25 @@ export class FirebaseService {
     return this.angularFireDatabase.list(`/linkRequests/${userId}/sent`).valueChanges();
   }
 
+  // Feed Work Below
+
   storeFeed(feed: Feed, userId: any) {
     let postNewKey = this.angularFireDatabase.database.ref().child('feed').push().key;
     let path = `/feed/${userId}/${postNewKey}`;
     feed.feedId = postNewKey;
     return this.angularFireDatabase.object(path).update(feed);
+  }
+
+  getFeed(userId: any) {
+    return this.angularFireDatabase.list(`/feed/${userId}`).valueChanges();
+  }
+
+  likeFeed(userId: any, feedId: any, likeArray: Like[]) {
+    return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({like: likeArray});
+  }
+
+  dislikeFeed(userId: any, feedId: any, likeArray: Like[]) {
+    return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({like: likeArray});
   }
 
 }
