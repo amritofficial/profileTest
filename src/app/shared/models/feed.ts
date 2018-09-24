@@ -1,8 +1,11 @@
 import { Like } from "./like";
 import { Comment } from "./comment";
+import { User } from "./user";
 
 export class Feed {
-    public userId: any;
-    public like: Like;
-    public comment: Comment;
+    public user: User;
+    public feedBody: any;
+    public feedId: any;
+    public like: Like[];
+    public comment: Comment[];
 }

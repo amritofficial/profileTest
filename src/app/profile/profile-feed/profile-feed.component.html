@@ -5,10 +5,62 @@
       <div id="newsfeed-items-grid">
 
         <div class="ui-block">
+          <div class="news-feed-form">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
+
+                  <span class="fa fa-pencil"></span>
+                  <span>Status</span>
+                </a>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
+                <form #feedForm="ngForm">
+                  <!-- <div class="author-thumb">
+                        <img src="../../assets/img/author-page.jpg" alt="author">
+                      </div> -->
+                  <div class="form-group with-icon label-floating is-empty">
+                    <textarea class="form-control" name="feedBody" [(ngModel)]="feedBody" style="margin-left: -20px;" placeholder="Share what you are thinking here..."></textarea>
+                  </div>
+                  <div class="add-options-message" style="height: 100px !important;">
+                    <a class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS">
+                      <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo">
+                        <use xlink:href="icons/icons.svg#olymp-camera-icon"></use>
+                      </svg>
+                    </a>
+                    <a class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="TAG YOUR FRIENDS">
+                      <svg class="olymp-computer-icon">
+                        <use xlink:href="icons/icons.svg#olymp-computer-icon"></use>
+                      </svg>
+                    </a>
+
+                    <a class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD LOCATION">
+                      <svg class="olymp-small-pin-icon">
+                        <use xlink:href="icons/icons.svg#olymp-small-pin-icon"></use>
+                      </svg>
+                    </a>
+
+                    <button [disabled]="feedBody == ''" (click)="postFeed()" class="btn btn-primary btn-sm-2">Post Status</button>
+                  </div>
+
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-block">
           <article class="hentry post">
 
             <div class="post__author author vcard inline-items">
-              <img [src]="userService.currentUser.avatar" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';" alt="author">
+              <img [src]="userService.currentUser.avatar" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
+                alt="author">
 
               <div class="author-date">
                 <a class="h6 post__author-name fn">Amrit Singh</a>
@@ -41,8 +93,10 @@
 
             </div>
 
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-              sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur
+              sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed
+              ut
               perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
             </p>
 
@@ -149,7 +203,8 @@
 
             </div>
 
-            <p>If someone missed it, check out the new song by System of a Revenge! I thinks they are going back to their roots...</p>
+            <p>If someone missed it, check out the new song by System of a Revenge! I thinks they are going back to
+              their roots...</p>
 
             <div class="post-video">
               <div class="video-thumb">
@@ -270,7 +325,8 @@
 
             </div>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo incididunt ut labore et dolore
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo incididunt ut labore et
+              dolore
               magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris consequat.
             </p>
 
@@ -392,8 +448,10 @@
 
               </div>
 
-              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugiten, sed quia consequuntur magni dolores
-                eos qui ratione voluptatem sequi en lod nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugiten, sed quia consequuntur
+                magni dolores
+                eos qui ratione voluptatem sequi en lod nesciunt. Neque porro quisquam est, qui dolorem ipsum quia
+                dolor
                 sit amet, consectetur adipisci velit en lorem ipsum der.
               </p>
 
@@ -427,7 +485,8 @@
 
                   </div>
 
-                  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.</p>
 
                   <a class="post-add-icon inline-items">
                     <svg class="olymp-heart-icon">
@@ -496,7 +555,8 @@
 
               </div>
 
-              <p>Dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+              <p>Dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                officia
                 deserunt mollit.
               </p>
 
@@ -573,7 +633,8 @@
 
             </div>
 
-            <p>Hi! Everyone should check out these amazing photographs that my friend shot the past week. Here’s one of them...leave
+            <p>Hi! Everyone should check out these amazing photographs that my friend shot the past week. Here’s one of
+              them...leave
               a kind comment!</p>
 
             <div class="post-thumb">
@@ -594,7 +655,8 @@
                   </div>
                 </div>
 
-                <p>Here’s the first photo of our incredible photoshoot from yesterday. If you like it please say so and tel
+                <p>Here’s the first photo of our incredible photoshoot from yesterday. If you like it please say so and
+                  tel
                   me what you wanna see next!</p>
               </li>
             </ul>

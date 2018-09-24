@@ -14,6 +14,7 @@ import { Message } from '../models/message';
 import { Upload } from '../models/upload';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LinkRequest } from '../models/link-request';
+import { Feed } from '../models/feed';
 
 @Injectable()
 export class FirebaseService {
@@ -167,6 +168,13 @@ export class FirebaseService {
 
   getCurrentUserSentRequests(userId: any) {
     return this.angularFireDatabase.list(`/linkRequests/${userId}/sent`).valueChanges();
+  }
+
+  storeFeed(feed: Feed, userId: any) {
+    let postNewKey = this.angularFireDatabase.database.ref().child('feed').push().key;
+    let path = `/feed/${userId}/${postNewKey}`;
+    feed.feedId = postNewKey;
+    return this.angularFireDatabase.object(path).update(feed);
   }
 
 }
