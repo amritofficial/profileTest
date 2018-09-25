@@ -26,7 +26,8 @@
                       </div> -->
                   <div class="form-group with-icon label-floating is-empty">
                     <span>{{ timeStamp | timeAgo }}</span>
-                    <textarea class="form-control" name="feedBody" [(ngModel)]="feedBody" style="margin-left: -20px;" placeholder="Share what you are thinking here..."></textarea>
+                    <textarea class="form-control" name="feedBody" [(ngModel)]="feedBody" style="margin-left: -20px;"
+                      placeholder="Share what you are thinking here..."></textarea>
                   </div>
                   <div class="add-options-message" style="height: 100px !important;">
                     <a class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS">
@@ -46,12 +47,13 @@
                       </svg>
                     </a>
 
-                    <button [disabled]="feedBody == ''" (click)="postFeed()" class="btn btn-primary btn-sm-2">Post Status</button>
+                    <button [disabled]="feedBody == ''" (click)="postFeed()" class="btn btn-primary btn-sm-2">Post
+                      Status</button>
                   </div>
 
                 </form>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -60,7 +62,7 @@
           <article class="hentry post">
 
             <div class="post__author author vcard inline-items">
-              <img src="{{ feed?.user?.avatar }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
+              <img src="{{ userService?.currentUser?.avatar }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
                 alt="author">
 
               <div class="author-date">
@@ -96,31 +98,11 @@
               </a>
 
               <ul class="friends-harmonic">
-                <li>
+                <li *ngFor="let like of feed?.like;">
                   <a>
-                    <img src="../../assets/img/friend-harmonic7.jpg" alt="friend">
+                    <img style="margin-top: -6px;" src="{{ like?.liker?.avatar }}" alt="friend">
                   </a>
                 </li>
-                <!-- <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic8.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic9.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic10.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic11.jpg" alt="friend">
-                  </a>
-                </li> -->
               </ul>
 
               <div class="names-people-likes">
@@ -147,127 +129,47 @@
 
 
           </article>
-        </div>
+          <ul class="comments-list">
+            <li>
+              <div class="post__author author vcard inline-items">
+                <img src="../../assets/img/avatar10-sm.jpg" alt="author">
 
-        <div class="ui-block">
-          <article class="hentry post video">
+                <div class="author-date">
+                  <a class="h6 post__author-name fn">Elaine Dreyfuss</a>
+                  <div class="post__date">
+                    <time class="published" datetime="2017-03-24T18:18">
+                      5 mins ago
+                    </time>
+                  </div>
+                </div>
+
+                <a class="more">
+                  <svg class="olymp-three-dots-icon">
+                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
+                  </svg>
+                </a>
+
+              </div>
+
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium der doloremque laudantium.</p>
+            </li>
+          </ul>
+
+          <!-- <a class="more-comments">View more comments
+            <span>+</span>
+          </a> -->
+          <form class="comment-form inline-items">
 
             <div class="post__author author vcard inline-items">
-              <img src="../../assets/img/author-page.jpg" alt="author">
+              <img src="{{ userService?.currentUser?.avatar }}" alt="author">
 
-              <div class="author-date">
-                <a class="h6 post__author-name fn" href="02-ProfilePage.html">Amrit Singh</a> shared a
-                <a>link</a>
-                <div class="post__date">
-                  <time class="published" datetime="2017-03-24T18:18">
-                    7 hours ago
-                  </time>
-                </div>
-              </div>
-
-              <div class="more">
-                <span class="edit-icon fa fa-ellipsis-h clickable-edit-icons"></span>
-                <ul class="more-dropdown">
-                  <li>
-                    <a>Edit Post</a>
-                  </li>
-                  <li>
-                    <a>Delete Post</a>
-                  </li>
-                  <li>
-                    <a>Turn Off Notifications</a>
-                  </li>
-                  <li>
-                    <a>Select as Featured</a>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            <p>If someone missed it, check out the new song by System of a Revenge! I thinks they are going back to
-              their roots...</p>
-
-            <div class="post-video">
-              <div class="video-thumb">
-                <img src="../../assets/img/video5.jpg" alt="photo">
-                <a href="https://youtube.com/watch?v=excVFQ2TWig" class="play-video">
-                  <svg class="olymp-play-icon">
-                    <use xlink:href="icons/icons.svg#olymp-play-icon"></use>
-                  </svg>
-                </a>
-              </div>
-
-              <div class="video-content">
-                <a class="h4 title">System of a Revenge - Nothing Else Matters (LIVE)</a>
-                <p>Lorem ipsum dolor sit amet, consectetur ipisicing elit, sed do eiusmod tempo incididunt ut labore..</p>
-                <a class="link-site">YOUTUBE.COM</a>
+              <div class="form-group with-icon-right ">
+                <textarea class="form-control" name="comment-box" [(ngModel)]="commentBody" (keyup.enter)="postComment(feed)" placeholder="Write a comment..."></textarea>
               </div>
             </div>
 
-            <div class="post-additional-info inline-items">
+          </form>
 
-              <a class="post-add-icon inline-items">
-                <svg class="olymp-heart-icon">
-                  <use xlink:href="icons/icons.svg#olymp-heart-icon"></use>
-                </svg>
-                <span>15</span>
-              </a>
-
-              <ul class="friends-harmonic">
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic9.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic10.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic7.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic8.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic11.jpg" alt="friend">
-                  </a>
-                </li>
-              </ul>
-
-              <div class="names-people-likes">
-                <a>Jenny</a>,
-                <a>Robert</a> and
-                <br>13 more liked this
-              </div>
-
-              <div class="comments-shared">
-                <a class="post-add-icon inline-items">
-                  <svg class="olymp-speech-balloon-icon">
-                    <use xlink:href="icons/icons.svg#olymp-speech-balloon-icon"></use>
-                  </svg>
-                  <span>1</span>
-                </a>
-
-                <a class="post-add-icon inline-items">
-                  <svg class="olymp-share-icon">
-                    <use xlink:href="icons/icons.svg#olymp-share-icon"></use>
-                  </svg>
-                  <span>16</span>
-                </a>
-              </div>
-
-
-            </div>
-
-          </article>
         </div>
 
         <div class="ui-block">

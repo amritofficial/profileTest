@@ -18,6 +18,7 @@ export class ProfileFeedComponent implements OnInit {
   feedBody: string = '';
   feedArray: Feed[] = [];
   feed: Feed = new Feed();
+  commentBody: string = '';
   // feed: Feed = {
   //   timeStamp: null,
   //   feedBody: '',
@@ -107,32 +108,29 @@ export class ProfileFeedComponent implements OnInit {
   likeFeed(feed: Feed) {
     let alreadyLiked: boolean = false;
     let userId = this.userService.getCurrentUserId();
-    let like: Like = {
-      like: true,
-      liker: {
-        avatar: "https://firebasestorage.googleapis.com/v0/b/devfinder-chat.appspot.com/o/avatars%2Famrit%40test.com.jpg?alt=media&token=55771e75-155e-43d0-8b1c-c0b45ca7bf7d",
-        email: "amrit@test.com",
-        userId: "jF6jQ5oX1h",
-        userStatus: 0,
-        username: "Amrit Singh"
-      }
-    }
+    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((currentUser: User) => {
+        let like: Like = {
+          like: true,
+          liker: currentUser
+        }
 
-    let likeArray: Like[] = new Array();
-    likeArray = feed.like != undefined ? feed.like : new Array();
-    likeArray.forEach((like, i) => {
-      if (like.liker.userId === like.liker.userId) {
-        alreadyLiked = true;
-        this.dislikeFeed(userId, feed.feedId, likeArray, i);
-        console.log(i);
-      }
-    });
-    
-    if (alreadyLiked === false) {
-      console.log("LIKE IT")
-      likeArray.push(like);
-      this.postService.likeFeed(userId, feed.feedId, likeArray);
-    }
+        let likeArray: Like[] = new Array();
+        likeArray = feed.like != undefined ? feed.like : new Array();
+        likeArray.forEach((like, i) => {
+          if (like.liker.userId === like.liker.userId) {
+            alreadyLiked = true;
+            this.dislikeFeed(userId, feed.feedId, likeArray, i);
+            console.log(i);
+          }
+        });
+
+        if (alreadyLiked === false) {
+          console.log("LIKE IT")
+          likeArray.push(like);
+          this.postService.likeFeed(userId, feed.feedId, likeArray);
+        }
+      });
 
   }
 
@@ -141,6 +139,18 @@ export class ProfileFeedComponent implements OnInit {
     console.log(likeArray);
     this.postService.dislikeFeed(userId, feedId, likeArray)
     console.log('Feed Disliked');
+  }
+
+  postComment(feed: Feed) {
+    console.log(this.commentBody);
+    console.log(feed);
+    // let commentData: Comment = {
+    //   commentBody: this.commentBody,
+    //   timeStamp: new Date().getTime(),
+    //   commentor: 
+    // }
+
+    this.commentBody = '';
   }
 
 }
