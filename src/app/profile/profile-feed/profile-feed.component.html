@@ -115,7 +115,7 @@
               <div class="comments-shared">
                 <a class="post-add-icon inline-items">
                   <span class="fa fa-comment"></span>
-                  <span>17</span>
+                  <span>{{ feed?.comment?.length }}</span>
                 </a>
 
                 <a class="post-add-icon inline-items">
@@ -123,12 +123,9 @@
                   <span></span>
                 </a>
               </div>
-
-
             </div>
-
-
           </article>
+
           <ul class="comments-list">
             <li *ngFor="let comment of feed.comment;">
               <div class="post__author author vcard inline-items">
@@ -147,7 +144,7 @@
                   <span class="fa fa-ellipsis-h"></span>
                   <ul class="more-dropdown">
                     <li style="padding: 2px; border-bottom: none; background-color: white;">
-                      <a (click)="deleteComment()">Delete Post</a>
+                      <a (click)="deleteComment(feed)">Delete Post</a>
                     </li>
                   </ul>
                 </div>

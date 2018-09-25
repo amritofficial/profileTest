@@ -17,16 +17,20 @@ export class PostService {
     return this.firebaseService.getFeed(userId);
   }
 
-  likeFeed(userId: any, feedId: any, likeArray: Like[]) {
-    return this.firebaseService.likeFeed(userId, feedId, likeArray);
+  likeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
+    return this.firebaseService.likeFeed(feedUserId, feedId, likeArray);
   }
 
-  dislikeFeed(userId: any, feedId: any, likeArray: Like[]) {
-    return this.firebaseService.dislikeFeed(userId, feedId, likeArray);
+  dislikeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
+    return this.firebaseService.dislikeFeed(feedUserId, feedId, likeArray);
   }
 
-  commentFeed(userId: any, feedId: any, commentArray: Comment[]) {
-    return this.firebaseService.commentFeed(userId, feedId, commentArray);
+  commentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
+    return this.firebaseService.commentFeed(feedUserId, feedId, commentArray);
+  }
+
+  deleteCommentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
+    return this.firebaseService.deleteCommentFeed(feedUserId, feedId, commentArray);
   }
 
 }

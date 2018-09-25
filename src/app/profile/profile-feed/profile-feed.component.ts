@@ -114,13 +114,15 @@ export class ProfileFeedComponent implements OnInit {
           like: true,
           liker: currentUser
         }
-
+        // the reason feed.user.userId is used is because the firebase needs to access 
+        // the person posting the feed not the current user
+        // cause current user will change depending upon the scenarios
         let likeArray: Like[] = new Array();
         likeArray = feed.like != undefined ? feed.like : new Array();
         likeArray.forEach((like, i) => {
           if (like.liker.userId === like.liker.userId) {
             alreadyLiked = true;
-            this.dislikeFeed(userId, feed.feedId, likeArray, i);
+            this.dislikeFeed(feed.user.userId, feed.feedId, likeArray, i);
             console.log(i);
           }
         });
@@ -128,7 +130,7 @@ export class ProfileFeedComponent implements OnInit {
         if (alreadyLiked === false) {
           console.log("LIKE IT")
           likeArray.push(like);
-          this.postService.likeFeed(userId, feed.feedId, likeArray);
+          this.postService.likeFeed(feed.user.userId, feed.feedId, likeArray);
         }
       });
 
@@ -154,7 +156,7 @@ export class ProfileFeedComponent implements OnInit {
 
         let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
         commentArray.push(commentData);
-        this.postService.commentFeed(currentUser.userId, feed.feedId, commentArray)
+        this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
         .then(() => {
           this.commentBody = '';
           console.log("Comment success!")
@@ -162,8 +164,14 @@ export class ProfileFeedComponent implements OnInit {
       });
   }
 
-  deleteComment() {
-    console.log("Delete comment called");
+  deleteComment(feed: Feed, index: any) {
+    console.log(feed.comment)
+    let commentArray: Comment[] = feed.comment;
+    commentArray.splice(index, 1);
+
+    this.postService.deleteCommentFeed(feed.user.userId, feed.feedId, commentArray).then(() => {
+      console.log("Comment Deleted");
+    });
   }
 
 }

@@ -185,16 +185,20 @@ export class FirebaseService {
     return this.angularFireDatabase.list(`/feed/${userId}`).valueChanges();
   }
 
-  likeFeed(userId: any, feedId: any, likeArray: Like[]) {
-    return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({like: likeArray});
+  likeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({like: likeArray});
   }
 
-  dislikeFeed(userId: any, feedId: any, likeArray: Like[]) {
-    return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({like: likeArray});
+  dislikeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({like: likeArray});
   }
 
-  commentFeed(userId: any, feedId: any, commentArray: Comment[]) {
-    return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({comment: commentArray});
+  commentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
+  }
+
+  deleteCommentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
   }
 
 }
