@@ -144,13 +144,26 @@ export class ProfileFeedComponent implements OnInit {
   postComment(feed: Feed) {
     console.log(this.commentBody);
     console.log(feed);
-    // let commentData: Comment = {
-    //   commentBody: this.commentBody,
-    //   timeStamp: new Date().getTime(),
-    //   commentor: 
-    // }
+    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((currentUser: User) => {
+        let commentData: Comment = {
+          commentBody: this.commentBody,
+          timeStamp: new Date().getTime(),
+          commentor: currentUser
+        }
 
-    this.commentBody = '';
+        let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
+        commentArray.push(commentData);
+        this.postService.commentFeed(currentUser.userId, feed.feedId, commentArray)
+        .then(() => {
+          this.commentBody = '';
+          console.log("Comment success!")
+        }).catch(error => console.log(error));
+      });
+  }
+
+  deleteComment() {
+    console.log("Delete comment called");
   }
 
 }

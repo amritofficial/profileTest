@@ -16,6 +16,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LinkRequest } from '../models/link-request';
 import { Feed } from '../models/feed';
 import { Like } from '../models/like';
+import { Comment } from '../models/comment';
 
 @Injectable()
 export class FirebaseService {
@@ -190,6 +191,10 @@ export class FirebaseService {
 
   dislikeFeed(userId: any, feedId: any, likeArray: Like[]) {
     return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({like: likeArray});
+  }
+
+  commentFeed(userId: any, feedId: any, commentArray: Comment[]) {
+    return this.angularFireDatabase.object(`/feed/${userId}/${feedId}`).update({comment: commentArray});
   }
 
 }

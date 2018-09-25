@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { Feed } from '../models/feed';
 import { Like } from '../models/like';
+import { Comment } from '../models/comment';
 
 @Injectable()
 export class PostService {
@@ -22,6 +23,10 @@ export class PostService {
 
   dislikeFeed(userId: any, feedId: any, likeArray: Like[]) {
     return this.firebaseService.dislikeFeed(userId, feedId, likeArray);
+  }
+
+  commentFeed(userId: any, feedId: any, commentArray: Comment[]) {
+    return this.firebaseService.commentFeed(userId, feedId, commentArray);
   }
 
 }
