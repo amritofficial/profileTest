@@ -174,4 +174,9 @@ export class ProfileFeedComponent implements OnInit {
     });
   }
 
+  deletePost(feed: Feed) {
+    let userId = this.userService.getCurrentUserId();
+    this.postService.deleteFeed(userId, feed.feedId);
+  }
+
 }

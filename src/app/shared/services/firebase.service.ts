@@ -181,6 +181,10 @@ export class FirebaseService {
     return this.angularFireDatabase.object(path).update(feed);
   }
 
+  deleteFeed(userId: any, feedId: any) {
+    return this.angularFireDatabase.database.ref(`/feed/${userId}`).child(`${feedId}`).remove();
+  }
+
   getFeed(userId: any) {
     return this.angularFireDatabase.list(`/feed/${userId}`).valueChanges();
   }

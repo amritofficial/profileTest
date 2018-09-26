@@ -13,6 +13,10 @@ export class PostService {
     return this.firebaseService.storeFeed(feed, userId);
   }
 
+  deleteFeed(userId: any, feedId: any) {
+    return this.firebaseService.deleteFeed(userId, feedId);
+  }
+
   getFeed(userId: any) {
     return this.firebaseService.getFeed(userId);
   }

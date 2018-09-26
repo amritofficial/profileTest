@@ -81,7 +81,7 @@
                     <a>Edit Post</a>
                   </li>
                   <li>
-                    <a>Delete Post</a>
+                    <a (click)="deletePost(feed)">Delete Post</a>
                   </li>
                 </ul>
               </div>
@@ -144,7 +144,7 @@
                   <span class="fa fa-ellipsis-h"></span>
                   <ul class="more-dropdown">
                     <li style="padding: 2px; border-bottom: none; background-color: white;">
-                      <a (click)="deleteComment(feed)">Delete Post</a>
+                      <a (click)="deleteComment(feed)">Delete Comment</a>
                     </li>
                   </ul>
                 </div>
