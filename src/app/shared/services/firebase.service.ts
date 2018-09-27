@@ -205,4 +205,8 @@ export class FirebaseService {
     return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
   }
 
+  getGlobalFeed() {
+    return this.angularFireDatabase.list(`/feed`).valueChanges();
+  }
+
 }

@@ -5,6 +5,9 @@ import { UserService } from '../shared/services/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { LinkService } from '../shared/services/link.service';
 import { LinkRequest } from '../shared/models/link-request';
+import { PostService } from '../shared/services/post.service';
+import { Feed } from '../shared/models/feed';
+import { AngularFireList } from '@angular/fire/database';
 
 @Component({
   selector: 'dashboard',
@@ -14,8 +17,10 @@ import { LinkRequest } from '../shared/models/link-request';
 export class DashboardComponent implements OnInit {
   private ngUnsubscribe = new Subject();
   currentUser: User = this.userService.user;
+  feedList: Feed[] = new Array();
   constructor(private userService: UserService,
-    private linkService: LinkService) { }
+    private linkService: LinkService,
+    private postService: PostService) { }
 
   ngOnInit() {
     this.userService.loadingUser = true;
@@ -31,6 +36,7 @@ export class DashboardComponent implements OnInit {
     this.getCurrentUserLinks();
     this.getCurrentReceivedRequests();
     this.getCurrentSentRequests();
+    this.getGlobalFeed();
   }
 
   getCurrentUserLinks() {
@@ -61,6 +67,18 @@ export class DashboardComponent implements OnInit {
         console.log("Sent Requests");
         console.log(this.linkService.sentRequests);
       });
+  }
+
+  getGlobalFeed() {
+    this.postService.getGlobalFeed().subscribe((feed) => {
+      console.log("GLOBAL FEED");
+      console.log(feed[0]);
+      let object = JSON.parse(JSON.stringify(feed[0]));
+      this.feedList = [];
+      for (var x in object) {
+        this.feedList.push(object[x]);
+      }
+    });
   }
 
 }

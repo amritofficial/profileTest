@@ -37,4 +37,8 @@ export class PostService {
     return this.firebaseService.deleteCommentFeed(feedUserId, feedId, commentArray);
   }
 
+  getGlobalFeed() {
+    return this.firebaseService.getGlobalFeed();
+  }
+
 }
