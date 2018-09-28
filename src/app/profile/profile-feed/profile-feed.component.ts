@@ -120,7 +120,7 @@ export class ProfileFeedComponent implements OnInit {
         let likeArray: Like[] = new Array();
         likeArray = feed.like != undefined ? feed.like : new Array();
         likeArray.forEach((like, i) => {
-          if (like.liker.userId === like.liker.userId) {
+          if (like.liker.userId === currentUser.userId) {
             alreadyLiked = true;
             this.dislikeFeed(feed.user.userId, feed.feedId, likeArray, i);
             console.log(i);
