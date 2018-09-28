@@ -9,6 +9,7 @@ import { PostService } from '../shared/services/post.service';
 import { Feed } from '../shared/models/feed';
 import { AngularFireList } from '@angular/fire/database';
 import { Like } from '../shared/models/like';
+import { Comment } from '../shared/models/comment';
 
 @Component({
   selector: 'dashboard',
@@ -19,6 +20,8 @@ export class DashboardComponent implements OnInit {
   private ngUnsubscribe = new Subject();
   currentUser: User = this.userService.user;
   feedList: Feed[] = new Array();
+  commentBody: string = '';
+
   constructor(private userService: UserService,
     private linkService: LinkService,
     private postService: PostService) { }
@@ -73,10 +76,12 @@ export class DashboardComponent implements OnInit {
   getGlobalFeed() {
     this.postService.getGlobalFeed().pipe(takeUntil(this.ngUnsubscribe)).subscribe((feed) => {
       console.log("GLOBAL FEED");
-      let object = JSON.parse(JSON.stringify(feed[0]));
-      this.feedList = [];
-      for (var x in object) {
-        this.feedList.push(object[x]);
+      if (feed !== undefined || feed !== null) {
+        let object = JSON.parse(JSON.stringify(feed[0]));
+        this.feedList = [];
+        for (var x in object) {
+          this.feedList.push(object[x]);
+        }
       }
       console.log(this.feedList);
     });
@@ -124,15 +129,53 @@ export class DashboardComponent implements OnInit {
   }
 
   getLikerNameAndCount(feed: Feed) {
-    if (feed.like.length === 1) {
-      return `${feed.like[0].liker.username} likes this`;
-    } 
-    else if (feed.like.length === 2) {
-      return `${feed.like[0].liker.username} and <br> ${feed.like[1].liker.username} likes this`;
+    let feedLike: Like[] = feed.like !== undefined ? feed.like : new Array();
+    if (feedLike.length === 1) {
+      return `${feedLike[0].liker.username} likes this`;
     }
-    else if (feed.like.length > 2) {
-      return `${feed.like[0].liker.username}, ${feed.like[1].liker.username} and <br> ${feed.like.length-2} more liked this`;
+    else if (feedLike.length === 2) {
+      return `${feedLike[0].liker.username} and <br> ${feedLike[1].liker.username} like this`;
     }
+    else if (feedLike.length > 2) {
+      return `${feedLike[0].liker.username}, ${feedLike[1].liker.username} and <br> ${feedLike.length - 2} more like this`;
+    }
+  }
+
+
+  postComment(feed: Feed) {
+    console.log(this.commentBody);
+    console.log(feed);
+    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((currentUser: User) => {
+        let commentData: Comment = {
+          commentBody: this.commentBody,
+          timeStamp: new Date().getTime(),
+          commentor: currentUser
+        }
+
+        let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
+        commentArray.push(commentData);
+        this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
+          .then(() => {
+            this.commentBody = '';
+            console.log("Comment success!")
+          }).catch(error => console.log(error));
+      });
+  }
+
+  deleteComment(feed: Feed, index: any) {
+    console.log(feed.comment)
+    let commentArray: Comment[] = feed.comment;
+    commentArray.splice(index, 1);
+
+    this.postService.deleteCommentFeed(feed.user.userId, feed.feedId, commentArray).then(() => {
+      console.log("Comment Deleted");
+    });
+  }
+
+  deletePost(feed: Feed) {
+    let userId = this.userService.getCurrentUserId();
+    this.postService.deleteFeed(userId, feed.feedId);
   }
 
 }

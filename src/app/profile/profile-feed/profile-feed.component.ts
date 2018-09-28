@@ -157,10 +157,10 @@ export class ProfileFeedComponent implements OnInit {
         let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
         commentArray.push(commentData);
         this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
-        .then(() => {
-          this.commentBody = '';
-          console.log("Comment success!")
-        }).catch(error => console.log(error));
+          .then(() => {
+            this.commentBody = '';
+            console.log("Comment success!")
+          }).catch(error => console.log(error));
       });
   }
 
@@ -177,6 +177,19 @@ export class ProfileFeedComponent implements OnInit {
   deletePost(feed: Feed) {
     let userId = this.userService.getCurrentUserId();
     this.postService.deleteFeed(userId, feed.feedId);
+  }
+
+  getLikerNameAndCount(feed: Feed) {
+    let feedLike: Like[] = feed.like !== undefined ? feed.like : new Array();
+    if (feedLike.length === 1) {
+      return `${feedLike[0].liker.username} likes this`;
+    }
+    else if (feedLike.length === 2) {
+      return `${feedLike[0].liker.username} and <br> ${feedLike[1].liker.username} like this`;
+    }
+    else if (feedLike.length > 2) {
+      return `${feedLike[0].liker.username}, ${feedLike[1].liker.username} and <br> ${feedLike.length - 2} more like this`;
+    }
   }
 
 }

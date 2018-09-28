@@ -185,6 +185,18 @@
 									</time>
 								</div>
 							</div>
+
+							<div *ngIf="userService?.currentUser?.userId == feed?.user?.userId" class="more">
+								<span class="fa fa-ellipsis-h"></span>
+								<ul class="more-dropdown">
+									<li>
+										<a>Edit Post</a>
+									</li>
+									<li>
+										<a (click)="deletePost(feed)">Delete Post</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 
 						<p>{{ feed?.feedBody }}</p>
@@ -205,10 +217,6 @@
 							</ul>
 
 							<div class="names-people-likes" [innerHTML]="getLikerNameAndCount(feed)">
-								<!-- <a>Jenny</a>,
-								<a>Robert</a> and
-								<br>6 more liked this -->
-								<!-- {{ getLikerNameAndCount(feed) }} -->
 							</div>
 
 
@@ -422,14 +430,6 @@
 				</div>
 
 			</div>
-
-
-			<a id="load-more-button" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid"><svg
-				 class="olymp-three-dots-icon">
-					<use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-				</svg></a>
-
-
 		</div>
 
 		<!-- ... end Main Content -->

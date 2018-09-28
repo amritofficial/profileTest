@@ -209,4 +209,9 @@ export class FirebaseService {
     return this.angularFireDatabase.list(`/feed`).valueChanges();
   }
 
+  // Change status of user from online to offline
+  logoutUser(userId: any) {
+    this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 1});
+  }
+
 }
