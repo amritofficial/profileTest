@@ -67,6 +67,8 @@ import { GuestFinderTagsComponent } from './guest-profile/guest-finder-tags/gues
 import { LinkRequestCardComponent } from './navbar/link-request-card/link-request-card.component';
 import { RequestService } from './shared/services/request.service';
 import { LinkService } from './shared/services/link.service';
+import { PostService } from './shared/services/post.service';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,8 @@ import { LinkService } from './shared/services/link.service';
     ProfileLocationModalComponent,
     FinderTagsComponent,
     GuestFinderTagsComponent,
-    LinkRequestCardComponent
+    LinkRequestCardComponent,
+    TimeAgoPipe
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
@@ -134,7 +137,7 @@ import { LinkService } from './shared/services/link.service';
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
