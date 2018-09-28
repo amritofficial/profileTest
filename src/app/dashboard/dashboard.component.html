@@ -248,7 +248,7 @@
 									</div>
 								</div>
 
-								<div class="more">
+								<div *ngIf="comment?.commentor?.userId === userService?.currentUser?.userId" class="more">
 									<span class="fa fa-ellipsis-h"></span>
 									<ul class="more-dropdown">
 										<li style="padding: 2px; border-bottom: none; background-color: white;">

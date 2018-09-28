@@ -214,4 +214,8 @@ export class FirebaseService {
     this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 1});
   }
 
+  loginUser(userId: any) {
+    this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 0});
+  }
+
 }
