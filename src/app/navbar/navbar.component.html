@@ -442,9 +442,38 @@
             <a>Settings</a>
           </div>
 
-          <div class="mCustomScrollbar" data-mcs-theme="dark">
+          <div class="notification-scroll" data-mcs-theme="dark">
             <ul class="notification-list">
-              <li>
+              <li *ngFor="let notification of notificationList;">
+                <div class="author-thumb">
+                  <img src="{{ notification?.user?.avatar }}" alt="author">
+                </div>
+                <div class="notification-event">
+                  <div>
+                    <a class="h6 notification-friend">{{ notification?.user?.username }}</a> posted to it's
+                    <a class="notification-link" [routerLink]="['/guest-profile', notification?.user?.userId]">timeline</a>.</div>
+                  <span class="notification-date">
+                    <time class="entry-date updated" >{{ notification?.timeStamp | timeAgo}}</time>
+                  </span>
+                </div>
+                <span class="notification-icon">
+                  <svg class="olymp-comments-post-icon">
+                    <use xlink:href="icons/icons.svg#olymp-comments-post-icon"></use>
+                  </svg>
+                </span>
+
+                <div class="more">
+                  <svg class="olymp-three-dots-icon">
+                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
+                  </svg>
+                  <svg class="olymp-little-delete">
+                    <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
+                  </svg>
+                </div>
+              </li>
+
+              <!-- Commented on the status notification -->
+              <!-- <li>
                 <div class="author-thumb">
                   <img src="../../assets/img/avatar62-sm.jpg" alt="author">
                 </div>
@@ -470,9 +499,9 @@
                     <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
                   </svg>
                 </div>
-              </li>
+              </li> -->
 
-              <li class="un-read">
+              <!-- <li class="un-read">
                 <div class="author-thumb">
                   <img src="../../assets/img/avatar63-sm.jpg" alt="author">
                 </div>
@@ -498,9 +527,9 @@
                     <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
                   </svg>
                 </div>
-              </li>
+              </li> -->
 
-              <li class="with-comment-photo">
+              <!-- <li class="with-comment-photo">
                 <div class="author-thumb">
                   <img src="../../assets/img/avatar64-sm.jpg" alt="author">
                 </div>
@@ -531,37 +560,9 @@
                     <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
                   </svg>
                 </div>
-              </li>
+              </li> -->
 
-              <li>
-                <div class="author-thumb">
-                  <img src="../../assets/img/avatar65-sm.jpg" alt="author">
-                </div>
-                <div class="notification-event">
-                  <div>
-                    <a class="h6 notification-friend">Green Goo Rock</a> invited you to attend to his event Goo in
-                    <a class="notification-link">Gotham Bar</a>.</div>
-                  <span class="notification-date">
-                    <time class="entry-date updated" datetime="2004-07-24T18:18">March 5th at 6:43pm</time>
-                  </span>
-                </div>
-                <span class="notification-icon">
-                  <svg class="olymp-happy-face-icon">
-                    <use xlink:href="icons/icons.svg#olymp-happy-face-icon"></use>
-                  </svg>
-                </span>
-
-                <div class="more">
-                  <svg class="olymp-three-dots-icon">
-                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                  </svg>
-                  <svg class="olymp-little-delete">
-                    <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
-                  </svg>
-                </div>
-              </li>
-
-              <li>
+              <!-- <li>
                 <div class="author-thumb">
                   <img src="../../assets/img/avatar66-sm.jpg" alt="author">
                 </div>
@@ -587,7 +588,7 @@
                     <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
                   </svg>
                 </div>
-              </li>
+              </li> -->
             </ul>
           </div>
 

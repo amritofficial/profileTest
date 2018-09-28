@@ -8,6 +8,8 @@ import { User } from '../shared/models/user';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FirebaseService } from '../shared/services/firebase.service';
+import { PostService } from '../shared/services/post.service';
+import { Feed } from '../shared/models/feed';
 
 @Component({
   selector: 'navbar',
@@ -16,6 +18,9 @@ import { FirebaseService } from '../shared/services/firebase.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
+
+  feedList: Feed[] = new Array();
+  notificationList: any[] = new Array();
 
   linkRequestArray: LinkRequest[] = [{
     from: this.userService.user,
@@ -42,6 +47,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private parseService: ParseService,
     private firebaseService: FirebaseService,
+    private postService: PostService,
     private router: Router) { }
 
   ngOnInit() {
@@ -50,6 +56,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // it gets the data
     this.getReceivedLinkRequest();
     this.getSentLinkRequest();
+    this.createNotificationFromGlobalFeed();
   }
 
   ngOnDestroy() {
@@ -117,6 +124,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
   // ToDo remove the sent request node on click from firebase database
   removeApprovedRequestNotification() {
     console.log("Removed Notification");
+  }
+
+  createNotificationFromGlobalFeed() {
+    let currentUserId = this.userService.getCurrentUserId();
+    this.postService.getGlobalFeed().pipe(takeUntil(this.ngUnsubscribe)).subscribe((feed) => {
+      console.log("FROM NOTIFICATION COMPONENT");
+      if (feed !== undefined || feed !== null) {
+        let object = JSON.parse(JSON.stringify(feed[0]));
+        this.feedList = [];
+        for (var x in object) {
+          this.feedList.push(object[x]);
+          this.notificationList.push(object[x]);
+        }
+      }
+      console.log(this.feedList);
+      console.log("NOTIFICATIONS");
+      console.log(this.notificationList);
+    });
   }
 
 }
