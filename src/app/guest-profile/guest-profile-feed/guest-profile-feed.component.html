@@ -98,7 +98,7 @@
               <img src="{{ userService?.currentUser?.avatar }}" alt="author">
 
               <div class="form-group with-icon-right ">
-                <textarea class="form-control" name="comment-box" [(ngModel)]="commentBody" (keyup.enter)="postComment(feed)"
+                <textarea class="form-control" name="comment-box" [(ngModel)]="commentBody" (keydown)="postComment(feed, $event)"
                   placeholder="Write a comment..."></textarea>
               </div>
             </div>
