@@ -124,7 +124,7 @@
           </article>
 
           <ul class="comments-list">
-            <li *ngFor="let comment of feed.comment;">
+            <li *ngFor="let comment of feed.comment; let index = k;">
               <div class="post__author author vcard inline-items">
                 <img src="{{ comment?.commentor?.avatar }}" alt="author">
 
@@ -141,7 +141,7 @@
                   <span class="fa fa-ellipsis-h"></span>
                   <ul class="more-dropdown">
                     <li style="padding: 2px; border-bottom: none; background-color: white;">
-                      <a (click)="deleteComment(feed)">Delete Comment</a>
+                      <a (click)="deleteComment(feed, k)">Delete Comment</a>
                     </li>
                   </ul>
                 </div>
