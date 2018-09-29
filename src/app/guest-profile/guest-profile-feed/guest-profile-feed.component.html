@@ -68,7 +68,7 @@
                 <div class="author-date">
                   <a class="h6 post__author-name fn">{{ comment?.commentor?.username }}</a>
                   <div class="post__date">
-                    <time class="published">
+                    <time class="published" style="font-size: 11px;">
                       {{ comment?.timeStamp | timeAgo }}
                     </time>
                   </div>
@@ -85,7 +85,7 @@
 
               </div>
 
-              <p>{{ comment.commentBody }}</p>
+              <p style="margin-left: 45px;">{{ comment.commentBody }}</p>
             </li>
           </ul>
 

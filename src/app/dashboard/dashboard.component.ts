@@ -79,13 +79,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getGlobalFeed() {
     this.postService.getGlobalFeed().pipe(takeUntil(this.ngUnsubscribe)).subscribe((feed) => {
       console.log("GLOBAL FEED");
+      // console.log(feed);
+      
       if (feed !== undefined || feed !== null) {
-        let object = JSON.parse(JSON.stringify(feed[0]));
         this.feedList = [];
-        for (var x in object) {
-          this.feedList.push(object[x]);
+        for (var i = 0; i < feed.length; i++) {
+          let object = JSON.parse(JSON.stringify(feed[i]));
+          for (var x in object) {
+            this.feedList.push(object[x]);
+          }
         }
       }
+      this.feedList.sort((a, b) => {
+        var aTime = new Date(a.timeStamp).getTime();
+        var bTime = new Date(b.timeStamp).getTime();
+        return bTime - aTime;
+      });
       console.log(this.feedList);
     });
   }
