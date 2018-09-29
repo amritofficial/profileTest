@@ -143,25 +143,26 @@ export class ProfileFeedComponent implements OnInit {
     console.log('Feed Disliked');
   }
 
-  postComment(feed: Feed) {
-    console.log(this.commentBody);
-    console.log(feed);
-    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((currentUser: User) => {
-        let commentData: Comment = {
-          commentBody: this.commentBody,
-          timeStamp: new Date().getTime(),
-          commentor: currentUser
-        }
+  postComment(feed: Feed, event) {
+    if (event.key === 'Enter') {
+      console.log(this.commentBody);
+      console.log(feed);
+      if ((this.commentBody !== '') || (this.commentBody !== null)) {
+        this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((currentUser: User) => {
+            let commentData: Comment = {
+              commentBody: this.commentBody,
+              timeStamp: new Date().getTime(),
+              commentor: currentUser
+            }
 
-        let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
-        commentArray.push(commentData);
-        this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
-          .then(() => {
+            let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
+            commentArray.push(commentData);
+            this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
             this.commentBody = '';
-            console.log("Comment success!")
-          }).catch(error => console.log(error));
-      });
+          });
+      }
+    }
   }
 
   deleteComment(feed: Feed, index: any) {

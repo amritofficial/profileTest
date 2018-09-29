@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { User } from '../shared/models/user';
 import { UserService } from '../shared/services/user.service';
@@ -16,7 +16,7 @@ import { Comment } from '../shared/models/comment';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css', '../../assets/css/blocks.css', '../../assets/css/theme-styles.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
   currentUser: User = this.userService.user;
   feedList: Feed[] = new Array();
@@ -41,6 +41,9 @@ export class DashboardComponent implements OnInit {
     this.getCurrentReceivedRequests();
     this.getCurrentSentRequests();
     this.getGlobalFeed();
+  }
+
+  ngOnDestroy() {
   }
 
   getCurrentUserLinks() {
@@ -142,31 +145,34 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  postComment(feed: Feed) {
-    console.log(this.commentBody);
-    console.log(feed);
-    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((currentUser: User) => {
-        let commentData: Comment = {
-          commentBody: this.commentBody,
-          timeStamp: new Date().getTime(),
-          commentor: currentUser
-        }
+  postComment(feed: Feed, event) {
+    if (event.key === 'Enter') {
+      console.log(this.commentBody);
+      console.log(feed);
+      if ((this.commentBody !== '') || (this.commentBody !== null)) {
+        this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((currentUser: User) => {
+            let commentData: Comment = {
+              commentBody: this.commentBody,
+              timeStamp: new Date().getTime(),
+              commentor: currentUser
+            }
 
-        let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
-        commentArray.push(commentData);
-        this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
-          .then(() => {
+            let commentArray: Comment[] = feed.comment != undefined ? feed.comment : new Array();
+            commentArray.push(commentData);
+            this.postService.commentFeed(feed.user.userId, feed.feedId, commentArray)
             this.commentBody = '';
-            console.log("Comment success!")
-          }).catch(error => console.log(error));
-      });
+          });
+      }
+    }
   }
 
   deleteComment(feed: Feed, index: any) {
     console.log(feed.comment)
     let commentArray: Comment[] = feed.comment;
     commentArray.splice(index, 1);
+    console.log(index);
+    console.log(commentArray);
 
     this.postService.deleteCommentFeed(feed.user.userId, feed.feedId, commentArray).then(() => {
       console.log("Comment Deleted");
