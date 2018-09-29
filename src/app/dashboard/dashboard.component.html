@@ -235,7 +235,7 @@
 					</article>
 
 					<ul class="comments-list">
-						<li *ngFor="let comment of feed.comment; let index = k;">
+						<li *ngFor="let comment of feed.comment; let k = index;">
 							<div class="post__author author vcard inline-items">
 								<img src="{{ comment?.commentor?.avatar }}" alt="author">
 
@@ -272,7 +272,7 @@
 							<img src="{{ userService?.currentUser?.avatar }}" alt="author">
 
 							<div class="form-group with-icon-right ">
-								<textarea class="form-control" name="comment-box" [(ngModel)]="commentBody" (keyup.enter)="postComment(feed)"
+								<textarea class="form-control" name="comment-box" [(ngModel)]="commentBody" (keydown)="postComment(feed, $event)"
 								 placeholder="Write a comment..."></textarea>
 							</div>
 						</div>

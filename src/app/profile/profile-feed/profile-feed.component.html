@@ -124,7 +124,7 @@
           </article>
 
           <ul class="comments-list">
-            <li *ngFor="let comment of feed.comment; let index = k;">
+            <li *ngFor="let comment of feed.comment; let k = index;">
               <div class="post__author author vcard inline-items">
                 <img src="{{ comment?.commentor?.avatar }}" alt="author">
 

@@ -7,7 +7,6 @@ import { RequestService } from '../shared/services/request.service';
 import { User } from '../shared/models/user';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { FirebaseService } from '../shared/services/firebase.service';
 import { PostService } from '../shared/services/post.service';
 import { Feed } from '../shared/models/feed';
 
@@ -46,7 +45,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
     private requestService: RequestService,
     private parseService: ParseService,
-    private firebaseService: FirebaseService,
     private postService: PostService,
     private router: Router) { }
 
@@ -70,11 +68,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logoutUser() {
     this.parseService.logoutUsingRest().subscribe(data => {
       console.log("user logged out");
-      this.firebaseService.logoutUser(window.sessionStorage.getItem("current_user_id"));
       window.sessionStorage.setItem("session_token", null);
       window.sessionStorage.setItem("current_user_id", null);
       this.router.navigateByUrl('/home/(form-outlet:login)');
-    })
+    });
   }
 
   getReceivedLinkRequest() {
