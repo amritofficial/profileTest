@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
 import { ParseService } from '../shared/services/parse.service';
 import { Router } from '@angular/router';
@@ -9,18 +9,24 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { PostService } from '../shared/services/post.service';
 import { Feed } from '../shared/models/feed';
+import { MessengerService } from '../shared/services/messenger.service';
+import { LinkService } from '../shared/services/link.service';
+import { Message } from '../shared/models/message';
 
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css', '../../assets/css/blocks.css', '../../assets/css/theme-styles.css', '../../assets/css/magnific-popup.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   private ngUnsubscribe = new Subject();
 
   feedList: Feed[] = new Array();
   globalFeednotificationList: Feed[] = new Array();
   feedLikeCommentNotification: Feed[] = new Array();
+  messageRoomPaths: any[] = new Array();
+  notificationMessages: Message[] = new Array();
+  notificationCount: number = null;
 
   linkRequestArray: LinkRequest[] = [{
     from: this.userService.user,
@@ -47,16 +53,44 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private parseService: ParseService,
     private postService: PostService,
+    private messageService: MessengerService,
+    private linkService: LinkService,
     private router: Router) { }
 
   ngOnInit() {
     // TODO
     // Check if this actually works, and re-applies the profile picture once
     // it gets the data
+    let roomPath = this.messageService.getMessengerRoomPath('S8QKLkPv4z');
+    this.messageService.getLastMessage(roomPath).orderByKey()
+      .limitToLast(1).on("child_added", function (snapshot) {
+        var key = snapshot.key;
+        var val = snapshot.val();
+        console.log("OnInit Last Message");
+        let message: Message = snapshot.val();
+        console.log(message);
+        // console.log(key);
+
+      });
     this.getReceivedLinkRequest();
     this.getSentLinkRequest();
     this.createNotificationFromGlobalFeed();
     this.createNotificationForLikesComments();
+    this.notificationMessages = this.getCurrentUserLastMessages();
+  }
+
+  ngOnChanges() {
+    let roomPath = this.messageService.getMessengerRoomPath('S8QKLkPv4z');
+    this.messageService.getLastMessage(roomPath).orderByKey()
+      .limitToLast(1).on("child_added", function (snapshot) {
+        var key = snapshot.key;
+        var val = snapshot.val();
+        console.log("OnChange Last Message");
+        let message: Message = snapshot.val();
+        console.log(message);
+        // console.log(key);
+
+      });
   }
 
   ngOnDestroy() {
@@ -142,6 +176,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           }
         }
       }
+      this.getNotificationCount();
       console.log(this.feedList);
       console.log("NOTIFICATIONS");
       console.log(this.globalFeednotificationList);
@@ -157,6 +192,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         console.log(this.feedLikeCommentNotification);
       }
     });
+    this.getNotificationCount();
   }
 
   getCommentors(notification: Feed) {
@@ -179,7 +215,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getCommentTimeStamp(notification: Feed) {
     if (notification.comment !== undefined) {
-        return notification.comment[notification.comment.length - 1].timeStamp;
+      return notification.comment[notification.comment.length - 1].timeStamp;
     }
   }
 
@@ -206,33 +242,61 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getNotificationCount() {
-    console.log("Notification count");
-    // console.log(this.feedLikeCommentNotification.length);
-    // console.log(this.globalFeednotificationList.length);
     let count = 0;
-    for (var i = 0; i < this.globalFeednotificationList.length; i++) {
-      // console.log("Entered the loop")
-      if (this.feedLikeCommentNotification[i].user.userId === this.userService.currentUser.userId) {
-        if (this.feedLikeCommentNotification[i].like.length > 0) {
-          count += 1;
-          // console.log("Like")
-          // console.log(count)
-        }
-        if (this.feedLikeCommentNotification[i].comment.length > 0) {
-          // console.log("Comment")
-          // console.log(count)
-          count += 1;
-        }
-        else if ((this.feedLikeCommentNotification[i].like.length > 0) && (this.feedLikeCommentNotification[i].comment.length > 0)) {
-          // console.log("Like & Comment")
-          // console.log(count)
-          count += 1;
+    if ((this.globalFeednotificationList.length > 0) && (this.feedLikeCommentNotification.length > 0)) {
+      for (var i = 0; i < this.globalFeednotificationList.length; i++) {
+        // console.log("Entered the loop")
+        if (this.feedLikeCommentNotification[i].user.userId === this.userService.currentUser.userId) {
+          if (this.feedLikeCommentNotification[i].like.length > 0) {
+            count += 1;
+            // console.log("Like")
+            // console.log(count)
+          }
+          if (this.feedLikeCommentNotification[i].comment.length > 0) {
+            // console.log("Comment")
+            // console.log(count)
+            count += 1;
+          }
+          else if ((this.feedLikeCommentNotification[i].like.length > 0) && (this.feedLikeCommentNotification[i].comment.length > 0)) {
+            // console.log("Like & Comment")
+            // console.log(count)
+            count += 1;
+          }
         }
       }
+      // console.log("Got the count");
+      // console.log(count);
     }
-    console.log("Got the count");
-    console.log(count);
     return this.globalFeednotificationList.length + count;
+  }
+
+  getCurrentUserLastMessages() {
+    let userId = this.userService.getCurrentUserId();
+    let lastMessageArray: Message[] = new Array();
+    this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((links: User[]) => {
+        links.forEach((link, i) => {
+          this.messageRoomPaths.push(this.messageService.getMessengerRoomPath(link.userId));
+
+          this.messageService.getLastMessage(this.messageService.getMessengerRoomPath(link.userId)).orderByKey()
+            .limitToLast(1).on("child_added", function (snapshot) {
+              var key = snapshot.key;
+              var val = snapshot.val();
+              console.log("Last Message");
+              let message: Message = snapshot.val();
+              console.log(message);
+              // console.log(key);
+              if (val.user.userId !== userId) {
+                lastMessageArray.push(message);
+              }
+            });
+        });
+
+        // console.log("Room Paths");
+        // console.log(this.messageRoomPaths);
+      });
+
+    return lastMessageArray;
   }
 
 }

@@ -59,4 +59,12 @@ export class MessengerService {
     return this.firebaseService.getAllMessagesFromRoomPath(this.getMessengerRoomPath(selectedUserId));
   }
 
+  getGlobalMessages() {
+    return this.firebaseService.getGlobalMessages();
+  }
+
+  getLastMessage(roomPath: any) {
+    return this.firebaseService.getLastMessage(roomPath);
+  }
+
 }
