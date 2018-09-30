@@ -15,3 +15,11 @@
 .accept-button {
     background-color: rgb(0, 82, 189);
 }
+
+.online {
+    background-color: rgb(22, 177, 22); 
+}
+
+.offline {
+    background-color: #ff4f60;
+}

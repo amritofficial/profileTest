@@ -32,12 +32,12 @@
       <guest-profile-intro [guestProfileIntro]="guestProfile"></guest-profile-intro>
     </div>
     <div *ngIf="showFeed" class="col-md-6 col-sm-6 col-md-6 col-xl-6">
-      <guest-profile-feed [guestUser]="guestUser"></guest-profile-feed>
+      <guest-profile-feed [guestFeed]="guestUserFeed" [guestUser]="guestUser"></guest-profile-feed>
     </div>
     <div *ngIf="showRightSidebar" class="col-md-3 col-sm-3 col-md-3 col-xl-3">
       <guest-profile-right-sidebar></guest-profile-right-sidebar>
     </div>
-    <div class="col-lg-9 col-sm-9 col md-9 col-xl-9">
+    <div *ngIf="showRouterOutlet" class="col-lg-9 col-sm-9 col md-9 col-xl-9">
       <router-outlet></router-outlet>
     </div>
   </div>

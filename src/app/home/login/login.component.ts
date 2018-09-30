@@ -34,10 +34,11 @@ export class LoginComponent implements OnInit {
         console.log(data.objectId);
         window.sessionStorage.setItem('current_user_id', data.objectId);
         window.sessionStorage.setItem('session_token', data.sessionToken);
+        this.firebaseService.loginUser(data.objectId);
         console.log(window.sessionStorage.getItem('current_user_id'));
         this.router.navigateByUrl('/dashboard');
         // window.sessionStorage.setItem
-      })
+      });
     // this.authService.login(this.email, this.password)
     //   .subscribe(success => {
     //     console.log('Login Success');

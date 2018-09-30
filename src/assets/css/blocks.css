@@ -4005,7 +4005,7 @@ ol ol li {
     width: 100%; }
 
 .post__author {
-  margin-bottom: 20px; }
+  margin-bottom: 10px; }
   .post__author img {
     width: 40px;
     height: 40px;
@@ -4132,7 +4132,9 @@ ol ol li {
 .comments-list {
   margin-bottom: 0; }
   .comments-list li {
-    padding: 25px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-left: 25px;
     border-bottom: 1px solid #e6ecf5;
     background-color: #fafbfd;
     position: relative; }

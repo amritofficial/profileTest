@@ -70,6 +70,7 @@ export class ProfileIntroComponent implements OnInit {
   updateProfileIntro() {
     console.log("afkhafkhafkahfk");
     console.log(this.updatedUserProfile);
+    console.log(this.userProfileObjectId);
     this.profileService.updateCurrentUserProfile(this.updatedUserProfile, this.userProfileObjectId).then((profile) => {
       profile.set("aboutUser", this.updatedUserProfile.aboutUser);
       profile.set("secondCategory", this.updatedUserProfile.secondCategory);

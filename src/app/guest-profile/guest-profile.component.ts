@@ -10,6 +10,8 @@ import { RequestService } from '../shared/services/request.service';
 import { LinkService } from '../shared/services/link.service';
 import { Profile } from '../shared/models/profile';
 import { FinderTags } from '../shared/models/finder-tags';
+import { PostService } from '../shared/services/post.service';
+import { Feed } from '../shared/models/feed';
 
 @Component({
   selector: 'guest-profile',
@@ -26,6 +28,8 @@ export class GuestProfileComponent implements OnInit {
   guestStatus: string = '';
   loadingGuestStatus: boolean = false;
   headerImageSrc: any;
+  showRouterOutlet: boolean = false; // this is to disable the router outlet unless we use it
+  guestUserFeed: Feed[];
 
   headerImageArray: string[] = [
     "https://wallpapercave.com/wp/Ou1L18s.jpg",
@@ -55,18 +59,24 @@ export class GuestProfileComponent implements OnInit {
     private guestProfileService: GuestProfileService,
     private userService: UserService,
     private requestService: RequestService,
+    private postService: PostService,
     private linkService: LinkService) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
       this.guestId = params.guestId;
       this.guestProfileService.guestId = this.guestId;
+      console.log("Params");
+      console.log(this.guestId)
       // this.getGuestUserFinderTags();
       this.getCurrentUserData();
       this.getGuestUserProfile();
+      this.getGuestFeed();
       this.guestProfileService.getGuestUserData(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
+          console.log("GUEST USER");
+          console.log(this.guestUser);
         });
       this.generateRandomHeaderImage();
       this.guestStatus = '';
@@ -81,16 +91,19 @@ export class GuestProfileComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         let currentUrl = event.url;
         if (currentUrl === `/guest-profile/${this.guestId}/education`) {
+          this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
         }
         else if (currentUrl === `/guest-profile/${this.guestId}/work-experience`) {
+          this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
         }
         else {
           this.showFeed = true;
           this.showRightSidebar = true;
+          this.showRouterOutlet = false;
         }
       }
     });
@@ -182,6 +195,20 @@ export class GuestProfileComponent implements OnInit {
   generateRandomHeaderImage() {
     let random = Math.floor(Math.random() * this.headerImageArray.length) + 0;
     this.headerImageSrc = this.headerImageArray[random];
+  }
+
+  getGuestFeed() {
+    this.postService.getFeed(this.guestId).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((feed: Feed[]) => {
+        console.log("guest feed");
+        console.log(feed);
+        this.guestUserFeed = feed;
+        this.guestUserFeed.sort((a, b) => {
+          var aTime = new Date(a.timeStamp).getTime();
+          var bTime = new Date(b.timeStamp).getTime();
+          return bTime - aTime;
+        });
+      });
   }
 
 }

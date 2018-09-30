@@ -14,6 +14,9 @@ import { Message } from '../models/message';
 import { Upload } from '../models/upload';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LinkRequest } from '../models/link-request';
+import { Feed } from '../models/feed';
+import { Like } from '../models/like';
+import { Comment } from '../models/comment';
 
 @Injectable()
 export class FirebaseService {
@@ -167,6 +170,52 @@ export class FirebaseService {
 
   getCurrentUserSentRequests(userId: any) {
     return this.angularFireDatabase.list(`/linkRequests/${userId}/sent`).valueChanges();
+  }
+
+  // Feed Work Below
+
+  storeFeed(feed: Feed, userId: any) {
+    let postNewKey = this.angularFireDatabase.database.ref().child('feed').push().key;
+    let path = `/feed/${userId}/${postNewKey}`;
+    feed.feedId = postNewKey;
+    return this.angularFireDatabase.object(path).update(feed);
+  }
+
+  deleteFeed(userId: any, feedId: any) {
+    return this.angularFireDatabase.database.ref(`/feed/${userId}`).child(`${feedId}`).remove();
+  }
+
+  getFeed(userId: any) {
+    return this.angularFireDatabase.list(`/feed/${userId}`).valueChanges();
+  }
+
+  likeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({like: likeArray});
+  }
+
+  dislikeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({like: likeArray});
+  }
+
+  commentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
+  }
+
+  deleteCommentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
+  }
+
+  getGlobalFeed() {
+    return this.angularFireDatabase.list(`/feed`).valueChanges();
+  }
+
+  // Change status of user from online to offline
+  logoutUser(userId: any) {
+    this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 1});
+  }
+
+  loginUser(userId: any) {
+    this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 0});
   }
 
 }
