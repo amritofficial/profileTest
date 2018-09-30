@@ -453,35 +453,36 @@
                   </span>
                 </div>
               </li>
-
-              <li *ngFor="let notification of feedLikeCommentNotification; let i = index;">
-                <div *ngIf="notification?.user?.userId === userService?.currentUser?.userId" class="author-thumb">
-                  <img src="{{ getLikerAvatar(notification)}}" alt="author">
-                </div>
-                <div *ngIf="notification?.user?.userId === userService?.currentUser?.userId" class="notification-event">
-                  <div *ngIf="notification?.like?.length > 0">
-                    <a class="h6 notification-friend">{{ getLikers(notification) }}</a> liked your post.
+              <div *ngFor="let notification of feedLikeCommentNotification; let i = index;">
+                <li *ngIf="(notification?.user?.userId === userService?.currentUser?.userId) && (notification?.like !== undefined)">
+                  <div *ngIf="notification.like !== undefined" class="author-thumb">
+                    <img src="{{ getLikerAvatar(notification)}}" alt="author">
                   </div>
-                  <span *ngIf="notification?.like?.length > 0" class="notification-date">
-                    <time class="entry-date updated">{{ notification?.timeStamp | timeAgo}}</time>
-                  </span>
-                </div>
-              </li>
-
-              <li *ngFor="let notification of feedLikeCommentNotification; let i = index;">
-                <div *ngIf="notification?.user?.userId === userService?.currentUser?.userId" class="author-thumb">
-                  <img src="{{ getCommentorAvatar(notification)}}" alt="author">
-                </div>
-                <div *ngIf="notification?.user?.userId === userService?.currentUser?.userId" class="notification-event">
-                  <div *ngIf="notification?.comment?.length > 0">
-                    <a class="h6 notification-friend">{{ getCommentors(notification) }}</a> commented on your post.
-                    <!-- <a class="notification-link" [routerLink]="['/guest-profile', notification?.user?.userId]">timeline</a>. -->
+                  <div class="notification-event">
+                    <div *ngIf="notification?.like?.length > 0">
+                      <a class="h6 notification-friend">{{ getLikers(notification) }}</a> liked your post.
+                    </div>
+                    <span *ngIf="notification?.like?.length > 0" class="notification-date">
+                      <time class="entry-date updated">{{ notification?.timeStamp | timeAgo}}</time>
+                    </span>
                   </div>
-                  <span *ngIf="notification?.comment?.length > 0" class="notification-date">
-                    <time class="entry-date updated">{{ getCommentTimeStamp(notification) | timeAgo}}</time>
-                  </span>
-                </div>
-              </li>
+                </li>
+              </div>
+              <div *ngFor="let notification of feedLikeCommentNotification; let i = index;">
+                <li *ngIf="(notification?.user?.userId === userService?.currentUser?.userId) && (notification?.comment !== undefined)">
+                  <div *ngIf="notification.comment !== undefined" class="author-thumb">
+                    <img src="{{ getCommentorAvatar(notification)}}" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <div *ngIf="notification?.comment?.length > 0">
+                      <a class="h6 notification-friend">{{ getCommentors(notification) }}</a> commented on your post.
+                    </div>
+                    <span *ngIf="notification?.comment?.length > 0" class="notification-date">
+                      <time class="entry-date updated">{{ getCommentTimeStamp(notification) | timeAgo}}</time>
+                    </span>
+                  </div>
+                </li>
+              </div>
               <!-- Commented on the status notification -->
               <!-- <li>
                 <div class="author-thumb">

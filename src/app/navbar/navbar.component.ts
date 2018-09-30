@@ -172,55 +172,61 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getCommentorAvatar(notification: Feed) {
-    return notification.comment[0].commentor.avatar;
+    if (notification.comment !== undefined) {
+      return notification.comment[0].commentor.avatar;
+    }
   }
 
   getCommentTimeStamp(notification: Feed) {
-    if(notification.comment.length > 0) {
-      return notification.comment[notification.comment.length-1].timeStamp;
-    } 
+    if (notification.comment !== undefined) {
+        return notification.comment[notification.comment.length - 1].timeStamp;
+    }
   }
 
   getLikers(notification: Feed) {
-    if (notification.like.length === 1) {
-      return `${notification.like[0].liker.username}`;
-    }
-    else if (notification.like.length === 2) {
-      return `${notification.like[0].liker.username} & ${notification.like[1].liker.username}`;
-    }
-    else if (notification.like.length > 2) {
-      return `${notification.like[0].liker.username}, ${notification.like[1].liker.username} & ${notification.like.length - 2} other`;
+    if (notification.like !== undefined) {
+      if (notification.like.length === 1) {
+        return `${notification.like[0].liker.username}`;
+      }
+      else if (notification.like.length === 2) {
+        return `${notification.like[0].liker.username} & ${notification.like[1].liker.username}`;
+      }
+      else if (notification.like.length > 2) {
+        return `${notification.like[0].liker.username}, ${notification.like[1].liker.username} & ${notification.like.length - 2} other`;
+      }
     }
   }
 
   getLikerAvatar(notification: Feed) {
-    if (notification.like.length > 0) {
-      return notification.like[notification.like.length-1].liker.avatar;
+    if (notification.like !== undefined) {
+      if (notification.like.length > 0) {
+        return notification.like[notification.like.length - 1].liker.avatar;
+      }
     }
   }
 
   getNotificationCount() {
     console.log("Notification count");
-    console.log(this.feedLikeCommentNotification.length);
-    console.log(this.globalFeednotificationList.length);
+    // console.log(this.feedLikeCommentNotification.length);
+    // console.log(this.globalFeednotificationList.length);
     let count = 0;
-    for (var i=0; i<this.globalFeednotificationList.length; i++) {
-      console.log("Entered the loop")
-      if(this.feedLikeCommentNotification[i].user.userId === this.userService.currentUser.userId) {
-        if(this.feedLikeCommentNotification[i].like.length > 0) {
-          count +=1;
-          console.log("Like")
-          console.log(count)
+    for (var i = 0; i < this.globalFeednotificationList.length; i++) {
+      // console.log("Entered the loop")
+      if (this.feedLikeCommentNotification[i].user.userId === this.userService.currentUser.userId) {
+        if (this.feedLikeCommentNotification[i].like.length > 0) {
+          count += 1;
+          // console.log("Like")
+          // console.log(count)
         }
-        if(this.feedLikeCommentNotification[i].comment.length > 0) {
-          console.log("Comment")
-          console.log(count)
-          count +=1;
+        if (this.feedLikeCommentNotification[i].comment.length > 0) {
+          // console.log("Comment")
+          // console.log(count)
+          count += 1;
         }
-        else if((this.feedLikeCommentNotification[i].like.length > 0) && (this.feedLikeCommentNotification[i].comment.length > 0)) {
-          console.log("Like & Comment")
-          console.log(count)
-          count +=1;
+        else if ((this.feedLikeCommentNotification[i].like.length > 0) && (this.feedLikeCommentNotification[i].comment.length > 0)) {
+          // console.log("Like & Comment")
+          // console.log(count)
+          count += 1;
         }
       }
     }
