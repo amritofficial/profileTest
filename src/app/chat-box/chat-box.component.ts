@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { User } from '../shared/models/user';
 import { ChatService } from '../shared/services/chat.service';
 import { MessengerService } from '../shared/services/messenger.service';
@@ -13,8 +13,9 @@ import { UserService } from '../shared/services/user.service';
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css', '../../assets/css/blocks.css', '../../assets/css/theme-styles.css']
 })
-export class ChatBoxComponent implements OnInit, OnChanges {
+export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   private ngUnsubscribe = new Subject();
+  @ViewChild('scrollChat') private scrollContainer: ElementRef;
   @Input() selectedUser: User;
   loading: boolean = false;
   messages: Message[];
@@ -36,6 +37,8 @@ export class ChatBoxComponent implements OnInit, OnChanges {
         });
       console.log(this.currentUserId);
     }
+
+    this.scrollToBottom();
   }
 
   ngOnChanges() {
@@ -58,6 +61,10 @@ export class ChatBoxComponent implements OnInit, OnChanges {
           this.loading = false;
         });
     }
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
 
   formatAMPM() {
@@ -99,7 +106,7 @@ export class ChatBoxComponent implements OnInit, OnChanges {
       return { float: 'left', color: 'black', marginLeft: '-15px' }
     }
   }
-  
+
   // returns an avatar based upon current user id
   getAvatar(message: Message) {
     if (message.senderId === this.currentUserId) {
@@ -107,6 +114,12 @@ export class ChatBoxComponent implements OnInit, OnChanges {
     } else {
       return this.selectedUser.avatar !== null ? this.selectedUser.avatar : 'https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';
     }
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
 }
