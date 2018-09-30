@@ -1,1 +1,111 @@
-feed
+<div *ngFor="let feed of feedList;" class="ui-block">
+    <ngx-loading [show]="loadingFeed" [config]="{
+            backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+            primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+    <article class="hentry post">
+
+        <div class="post__author author vcard inline-items">
+            <img src="{{ feed?.user?.avatar }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
+                alt="author">
+
+            <div class="author-date">
+                <a class="h6 post__author-name fn">{{ feed?.user?.username }}</a>
+                <div class="post__date">
+                    <time class="published">
+                        {{ feed?.timeStamp | timeAgo}}
+                    </time>
+                </div>
+            </div>
+
+            <div *ngIf="userService?.currentUser?.userId == feed?.user?.userId" class="more">
+                <span class="fa fa-ellipsis-h"></span>
+                <ul class="more-dropdown">
+                    <li>
+                        <a>Edit Post</a>
+                    </li>
+                    <li>
+                        <a (click)="deletePost(feed)">Delete Post</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <p>{{ feed?.feedBody }}</p>
+
+        <div class="post-additional-info inline-items">
+
+            <a class="post-add-icon inline-items">
+                <span (click)="likeFeed(feed)" class="fa fa-thumbs-up"></span>
+                <span>{{ feed?.like?.length }}</span>
+            </a>
+
+            <ul class="friends-harmonic">
+                <li *ngFor="let like of feed?.like;">
+                    <a>
+                        <img style="margin-top: -6px;" src="{{ like?.liker?.avatar }}" alt="friend">
+                    </a>
+                </li>
+            </ul>
+
+            <div class="names-people-likes" [innerHTML]="getLikerNameAndCount(feed)">
+            </div>
+
+
+            <div class="comments-shared">
+                <a class="post-add-icon inline-items">
+                    <span class="fa fa-comment"></span>
+                    <span>{{ feed?.comment?.length }}</span>
+                </a>
+
+                <a class="post-add-icon inline-items">
+                    <span class="fa fa-share"></span>
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <ul class="comments-list">
+        <li *ngFor="let comment of feed.comment; let k = index;">
+            <div class="post__author author vcard inline-items">
+                <img src="{{ comment?.commentor?.avatar }}" alt="author">
+
+                <div class="author-date">
+                    <a class="h6 post__author-name fn">{{ comment?.commentor?.username }}</a>
+                    <div class="post__date" style="font-size: 11px;">
+                        <time class="published">
+                            {{ comment?.timeStamp | timeAgo }}
+                        </time>
+                    </div>
+                </div>
+
+                <div *ngIf="(comment?.commentor?.userId === userService?.currentUser?.userId) || (feed?.user?.userId === userService?.currentUser?.userId)"
+                    class="more">
+                    <span class="fa fa-ellipsis-h"></span>
+                    <ul class="more-dropdown">
+                        <li style="padding: 2px; border-bottom: none; background-color: white;">
+                            <a (click)="deleteComment(feed, k)">Delete Comment</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <p style="margin-left: 45px;">{{ comment.commentBody }}</p>
+        </li>
+    </ul>
+
+    <form class="comment-form inline-items">
+
+        <div class="post__author author vcard inline-items">
+            <img src="{{ userService?.currentUser?.avatar }}" alt="author">
+
+            <div class="form-group with-icon-right ">
+                <textarea class="form-control" name="comment-box" [(ngModel)]="commentBody" (keydown)="postComment(feed, $event)"
+                    placeholder="Write a comment..."></textarea>
+            </div>
+        </div>
+
+    </form>
+
+</div>
