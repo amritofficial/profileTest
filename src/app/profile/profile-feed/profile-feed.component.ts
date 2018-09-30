@@ -59,6 +59,11 @@ export class ProfileFeedComponent implements OnInit {
   ngOnInit() {
     this.postService.getFeed(this.userService.getCurrentUserId()).subscribe((feed: Feed[]) => {
       this.feedArray = feed;
+      this.feedArray.sort((a, b) => {
+        var aTime = new Date(a.timeStamp).getTime();
+        var bTime = new Date(b.timeStamp).getTime();
+        return bTime - aTime;
+      });
     })
   }
 

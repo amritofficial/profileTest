@@ -203,6 +203,11 @@ export class GuestProfileComponent implements OnInit {
         console.log("guest feed");
         console.log(feed);
         this.guestUserFeed = feed;
+        this.guestUserFeed.sort((a, b) => {
+          var aTime = new Date(a.timeStamp).getTime();
+          var bTime = new Date(b.timeStamp).getTime();
+          return bTime - aTime;
+        });
       });
   }
 
