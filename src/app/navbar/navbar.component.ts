@@ -176,7 +176,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
           }
         }
       }
-      this.getNotificationCount();
+      // this.getNotificationCount();
       console.log(this.feedList);
       console.log("NOTIFICATIONS");
       console.log(this.globalFeednotificationList);
@@ -192,7 +192,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
         console.log(this.feedLikeCommentNotification);
       }
     });
-    this.getNotificationCount();
+    // this.getNotificationCount();
   }
 
   getCommentors(notification: Feed) {
@@ -243,30 +243,35 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
 
   getNotificationCount() {
     let count = 0;
-    if ((this.globalFeednotificationList.length > 0) && (this.feedLikeCommentNotification.length > 0)) {
-      for (var i = 0; i < this.globalFeednotificationList.length; i++) {
-        // console.log("Entered the loop")
-        if (this.feedLikeCommentNotification[i].user.userId === this.userService.currentUser.userId) {
-          if (this.feedLikeCommentNotification[i].like.length > 0) {
-            count += 1;
-            // console.log("Like")
-            // console.log(count)
-          }
-          if (this.feedLikeCommentNotification[i].comment.length > 0) {
-            // console.log("Comment")
-            // console.log(count)
-            count += 1;
-          }
-          else if ((this.feedLikeCommentNotification[i].like.length > 0) && (this.feedLikeCommentNotification[i].comment.length > 0)) {
-            // console.log("Like & Comment")
-            // console.log(count)
-            count += 1;
-          }
-        }
-      }
-      // console.log("Got the count");
-      // console.log(count);
-    }
+    // if ((this.globalFeednotificationList.length > 0) && (this.feedLikeCommentNotification.length > 0)) {
+    //   this.globalFeednotificationList.forEach((globalFeed, i) => {
+    //     console.log("Inside loop")
+    //     // for(var j = i; j < this.feedLikeCommentNotification.length; i++) {
+    //     //   if(globalFeed.user.userId === this.feedLikeCommentNotification[j].user.userId) {
+    //     //     console.log("Match found")
+    //     //   }
+    //     // }
+    //     // if(element.user.userId === this.userService.currentUser.userId) {
+    //     //   console.log("Id is there");
+    //     // }
+    //   });
+    // }
+    // if ((this.globalFeednotificationList.length > 0) && (this.feedLikeCommentNotification.length > 0)) {
+    //   for (var i = 0; i < this.globalFeednotificationList.length; i++) {
+    //     console.log(this.feedLikeCommentNotification)
+    //     if (this.feedLikeCommentNotification[0].user.userId === this.userService.currentUser.userId) {
+    //       if (this.feedLikeCommentNotification[i].like.length > 0) {
+    //         count += 1;
+    //       }
+    //       if (this.feedLikeCommentNotification[i].comment.length > 0) {
+    //         count += 1;
+    //       }
+    //       else if ((this.feedLikeCommentNotification[i].like.length > 0) && (this.feedLikeCommentNotification[i].comment.length > 0)) {
+    //         count += 1;
+    //       }
+    //     }
+    //   }
+    // }
     return this.globalFeednotificationList.length + count;
   }
 

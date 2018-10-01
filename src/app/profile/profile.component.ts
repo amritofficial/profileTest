@@ -7,6 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Education } from '../shared/models/education';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileLocationModalComponent } from './profile-location-modal/profile-location-modal.component';
+import { LinkService } from '../shared/services/link.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,12 +21,14 @@ export class ProfileComponent implements OnInit {
   showFeed: boolean = true;
   showRightSidebar: boolean = true;
   showRouterOutlet: boolean = false;
+  currentUserLinks: User[] = new Array();
 
   modalRef: any;
   subscription: Subscription;
 
   constructor(private router: Router,
     private userService: UserService,
+    private linkService: LinkService,
     private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -39,6 +42,7 @@ export class ProfileComponent implements OnInit {
     //     console.log('Subscribed Firebase User');
     //     console.log(this.currentUser);
     //   });
+    this.getCurrentUserLinks();
     this.checkActivatedRoute();
   }
 
@@ -80,6 +84,16 @@ export class ProfileComponent implements OnInit {
 
   setLocation() {
     this.openSetLocationModal();
+  }
+
+  getCurrentUserLinks() {
+    let userId = this.userService.getCurrentUserId();
+    this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((links: User[]) => {
+        this.currentUserLinks = links;
+        console.log("current user links")
+        console.log(this.currentUserLinks)
+      });
   }
 
 }
