@@ -222,9 +222,11 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   getLikers(notification: Feed) {
     if (notification.like !== undefined) {
       if (notification.like.length === 1) {
+        console.log("Liked by one")
         return `${notification.like[0].liker.username}`;
       }
       else if (notification.like.length === 2) {
+        console.log("Liked by two")
         return `${notification.like[0].liker.username} & ${notification.like[1].liker.username}`;
       }
       else if (notification.like.length > 2) {

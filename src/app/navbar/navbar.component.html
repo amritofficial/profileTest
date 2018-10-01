@@ -371,7 +371,7 @@
               </li>
               <div *ngFor="let notification of feedLikeCommentNotification; let i = index;">
                 <li *ngIf="(notification?.user?.userId === userService?.currentUser?.userId) && (notification?.like !== undefined)">
-                  <div *ngIf="notification.like !== undefined" class="author-thumb">
+                  <div *ngIf="notification?.like !== undefined" class="author-thumb">
                     <img src="{{ getLikerAvatar(notification)}}" alt="author">
                   </div>
                   <div class="notification-event">

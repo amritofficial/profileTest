@@ -69,6 +69,7 @@ import { RequestService } from './shared/services/request.service';
 import { LinkService } from './shared/services/link.service';
 import { PostService } from './shared/services/post.service';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ProfileLinksComponent } from './profile/profile-links/profile-links.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     FinderTagsComponent,
     GuestFinderTagsComponent,
     LinkRequestCardComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    ProfileLinksComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [

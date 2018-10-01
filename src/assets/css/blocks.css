@@ -1238,10 +1238,10 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
   .friend-item .control-block-button {
     position: relative; }
   .friend-item .swiper-container {
-    padding-bottom: 40px; }
+    padding-bottom: 30px;
+   }
   .friend-item .btn-control {
-    margin-bottom: 0;
-    margin-right: 14px; }
+    margin-bottom: 0;}
   .friend-item.fav-page .friend-about {
     text-align: center; }
 
