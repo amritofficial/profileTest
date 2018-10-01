@@ -1,64 +1,64 @@
 <div class="profile-section">
-    <div class="row">
-      <div class="col-lg-5 col-md-5 ">
-        <ul class="profile-menu">
-          <li>
-            <a [routerLink]="['timeline']" [routerLinkActive]="['active']">Timeline</a>
-          </li>
-          <li>
-            <a [routerLink]="['work-experience']" [routerLinkActive]="['active']">Work Experience</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-lg-5 ml-auto col-md-5">
-        <ul class="profile-menu">
-          <li>
-            <a [routerLink]="['education']" [routerLinkActive]="['active']">Education</a>
-          </li>
-          <li>
-            <a href="09-ProfilePage-Videos.html">Connections</a>
-          </li>
-          <li>
-            <div class="more">
-              <svg class="olymp-three-dots-icon">
-                <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-              </svg>
-              <ul class="more-dropdown more-with-triangle">
-                <li>
-                  <a href="#">Report Profile</a>
-                </li>
-                <li>
-                  <a href="#">Block Profile</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
+  <div class="row">
+    <div class="col-lg-5 col-md-5 ">
+      <ul class="profile-menu">
+        <li>
+          <a [routerLink]="['timeline']" [routerLinkActive]="['active']">Timeline</a>
+        </li>
+        <li>
+          <a [routerLink]="['work-experience']" [routerLinkActive]="['active']">Work Experience</a>
+        </li>
+      </ul>
     </div>
+    <div class="col-lg-5 ml-auto col-md-5">
+      <ul class="profile-menu">
+        <li>
+          <a [routerLink]="['education']" [routerLinkActive]="['active']">Education</a>
+        </li>
+        <li>
+          <a [routerLink]="['links']" [routerLinkActive]="['active']">Links</a>
+        </li>
+        <li>
+          <div class="more">
+            <svg class="olymp-three-dots-icon">
+              <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
+            </svg>
+            <ul class="more-dropdown more-with-triangle">
+              <li>
+                <a href="#">Report Profile</a>
+              </li>
+              <li>
+                <a href="#">Block Profile</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-    <div class="control-block-button">
-      <!-- <a href="35-YourAccount-FriendsRequests.html" class="btn btn-control bg-blue">
+  <div class="control-block-button">
+    <!-- <a href="35-YourAccount-FriendsRequests.html" class="btn btn-control bg-blue">
             <svg class="olymp-happy-face-icon"><use xlink:href="icons/icons.svg#olymp-happy-face-icon"></use></svg>
           </a>
 
           <a href="#" class="btn btn-control bg-purple">
             <svg ><use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use></svg>
           </a> -->
-      <div class="btn btn-control bg-primary more">
-        <span class="fa fa-cogs icon-size"></span>
+    <div class="btn btn-control bg-primary more">
+      <span class="fa fa-cogs icon-size"></span>
 
-        <ul class="more-dropdown more-with-triangle triangle-bottom-right">
-          <li>
-            <a (click)="open()" data-toggle="modal" data-target="#update-header-photo">Update Profile Photo</a>
-          </li>
-          <li>
-            <a data-toggle="modal" data-target="#update-header-photo">Update Header Photo</a>
-          </li>
-          <li>
-            <a>Account Settings</a>
-          </li>
-        </ul>
-      </div>
+      <ul class="more-dropdown more-with-triangle triangle-bottom-right">
+        <li>
+          <a (click)="open()" data-toggle="modal" data-target="#update-header-photo">Update Profile Photo</a>
+        </li>
+        <li>
+          <a data-toggle="modal" data-target="#update-header-photo">Update Header Photo</a>
+        </li>
+        <li>
+          <a>Account Settings</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>

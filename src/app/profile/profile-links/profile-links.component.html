@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="ui-block responsive-flex">
+        <div class="ui-block-title">
+          <div class="h6 title">Your Links ({{linkList.length}})</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <ngx-loading [show]="loadingLinkList" [config]="{
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+        primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+    <div *ngFor="let link of linkList;" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="ui-block">
+        <div class="friend-item">
+          <div class="friend-header-thumb">
+            <img [src]="generateRandomHeaderImage()" alt="friend">
+          </div>
+
+          <div class="friend-item-content">
+            <div class="friend-avatar">
+              <div class="author-thumb">
+                <img src="{{ link?.user?.avatar }}" alt="author">
+              </div>
+              <div class="author-content">
+                <a href="#" class="h5 author-name">{{ link?.user?.username }}</a>
+                <div class="country">Toronto, ON</div>
+              </div>
+            </div>
+
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <p class="friend-about" data-swiper-parallax="-500">
+                    {{ link?.profile?.aboutUser }}
+                  </p>
+                  <br>
+                  <a [routerLink]="['/messenger']" class="btn bg-purple">
+                    <span style="color:white;"><i class="fa fa-envelope"></i></span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- If we need pagination -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
