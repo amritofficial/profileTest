@@ -2,7 +2,7 @@
 /*------------- #VARIABLES --------------*/
 /*------------- #HEADER --------------*/
 .header {
-  height: 70px;
+  height: 55px;
   background-color: #3f4257;
   padding-right: 70px;
   position: fixed;
@@ -11,7 +11,7 @@
   right: 0;
   z-index: 21; }
   .header .page-title {
-    padding: 26px 50px 26px 100px;
+    padding: 15px 50px 26px 100px;
     text-transform: uppercase;
     float: left;
     height: 100%;
@@ -35,13 +35,14 @@
 
 .search-bar {
   float: left;
-  width: 500px;
+  width: 300px;
   height: 70px;
   background-color: #494c62;
   position: relative; }
   .search-bar.w-search {
-    width: 500px;
-    min-height: 70px;
+    height: 35px;
+    margin-top: 10px;
+    width: 300px;
     background-color: #494c62; }
   .search-bar .form-group {
     margin-bottom: 0;
@@ -123,7 +124,7 @@
     font-size: 8px; }
 
 .link-find-friend {
-  padding: 25px 20px;
+  padding: 15px 20px;
   color: #fff;
   font-size: 12px;
   font-weight: 500;
@@ -495,7 +496,7 @@
   height: 100%;
   width: 100%;
   animation-name: sideupscroll;
-  animation-duration: 60s;
+  animation-duration: 110s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: both;

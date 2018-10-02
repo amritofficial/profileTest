@@ -964,7 +964,7 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
       transform: translateX(0);
       transition-delay: .3s; }
   .fixed-sidebar.right {
-    top: 70px;
+    top:55px;
     z-index: 20;
     right: 0;
     min-height: 100%; }

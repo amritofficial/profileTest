@@ -7,6 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileLocationModalComponent } from './profile-location-modal/profile-location-modal.component';
 import { Profile } from '../shared/models/profile';
 import { LinkList } from '../shared/models/link-list';
+import { LinkService } from '../shared/services/link.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private router: Router,
     private userService: UserService,
+    private linkService: LinkService,
     private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -43,6 +46,7 @@ export class ProfileComponent implements OnInit {
     //     console.log(this.currentUser);
     //   });
     this.checkActivatedRoute();
+    this.getCurrentUserLinks();
   }
 
   checkActivatedRoute() {
@@ -89,5 +93,17 @@ export class ProfileComponent implements OnInit {
   setLocation() {
     this.openSetLocationModal();
   }
+
+  getCurrentUserLinks() {
+    let userId = this.userService.getCurrentUserId();
+    this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((links: User[]) => {
+        this.currentUserLinks = links;
+      });
+    // this.linkService.linkList((links: User[]) => {
+    //   this.currentUserLinks = links;
+    // });
+  }
+
 
 }
