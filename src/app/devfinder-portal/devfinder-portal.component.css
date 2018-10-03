@@ -425,6 +425,11 @@ agm-map {
 
 .left-sidebar ul li {
   padding: 5px;
+  cursor: pointer;
+}
+
+li:focus {
+  outline: none;
 }
 
 a {
@@ -432,6 +437,7 @@ a {
   transition-delay: 1s;
   -webkit-transition-delay: 1s;
   color: rgb(46, 46, 46);
+  font-weight: 500;
   font-size: 12.5px;
   padding-left: 4px;
   transition: all .4s ease;

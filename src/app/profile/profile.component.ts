@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/models/user';
 import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../shared/services/user.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileLocationModalComponent } from './profile-location-modal/profile-location-modal.component';
 import { Profile } from '../shared/models/profile';
 import { LinkList } from '../shared/models/link-list';
 import { LinkService } from '../shared/services/link.service';
 import { takeUntil } from 'rxjs/operators';
+import { RouteService } from '../shared/services/route.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,9 +33,15 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router,
     private userService: UserService,
     private linkService: LinkService,
+    private route: ActivatedRoute,
+    private routeService: RouteService,
     private modalService: NgbModal) { }
 
   ngOnInit() {
+    console.log(this.route.snapshot.url[0]);
+    if(this.route.snapshot.url[0].path === "profile") {
+      this.routeService.activatedRouteName = "profile";
+    }
     // this.userService.loadingUser = true;
     // this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
     //   .subscribe((user: User) => {

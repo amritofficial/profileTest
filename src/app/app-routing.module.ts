@@ -13,6 +13,9 @@ import { GuestProfileComponent } from "./guest-profile/guest-profile.component";
 import { GuestProfileEducationComponent } from "./guest-profile/guest-profile-education/guest-profile-education.component";
 import { GuestProfileWorkExperienceComponent } from "./guest-profile/guest-profile-work-experience/guest-profile-work-experience.component";
 import { ProfileLinksComponent } from "./profile/profile-links/profile-links.component";
+import { DevfinderHomeComponent } from "./devfinder-portal/devfinder-home/devfinder-home.component";
+import { DevfinderTagsComponent } from "./devfinder-portal/devfinder-tags/devfinder-tags.component";
+import { DevfinderDevelopersComponent } from "./devfinder-portal/devfinder-developers/devfinder-developers.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -34,17 +37,25 @@ export const appRoutes: Routes = [
             { path: 'timeline', component: ProfileComponent },
             { path: 'education', component: ProfileEducationComponent },
             { path: 'work-experience', component: ProfileWorkExperienceComponent },
-            { path: 'links', component: ProfileLinksComponent}
+            { path: 'links', component: ProfileLinksComponent }
         ]
     },
-    { path: 'devfinder-portal', component: DevfinderPortalComponent },
+    {
+        path: 'devfinder-portal', component: DevfinderPortalComponent,
+        children: [
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: DevfinderHomeComponent },
+            { path: 'tags', component: DevfinderTagsComponent },
+            { path: 'developers', component: DevfinderDevelopersComponent }
+        ]
+    },
     {
         path: 'guest-profile/:guestId', component: GuestProfileComponent,
         children: [
-            { path: '', redirectTo: 'timeline', pathMatch: "full"},
-            { path: 'timeline', component: GuestProfileComponent},
-            { path: 'education', component: GuestProfileEducationComponent},
-            { path: 'work-experience', component: GuestProfileWorkExperienceComponent}
+            { path: '', redirectTo: 'timeline', pathMatch: "full" },
+            { path: 'timeline', component: GuestProfileComponent },
+            { path: 'education', component: GuestProfileEducationComponent },
+            { path: 'work-experience', component: GuestProfileWorkExperienceComponent }
         ]
     }
 ]

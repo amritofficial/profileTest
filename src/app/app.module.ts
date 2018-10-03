@@ -73,6 +73,8 @@ import { ProfileLinksComponent } from './profile/profile-links/profile-links.com
 import { RouteService } from './shared/services/route.service';
 import { DevfinderHomeComponent } from './devfinder-portal/devfinder-home/devfinder-home.component';
 import { IssueCardComponent } from './devfinder-portal/devfinder-home/issue-card/issue-card.component';
+import { DevfinderTagsComponent } from './devfinder-portal/devfinder-tags/devfinder-tags.component';
+import { DevfinderDevelopersComponent } from './devfinder-portal/devfinder-developers/devfinder-developers.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +120,9 @@ import { IssueCardComponent } from './devfinder-portal/devfinder-home/issue-card
     TimeAgoPipe,
     ProfileLinksComponent,
     DevfinderHomeComponent,
-    IssueCardComponent
+    IssueCardComponent,
+    DevfinderTagsComponent,
+    DevfinderDevelopersComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
