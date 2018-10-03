@@ -1,0 +1,93 @@
+/* For Issues */
+  
+.issue-ap {
+    text-align: center;
+    /* margin-right: 10px; */
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .issue-ap .answers {
+    font-size: 12px;
+    color: rgb(143, 143, 143);
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px;
+  }
+  
+  .issue-ap .poll{
+    font-size: 12px;
+    color: rgb(143, 143, 143);
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px;
+  }
+  
+  .issue-summary {
+    display: inline-block;
+    border-right: 1px solid #ff723ab2;
+    padding-right: 10px;
+  }
+  
+  .issue-summary .issue-title p {
+    color: #067dd8;
+    cursor: pointer;
+  }
+  
+  .issue-summary ul {
+    display: inline;
+    list-style-type: none;
+  }
+  
+  .issue-summary ul li {
+    display: inline-block;
+    margin: -2px;
+    list-style-type: none;
+  }
+  
+  .issue-summary .issue-tags {
+    margin-left: -40px;
+    display: inline-block;
+  }
+  
+  .issue-summary .posting-author {
+    display: inline-block;
+    float: right;
+  }
+  
+  .issue-summary .posting-author .timeposted {
+    font-size: 12px;
+    display: inline-block;
+    color: rgb(143, 143, 143);
+  }
+  
+  .issue-summary .posting-author .title {
+    display: inline-block;
+    font-size: 12px;
+    color: rgb(143, 143, 143);
+  }
+  
+  .issue-summary .posting-author .title a {
+    cursor: pointer;
+    font-weight: 500;
+    color: #ff723ab2;
+  }
+  
+  .issue-summary .posting-author .title a:hover {
+    font-weight: 600;
+  }
+  
+  .issue-summary .posting-author .distance {
+    display: inline-block;
+    border-left: 1.5px solid #38a9ff;
+    font-size: 12px;
+    padding-left: 2px;
+    color: rgb(143, 143, 143);
+  }
+  
+  .badge {
+    font-size: 12px;
+    padding: 5px;
+    background-color:rgba(45, 146, 230, 0.95);
+    margin: 2.5px;
+  }

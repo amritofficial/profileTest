@@ -71,6 +71,8 @@ import { PostService } from './shared/services/post.service';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ProfileLinksComponent } from './profile/profile-links/profile-links.component';
 import { RouteService } from './shared/services/route.service';
+import { DevfinderHomeComponent } from './devfinder-portal/devfinder-home/devfinder-home.component';
+import { IssueCardComponent } from './devfinder-portal/devfinder-home/issue-card/issue-card.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { RouteService } from './shared/services/route.service';
     GuestFinderTagsComponent,
     LinkRequestCardComponent,
     TimeAgoPipe,
-    ProfileLinksComponent
+    ProfileLinksComponent,
+    DevfinderHomeComponent,
+    IssueCardComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
