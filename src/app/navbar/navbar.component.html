@@ -1,7 +1,7 @@
-<div class="fixed-sidebar">
+<!-- <div class="fixed-sidebar">
   <div class="fixed-sidebar-left sidebar--small" id="sidebar-left">
     <a href="02-ProfilePage.html" class="logo">
-      <img src="../../assets/img/logo.png" alt="Olympus">
+      <img src="">
     </a>
 
     <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -100,8 +100,8 @@
 
   <div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">
     <a href="02-ProfilePage.html" class="logo">
-      <img src="../../assets/img/logo.png" alt="Olympus">
-      <h6 class="logo-title">olympus</h6>
+      <img src="" alt="Olympus">
+      <h6 class="logo-title"></h6>
     </a>
 
     <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -227,22 +227,23 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <header class="header" id="site-header">
 
   <div class="page-title">
-    <h6>profile page</h6>
+    <h6>{{ routeService?.activatedRouteName }}</h6>
   </div>
 
   <div class="header-content-wrapper">
-    <form class="search-bar w-search notification-list friend-requests">
-      <div class="form-group with-button">
-        <input class="form-control js-user-search" placeholder="Search here people or pages..." type="text">
-      </div>
-    </form>
+    <div class="search-input">
+      <input type="text" class="form-control" placeholder="Search Here">
+    </div>
+    <!-- <form class="search-bar w-search notification-list">
+      
+    </form> -->
 
-    <a [routerLink]="['/devfinder-portal']" class="link-find-friend">DevFinder Portal</a>
+    <a *ngIf="routeService?.activatedRouteName != 'DevFinder Portal'" [routerLink]="['/devfinder-portal']" class="link-find-friend">DevFinder Portal</a>
 
     <div class="control-block">
 
@@ -298,7 +299,8 @@
                     <img src="{{ sentRequest?.to?.avatar }}" alt="author">
                   </div>
                   <div class="notification-event">
-                    <a class="h6 notification-friend">{{ sentRequest?.to?.username }}</a> approved your request to link.
+                    <a class="h6 notification-friend">{{ sentRequest?.to?.username }}</a> approved your request to
+                    link.
                   </div>
                 </li>
               </div>
@@ -311,7 +313,7 @@
 
       <div [routerLink]="['/messenger']" class="control-icon more has-items">
         <span class="fa fa-comments icon-size"></span>
-        <div class="label-avatar bg-purple">2</div>
+        <div class="label-avatar bg-purple">{{ notificationMessages.length }}</div>
 
         <div class="more-dropdown more-with-triangle triangle-top-center">
           <div class="ui-block-title ui-block-title-small">
@@ -320,115 +322,31 @@
             <a>Settings</a>
           </div>
 
-          <div class="mCustomScrollbar" data-mcs-theme="dark">
+          <div class="notification-scroll" data-mcs-theme="dark">
             <ul class="notification-list chat-message">
-              <li class="message-unread">
+              <li *ngFor="let message of notificationMessages;" class="message-unread">
                 <div class="author-thumb">
-                  <img src="../../assets/img/avatar59-sm.jpg" alt="author">
+                  <img src="{{ message?.user?.avatar }}" alt="author">
                 </div>
                 <div class="notification-event">
-                  <a class="h6 notification-friend">Diana Jameson</a>
-                  <span class="chat-message-item">Hi James! It’s Diana, I just wanted to let you know that we have to
-                    reschedule...</span>
+                  <a class="h6 notification-friend">{{ message?.user?.username }}</a>
+                  <span class="chat-message-item">{{ message?.body }}</span>
                   <span class="notification-date">
-                    <time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time>
+                    <time class="entry-date updated">At {{ message?.timeSent }}</time>
                   </span>
-                </div>
-                <span class="notification-icon">
-                  <svg class="olymp-chat---messages-icon">
-                    <use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use>
-                  </svg>
-                </span>
-                <div class="more">
-                  <svg class="olymp-three-dots-icon">
-                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                  </svg>
                 </div>
               </li>
 
-              <li>
-                <div class="author-thumb">
-                  <img src="../../assets/img/avatar60-sm.jpg" alt="author">
-                </div>
-                <div class="notification-event">
-                  <a class="h6 notification-friend">Jake Parker</a>
-                  <span class="chat-message-item">Great, I’ll see you tomorrow!.</span>
-                  <span class="notification-date">
-                    <time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time>
-                  </span>
-                </div>
-                <span class="notification-icon">
-                  <svg class="olymp-chat---messages-icon">
-                    <use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use>
-                  </svg>
-                </span>
-
-                <div class="more">
-                  <svg class="olymp-three-dots-icon">
-                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                  </svg>
-                </div>
-              </li>
-              <li>
-                <div class="author-thumb">
-                  <img src="../../assets/img/avatar61-sm.jpg" alt="author">
-                </div>
-                <div class="notification-event">
-                  <a class="h6 notification-friend">Elaine Dreyfuss</a>
-                  <span class="chat-message-item">We’ll have to check that at the office and see if the client is on
-                    board with...</span>
-                  <span class="notification-date">
-                    <time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at 9:56pm</time>
-                  </span>
-                </div>
-                <span class="notification-icon">
-                  <svg class="olymp-chat---messages-icon">
-                    <use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use>
-                  </svg>
-                </span>
-                <div class="more">
-                  <svg class="olymp-three-dots-icon">
-                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                  </svg>
-                </div>
-              </li>
-
-              <li class="chat-group">
-                <div class="author-thumb">
-                  <img src="../../assets/img/avatar11-sm.jpg" alt="author">
-                  <img src="../../assets/img/avatar12-sm.jpg" alt="author">
-                  <img src="../../assets/img/avatar13-sm.jpg" alt="author">
-                  <img src="../../assets/img/avatar10-sm.jpg" alt="author">
-                </div>
-                <div class="notification-event">
-                  <a class="h6 notification-friend">You, Faye, Ed &amp; Jet +3</a>
-                  <span class="last-message-author">Ed:</span>
-                  <span class="chat-message-item">Yeah! Seems fine by me!</span>
-                  <span class="notification-date">
-                    <time class="entry-date updated" datetime="2004-07-24T18:18">March 16th at 10:23am</time>
-                  </span>
-                </div>
-                <span class="notification-icon">
-                  <svg class="olymp-chat---messages-icon">
-                    <use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use>
-                  </svg>
-                </span>
-                <div class="more">
-                  <svg class="olymp-three-dots-icon">
-                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                  </svg>
-                </div>
-              </li>
             </ul>
           </div>
 
           <a class="view-all bg-purple">View All Messages</a>
         </div>
       </div>
-
+      <!-- NOTIFICATIONS -->
       <div class="control-icon more has-items">
-        <span class="fa fa-twitch icon-size"></span>
-        <div class="label-avatar bg-primary">8</div>
+        <span class="fa fa-bell icon-size"></span>
+        <div class="label-avatar bg-primary">{{ getNotificationCount() }}</div>
 
         <div class="more-dropdown more-with-triangle triangle-top-center">
           <div class="ui-block-title ui-block-title-small">
@@ -439,7 +357,7 @@
 
           <div class="notification-scroll" data-mcs-theme="dark">
             <ul class="notification-list">
-              <li *ngFor="let notification of notificationList;">
+              <li class="notification-cards" *ngFor="let notification of globalFeednotificationList;">
                 <div class="author-thumb">
                   <img src="{{ notification?.user?.avatar }}" alt="author">
                 </div>
@@ -448,25 +366,40 @@
                     <a class="h6 notification-friend">{{ notification?.user?.username }}</a> posted to it's
                     <a class="notification-link" [routerLink]="['/guest-profile', notification?.user?.userId]">timeline</a>.</div>
                   <span class="notification-date">
-                    <time class="entry-date updated" >{{ notification?.timeStamp | timeAgo}}</time>
+                    <time class="entry-date updated">{{ notification?.timeStamp | timeAgo}}</time>
                   </span>
                 </div>
-                <span class="notification-icon">
-                  <svg class="olymp-comments-post-icon">
-                    <use xlink:href="icons/icons.svg#olymp-comments-post-icon"></use>
-                  </svg>
-                </span>
-
-                <div class="more">
-                  <svg class="olymp-three-dots-icon">
-                    <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-                  </svg>
-                  <svg class="olymp-little-delete">
-                    <use xlink:href="icons/icons.svg#olymp-little-delete"></use>
-                  </svg>
-                </div>
               </li>
-
+              <div *ngFor="let notification of feedLikeCommentNotification; let i = index;">
+                <li *ngIf="(notification?.user?.userId === userService?.currentUser?.userId) && (notification?.like !== undefined)">
+                  <div *ngIf="notification?.like !== undefined" class="author-thumb">
+                    <img src="{{ getLikerAvatar(notification)}}" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <div *ngIf="notification?.like?.length > 0">
+                      <a class="h6 notification-friend">{{ getLikers(notification) }}</a> liked your post.
+                    </div>
+                    <span *ngIf="notification?.like?.length > 0" class="notification-date">
+                      <time class="entry-date updated">{{ notification?.timeStamp | timeAgo}}</time>
+                    </span>
+                  </div>
+                </li>
+              </div>
+              <div *ngFor="let notification of feedLikeCommentNotification; let i = index;">
+                <li *ngIf="(notification?.user?.userId === userService?.currentUser?.userId) && (notification?.comment !== undefined)">
+                  <div *ngIf="notification.comment !== undefined" class="author-thumb">
+                    <img src="{{ getCommentorAvatar(notification)}}" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <div *ngIf="notification?.comment?.length > 0">
+                      <a class="h6 notification-friend">{{ getCommentors(notification) }}</a> commented on your post.
+                    </div>
+                    <span *ngIf="notification?.comment?.length > 0" class="notification-date">
+                      <time class="entry-date updated">{{ getCommentTimeStamp(notification) | timeAgo}}</time>
+                    </span>
+                  </div>
+                </li>
+              </div>
               <!-- Commented on the status notification -->
               <!-- <li>
                 <div class="author-thumb">

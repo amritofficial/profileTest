@@ -10,6 +10,8 @@ import { Feed } from '../shared/models/feed';
 import { AngularFireList } from '@angular/fire/database';
 import { Like } from '../shared/models/like';
 import { Comment } from '../shared/models/comment';
+import { ActivatedRoute } from '@angular/router';
+import { RouteService } from '../shared/services/route.service';
 
 @Component({
   selector: 'dashboard',
@@ -24,11 +26,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
     private linkService: LinkService,
-    private postService: PostService) { }
+    private postService: PostService,
+    private route: ActivatedRoute,
+    private routeService: RouteService) { }
 
   ngOnInit() {
     this.userService.loadingUser = true;
-    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+    if (this.route.snapshot.url[0].path === 'dashboard') {
+      this.routeService.activatedRouteName = 'Dashboard';
+    }
+     this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((user: User) => {
         this.currentUser = user;
         this.userService.currentUser = user;

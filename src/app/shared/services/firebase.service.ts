@@ -218,4 +218,12 @@ export class FirebaseService {
     this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 0});
   }
 
+  getGlobalMessages() {
+    return this.angularFireDatabase.list(`/messages`).valueChanges();
+  }
+
+  getLastMessage(roomPath: any) {
+    return this.angularFireDatabase.database.ref(`/messages/${roomPath}`);
+  }
+
 }

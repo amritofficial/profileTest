@@ -12,6 +12,7 @@ import { ProfileWorkExperienceComponent } from "./profile/profile-work-experienc
 import { GuestProfileComponent } from "./guest-profile/guest-profile.component";
 import { GuestProfileEducationComponent } from "./guest-profile/guest-profile-education/guest-profile-education.component";
 import { GuestProfileWorkExperienceComponent } from "./guest-profile/guest-profile-work-experience/guest-profile-work-experience.component";
+import { ProfileLinksComponent } from "./profile/profile-links/profile-links.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -32,7 +33,8 @@ export const appRoutes: Routes = [
             { path: '', redirectTo: 'timeline', pathMatch: 'full' },
             { path: 'timeline', component: ProfileComponent },
             { path: 'education', component: ProfileEducationComponent },
-            { path: 'work-experience', component: ProfileWorkExperienceComponent }
+            { path: 'work-experience', component: ProfileWorkExperienceComponent },
+            { path: 'links', component: ProfileLinksComponent}
         ]
     },
     { path: 'devfinder-portal', component: DevfinderPortalComponent },

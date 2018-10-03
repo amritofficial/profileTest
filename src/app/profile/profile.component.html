@@ -29,7 +29,7 @@
       <profile-feed></profile-feed>
     </div>
     <div *ngIf="showRightSidebar" class="col-md-3 col-sm-3 col-md-3 col-xl-3">
-      <profile-right-sidebar></profile-right-sidebar>
+      <profile-right-sidebar [links]="currentUserLinks"></profile-right-sidebar>
     </div>
     <div *ngIf="showRouterOutlet" class="col-lg-9 col-sm-9 col md-9 col-xl-9">
       <router-outlet></router-outlet>

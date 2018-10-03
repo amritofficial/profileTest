@@ -23,3 +23,15 @@
 .offline {
     background-color: #ff4f60;
 }
+
+.search-input {
+    width: 250px; 
+    height: 30px; 
+    float: left; 
+    margin-top: 8px;
+}
+
+.search-input input {
+    height: 30px;
+    background: rgb(247, 247, 247);
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RouteService } from '../shared/services/route.service';
 // import { google } from '@types/googlemaps';
 
 @Component({
@@ -18,10 +20,15 @@ export class DevfinderPortalComponent implements OnInit {
 
   isTracking = false;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+    private routeService: RouteService) { }
 
 
   ngOnInit() {
+    console.log("DevFinder Portal");
+    if(this.route.snapshot.url[0].path === "devfinder-portal") {
+      this.routeService.activatedRouteName = "DevFinder Portal";
+    }
     // var mapProp = {
     //   center: new google.maps.LatLng(43.648647, -79.727653),
     //   zoom: 15,

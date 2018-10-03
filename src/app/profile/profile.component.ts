@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/models/user';
-import { takeUntil } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../shared/services/user.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { Education } from '../shared/models/education';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileLocationModalComponent } from './profile-location-modal/profile-location-modal.component';
+import { Profile } from '../shared/models/profile';
+import { LinkList } from '../shared/models/link-list';
+import { LinkService } from '../shared/services/link.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -20,12 +22,16 @@ export class ProfileComponent implements OnInit {
   showFeed: boolean = true;
   showRightSidebar: boolean = true;
   showRouterOutlet: boolean = false;
+  currentUserLinks: User[] = new Array();
+  guestProfiles: Profile[] = new Array();
+  linkListObject: LinkList[] = new Array();
 
   modalRef: any;
   subscription: Subscription;
 
   constructor(private router: Router,
     private userService: UserService,
+    private linkService: LinkService,
     private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -40,6 +46,7 @@ export class ProfileComponent implements OnInit {
     //     console.log(this.currentUser);
     //   });
     this.checkActivatedRoute();
+    this.getCurrentUserLinks();
   }
 
   checkActivatedRoute() {
@@ -53,6 +60,11 @@ export class ProfileComponent implements OnInit {
           this.showRightSidebar = false;
         }
         else if (currentUrl === '/profile/work-experience') {
+          this.showRouterOutlet = true;
+          this.showFeed = false;
+          this.showRightSidebar = false;
+        }
+        else if (currentUrl === '/profile/links') {
           this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
@@ -81,5 +93,17 @@ export class ProfileComponent implements OnInit {
   setLocation() {
     this.openSetLocationModal();
   }
+
+  getCurrentUserLinks() {
+    let userId = this.userService.getCurrentUserId();
+    this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((links: User[]) => {
+        this.currentUserLinks = links;
+      });
+    // this.linkService.linkList((links: User[]) => {
+    //   this.currentUserLinks = links;
+    // });
+  }
+
 
 }

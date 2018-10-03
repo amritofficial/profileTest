@@ -8,7 +8,7 @@
       </a>
       <a (click)="closeChatBox()" class="close-icon"><span class="fa fa-times-circle"></span></a>
     </div>
-    <div class="message-scroll">
+    <div #scrollChat class="message-scroll">
 
       <ngx-loading [show]="loading" [config]="{
           backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
