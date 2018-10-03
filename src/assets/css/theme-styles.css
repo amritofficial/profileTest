@@ -3,13 +3,15 @@
 /*------------- #HEADER --------------*/
 .header {
   height: 55px;
-  background-color: #3f4257;
+  background-color: rgb(65, 71, 96);
   padding-right: 70px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 21; }
+  z-index: 21; 
+  border-bottom: 3px solid #ff723a;
+}
   .header .page-title {
     padding: 15px 50px 26px 100px;
     text-transform: uppercase;

@@ -1,7 +1,7 @@
-<div class="fixed-sidebar">
+<!-- <div class="fixed-sidebar">
   <div class="fixed-sidebar-left sidebar--small" id="sidebar-left">
     <a href="02-ProfilePage.html" class="logo">
-      <img src="../../assets/img/logo.png" alt="Olympus">
+      <img src="">
     </a>
 
     <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -100,8 +100,8 @@
 
   <div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">
     <a href="02-ProfilePage.html" class="logo">
-      <img src="../../assets/img/logo.png" alt="Olympus">
-      <h6 class="logo-title">olympus</h6>
+      <img src="" alt="Olympus">
+      <h6 class="logo-title"></h6>
     </a>
 
     <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -227,12 +227,12 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <header class="header" id="site-header">
 
   <div class="page-title">
-    <h6>profile page</h6>
+    <h6>{{ routeService?.activatedRouteName }}</h6>
   </div>
 
   <div class="header-content-wrapper">
@@ -243,7 +243,7 @@
       
     </form> -->
 
-    <a [routerLink]="['/devfinder-portal']" class="link-find-friend">DevFinder Portal</a>
+    <a *ngIf="routeService?.activatedRouteName != 'DevFinder Portal'" [routerLink]="['/devfinder-portal']" class="link-find-friend">DevFinder Portal</a>
 
     <div class="control-block">
 

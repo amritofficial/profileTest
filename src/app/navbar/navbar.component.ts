@@ -12,6 +12,7 @@ import { Feed } from '../shared/models/feed';
 import { MessengerService } from '../shared/services/messenger.service';
 import { LinkService } from '../shared/services/link.service';
 import { Message } from '../shared/models/message';
+import { RouteService } from '../shared/services/route.service';
 
 @Component({
   selector: 'navbar',
@@ -55,6 +56,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     private postService: PostService,
     private messageService: MessengerService,
     private linkService: LinkService,
+    private routeService: RouteService,
     private router: Router) { }
 
   ngOnInit() {

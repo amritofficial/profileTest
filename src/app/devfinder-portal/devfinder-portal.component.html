@@ -9,12 +9,11 @@
 
 <div class='pin'></div>
 <div class='pulse'></div> -->
-<div class="map-container">
+<!-- <div class="map-container">
   <div class="map">
     <agm-map [latitude]="43.6486151" [zoom]="12" [longitude]="-79.72776199999998">
       <agm-marker class="avatar" [iconUrl]="gravatar" [latitude]="43.65192589999999" [longitude]="-79.73264919999997"></agm-marker>
       <agm-marker class="avatar" [iconUrl]="icon" [latitude]="43.65192589999999" [longitude]="-79.73264919999997"></agm-marker>
-      <!-- <agm-marker [latitude]="43.650617" [longitude]="-79.73452499999996"></agm-marker> -->
       <agm-circle [latitude]="43.65192589999999" [longitude]="-79.73264919999997" [radius]="5000" [fillColor]="'rgba(45, 146, 230, 1.00)'"
         [circleDraggable]="false" [editable]="false"></agm-circle>
     </agm-map>
@@ -30,6 +29,35 @@
     <div class="card result-container">
       <h5 class="results-text">Results: 10 of 20</h5>
       <result-card></result-card>
+    </div>
+  </div>
+</div> -->
+<navbar></navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="left-sidebar">
+        <ul>
+          <li class="home active-ul-li">
+            <a>Home</a>
+          </li>
+          <li>
+            DevFinder Portal
+            <ol>
+              <li class="active-ol-li"><a>Tags</a></li>
+              <li><a>Developers</a></li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="main-content-container">
+        <div class="title-bar">
+          <p class="title">Top Issues</p>
+          <button class="btnc btnc-square btnc-sm btnc-filled-orange">Open Issue</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

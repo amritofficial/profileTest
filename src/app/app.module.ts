@@ -70,6 +70,7 @@ import { LinkService } from './shared/services/link.service';
 import { PostService } from './shared/services/post.service';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ProfileLinksComponent } from './profile/profile-links/profile-links.component';
+import { RouteService } from './shared/services/route.service';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,7 @@ import { ProfileLinksComponent } from './profile/profile-links/profile-links.com
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
