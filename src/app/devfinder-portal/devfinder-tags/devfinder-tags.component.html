@@ -8,23 +8,10 @@
 <div class="tags-wrapper">
   <div class="grid-tags">
     <div class="row">
-      <div class="col-lg-3">
+      <div *ngFor="let dv of devFinderTagsArray;" class="col-lg-3">
         <devfinder-question-tag></devfinder-question-tag>
-        <!-- <mat-card class="custom-mat-card">
-          <div class="card-wrapper">
-            <span class="badge badge-primary">Angular</span>
-            <div class="tag-description">
-              <p>Angular is a platform that makes it easy to build applications with the web.</p>
-            </div>
-            <div class="open-issues">
-              <p>Open Issues: </p>
-              <span class="count">24</span>
-              <span class="dev-count">Dev x 5</span>
-            </div>
-          </div>
-        </mat-card> -->
-      </div>
-      <div class="col-lg-3">
+      </div><br>
+      <!-- <div class="col-lg-3">
 
       </div>
       <div class="col-lg-3">
@@ -32,7 +19,7 @@
       </div>
       <div class="col-lg-3">
 
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
