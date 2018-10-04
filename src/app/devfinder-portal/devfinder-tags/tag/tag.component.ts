@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DevFinderTag } from '../../../shared/models/devfinder-tag';
 
 @Component({
   selector: 'devfinder-question-tag',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit {
+  @Input() devfinderTag: DevFinderTag;
 
   constructor() { }
 
