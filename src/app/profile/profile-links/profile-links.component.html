@@ -38,6 +38,15 @@
                   <p class="friend-about" data-swiper-parallax="-500">
                     {{ link?.profile?.aboutUser }}
                   </p>
+                  <ul class="widget w-personal-info item-block">
+                    <!-- The ngIf statement doesnt work right now -->
+                    <li *ngIf="link?.finderTags.length == 0">
+                      <p>The person hasn't set the tags yet.</p>
+                    </li>
+                    <li *ngIf="link?.finderTags.length != 0">
+                      <span *ngFor="let tag of link?.finderTags.tags | slice:0:3" class="badge badge-primary">{{ tag }}</span>
+                    </li>
+                  </ul>
                   <br>
                   <a [routerLink]="['/messenger']" class="btn bg-purple">
                     <span style="color:white;"><i class="fa fa-envelope"></i></span>

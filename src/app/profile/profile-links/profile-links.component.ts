@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { LinkService } from '../../shared/services/link.service';
 import { User } from '../../shared/models/user';
 import { GuestProfileService } from '../../shared/services/guest-profile.service';
+import { FinderTags } from '../../shared/models/finder-tags';
 
 @Component({
   selector: 'profile-links',
@@ -51,16 +52,53 @@ export class ProfileLinksComponent implements OnInit {
   getLinkProfileInfo() {
     this.currentUserLinks.forEach(link => {
       this.guestProfileService.getGuestUserProfile(link.userId).then((profile) => {
-        console.log(profile);
-        console.log(profile.attributes);
-        console.log(profile);
-        if (!(profile.length <= 0)) {
-          let linkList: LinkList = {
-            profile: profile[0].attributes,
-            user: link
+        // console.log(profile);
+        // console.log(profile.attributes);
+        // console.log(profile);
+        // if (!(profile.length <= 0)) {
+        //   let linkList: LinkList = {
+        //     profile: profile[0].attributes,
+        //     user: link,
+
+        //   }
+
+        // }
+        this.guestProfileService.getGuestFinderTags(link.userId).then((tags) => {
+          console.log(tags);
+          if ((!(tags.length <= 0) && (!(profile.length <= 0)))) {
+            let guestFinderTags: FinderTags = tags[0].attributes;
+            let linkList: LinkList = {
+              profile: profile[0].attributes,
+              user: link,
+              finderTags: guestFinderTags
+            }
+            this.linkList.push(linkList);
+          } else if (tags.length <= 0) {
+            let linkList: LinkList = {
+              profile: profile[0].attributes,
+              user: link,
+              finderTags: {
+                tags: [],
+                userId: link.userId
+              }
+            }
+            this.linkList.push(linkList);
+          } else if (profile.length <= 0) {
+            let guestFinderTags: FinderTags = tags[0].attributes;
+            let linkList: LinkList = {
+              profile: {
+                aboutSecondCategory: '',
+                aboutUser: '',
+                secondCategory: '',
+                userId: link.userId
+              },
+              user: link,
+              finderTags: guestFinderTags
+            }
+            this.linkList.push(linkList);
           }
-          this.linkList.push(linkList);
-        }
+
+        });
       });
     });
     this.loadingLinkList = false;
