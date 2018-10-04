@@ -478,7 +478,7 @@ a:hover {
 
 /* For Title Bar of Component */
 
-.title-bar p {
+.title-bar title {
   font-weight: 500;
   display: inline-block;
   font-size: 24px;
