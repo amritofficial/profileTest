@@ -75,6 +75,7 @@ import { DevfinderHomeComponent } from './devfinder-portal/devfinder-home/devfin
 import { IssueCardComponent } from './devfinder-portal/devfinder-home/issue-card/issue-card.component';
 import { DevfinderTagsComponent } from './devfinder-portal/devfinder-tags/devfinder-tags.component';
 import { DevfinderDevelopersComponent } from './devfinder-portal/devfinder-developers/devfinder-developers.component';
+import { TagComponent } from './devfinder-portal/devfinder-tags/tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { DevfinderDevelopersComponent } from './devfinder-portal/devfinder-devel
     DevfinderHomeComponent,
     IssueCardComponent,
     DevfinderTagsComponent,
-    DevfinderDevelopersComponent
+    DevfinderDevelopersComponent,
+    TagComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
