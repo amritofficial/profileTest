@@ -77,6 +77,7 @@ import { DevfinderTagsComponent } from './devfinder-portal/devfinder-tags/devfin
 import { DevfinderDevelopersComponent } from './devfinder-portal/devfinder-developers/devfinder-developers.component';
 import { TagComponent } from './devfinder-portal/devfinder-tags/tag/tag.component';
 import { DeveloperComponent } from './devfinder-portal/devfinder-developers/developer/developer.component';
+import { PortalService } from './shared/services/portal.service';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,7 @@ import { DeveloperComponent } from './devfinder-portal/devfinder-developers/deve
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

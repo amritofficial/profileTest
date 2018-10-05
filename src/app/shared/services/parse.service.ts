@@ -31,7 +31,7 @@ export class ParseService {
     private http: HttpClient) {
     console.log('Parse initialized!')
     Parse.initialize("13161197ab22343bdb876503d3edf547cdc4b8bf", "412bf95c90ea08fc4c95cbdd75a404bea254872e");
-    Parse.serverURL = 'https://18.218.232.41/parse'
+    Parse.serverURL = 'http://18.218.232.41/parse'
   }
 
   public loginUsingRest(email: string, password: string) {
