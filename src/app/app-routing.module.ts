@@ -32,7 +32,7 @@ export const appRoutes: Routes = [
         path: 'messenger', component: MessengerComponent, canActivate: [AuthGuard]
     },
     {
-        path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],
+        path: 'profile', component: ProfileComponent, canActivateChild: [AuthGuard],
         children: [
             { path: '', redirectTo: 'timeline', pathMatch: 'full' },
             { path: 'timeline', component: ProfileComponent },
@@ -42,7 +42,7 @@ export const appRoutes: Routes = [
         ]
     },
     {
-        path: 'devfinder-portal', component: DevfinderPortalComponent, canActivate: [AuthGuard],
+        path: 'devfinder-portal', component: DevfinderPortalComponent, canActivateChild: [AuthGuard],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: DevfinderHomeComponent },
@@ -51,7 +51,7 @@ export const appRoutes: Routes = [
         ]
     },
     {
-        path: 'guest-profile/:guestId', component: GuestProfileComponent,
+        path: 'guest-profile/:guestId', component: GuestProfileComponent, canActivateChild: [AuthGuard],
         children: [
             { path: '', redirectTo: 'timeline', pathMatch: "full" },
             { path: 'timeline', component: GuestProfileComponent },
@@ -59,5 +59,5 @@ export const appRoutes: Routes = [
             { path: 'work-experience', component: GuestProfileWorkExperienceComponent }
         ]
     },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'dashboard' }
 ]
