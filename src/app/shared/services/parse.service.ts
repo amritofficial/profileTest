@@ -145,7 +145,7 @@ export class ParseService {
       headers: new HttpHeaders({
         'X-Parse-Application-Id': environment.parseServer.newAppId,
         'X-Parse-REST-API-Key': environment.parseServer.restNewKey,
-        "X-Parse-Session-Token": window.sessionStorage.getItem('session_token')
+        'X-Parse-Session-Token': window.sessionStorage.getItem('session_token') || ''
       })
     }
     return this.http.get(Parse.serverURL + "/users/me", httpCustomOption);

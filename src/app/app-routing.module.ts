@@ -16,6 +16,7 @@ import { ProfileLinksComponent } from "./profile/profile-links/profile-links.com
 import { DevfinderHomeComponent } from "./devfinder-portal/devfinder-home/devfinder-home.component";
 import { DevfinderTagsComponent } from "./devfinder-portal/devfinder-tags/devfinder-tags.component";
 import { DevfinderDevelopersComponent } from "./devfinder-portal/devfinder-developers/devfinder-developers.component";
+import { AuthGuard } from "./shared/services/auth-guard.service";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -26,12 +27,12 @@ export const appRoutes: Routes = [
             { path: 'register', component: SignUpComponent, outlet: 'form-outlet' }
         ]
     },
-    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {
-        path: 'messenger', component: MessengerComponent
+        path: 'messenger', component: MessengerComponent, canActivate: [AuthGuard]
     },
     {
-        path: 'profile', component: ProfileComponent,
+        path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'timeline', pathMatch: 'full' },
             { path: 'timeline', component: ProfileComponent },
@@ -41,7 +42,7 @@ export const appRoutes: Routes = [
         ]
     },
     {
-        path: 'devfinder-portal', component: DevfinderPortalComponent,
+        path: 'devfinder-portal', component: DevfinderPortalComponent, canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: DevfinderHomeComponent },
@@ -57,5 +58,6 @@ export const appRoutes: Routes = [
             { path: 'education', component: GuestProfileEducationComponent },
             { path: 'work-experience', component: GuestProfileWorkExperienceComponent }
         ]
-    }
+    },
+    { path: '**', redirectTo: '' }
 ]
