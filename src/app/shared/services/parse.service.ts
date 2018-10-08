@@ -268,17 +268,12 @@ export class ParseService {
     return query.find();
   } 
 
-  // public getEducation() {
-  //   let education = Parse.Object.extend("Education");
-  //   let query = new Parse.Query(education);
-  //   query.get("Wk0YlAw5Bt").then((education) => {
-  //     console.log(education);
-  //   },
-  //   (error) => {
-  //     console.log(error);
-  //   }
-  //   )
-  // }
+  public getAllUsersLocation() {
+    return this.http.get(Parse.serverURL + "/classes/location", httpOptions);
+  }
 
+  public getAllUsersFinderTags() {
+    return this.http.get(Parse.serverURL + "/classes/tags", httpOptions);
+  }
 
 }
