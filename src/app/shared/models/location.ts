@@ -5,5 +5,5 @@ export class Location {
     public long: any;
     public postal: any;
     public status: string;
-    public user: User;
+    public userId: any;
 }

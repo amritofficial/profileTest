@@ -10,10 +10,14 @@ export class LocationService {
 
   saveLocation(location: Location) {
     return this.parseService.storeLocation(location);
-  }
+  } 
 
-  getLocation(user: User) {
-    return this.parseService.getCurrentUserLocation(user);
+  getLocation(userId: any) {
+    return this.parseService.getCurrentUserLocation(userId);
+  }
+  
+  updateLocation(objectId: any) {
+    return this.parseService.updateCurrentUserLocation(objectId);
   }
 
 }

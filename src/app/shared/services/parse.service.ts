@@ -222,12 +222,18 @@ export class ParseService {
     return await query.find();
   }
 
-  public async getCurrentUserLocation(user: User) {
+  public async getCurrentUserLocation(userId: any) {
     const location = Parse.Object.extend("location");
     const query = new Parse.Query(location);
-    query.equalTo("userId", user);
+    query.equalTo("userId", userId);
 
     return await query.find();
+  }
+
+  public updateCurrentUserLocation(objectId: any) {
+    const location = Parse.Object.extend("location");
+    const query = new Parse.Query(location);
+    return query.get(objectId);
   }
 
   public async getGuestUserProfile(guestId: any) {

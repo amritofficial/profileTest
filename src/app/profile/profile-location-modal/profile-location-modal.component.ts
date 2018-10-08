@@ -25,13 +25,7 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
     long: null,
     postal: '',
     status: '',
-    user: {
-      avatar: '',
-      email: '',
-      userId: null,
-      username: '',
-      userStatus: 1
-    }
+    userId: null
   }
 
   updateLocationObjectId: any;
@@ -44,7 +38,6 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
     private locationService: LocationService) { }
 
   ngOnInit() {
-    this.getSavedLocation();
     this.radioGroupForm = this.formBuilder.group({
       'locationForm': 'public'
     });
@@ -52,6 +45,7 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
     this.firebaseService.getFireUserData(window.sessionStorage.getItem("current_user_id"))
       .subscribe((user: User) => {
         this.currentUser = user;
+        this.getSavedLocation();
       });
   }
 
@@ -90,7 +84,7 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
       long: this.currentLong,
       postal: this.postalCode,
       status: this.radioGroupForm.value['locationForm'],
-      user: this.currentUser
+      userId: this.currentUser.userId
     }
 
     this.locationService.saveLocation(locationData)
@@ -104,7 +98,7 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
   getSavedLocation() {
     let userId = window.sessionStorage.getItem("current_user_id");
     console.log(userId);
-    this.locationService.getLocation(this.currentUser).then((location) => {
+    this.locationService.getLocation(userId).then((location) => {
       if ((location.length !== 0)) {
         console.log(location);
         this.currentLocation = location[0].attributes;
@@ -115,10 +109,42 @@ export class ProfileLocationModalComponent implements OnInit, OnChanges {
         this.radioGroupForm = this.formBuilder.group({
           'locationForm': location[0].attributes.status
         });
-      } else {
+
+        console.log(this.updateLocationObjectId);
+      } 
+      else if (location.length <= 0) {
         this.findMe();
       }
+      
+
+      console.log("Test location")
+      console.log(location);
     });
+  }
+
+  updateLocation() {
+    let updatedLocationData: Location = {
+      lat: this.currentLat,
+      long: this.currentLong,
+      postal: this.postalCode,
+      status: this.radioGroupForm.value['locationForm'],
+      userId: this.currentUser.userId
+    }
+
+    this.locationService.updateLocation(this.updateLocationObjectId).then((location) => {
+      console.log(location);
+      location.set("lat", updatedLocationData.lat);
+      location.set("long", updatedLocationData.long);
+      location.set("postal", updatedLocationData.postal);
+      location.set("status", updatedLocationData.status);
+      location.save();
+      console.log("location Updated");
+      // this.getSavedLocation();
+      this.activeModal.close();
+    });
+
+    console.log(updatedLocationData);
+    console.log(this.updateLocationObjectId);
   }
 
 }
