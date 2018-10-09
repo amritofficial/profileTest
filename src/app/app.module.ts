@@ -80,6 +80,7 @@ import { DeveloperComponent } from './devfinder-portal/devfinder-developers/deve
 import { PortalService } from './shared/services/portal.service';
 import { AuthGuard } from './shared/services/auth-guard.service';
 import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/guest-profile-links.component';
+import { QuestionThreadComponent } from './devfinder-portal/question-thread/question-thread.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/
     DevfinderDevelopersComponent,
     TagComponent,
     DeveloperComponent,
-    GuestProfileLinksComponent
+    GuestProfileLinksComponent,
+    QuestionThreadComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [

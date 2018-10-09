@@ -18,6 +18,7 @@ import { DevfinderTagsComponent } from "./devfinder-portal/devfinder-tags/devfin
 import { DevfinderDevelopersComponent } from "./devfinder-portal/devfinder-developers/devfinder-developers.component";
 import { AuthGuard } from "./shared/services/auth-guard.service";
 import { GuestProfileLinksComponent } from "./guest-profile/guest-profile-links/guest-profile-links.component";
+import { QuestionThreadComponent } from "./devfinder-portal/question-thread/question-thread.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -48,7 +49,8 @@ export const appRoutes: Routes = [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: DevfinderHomeComponent },
             { path: 'tags', component: DevfinderTagsComponent },
-            { path: 'developers', component: DevfinderDevelopersComponent }
+            { path: 'developers', component: DevfinderDevelopersComponent },
+            { path: 'question', component: QuestionThreadComponent }
         ]
     },
     {
@@ -60,6 +62,6 @@ export const appRoutes: Routes = [
             { path: 'work-experience', component: GuestProfileWorkExperienceComponent },
             { path: 'links', component: GuestProfileLinksComponent }
         ]
-    },
-    { path: '**', redirectTo: 'dashboard' }
+    }
+    // { path: '**', redirectTo: 'dashboard' }
 ]
