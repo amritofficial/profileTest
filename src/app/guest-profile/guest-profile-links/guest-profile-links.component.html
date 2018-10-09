@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="ui-block responsive-flex">
+        <div class="ui-block-title">
+          <div class="h6 title">Your Links ({{guestLinkList?.length}})</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <ngx-loading [show]="loadingGuestLinkList" [config]="{
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+        primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+    <div *ngFor="let link of guestLinkList;" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="ui-block">
+        <div class="friend-item">
+          <div class="friend-header-thumb">
+            <img src="../../../assets/img/devfinder-portal.jpg" alt="friend">
+          </div>
+
+          <div class="friend-item-content">
+            <div class="friend-avatar">
+              <div class="author-thumb">
+                <img src="{{ link?.user?.avatar }}" alt="author">
+              </div>
+              <div class="author-content">
+                <a href="#" class="h5 author-name">{{ link?.user?.username }}</a>
+                <div class="country">Toronto, ON</div>
+              </div>
+            </div>
+
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <p class="friend-about" data-swiper-parallax="-500">
+                    {{ link?.profile?.aboutUser }}
+                  </p>
+                  <ul class="widget w-personal-info item-block">
+                    <!-- The ngIf statement doesnt work right now -->
+                    <li *ngIf="link?.finderTags.length == 0">
+                      <p>The person hasn't set the tags yet.</p>
+                    </li>
+                    <li *ngIf="link?.finderTags.length != 0">
+                      <span *ngFor="let tag of link?.finderTags.tags | slice:0:3" class="badge badge-primary">{{ tag }}</span>
+                    </li>
+                  </ul>
+                  <br>
+                  <a [routerLink]="['/messenger']" class="btn bg-purple">
+                    <span style="color:white;"><i class="fa fa-envelope"></i></span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- If we need pagination -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

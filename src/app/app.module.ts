@@ -79,6 +79,7 @@ import { TagComponent } from './devfinder-portal/devfinder-tags/tag/tag.componen
 import { DeveloperComponent } from './devfinder-portal/devfinder-developers/developer/developer.component';
 import { PortalService } from './shared/services/portal.service';
 import { AuthGuard } from './shared/services/auth-guard.service';
+import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/guest-profile-links.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { AuthGuard } from './shared/services/auth-guard.service';
     DevfinderTagsComponent,
     DevfinderDevelopersComponent,
     TagComponent,
-    DeveloperComponent
+    DeveloperComponent,
+    GuestProfileLinksComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
