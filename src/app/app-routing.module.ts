@@ -17,6 +17,7 @@ import { DevfinderHomeComponent } from "./devfinder-portal/devfinder-home/devfin
 import { DevfinderTagsComponent } from "./devfinder-portal/devfinder-tags/devfinder-tags.component";
 import { DevfinderDevelopersComponent } from "./devfinder-portal/devfinder-developers/devfinder-developers.component";
 import { AuthGuard } from "./shared/services/auth-guard.service";
+import { GuestProfileLinksComponent } from "./guest-profile/guest-profile-links/guest-profile-links.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -56,7 +57,8 @@ export const appRoutes: Routes = [
             { path: '', redirectTo: 'timeline', pathMatch: "full" },
             { path: 'timeline', component: GuestProfileComponent },
             { path: 'education', component: GuestProfileEducationComponent },
-            { path: 'work-experience', component: GuestProfileWorkExperienceComponent }
+            { path: 'work-experience', component: GuestProfileWorkExperienceComponent },
+            { path: 'links', component: GuestProfileLinksComponent }
         ]
     },
     { path: '**', redirectTo: 'dashboard' }

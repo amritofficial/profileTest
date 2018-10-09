@@ -52,17 +52,6 @@ export class ProfileLinksComponent implements OnInit {
   getLinkProfileInfo() {
     this.currentUserLinks.forEach(link => {
       this.guestProfileService.getGuestUserProfile(link.userId).then((profile) => {
-        // console.log(profile);
-        // console.log(profile.attributes);
-        // console.log(profile);
-        // if (!(profile.length <= 0)) {
-        //   let linkList: LinkList = {
-        //     profile: profile[0].attributes,
-        //     user: link,
-
-        //   }
-
-        // }
         this.guestProfileService.getGuestFinderTags(link.userId).then((tags) => {
           console.log(tags);
           if ((!(tags.length <= 0) && (!(profile.length <= 0)))) {

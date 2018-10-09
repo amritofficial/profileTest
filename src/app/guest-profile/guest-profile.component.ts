@@ -12,6 +12,7 @@ import { Profile } from '../shared/models/profile';
 import { FinderTags } from '../shared/models/finder-tags';
 import { PostService } from '../shared/services/post.service';
 import { Feed } from '../shared/models/feed';
+import { LinkList } from '../shared/models/link-list';
 
 @Component({
   selector: 'guest-profile',
@@ -53,7 +54,9 @@ export class GuestProfileComponent implements OnInit {
     userId: null,
     tags: []
   };
-  
+
+  guestUserLinks: User[] = new Array();
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private guestProfileService: GuestProfileService,
@@ -72,6 +75,7 @@ export class GuestProfileComponent implements OnInit {
       this.getCurrentUserData();
       this.getGuestUserProfile();
       this.getGuestFeed();
+      this.getGuestUserLinks();
       this.guestProfileService.getGuestUserData(this.guestId)
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((user: User) => {
           this.guestUser = user;
@@ -96,6 +100,11 @@ export class GuestProfileComponent implements OnInit {
           this.showRightSidebar = false;
         }
         else if (currentUrl === `/guest-profile/${this.guestId}/work-experience`) {
+          this.showRouterOutlet = true;
+          this.showFeed = false;
+          this.showRightSidebar = false;
+        }
+        else if (currentUrl === `/guest-profile/${this.guestId}/links`) {
           this.showRouterOutlet = true;
           this.showFeed = false;
           this.showRightSidebar = false;
@@ -208,6 +217,13 @@ export class GuestProfileComponent implements OnInit {
           var bTime = new Date(b.timeStamp).getTime();
           return bTime - aTime;
         });
+      });
+  }
+
+  getGuestUserLinks() {
+    this.linkService.linkList(this.guestId).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((links: User[]) => {
+        this.guestUserLinks = links;
       });
   }
 

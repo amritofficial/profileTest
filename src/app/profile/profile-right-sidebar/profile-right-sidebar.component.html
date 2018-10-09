@@ -10,7 +10,7 @@
         <div class="ui-block-content">
           <ul class="widget w-faved-page js-zoom-gallery">
             <li *ngFor="let link of links;">
-              <a href="#">
+              <a [routerLink]="['/guest-profile', link.userId]">
                 <img src="{{ link?.avatar }}" alt="author">
               </a>
             </li>
