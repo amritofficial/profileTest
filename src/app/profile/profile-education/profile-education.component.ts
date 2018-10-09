@@ -45,6 +45,7 @@ export class ProfileEducationComponent implements OnInit {
   }
 
   openAddEducationForm(event) {
+      this.addEducation = this.profileService.education;
       this.addProfileEducation = true;
   }
 
