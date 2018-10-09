@@ -10,6 +10,7 @@ import { element } from 'protractor';
 import { UserService } from '../../shared/services/user.service';
 import { LocationService } from '../../shared/services/location.service';
 import { Distance } from '../../shared/models/distance';
+import * as geoLib from 'geolib';
 
 @Component({
   selector: 'devfinder-developers',
@@ -19,20 +20,7 @@ import { Distance } from '../../shared/models/distance';
 export class DevfinderDevelopersComponent implements OnInit {
   private ngUnsubscribe = new Subject();
 
-  developers: Developer[] = [{
-    user: {
-      avatar: '',
-      email: '',
-      userId: null,
-      username: '',
-      userStatus: 1
-    },
-    distance: null,
-    tags: {
-      tags: [],
-      userId: null
-    }
-  }];
+  developers: Developer[] = new Array();
   users: User[] = new Array();
   currentUserLocation: Location;
   usersLocation: Location[] = new Array();
@@ -53,16 +41,25 @@ export class DevfinderDevelopersComponent implements OnInit {
   getAllUsers() {
     this.portalService.getAllUsersFromFirebase().pipe(takeUntil(this.ngUnsubscribe)).subscribe(users => {
       this.users = users;
-      // this.getAllUsersLocation();
     });
   }
 
   getAllUsersLocation() {
     this.portalService.getAllLocations().pipe(takeUntil(this.ngUnsubscribe)).subscribe((location) => {
       console.log("Locations")
-      this.usersLocation = location['results'];
-      console.log(this.usersLocation);
-      console.log(this.usersLocation[0])
+      if (location['results'].length != 0) {
+        this.usersLocation = location['results'];
+        console.log(this.usersLocation);
+        console.log(this.usersLocation[0])
+
+        this.usersLocation.forEach(location => {
+          if (location.lat != undefined) {
+            let distance = this.calculateDistance(location);
+            this.usersDistance.push({ userId: location.userId, distance: distance });
+          }
+        });
+      }
+      console.log(this.usersDistance);
       // this.getAllUsersFinderTags();
     });
   }
@@ -70,10 +67,6 @@ export class DevfinderDevelopersComponent implements OnInit {
   getAllUsersFinderTags() {
     this.portalService.getAllUsersFinderTags().pipe(takeUntil(this.ngUnsubscribe)).subscribe((finderTags) => {
       this.userFinderTags = finderTags['results'];
-      // this.userFinderTags = finderTags.att;
-      console.log(this.userFinderTags);
-      console.log(this.userFinderTags[0])
-
       this.getDevelopers();
     });
   }
@@ -95,11 +88,15 @@ export class DevfinderDevelopersComponent implements OnInit {
         }
       };
       developerObject.user = this.users[i];
-      console.log(this.users[i].username)
       for (let j = 0; j < this.userFinderTags.length; j++) {
         if (this.users[i].userId === this.userFinderTags[j].userId) {
           console.log(this.userFinderTags[j])
           developerObject.tags = this.userFinderTags[j];
+        }
+      }
+      for (let k = 0; k < this.usersDistance.length; k++) {
+        if (this.users[i].userId === this.usersDistance[k].userId) {
+          developerObject.distance = this.usersDistance[k].distance;
         }
       }
       this.developers.push(developerObject);
@@ -107,14 +104,34 @@ export class DevfinderDevelopersComponent implements OnInit {
     console.log(this.developers);
   }
 
-  calculateDistance() {
+  calculateDistance(location: Location) {
+    let coords;
+    if (this.currentUserLocation.lat != undefined) {
+      coords = {
+        latitude: this.currentUserLocation.lat,
+        longitude: this.currentUserLocation.long
+      }
+    }
+    else {
+      this.getCurrentUserLocation();
+      coords = {
+        latitude: this.currentUserLocation.lat,
+        longitude: this.currentUserLocation.long
+      }
+    }
 
+    let distance = geoLib.getDistance(coords, { latitude: location.lat, longitude: location.long });
+    return Math.round((distance / 1000) * 100) / 100
   }
 
   getCurrentUserLocation() {
     let userId = this.userService.getCurrentUserId();
+    console.log("Current User Id" + userId);
     this.locationService.getLocation(userId).then((location) => {
-      this.currentUserLocation = location;
+      if (location.length != 0) {
+        this.currentUserLocation = location[0].attributes;
+        console.log(this.currentUserLocation);
+      }
     });
   }
 

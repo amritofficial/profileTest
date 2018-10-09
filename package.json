@@ -34,6 +34,7 @@
     "core-js": "^2.4.1",
     "firebase": "^5.4.2",
     "font-awesome": "^4.7.0",
+    "geolib": "^2.0.24",
     "jquery": "^3.3.1",
     "ngx-chips": "^1.9.2",
     "ngx-img-cropper": "^0.10.4",
