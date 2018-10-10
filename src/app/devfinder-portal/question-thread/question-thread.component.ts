@@ -11,6 +11,22 @@ export class QuestionThreadComponent implements OnInit, OnChanges{
   codeActivated: boolean = false;
   answer: string;
   answerCode: string = '';
+  dummyCode: string = `
+  public static void main(String[] args) {
+    String username;
+    String city;
+    String postalCode;
+    
+    @Override
+    public void findLocation() {
+
+    }
+
+    public void storeLocation() {
+      
+    }
+  }
+  `;
 
   constructor() { }
 

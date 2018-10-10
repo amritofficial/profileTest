@@ -27,7 +27,38 @@
       </li>
     </ul>
   </div>
+  <div class="posting-author">
+    <span class="timeposted">a hour ago</span>
+    <span class="title">by <a>Amrit</a></span>
+    <div class="distance">10 Miles Away</div>
+  </div>
 </div>
+<br>
+<!-- Using the same CSS for answers too -->
+<div class="answers">
+  <div class="title-bar-answer">
+    <p class="title">Answer 1</p>
+  </div>
+  <br>
+  <hr>
+  <div class="question answers">
+    <div class="post-text">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+    </div>
+    <br>
+    <div class="post-text">
+      <pre><code highlight [textContent]="dummyCode"></code></pre>
+    </div>
+    <div class="posting-author">
+      <span class="timeposted">a min ago</span>
+      <span class="title">by <a>Mann</a></span>
+      <div class="distance">1 Mile Away</div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
 <hr>
 <div class="title-bar-answer">
   <p class="title">Post Answer</p>
@@ -49,4 +80,5 @@
 <div class="post-answer-helper">
   <p [innerHTML]="answer" style="white-space:pre-wrap;"></p>
 </div>
-<pre style="margin-bottom: 50px; width: 97.5%"><code highlight [textContent]="answerCode"></code></pre>
+<pre *ngIf="codeActivated" style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="answerCode"></code></pre>
+<button style="margin-bottom: 50px" class="btnc btnc-square btnc-sm btnc-filled-blue post-answer-button">Post Solution</button>
