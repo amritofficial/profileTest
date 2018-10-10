@@ -12,6 +12,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoadingModule } from 'ngx-loading';
 import { HttpClientModule } from '@angular/common/http';
+import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -81,6 +82,11 @@ import { PortalService } from './shared/services/portal.service';
 import { AuthGuard } from './shared/services/auth-guard.service';
 import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/guest-profile-links.component';
 import { QuestionThreadComponent } from './devfinder-portal/question-thread/question-thread.component';
+
+const options: HighlightOptions = {
+  theme: 'agate',
+  path: 'assets/js/highlight-js'
+ };
 
 @NgModule({
   declarations: [
@@ -152,6 +158,7 @@ import { QuestionThreadComponent } from './devfinder-portal/question-thread/ques
     NgbDatepickerModule,
     NgbButtonsModule,
     MatRadioModule,
+    HighlightModule.forRoot({ theme: 'agate'}),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
     }),

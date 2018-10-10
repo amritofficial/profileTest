@@ -37,6 +37,7 @@
     "geolib": "^2.0.24",
     "jquery": "^3.3.1",
     "ngx-chips": "^1.9.2",
+    "ngx-highlightjs": "^2.1.1",
     "ngx-img-cropper": "^0.10.4",
     "ngx-loading": "^1.0.14",
     "npm": "^6.2.0",
