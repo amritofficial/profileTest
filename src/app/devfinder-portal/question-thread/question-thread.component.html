@@ -1,6 +1,6 @@
 <div class="title-bar">
   <p class="title">Question Title</p>
-  <button class="btnc btnc-square btnc-sm btnc-filled-orange">Open Issue</button>
+  <button class="btnc btnc-square btnc-sm btnc-filled-orange" [routerLink]="['../open-issue']">Open Issue</button>
 </div>
 <br>
 <br>
@@ -80,5 +80,5 @@
 <div class="post-answer-helper">
   <p [innerHTML]="answer" style="white-space:pre-wrap;"></p>
 </div>
-<pre *ngIf="codeActivated" style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="answerCode"></code></pre>
+<pre style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="answerCode"></code></pre>
 <button style="margin-bottom: 50px" class="btnc btnc-square btnc-sm btnc-filled-blue post-answer-button">Post Solution</button>
