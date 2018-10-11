@@ -6,7 +6,6 @@ import { takeUntil } from 'rxjs/operators';
 import { Developer } from '../../shared/models/developer';
 import { FinderTags } from '../../shared/models/finder-tags';
 import { Location } from '../../shared/models/location';
-import { element } from 'protractor';
 import { UserService } from '../../shared/services/user.service';
 import { LocationService } from '../../shared/services/location.service';
 import { Distance } from '../../shared/models/distance';

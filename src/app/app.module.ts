@@ -82,6 +82,8 @@ import { PortalService } from './shared/services/portal.service';
 import { AuthGuard } from './shared/services/auth-guard.service';
 import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/guest-profile-links.component';
 import { QuestionThreadComponent } from './devfinder-portal/question-thread/question-thread.component';
+import { OpenIssueComponent } from './devfinder-portal/open-issue/open-issue.component';
+import { HeatMapComponent } from './devfinder-portal/heat-map/heat-map.component';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -138,7 +140,9 @@ const options: HighlightOptions = {
     TagComponent,
     DeveloperComponent,
     GuestProfileLinksComponent,
-    QuestionThreadComponent
+    QuestionThreadComponent,
+    OpenIssueComponent,
+    HeatMapComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
