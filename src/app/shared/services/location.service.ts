@@ -5,6 +5,7 @@ import { User } from '../models/user';
 
 @Injectable()
 export class LocationService {
+  currentLocation: Location;
 
   constructor(private parseService: ParseService) { }
 

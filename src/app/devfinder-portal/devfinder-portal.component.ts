@@ -5,6 +5,8 @@ import { PortalService } from '../shared/services/portal.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { User } from 'firebase';
+import { UserService } from 'app/shared/services/user.service';
+import { LocationService } from 'app/shared/services/location.service';
 // import { google } from '@types/googlemaps';
 
 @Component({
@@ -30,7 +32,9 @@ export class DevfinderPortalComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private routeService: RouteService,
-    private portalService: PortalService) { }
+    private portalService: PortalService,
+    private userService: UserService,
+    private locationService: LocationService) { }
 
 
   ngOnInit() {
@@ -39,6 +43,7 @@ export class DevfinderPortalComponent implements OnInit {
       this.routeService.activatedRouteName = "DevFinder Portal";
     }
     this.getAllUsers();
+    this.getCurrentUserLocation();
     // var mapProp = {
     //   center: new google.maps.LatLng(43.648647, -79.727653),
     //   zoom: 15,
@@ -164,6 +169,16 @@ export class DevfinderPortalComponent implements OnInit {
       });
   }
 
-
+  getCurrentUserLocation() {
+    let userId = this.userService.getCurrentUserId();
+    console.log("Current User Id" + userId);
+    this.locationService.getLocation(userId).then((location) => {
+      if (location.length != 0) {
+        this.locationService.currentLocation = location[0].attributes
+        // this.currentUserLocation = location[0].attributes;
+        // console.log(this.currentUserLocation);
+      }
+    });
+  }
 
 }

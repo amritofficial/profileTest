@@ -31,7 +31,7 @@ export class DevfinderDevelopersComponent implements OnInit {
     private locationService: LocationService) { }
 
   ngOnInit() {
-    this.getCurrentUserLocation();
+    // this.getCurrentUserLocation();
     this.getAllUsers();
     this.getAllUsersLocation();
     this.getAllUsersFinderTags();
@@ -105,6 +105,7 @@ export class DevfinderDevelopersComponent implements OnInit {
 
   calculateDistance(location: Location) {
     let coords;
+    this.currentUserLocation = this.locationService.currentLocation;
     if (this.currentUserLocation.lat != undefined) {
       coords = {
         latitude: this.currentUserLocation.lat,

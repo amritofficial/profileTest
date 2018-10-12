@@ -1,0 +1,46 @@
+#floating-panel {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #999;
+    font-family: 'Roboto','sans-serif';
+    left: 25%;
+    line-height: 30px;
+    padding: 5px;
+    padding-left: 10px;
+    text-align: center;
+    top: 10px;
+    margin-top: 100px;
+    z-index: 5;
+  }
+
+  .label {
+    box-sizing:border-box;
+    background: #05F24C;
+    box-shadow: 2px 2px 4px #333;
+    border:5px solid #346FF7;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    -webkit-animation: pulse 1s ease 1s 3;
+    -moz-animation: pulse 1s ease 1s 3;
+    animation: pulse 1s ease 1s 3;
+  }
+
+  .custom-marker {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    margin-top: -75px;
+    z-index: -1;
+    margin-left: -60px;
+  }
+
+  .custom-marker-avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-top: -80px;
+    margin-left: -30px;
+    border: 2px solid lightgrey;
+    border-radius: 500px;
+  }

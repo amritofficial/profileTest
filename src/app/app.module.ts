@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoadingModule } from 'ngx-loading';
 import { HttpClientModule } from '@angular/common/http';
 import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
+import { NguiMapModule } from '@ngui/map';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -88,7 +89,7 @@ import { HeatMapComponent } from './devfinder-portal/heat-map/heat-map.component
 const options: HighlightOptions = {
   theme: 'agate',
   path: 'assets/js/highlight-js'
- };
+};
 
 @NgModule({
   declarations: [
@@ -162,9 +163,13 @@ const options: HighlightOptions = {
     NgbDatepickerModule,
     NgbButtonsModule,
     MatRadioModule,
-    HighlightModule.forRoot({ theme: 'agate'}),
+    HighlightModule.forRoot({ theme: 'agate' }),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
+    }),
+    NguiMapModule.forRoot({
+      apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg' +
+        '&libraries=visualization',
     }),
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
