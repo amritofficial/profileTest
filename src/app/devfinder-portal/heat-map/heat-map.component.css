@@ -32,7 +32,7 @@
     position: absolute;
     margin-top: -75px;
     z-index: -1;
-    margin-left: -60px;
+    margin-left: -40px;
   }
 
   .custom-marker-avatar {
@@ -40,7 +40,7 @@
     width: 40px;
     border-radius: 50%;
     margin-top: -80px;
-    margin-left: -30px;
+    margin-left: -10px;
     border: 2px solid lightgrey;
     border-radius: 500px;
   }
