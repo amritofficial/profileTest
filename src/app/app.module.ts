@@ -6,7 +6,7 @@ import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule, MatRadioModule } from '@angular/material';
-import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -173,6 +173,7 @@ const options: HighlightOptions = {
         '&libraries=visualization',
     }),
     NgxPaginationModule,
+    NgbDropdownModule,
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],

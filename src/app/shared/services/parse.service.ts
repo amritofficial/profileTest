@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 import { User } from '../models/user';
 import { Profile } from '../models/profile';
 import { FinderTags } from '../models/finder-tags';
+import { OpenIssue } from '../models/open-issue';
 
 const Parse = require('parse');
 
@@ -278,6 +279,14 @@ export class ParseService {
 
   public getAllDevFinderTags() {
     return this.http.get(Parse.serverURL + "/classes/devfinderTags", httpOptions);
+  }
+
+  public saveIssue(openIssueData: OpenIssue) {
+    return this.http.post(Parse.serverURL + "/classes/issues", openIssueData, httpOptions);
+  }
+
+  public getIssues() {
+    return this.http.get(Parse.serverURL + "/classes/issues", httpOptions);
   }
 
 }

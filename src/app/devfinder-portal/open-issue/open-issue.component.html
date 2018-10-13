@@ -1,20 +1,43 @@
 <div class="title-bar">
   <p class="title">Open Issue</p>
   <p class="description">Create issues and ask the developer community for a little help. Make use of sensible tags for
-    accurate listing of your issues. <br> Find who can help out online or over a cup of a coffee by setting up a
+    accurate listing of your issues. <br> Find who can help you out online or can talk over a cup of a coffee by
+    setting up a
     meet up if they fall in your vicinity.</p>
 </div>
 <br>
 <br>
 <br>
 <hr>
+<div class="title-bar-question">
+  <p class="title">Give it a title</p>
+</div>
+<br>
+<div class="question-title-input">
+  <input type="text" [(ngModel)]="issueTitle" name="questionTitleInput" placeholder="Give it a title">
+</div>
+<br>
+<div class="title-bar-question">
+  <p class="title">Choose a Parent Tag</p>
+</div>
+<br>
+<div class="question-title-input">
+  <div ngbDropdown class="d-inline-block">
+    <button *ngIf="parentTag == ''" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Tag</button>
+    <button *ngIf="parentTag != ''" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ parentTag }}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button *ngFor="let item of devfinderTags;" (click)="selectedParentTag(item)" class="dropdown-item">{{ item.tagName }}</button>
+    </div>
+  </div>
+</div>
+<br>
 <div class="title-bar-tags">
-  <p class="title">Choose Tags</p>
+  <p class="title">Choose Children Tags</p>
 </div>
 <br>
 <div class="choose-question-tags">
-  <tag-input class="tag-input" [ngModel]="tags" [maxItems]="2" style="text-transform:uppercase" [displayBy]="'name'" (onRemove)="onTagRemoved($event)"
-    (onAdd)="onTagAdded($event)" theme='bootstrap'></tag-input>
+  <tag-input class="tag-input" [ngModel]="tags" [maxItems]="2" style="text-transform:uppercase" [displayBy]="'name'"
+    (onRemove)="onTagRemoved($event)" (onAdd)="onTagAdded($event)" theme='bootstrap'></tag-input>
 </div>
 <div class="open-issue-box">
   <div class="container tools">
@@ -22,16 +45,16 @@
       <span class="fa fa-code"></span>
     </div>
   </div>
-  <textarea [(ngModel)]="question" name="open-issue" id="open-issue" cols="100" rows="10"></textarea>
+  <textarea [(ngModel)]="issueTextDescription" name="open-issue" id="open-issue" cols="100" rows="10"></textarea>
 </div>
 <div *ngIf="codeActivated" class="open-issue-code">
-  <textarea #codeTextArea name="open-issue-code" [(ngModel)]="questionCode" id="open-issue-code" cols="45" rows="10"></textarea>
+  <textarea #codeTextArea name="open-issue-code" [(ngModel)]="issueCodeDescription" id="open-issue-code" cols="45" rows="10"></textarea>
 </div>
 <br>
 <br>
 <div class="open-issue-helper">
-  <p [innerHTML]="question" style="white-space:pre-wrap;"></p>
+  <p [innerHTML]="issueTextDescription" style="white-space:pre-wrap;"></p>
 </div>
-<pre style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="questionCode"></code></pre>
-<button style="margin-bottom: 50px" class="btnc btnc-square btnc-sm btnc-filled-blue open-issue-button">Open
+<pre style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="issueCodeDescription"></code></pre>
+<button style="margin-bottom: 50px" (click)="openIssue()" class="btnc btnc-square btnc-sm btnc-filled-orange open-issue-button">Open
   Issue</button>

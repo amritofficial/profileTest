@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { ParseService } from './parse.service';
+import { OpenIssue } from '../models/open-issue';
 
 @Injectable()
 export class PortalService {
@@ -23,6 +24,14 @@ export class PortalService {
 
   getAllDevFinderTags() {
     return this.parseService.getAllDevFinderTags();
+  }
+
+  saveIssue(openIssueData: OpenIssue) {
+    return this.parseService.saveIssue(openIssueData);
+  }
+
+  getAllIssues() {
+    return this.parseService.getIssues();
   }
 
 }
