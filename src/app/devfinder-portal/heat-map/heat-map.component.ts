@@ -19,7 +19,7 @@ export class HeatMapComponent implements OnInit {
   ngOnInit() {
     this.heatMapLayer['initialized$'].subscribe(heatMap => {
       this.points = [
-        new google.maps.LatLng(37.782551, -122.445368)
+        new google.maps.LatLng(43.65614403322342, -79.74013949586174)
         // new google.maps.LatLng(37.782745, -122.444586),
         // new google.maps.LatLng(37.782842, -122.443688)
       ];
