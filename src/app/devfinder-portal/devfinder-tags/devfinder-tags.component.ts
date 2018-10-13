@@ -10,33 +10,6 @@ import { PortalService } from 'app/shared/services/portal.service';
 export class DevfinderTagsComponent implements OnInit {
   p: number = 1;
   tags: DevFinderTag[];
-  devFinderTagsArray: DevFinderTag[] = [
-    {
-      objectId: null,
-      description: 'Lorem Ipsum',
-      tagName: 'Javacript'
-    },
-    {
-      objectId: null,
-      description: 'Lorem Ipsum',
-      tagName: 'Angular'
-    },
-    {
-      objectId: null,
-      description: 'Lorem Ipsum',
-      tagName: 'Typescript'
-    },
-    {
-      objectId: null,
-      description: 'Lorem Ipsum',
-      tagName: 'Java'
-    },
-    {
-      objectId: null,
-      description: 'Lorem Ipsum',
-      tagName: 'C#'
-    }
-  ]
 
   constructor(private portalService: PortalService) { }
 
