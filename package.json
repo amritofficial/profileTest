@@ -41,6 +41,7 @@
     "ngx-highlightjs": "^2.1.1",
     "ngx-img-cropper": "^0.10.4",
     "ngx-loading": "^1.0.14",
+    "ngx-pagination": "^3.2.1",
     "npm": "^6.2.0",
     "parse": "^2.1.0",
     "rxjs": "^6.0.0",

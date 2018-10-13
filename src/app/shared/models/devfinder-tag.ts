@@ -1,6 +1,5 @@
 export class DevFinderTag {
+    public objectId: any;
     public tagName: string;
-    public tagDescription: string;
-    public tagOpenIssues: any;
-    public vacinityDevelopers: any; // Developers possessing that skill in the demograph
+    public description: string;
 }

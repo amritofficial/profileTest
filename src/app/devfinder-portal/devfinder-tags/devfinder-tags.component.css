@@ -24,3 +24,9 @@
     margin-top: 5px;
     float: right;
 }
+
+.pagination {
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

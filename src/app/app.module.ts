@@ -14,6 +14,7 @@ import { LoadingModule } from 'ngx-loading';
 import { HttpClientModule } from '@angular/common/http';
 import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
 import { NguiMapModule } from '@ngui/map';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -171,6 +172,7 @@ const options: HighlightOptions = {
       apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg' +
         '&libraries=visualization',
     }),
+    NgxPaginationModule,
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],

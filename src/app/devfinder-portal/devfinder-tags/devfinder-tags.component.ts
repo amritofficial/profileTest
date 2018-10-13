@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DevFinderTag } from '../../shared/models/devfinder-tag';
+import { PortalService } from 'app/shared/services/portal.service';
 
 @Component({
   selector: 'devfinder-tags',
@@ -7,42 +8,46 @@ import { DevFinderTag } from '../../shared/models/devfinder-tag';
   styleUrls: ['./devfinder-tags.component.css']
 })
 export class DevfinderTagsComponent implements OnInit {
+  p: number = 1;
+  tags: DevFinderTag[];
   devFinderTagsArray: DevFinderTag[] = [
     {
-      tagDescription: 'Lorem Ipsum',
-      tagName: 'Javacript',
-      tagOpenIssues: 20,
-      vacinityDevelopers: 1
+      objectId: null,
+      description: 'Lorem Ipsum',
+      tagName: 'Javacript'
     },
     {
-      tagDescription: 'Lorem Ipsum',
-      tagName: 'Angular',
-      tagOpenIssues: 20,
-      vacinityDevelopers: 1
+      objectId: null,
+      description: 'Lorem Ipsum',
+      tagName: 'Angular'
     },
     {
-      tagDescription: 'Lorem Ipsum',
-      tagName: 'Typescript',
-      tagOpenIssues: 20,
-      vacinityDevelopers: 1
+      objectId: null,
+      description: 'Lorem Ipsum',
+      tagName: 'Typescript'
     },
     {
-      tagDescription: 'Lorem Ipsum',
-      tagName: 'Java',
-      tagOpenIssues: 20,
-      vacinityDevelopers: 1
+      objectId: null,
+      description: 'Lorem Ipsum',
+      tagName: 'Java'
     },
     {
-      tagDescription: 'Lorem Ipsum',
-      tagName: 'C#',
-      tagOpenIssues: 20,
-      vacinityDevelopers: 1
+      objectId: null,
+      description: 'Lorem Ipsum',
+      tagName: 'C#'
     }
   ]
 
-  constructor() { }
+  constructor(private portalService: PortalService) { }
 
   ngOnInit() {
+    this.portalService.getAllDevFinderTags().subscribe((data) => {
+      console.log("DevFinder Tags")
+      console.log(data);
+      this.tags = data['results'];
+      console.log(this.tags);
+      console.log(this.tags[0]);
+    });
   }
 
 }

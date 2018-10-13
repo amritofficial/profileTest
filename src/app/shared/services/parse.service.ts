@@ -276,4 +276,8 @@ export class ParseService {
     return this.http.get(Parse.serverURL + "/classes/tags", httpOptions);
   }
 
+  public getAllDevFinderTags() {
+    return this.http.get(Parse.serverURL + "/classes/devfinderTags", httpOptions);
+  }
+
 }

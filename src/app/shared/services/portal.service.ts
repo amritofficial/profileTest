@@ -21,4 +21,8 @@ export class PortalService {
     return this.parseService.getAllUsersFinderTags();
   }
 
+  getAllDevFinderTags() {
+    return this.parseService.getAllDevFinderTags();
+  }
+
 }
