@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { OpenIssue } from 'app/shared/models/open-issue';
 import { UserService } from 'app/shared/services/user.service';
 import { User } from 'app/shared/models/user';
+import { LocationService } from 'app/shared/services/location.service';
 
 @Component({
   selector: 'open-issue',
@@ -52,7 +53,8 @@ export class OpenIssueComponent implements OnInit {
   currentUser: User;
 
   constructor(private portalService: PortalService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private locationService: LocationService) { }
 
   ngOnInit() {
     this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
@@ -104,7 +106,8 @@ export class OpenIssueComponent implements OnInit {
       parentTagObjectId: this.parentTagObjectId,
       timestamp: new Date().getTime(),
       userId: this.currentUser.userId,
-      username: this.currentUser.username
+      username: this.currentUser.username,
+      location: this.locationService.currentLocation
     }
     console.log("Opened Issue")
     console.log(openIssueData);

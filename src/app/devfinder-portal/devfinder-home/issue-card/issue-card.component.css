@@ -45,7 +45,7 @@ mat-card {
 
 .issue-summary ul li {
   display: inline-block;
-  margin: -2px;
+  margin: 1px;
   list-style-type: none;
 }
 
@@ -57,6 +57,7 @@ mat-card {
 .issue-summary .posting-author {
   display: inline-block;
   float: right;
+  margin-left: 100px;
 }
 
 .issue-summary .posting-author .timeposted {
@@ -85,7 +86,7 @@ mat-card {
   display: inline-block;
   border-left: 1.5px solid #38a9ff;
   font-size: 12px;
-  padding-left: 2px;
+  padding-left: 4px;
   color: rgb(143, 143, 143);
 }
 

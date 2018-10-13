@@ -1,4 +1,5 @@
 import { AnswerIssue } from "./answer-issue";
+import { Location } from "./location";
 
 export class OpenIssue {
     public objectId: any;
@@ -12,4 +13,5 @@ export class OpenIssue {
     public userId: any;
     public username: any;
     public answers: AnswerIssue[];
+    public location: Location;
 }

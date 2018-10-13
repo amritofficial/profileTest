@@ -86,6 +86,7 @@ import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/
 import { QuestionThreadComponent } from './devfinder-portal/question-thread/question-thread.component';
 import { OpenIssueComponent } from './devfinder-portal/open-issue/open-issue.component';
 import { HeatMapComponent } from './devfinder-portal/heat-map/heat-map.component';
+import { DistanceService } from './shared/services/distance.service';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -177,7 +178,7 @@ const options: HighlightOptions = {
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
