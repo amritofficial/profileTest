@@ -1,5 +1,5 @@
 <div class="title-bar">
-  <p class="title">How to pass data from a parent to a child component in Angular 2 using @Input()?</p>
+  <p class="title">{{ questionThread?.issueTitle }}</p>
   <button class="btnc btnc-square btnc-sm btnc-filled-orange" [routerLink]="['../open-issue']">Open Issue</button>
 </div>
 <br>
@@ -7,30 +7,23 @@
 <hr>
 <div class="question">
   <div class="post-text">
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-      a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-      of Lorem Ipsum.</p>
+    <p>{{ questionThread?.issueTextDescription }}</p>
+  </div>
+  <br>
+  <div class="post-text">
+    <pre><code highlight [textContent]="questionThread?.issueCodeDescription"></code></pre>
   </div>
   <div class="post-tags">
     <ul>
-      <li>
-        <span class="badge badge-primary">angular</span>
-      </li>
-      <li>
-        <span class="badge badge-primary">typescript</span>
-      </li>
-      <li>
-        <span class="badge badge-primary">css</span>
+      <li *ngFor="let tag of questionThread?.issueTags;">
+        <span class="badge badge-primary">{{ tag }}</span>
       </li>
     </ul>
   </div>
   <div class="posting-author">
-    <span class="timeposted">a hour ago</span>
-    <span class="title">by <a>Amrit</a></span>
-    <div class="distance">10 Miles Away</div>
+    <span class="timeposted">{{ questionThread?.timestamp | timeAgo }}</span>
+    <span class="title">by <a>{{ questionThread?.username }}</a></span>
+    <div class="distance">{{ questionThread?.distance }} Km Away</div>
   </div>
 </div>
 <br>
@@ -47,7 +40,7 @@
     </div>
     <br>
     <div class="post-text">
-      <pre><code highlight [textContent]="dummyCode"></code></pre>
+      <pre><code highlight [textContent]="openedIssue?.issueCodeDescription"></code></pre>
     </div>
     <div class="posting-author">
       <span class="timeposted">a min ago</span>

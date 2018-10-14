@@ -52,7 +52,7 @@ export const appRoutes: Routes = [
             { path: 'home', component: DevfinderHomeComponent },
             { path: 'tags', component: DevfinderTagsComponent },
             { path: 'developers', component: DevfinderDevelopersComponent },
-            { path: 'question', component: QuestionThreadComponent },
+            { path: 'question/:issueId', component: QuestionThreadComponent },
             { path: 'open-issue', component: OpenIssueComponent },
             { path: 'dev-heat', component: HeatMapComponent }
         ]

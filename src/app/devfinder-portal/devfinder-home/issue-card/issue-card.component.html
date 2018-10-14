@@ -1,19 +1,13 @@
 <mat-card>
   <div class="issue-summary">
     <div class="issue-title">
-     <a [routerLink]="['../question']"><p>{{ issueCard?.issueTitle }}</p></a> 
+     <a [routerLink]="['../question', issueCard?.issueId ]"><p>{{ issueCard?.issueTitle }}</p></a> 
     </div>
     <div class="issue-tags">
       <ul>
         <li *ngFor="let tag of issueCard?.issueTags;">
           <span class="badge badge-primary">{{ tag }}</span>
         </li>
-        <!-- <li>
-          <span class="badge badge-primary">typescript</span>
-        </li>
-        <li>
-          <span class="badge badge-primary">css</span>
-        </li> -->
       </ul>
     </div>
     <div class="posting-author">

@@ -34,4 +34,8 @@ export class PortalService {
     return this.parseService.getIssues();
   }
 
+  getOpenIssueWithId(issueId: any) {
+    return this.parseService.getOpenIssueWithId(issueId);
+  }
+
 }

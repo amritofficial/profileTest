@@ -289,4 +289,12 @@ export class ParseService {
     return this.http.get(Parse.serverURL + "/classes/issues", httpOptions);
   }
 
+  public async getOpenIssueWithId(issueId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("objectId", issueId);
+
+    return await query.find();
+  }
+
 }
