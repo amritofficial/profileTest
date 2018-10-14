@@ -1,12 +1,17 @@
 /* For Title Bar of Component */
 
+.title-bar {
+  padding-bottom: 10px;
+}
+
 .title-bar p {
     font-weight: 500;
     display: inline-block;
-    font-size: 24px;
+    font-size: 20px;
     float: left;
-    color: rgb(46, 46, 46);
+    color: rgb(59, 59, 59);
     font-family: 'Lato', sans-serif;
+    width: 80%;
   }
 
 .title-bar-answer p {
