@@ -297,4 +297,36 @@ export class ParseService {
     return await query.find();
   }
 
+  public async getCurrentTagOpenIssuesCountWithTagId(tagId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("parentTagObjectId", tagId);
+
+    return query.count();
+  }
+
+  public async getOpenIssuesCountWithTagName(tagName: string) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("childrenTags", tagName);
+
+    return await query.count();
+  }
+
+  public async getDevCountWithTagName(tagName: string) {
+    const issues = Parse.Object.extend("tags");
+    const query = new Parse.Query(issues);
+    query.equalTo("tags", tagName);
+
+    return await query.count();
+  }
+
+  public async getDevWithTagName(tagName: string) {
+    const issues = Parse.Object.extend("tags");
+    const query = new Parse.Query(issues);
+    query.equalTo("tags", tagName);
+
+    return await query.find();
+  }
+
 }

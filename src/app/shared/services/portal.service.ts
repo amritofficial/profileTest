@@ -38,4 +38,20 @@ export class PortalService {
     return this.parseService.getOpenIssueWithId(issueId);
   }
 
+  getCurrentTagOpenIssuesCountWithTagId(tagId: any) {
+    return this.parseService.getCurrentTagOpenIssuesCountWithTagId(tagId);
+  }
+
+  getOpenIssuesCountWithTagName(tagName: string) {
+    return this.parseService.getOpenIssuesCountWithTagName(tagName);
+  }
+
+  getDevCountWithTagName(tagName: string) {
+    return this.parseService.getDevCountWithTagName(tagName);
+  }
+
+  getDevWithTagName(tagName: string) {
+    return this.parseService.getDevWithTagName(tagName);
+  }
+
 }
