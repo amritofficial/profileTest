@@ -10,8 +10,11 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="widget w-personal-info item-block">
+          <li *ngIf="filterdEducationArray.length <= 0 && !addProfileEducation">
+            <span class="title">Showcase your education here !</span>
+          </li>
           <li *ngFor="let education of filterdEducationArray;">
-            <mat-card *ngIf="!addProfileEducation" >
+            <mat-card *ngIf="!addProfileEducation">
               <span class="title">{{ education.program }}</span>
               <span class="title"><i>{{ education.school }}, {{ education.schoolCity }}, {{ education.schoolCountry }}</i></span>
               <span class="edit-profile-education-icon"><i class="fa fa-pencil"></i></span>
