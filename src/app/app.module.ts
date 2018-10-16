@@ -87,6 +87,7 @@ import { QuestionThreadComponent } from './devfinder-portal/question-thread/ques
 import { OpenIssueComponent } from './devfinder-portal/open-issue/open-issue.component';
 import { HeatMapComponent } from './devfinder-portal/heat-map/heat-map.component';
 import { DistanceService } from './shared/services/distance.service';
+import { TaggedQuestionsComponent } from './devfinder-portal/tagged-questions/tagged-questions.component';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -145,7 +146,8 @@ const options: HighlightOptions = {
     GuestProfileLinksComponent,
     QuestionThreadComponent,
     OpenIssueComponent,
-    HeatMapComponent
+    HeatMapComponent,
+    TaggedQuestionsComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [

@@ -21,6 +21,7 @@ import { GuestProfileLinksComponent } from "./guest-profile/guest-profile-links/
 import { QuestionThreadComponent } from "./devfinder-portal/question-thread/question-thread.component";
 import { OpenIssueComponent } from "./devfinder-portal/open-issue/open-issue.component";
 import { HeatMapComponent } from "./devfinder-portal/heat-map/heat-map.component";
+import { TaggedQuestionsComponent } from "./devfinder-portal/tagged-questions/tagged-questions.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -54,7 +55,8 @@ export const appRoutes: Routes = [
             { path: 'developers', component: DevfinderDevelopersComponent },
             { path: 'question/:issueId', component: QuestionThreadComponent },
             { path: 'open-issue', component: OpenIssueComponent },
-            { path: 'dev-heat', component: HeatMapComponent }
+            { path: 'dev-heat', component: HeatMapComponent },
+            { path: 'questions/tagged/:tagName', component: TaggedQuestionsComponent }
         ]
     },
     {

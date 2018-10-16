@@ -329,4 +329,12 @@ export class ParseService {
     return await query.find();
   }
 
+  public async getIssuesWithTagId(tagId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("parentTagObjectId", tagId);
+
+    return await query.find();
+  }
+
 }

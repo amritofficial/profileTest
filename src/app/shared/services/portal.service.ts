@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { ParseService } from './parse.service';
 import { OpenIssue } from '../models/open-issue';
+import { DevFinderTag } from '../models/devfinder-tag';
 
 @Injectable()
 export class PortalService {
+  devFinderTags: DevFinderTag[];
 
   constructor(private firebaseService: FirebaseService,
     private parseService: ParseService) { }
@@ -54,4 +56,7 @@ export class PortalService {
     return this.parseService.getDevWithTagName(tagName);
   }
 
+  getIssuesWithTagId(tagId: any) {
+    return this.parseService.getIssuesWithTagId(tagId);
+  }
 }
