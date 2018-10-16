@@ -1,6 +1,6 @@
 <mat-card class="custom-mat-card">
   <div class="card-wrapper">
-    <span class="badge badge-primary">{{ devfinderTag?.tagName }}</span>
+    <a class="clickable" [routerLink]="['../questions/tagged', devfinderTag?.tagName]"><span class="badge badge-primary">{{ devfinderTag?.tagName }}</span></a>
     <div class="tag-description">
       <p>{{ devfinderTag?.description }}</p>
     </div>

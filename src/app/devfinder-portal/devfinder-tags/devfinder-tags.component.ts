@@ -22,6 +22,7 @@ export class DevfinderTagsComponent implements OnInit {
       // console.log("DevFinder Tags")
       // console.log(data);
       this.tags = data['results'];
+      this.portalService.devFinderTags = this.tags;
       // console.log(this.tags);
       // console.log(this.tags[0]);
       this.loadingTags = false;
