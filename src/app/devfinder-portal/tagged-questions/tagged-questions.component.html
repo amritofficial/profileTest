@@ -1,7 +1,14 @@
 <div class="title-bar">
   <p class="title">Issues Tagged<span style="margin-left: 10px;" class="badge badge-primary">{{ questionTagName }}</span></p>
-  <button class="btnc btnc-square btnc-sm btnc-filled-orange" [routerLink]="['../open-issue']">Open Issue</button>
+  <button class="btnc btnc-square btnc-sm btnc-filled-orange" [routerLink]="['../../../open-issue']">Open Issue</button>
 </div>
 <br>
 <br>
 <hr>
+<div class="list-wrapper">
+  <div class="issue-list">
+    <div *ngFor="let issue of issueCardArray;">
+      <issue-card [issueCard]="issue"></issue-card>
+    </div>
+  </div>
+</div>
