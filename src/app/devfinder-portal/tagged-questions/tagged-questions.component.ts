@@ -38,7 +38,23 @@ export class TaggedQuestionsComponent implements OnInit {
       console.log(data);
       if(!(data.length <=0)) {
         data.forEach(data => {
-          this.openedIssues.push(data.attributes);
+          console.log(data);
+          // console.log(data.id)
+          let openedIssueObject: OpenIssue = {
+            objectId: data.id,
+            answers: data.attributes.answers,
+            childrenTags: data.attributes.childrenTags,
+            issueCodeDescription: data.attributes.issueCodeDescription,
+            issueTextDescription: data.attributes.issueTextDescription,
+            location: data.attributes.location,
+            parentTag: data.attributes.parentTag,
+            parentTagObjectId: data.attributes.parentTagObjectId,
+            timestamp: data.attributes.timestamp,
+            title: data.attributes.title,
+            userId: data.attributes.userId,
+            username: data.attributes.username
+          }
+          this.openedIssues.push(openedIssueObject);
         });
         // console.log("Opened Issues for " + this.questionTagName)
         // console.log(this.openedIssues)
@@ -48,6 +64,7 @@ export class TaggedQuestionsComponent implements OnInit {
   }
 
   createIssueCards() {
+    console.log(this.openedIssues);
     this.openedIssues.forEach(oi => {
       let tags: string[] = oi.childrenTags;
       tags.unshift(oi.parentTag); 
