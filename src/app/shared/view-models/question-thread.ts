@@ -8,5 +8,6 @@ export class QuestionThread {
     public username: string;
     public distance: any;
     public timestamp: any;
+    public userId: any;
     public answers: AnswerIssue[];
 }

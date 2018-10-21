@@ -85,7 +85,8 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
           issueTags: issueTags,
           issueTextDescription: this.openedIssue.issueTextDescription,
           issueTitle: this.openedIssue.title,
-          timestamp: this.openedIssue.timestamp
+          timestamp: this.openedIssue.timestamp,
+          userId: this.openedIssue.userId
         }
       }
       console.log(this.questionThread);
