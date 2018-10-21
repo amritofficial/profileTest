@@ -21,4 +21,8 @@ export class LocationService {
     return this.parseService.updateCurrentUserLocation(objectId);
   }
 
+  getAllDevelopersLocation() {
+    return this.parseService.getAllUsersLocation();
+  }
+
 }

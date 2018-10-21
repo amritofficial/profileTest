@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocationService } from 'app/shared/services/location.service';
 import { HeatmapLayer } from '@ngui/map';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Location } from 'app/shared/models/location';
 
 @Component({
   selector: 'app-heat-map',
@@ -8,24 +11,44 @@ import { HeatmapLayer } from '@ngui/map';
   styleUrls: ['./heat-map.component.css']
 })
 export class HeatMapComponent implements OnInit {
+  private ngUnsubscribe = new Subject();
   @ViewChild(HeatmapLayer) heatMapLayer: HeatmapLayer;
   heatMap: google.maps.visualization.HeatmapLayer;
   map: google.maps.Map;
   points = [];
   code: string;
+  developerLocations: Location[] = [];
 
   constructor(private locationService: LocationService) { }
 
   ngOnInit() {
-    this.heatMapLayer['initialized$'].subscribe(heatMap => {
-      this.points = [
-        new google.maps.LatLng(43.65614403322342, -79.74013949586174)
-        // new google.maps.LatLng(37.782745, -122.444586),
-        // new google.maps.LatLng(37.782842, -122.443688)
-      ];
-      this.heatMap = heatMap;
-      this.map = this.heatMap.getMap();
-    });
+    this.locationService.getAllDevelopersLocation().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((locations) => {
+        console.log("Locations");
+        this.developerLocations = locations['results'];
+        console.log(this.developerLocations);
+        this.developerLocations.forEach(location => {
+          this.points.push(new google.maps.LatLng(location.lat, location.long));
+        });
+        this.heatMapLayer['initialized$'].subscribe(heatMap => {
+          // this.points = [
+          //   new google.maps.LatLng(43.65614403322342, -79.74013949586174)
+          // ];
+          this.heatMap = heatMap;
+          this.map = this.heatMap.getMap();
+          this.heatMap.set('radius', this.heatMap.get('radius') ? null : 50);
+          this.heatMap.set('opacity', this.heatMap.get('opacity') ? null : 0.3);
+        });
+      });
+    // this.heatMap.setMap(this.heatMap.getMap() ? null : this.map);
+    // this.heatMap.set('radius', this.heatMap.get('radius') ? 50 : 50);
+    // this.heatMap.set('opacity', this.heatMap.get('opacity') ? 0.2 : 0.2);
+  }
+
+  addMapConfig() {
+    this.heatMap.setMap(this.heatMap.getMap() ? null : this.map);
+    this.heatMap.set('radius', this.heatMap.get('radius') ? null : 50);
+    this.heatMap.set('opacity', this.heatMap.get('opacity') ? null : 0.2);
   }
 
   toggleHeatmap() {
@@ -63,7 +86,7 @@ export class HeatMapComponent implements OnInit {
   loadRandomPoints() {
     this.points = [];
 
-    for (let i = 0 ; i < 9; i++) {
+    for (let i = 0; i < 9; i++) {
       this.addPoint();
     }
   }
@@ -74,5 +97,5 @@ export class HeatMapComponent implements OnInit {
     let latlng = new google.maps.LatLng(randomLat, randomLng);
     this.points.push(latlng);
   }
-  
+
 }

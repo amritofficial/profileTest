@@ -1,12 +1,19 @@
 <!-- <ngui-map center="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}" ></ngui-map> -->
-<h1>Heatmap Layer</h1>
+<div class="title-bar">
+  <p class="title">Developer Heat</p><br>
+  <p class="description">Developer Heat map allows you to find developers based upon their activity on the DevFinder
+    Portal.</p>
+</div>
+<br>
+<br>
+<hr>
 <ngui-map zoom="13" center="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}">
-  <div id="floating-panel">
+  <!-- <div id="floating-panel">
     <button (click)="toggleHeatmap()">Toggle Heatmap</button>
     <button (click)="changeGradient()">Change gradient</button>
     <button (click)="changeRadius()">Change radius</button>
     <button (click)="changeOpacity()">Change opacity</button>
-  </div>
+  </div> -->
   <custom-marker position="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}">
     <div>
       <img class="custom-marker" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png"
@@ -17,6 +24,15 @@
   <!-- <marker position="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}"></marker> -->
   <heatmap-layer [data]="points"></heatmap-layer>
 </ngui-map>
-<button (click)="loadRandomPoints()">Load Random Points</button>
-<br />
-<button (click)="addPoint()">Add Point</button>
+<div class="sidenav">
+  <div class="form-group">
+    <input class="form-control search-box box-shadow" id="pwd" placeholder="Search People, Skills or anything that makes sense">
+  </div>
+  <div class="card info-card box-shadow">
+    <img style="border-radius: 4px;" src="../../assets/img/devfinder-portal.jpg" alt="">
+  </div>
+  <div class="card result-container">
+    <h5 class="results-text">Results: 10 of 20</h5>
+    <result-card></result-card>
+  </div>
+</div>
