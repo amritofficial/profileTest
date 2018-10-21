@@ -28,7 +28,7 @@
 </div>
 <br>
 <!-- Using the same CSS for answers too -->
-<div class="answers">
+<div *ngFor="let answer of questionThread?.answers;" class="answers">
   <div class="title-bar-answer">
     <p class="title">Answer 1</p>
   </div>
@@ -36,22 +36,20 @@
   <hr>
   <div class="question answers">
     <div class="post-text">
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+      <p>{{ answer?.answerDescription }}</p>
     </div>
     <br>
     <div class="post-text">
-      <pre><code highlight [textContent]="openedIssue?.issueCodeDescription"></code></pre>
+      <pre><code highlight [textContent]="answer?.answerCodeDescription"></code></pre>
     </div>
     <div class="posting-author">
-      <span class="timeposted">a min ago</span>
-      <span class="title">by <a>Mann</a></span>
+      <span class="timeposted">{{ answer?.timestamp | timeAgo }}</span>
+      <span class="title">by <a>{{ answer?.user?.username }}</a></span>
       <div class="distance">1 Mile Away</div>
     </div>
   </div>
 </div>
 <br>
-<br>
-
 <hr>
 <div class="title-bar-answer">
   <p class="title">Post Answer</p>
@@ -74,4 +72,4 @@
   <p [innerHTML]="answer" style="white-space:pre-wrap;"></p>
 </div>
 <pre style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="answerCode"></code></pre>
-<button style="margin-bottom: 50px" class="btnc btnc-square btnc-sm btnc-filled-blue post-answer-button">Post Solution</button>
+<button style="margin-bottom: 50px" (click)="postAnswer()" class="btnc btnc-square btnc-sm btnc-filled-blue post-answer-button">Post Solution</button>

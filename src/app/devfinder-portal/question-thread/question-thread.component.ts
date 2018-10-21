@@ -5,6 +5,8 @@ import { PortalService } from 'app/shared/services/portal.service';
 import { OpenIssue } from 'app/shared/models/open-issue';
 import { QuestionThread } from 'app/shared/view-models/question-thread';
 import { DistanceService } from 'app/shared/services/distance.service';
+import { AnswerIssue } from 'app/shared/models/answer-issue';
+import { UserService } from 'app/shared/services/user.service';
 
 @Component({
   selector: 'question-thread',
@@ -15,6 +17,7 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
   private ngUnsubscribe = new Subject();
   @ViewChild("codeTextArea") codeTextArea: ElementRef;
 
+  issueId: any;
   codeActivated: boolean = false;
   answer: string;
   answerCode: string = '';
@@ -36,15 +39,18 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
   `;
   openedIssue: OpenIssue;
   questionThread: QuestionThread;
+  issueAnswers: AnswerIssue[] = [];
 
   constructor(private route: ActivatedRoute,
     private portalService: PortalService,
-    private distanceService: DistanceService) { }
+    private distanceService: DistanceService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log("Activated Route");
       console.log(params);
+      this.issueId = params.issueId;
       this.getCurrentOpenIssue(params.issueId);
     });
     // console.log(this.answer)
@@ -68,6 +74,7 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
     this.portalService.getOpenIssueWithId(issueId).then((data) => {
       if (!(data.length <= 0)) {
         this.openedIssue = data[0].attributes;
+        this.issueAnswers = this.openedIssue.answers;
         let issueTags: string[] = this.openedIssue.childrenTags;
         issueTags.unshift(this.openedIssue.parentTag);
         this.questionThread = {
@@ -83,6 +90,33 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
       }
       console.log(this.questionThread);
     });
+  }
+
+  postAnswer() {
+    let issueAnswer: AnswerIssue = {
+      answerCodeDescription: this.answerCode,
+      answerDescription: this.answer,
+      user: this.userService.currentUser,
+      timestamp: new Date().getTime()
+    }
+    // console.log(issueAnswer);
+    let answerExists: Boolean;
+    answerExists = this.issueAnswers.find(a => {return a.user.userId === this.userService.currentUser.userId}) == null ? false: true;
+    console.log("Answer Exists: " + answerExists);
+    if(answerExists == false) {
+      this.issueAnswers.push(issueAnswer);
+      this.portalService.saveIssueAnswerWithIssueId(this.issueAnswers, this.issueId).then((updatedIssue) => {
+        console.log("Answered")
+        console.log(updatedIssue);
+        this.questionThread.answers = updatedIssue.attributes.answers;
+        console.log(this.questionThread);
+      });
+
+    } else {
+      console.log("Answer already exists")
+    }
+    
+    console.log(this.issueAnswers)
   }
 
 }

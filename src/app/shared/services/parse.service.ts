@@ -12,6 +12,7 @@ import { User } from '../models/user';
 import { Profile } from '../models/profile';
 import { FinderTags } from '../models/finder-tags';
 import { OpenIssue } from '../models/open-issue';
+import { AnswerIssue } from '../models/answer-issue';
 
 const Parse = require('parse');
 
@@ -335,6 +336,25 @@ export class ParseService {
     query.equalTo("parentTagObjectId", tagId);
 
     return await query.find();
+  }
+
+  public async getIssueWithIssueId(issueId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("objectId", issueId);
+
+    return await query.find();
+  }
+
+  public saveIssueAnswerWithIssueId(updatedAnswers: AnswerIssue[], issueId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("objectId", issueId);
+
+    return query.find().then((issue) => {
+      issue[0].set("answers", updatedAnswers)
+      return issue[0].save();
+    });
   }
 
 }

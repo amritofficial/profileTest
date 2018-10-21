@@ -3,6 +3,7 @@ import { FirebaseService } from './firebase.service';
 import { ParseService } from './parse.service';
 import { OpenIssue } from '../models/open-issue';
 import { DevFinderTag } from '../models/devfinder-tag';
+import { AnswerIssue } from '../models/answer-issue';
 
 @Injectable()
 export class PortalService {
@@ -58,5 +59,9 @@ export class PortalService {
 
   getIssuesWithTagId(tagId: any) {
     return this.parseService.getIssuesWithTagId(tagId);
+  }
+
+  saveIssueAnswerWithIssueId(updatedAnswers: AnswerIssue[], issueId: any) {
+    return this.parseService.saveIssueAnswerWithIssueId(updatedAnswers, issueId);
   }
 }
