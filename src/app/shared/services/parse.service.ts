@@ -294,6 +294,10 @@ export class ParseService {
     return this.http.get(Parse.serverURL + "/classes/issues", httpOptions);
   }
 
+  public getAllWorkExperiences() {
+    return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
+  }
+
   public async getOpenIssueWithId(issueId: any) {
     const issues = Parse.Object.extend("issues");
     const query = new Parse.Query(issues);

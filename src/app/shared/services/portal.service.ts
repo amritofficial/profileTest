@@ -64,4 +64,8 @@ export class PortalService {
   saveIssueAnswerWithIssueId(updatedAnswers: AnswerIssue[], issueId: any) {
     return this.parseService.saveIssueAnswerWithIssueId(updatedAnswers, issueId);
   }
+
+  getAllWorkExperiences() {
+    return this.parseService.getAllWorkExperiences();
+  }
 }

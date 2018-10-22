@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocationService } from 'app/shared/services/location.service';
-import { HeatmapLayer } from '@ngui/map';
+import { HeatmapLayer, NguiMapComponent } from '@ngui/map';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from 'app/shared/models/location';
@@ -11,6 +11,8 @@ import { ProfileService } from 'app/shared/services/profile.service';
 import { FinderTags } from 'app/shared/models/finder-tags';
 import { TagService } from 'app/shared/services/tag.service';
 import { SearchService } from 'app/shared/services/search.service';
+import { PortalService } from 'app/shared/services/portal.service';
+import { WorkExperience } from 'app/shared/models/work-experience';
 
 var similarity = require('compute-cosine-similarity');
 
@@ -22,6 +24,7 @@ var similarity = require('compute-cosine-similarity');
 export class HeatMapComponent implements OnInit {
   private ngUnsubscribe = new Subject();
   @ViewChild(HeatmapLayer) heatMapLayer: HeatmapLayer;
+  @ViewChild(NguiMapComponent) ngUiMapComponent: NguiMapComponent;
   heatMap: google.maps.visualization.HeatmapLayer;
   map: google.maps.Map;
   points = [];
@@ -31,15 +34,26 @@ export class HeatMapComponent implements OnInit {
   developersProfile: Profile[] = [];
   developersFinderTags: FinderTags[] = [];
   search: string = "";
+  showMarkerInfoWindow: boolean = false;
+  customMarkers: any[] = [];
+  developersWorkExperiences: WorkExperience[] = [];
+  developerFinderTags: FinderTags = {
+    tags: ["javascript", "machine learning", "python"],
+    userId: null
+  };
 
   constructor(private locationService: LocationService,
     private userService: UserService,
     private profileService: ProfileService,
     private tagService: TagService,
-    private searchService: SearchService) { }
+    private searchService: SearchService,
+    private portalService: PortalService) { }
 
   ngOnInit() {
-
+    let x = [1, 2, 3, 50];
+    let y = [3, 1, 22, 23];
+    let s = similarity(x, y);
+    console.log("similarity " + s);
     // console.log(":::: ");
     // console.log(s);
     this.locationService.getAllDevelopersLocation().pipe(takeUntil(this.ngUnsubscribe))
@@ -70,6 +84,11 @@ export class HeatMapComponent implements OnInit {
       .subscribe((tags) => {
         this.developersFinderTags = tags['results'];
         console.log(this.developersFinderTags);
+      });
+    this.portalService.getAllWorkExperiences().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((workExperiences) => {
+        this.developersWorkExperiences = workExperiences['results'];
+        console.log(this.developersWorkExperiences);
       });
   }
 
@@ -159,7 +178,38 @@ export class HeatMapComponent implements OnInit {
       "r": 26,
       "bootstrap": 27,
       "web": 28,
-      "odbc": 29
+      "odbc": 29,
+      "ui": 30,
+      "ux": 31,
+      "spring-boot": 32,
+      "spring boot": 32,
+      "springboot": 32,
+      "ado.net": 33,
+      "dom": 34,
+      "jvm": 35,
+      "entity": 36,
+      "hibernate": 37,
+      "rexx": 38,
+      "mainframe": 39,
+      "z os": 40,
+      "zos": 40,
+      "objectivec": 41,
+      "objective c": 41,
+      "tensor flow": 42,
+      "tensorflow": 42,
+      "tensorflows": 42,
+      "sha": 43,
+      "data science": 44,
+      "datascience": 44,
+      "css3": 45,
+      "statistics": 46,
+      "artificial intelligence": 47,
+      "artificialintelligence": 47,
+      "jpa": 48,
+      "linux": 49,
+      "materialdesign": 50,
+      "material design": 50,
+      "c": 51
     }
 
     let dataset: number[] = [];
@@ -181,6 +231,29 @@ export class HeatMapComponent implements OnInit {
     } else {
       return developer.avatar;
     }
+  }
+
+  getUsername(userId: any) {
+    let developer: User = this.developers.find(d => { return d.userId == userId});
+    if (developer == undefined) {
+      return "Problem fetching name";
+    } else {
+      return developer.username;
+    }
+  }
+
+  getWork(userId: any) {
+    let work: WorkExperience = this.developersWorkExperiences.find(w => { return w.userId == userId});
+    if (work == undefined) {
+      return "The user is jobless :(";
+    } else {
+      return work.jobTitle;
+    }
+  }
+
+  getTags(userId: any) {
+    this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId});
+    return this.developerFinderTags == undefined ? ["javascript", "angular", "c#"] : this.developerFinderTags.tags;
   }
 
   searchDevelopers() {
@@ -223,5 +296,19 @@ export class HeatMapComponent implements OnInit {
     return Math.round(s * 10000) / 100;
   }
 
+  openInfoWindow(index, userId) {
+    console.log(index, userId);
+    this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId});
+    this.ngUiMapComponent.openInfoWindow("marker"+index, this.customMarkers[index]);
+  }
+
+
+  onCustomMarkerInit(customMarker) {
+    this.customMarkers.push(customMarker);
+  }
+
+  infoWindowOptions() {
+    return { pixelOffset: { height: -45, width: 0} } 
+  }
 
 }
