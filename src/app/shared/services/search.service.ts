@@ -32,8 +32,8 @@ export class SearchService {
       console.log("Similarity " + s);
       let developer: User = this.developers.find(developer => { return developer.userId == tags.userId });
       similarity = s;
+      console.log(tags);
       if (similarity >= 50) {
-        
         console.log(developer);
         if (developer != undefined) {
           let profile: Profile = this.developersProfile.find(profile => { return tags.userId == profile.userId });
@@ -85,7 +85,38 @@ export class SearchService {
       "r": 26, 
       "bootstrap": 27,
       "web": 28,
-      "odbc": 29 
+      "odbc": 29,
+      "ui": 30,
+      "ux":31,
+      "spring-boot": 32,
+      "spring boot": 32,
+      "springboot": 32,
+      "ado.net": 33,
+      "dom": 34,
+      "jvm": 35,
+      "entity": 36,
+      "hibernate": 37,
+      "rexx": 38,
+      "mainframe": 39,
+      "z os": 40,
+      "zos": 40,
+      "objectivec": 41,
+      "objective c": 41,
+      "tensor flow": 42,
+      "tensorflow": 42,
+      "tensorflows": 42,
+      "sha": 43,
+      "data science": 44,
+      "datascience": 44,
+      "css3": 45,
+      "statistics": 46,
+      "artificial intelligence": 47,
+      "artificialintelligence": 47,
+      "jpa": 48,
+      "linux": 49,
+      "materialdesign": 50,
+      "material design": 50,
+      "c": 51
     }
 
     let dataset: number[] = [];
@@ -114,6 +145,10 @@ export class SearchService {
         datasetOne.push(0);
       }
     }
+
+    console.log(datasetOne);
+    console.log(datasetTwo);
+
     let s = similarity(datasetOne, datasetTwo)
     return Math.round(s * 10000) / 100;
   }

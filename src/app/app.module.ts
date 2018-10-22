@@ -90,6 +90,7 @@ import { DistanceService } from './shared/services/distance.service';
 import { TaggedQuestionsComponent } from './devfinder-portal/tagged-questions/tagged-questions.component';
 import { IssueCardTaggedComponent } from './devfinder-portal/tagged-questions/issue-card-tagged/issue-card-tagged.component';
 import { SearchService } from './shared/services/search.service';
+import { LocationPipe } from './shared/pipes/location.pipe';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -150,7 +151,8 @@ const options: HighlightOptions = {
     OpenIssueComponent,
     HeatMapComponent,
     TaggedQuestionsComponent,
-    IssueCardTaggedComponent
+    IssueCardTaggedComponent,
+    LocationPipe
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [

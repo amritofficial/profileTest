@@ -13,7 +13,7 @@
     <button (click)="changeRadius()">Change radius</button>
     <button (click)="changeOpacity()">Change opacity</button>
   </div> -->
-  <custom-marker *ngFor="let location of developerLocations;" position="{{location?.lat}}, {{location?.long}}">
+  <custom-marker *ngFor="let location of (developerLocations | location);" position="{{location?.lat}}, {{location?.long}}">
     <div>
       <img class="custom-marker" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png"
         alt="">
