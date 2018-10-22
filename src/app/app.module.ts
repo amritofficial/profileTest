@@ -89,6 +89,7 @@ import { HeatMapComponent } from './devfinder-portal/heat-map/heat-map.component
 import { DistanceService } from './shared/services/distance.service';
 import { TaggedQuestionsComponent } from './devfinder-portal/tagged-questions/tagged-questions.component';
 import { IssueCardTaggedComponent } from './devfinder-portal/tagged-questions/issue-card-tagged/issue-card-tagged.component';
+import { SearchService } from './shared/services/search.service';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -182,7 +183,7 @@ const options: HighlightOptions = {
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,11 @@ import { takeUntil } from 'rxjs/operators';
 import { Location } from 'app/shared/models/location';
 import { UserService } from 'app/shared/services/user.service';
 import { User } from 'app/shared/models/user';
+import { Profile } from 'app/shared/models/profile';
+import { ProfileService } from 'app/shared/services/profile.service';
+import { FinderTags } from 'app/shared/models/finder-tags';
+import { TagService } from 'app/shared/services/tag.service';
+import { SearchService } from 'app/shared/services/search.service';
 
 var similarity = require('compute-cosine-similarity');
 
@@ -23,32 +28,20 @@ export class HeatMapComponent implements OnInit {
   code: string;
   developerLocations: Location[] = [];
   developers: User[] = [];
+  developersProfile: Profile[] = [];
+  developersFinderTags: FinderTags[] = [];
+  search: string = "";
 
   constructor(private locationService: LocationService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private profileService: ProfileService,
+    private tagService: TagService,
+    private searchService: SearchService) { }
 
   ngOnInit() {
-    let x = ["python", "machine learning", "c#", "swift", "firebase", "javascript"];
-    let y = ['angular', 'python', 'machine learning', "firebase", "c#"];
-    let datasetOne = this.createDataset(x);
-    let datasetTwo = this.createDataset(y);
 
-    if (datasetOne.length > datasetTwo.length) {
-      let length = datasetOne.length - datasetTwo.length;
-      for (let index = 0; index < length; index++) {
-        datasetTwo.push(0);
-      }
-    }
-    else if (datasetOne.length < datasetTwo.length) {
-      let length = datasetTwo.length - datasetOne.length;
-      for (let index = 0; index < length; index++) {
-        datasetOne.push(0);
-      }
-    }
-
-    let s = similarity(datasetOne, datasetTwo);
-    console.log(":::: ");
-    console.log(s);
+    // console.log(":::: ");
+    // console.log(s);
     this.locationService.getAllDevelopersLocation().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((locations) => {
         console.log("Locations");
@@ -67,9 +60,17 @@ export class HeatMapComponent implements OnInit {
       .subscribe((users: User[]) => {
         this.developers = users;
       });
-    // this.heatMap.setMap(this.heatMap.getMap() ? null : this.map);
-    // this.heatMap.set('radius', this.heatMap.get('radius') ? 50 : 50);
-    // this.heatMap.set('opacity', this.heatMap.get('opacity') ? 0.2 : 0.2);
+    this.profileService.getAllUsersProfile().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((profilesData) => {
+        console.log("Profiles");
+        this.developersProfile = profilesData['results'];
+        console.log(this.developersProfile);
+      });
+    this.tagService.getAllUsersFinderTags().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((tags) => {
+        this.developersFinderTags = tags['results'];
+        console.log(this.developersFinderTags);
+      });
   }
 
   addMapConfig() {
@@ -134,6 +135,7 @@ export class HeatMapComponent implements OnInit {
       "android": 5,
       "python": 6,
       "node.js": 7,
+      "nodejs": 7,
       "mysql": 8,
       "css": 9,
       "ios": 10,
@@ -145,10 +147,19 @@ export class HeatMapComponent implements OnInit {
       "c++": 16,
       "spring": 17,
       "reactjs": 18,
+      "react.js": 18,
       "mongodb": 19,
       "scala": 20,
       "machine learning": 21,
-      "firebase": 22
+      "firebase": 22,
+      "machinelearning": 21,
+      "json": 23,
+      "kotlin": 24,
+      "ai": 25,
+      "r": 26,
+      "bootstrap": 27,
+      "web": 28,
+      "odbc": 29
     }
 
     let dataset: number[] = [];
@@ -164,8 +175,53 @@ export class HeatMapComponent implements OnInit {
   }
 
   getAvatar(userId: any) {
-    let developer: User = this.developers.find(d => {return d.userId == userId });
-    return developer.avatar;
+    let developer: User = this.developers.find(d => { return d.userId == userId });
+    if (developer == undefined) {
+      return "https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png";
+    } else {
+      return developer.avatar;
+    }
   }
+
+  searchDevelopers() {
+    console.log("Searching Developers");
+    let search = this.search.replace(/\s/g, '');
+    console.log(search);
+    let searchTags: string[] = search.split(",");
+    console.log(searchTags);
+    this.processSearch(searchTags);
+    let x = this.searchService.searchDevelopers(searchTags, this.developersFinderTags, this.developers, this.developersProfile)
+    console.log("Service ");
+    console.log(x);
+    this.search = "";
+  }
+
+  processSearch(searchTags: string[]) {
+    let x = this.createDataset(searchTags);
+    this.developersFinderTags.forEach(tags => {
+      let y = this.createDataset(tags.tags);
+      let s = this.findSimilarity(x, y);
+      console.log("Similarity " + s);
+    });
+  }
+
+  findSimilarity(datasetOne, datasetTwo) {
+
+    if (datasetOne.length > datasetTwo.length) {
+      let length = datasetOne.length - datasetTwo.length;
+      for (let index = 0; index < length; index++) {
+        datasetTwo.push(0);
+      }
+    }
+    else if (datasetOne.length < datasetTwo.length) {
+      let length = datasetTwo.length - datasetOne.length;
+      for (let index = 0; index < length; index++) {
+        datasetOne.push(0);
+      }
+    }
+    let s = similarity(datasetOne, datasetTwo)
+    return Math.round(s * 10000) / 100;
+  }
+
 
 }

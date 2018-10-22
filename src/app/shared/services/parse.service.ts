@@ -278,6 +278,10 @@ export class ParseService {
     return this.http.get(Parse.serverURL + "/classes/tags", httpOptions);
   }
 
+  public getAllUsersProfile() {
+    return this.http.get(Parse.serverURL + "/classes/profile", httpOptions);
+  }
+
   public getAllDevFinderTags() {
     return this.http.get(Parse.serverURL + "/classes/devfinderTags", httpOptions);
   }
