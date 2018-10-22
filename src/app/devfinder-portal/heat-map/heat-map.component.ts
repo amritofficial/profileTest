@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from 'app/shared/models/location';
 
+var similarity = require('compute-cosine-similarity');
+
 @Component({
   selector: 'app-heat-map',
   templateUrl: './heat-map.component.html',
@@ -22,6 +24,27 @@ export class HeatMapComponent implements OnInit {
   constructor(private locationService: LocationService) { }
 
   ngOnInit() {
+    let x = ["python", "machine learning", "c#", "swift", "firebase", "javascript"];
+    let y = ['angular', 'python', 'machine learning', "firebase", "c#"];
+    let datasetOne = this.createDataset(x);
+    let datasetTwo = this.createDataset(y);
+
+    if(datasetOne.length > datasetTwo.length) {
+      let length = datasetOne.length - datasetTwo.length;
+      for (let index = 0; index < length; index++) {
+        datasetTwo.push(0);  
+      }
+    }
+    else if (datasetOne.length < datasetTwo.length) {
+      let length = datasetTwo.length - datasetOne.length;
+      for (let index = 0; index < length; index++) {
+        datasetOne.push(0);  
+      }
+    }
+
+    let s = similarity(datasetOne, datasetTwo);
+    console.log(":::: ");
+    console.log(s);
     this.locationService.getAllDevelopersLocation().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((locations) => {
         console.log("Locations");
@@ -96,6 +119,44 @@ export class HeatMapComponent implements OnInit {
     let randomLng = Math.random() * 0.0099 + -122.445368;
     let latlng = new google.maps.LatLng(randomLat, randomLng);
     this.points.push(latlng);
+  }
+
+  createDataset(x: string[]) {
+    let dictionary = {
+      "javascript": 1,
+      "java": 2,
+      "angular": 3,
+      "c#": 4,
+      "android": 5,
+      "python": 6,
+      "node.js": 7,
+      "mysql": 8,
+      "css": 9,
+      "ios": 10,
+      "swift": 11,
+      "html": 12,
+      "php": 13,
+      "asp.net": 14,
+      "xml": 15,
+      "c++": 16,
+      "spring": 17,
+      "reactjs": 18,
+      "mongodb": 19,
+      "scala": 20,
+      "machine learning": 21,
+      "firebase": 22
+    }
+
+    let dataset: number[] = [];
+    for(var key in dictionary) {
+      if(x.indexOf(key) > -1) {
+        console.log(key);
+        dataset.push(dictionary[key]);
+      }
+    }
+
+    console.log(dataset);
+    return dataset;
   }
 
 }
