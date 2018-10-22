@@ -4,6 +4,8 @@ import { HeatmapLayer } from '@ngui/map';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from 'app/shared/models/location';
+import { UserService } from 'app/shared/services/user.service';
+import { User } from 'app/shared/models/user';
 
 var similarity = require('compute-cosine-similarity');
 
@@ -20,8 +22,10 @@ export class HeatMapComponent implements OnInit {
   points = [];
   code: string;
   developerLocations: Location[] = [];
+  developers: User[] = [];
 
-  constructor(private locationService: LocationService) { }
+  constructor(private locationService: LocationService,
+    private userService: UserService) { }
 
   ngOnInit() {
     let x = ["python", "machine learning", "c#", "swift", "firebase", "javascript"];
@@ -29,16 +33,16 @@ export class HeatMapComponent implements OnInit {
     let datasetOne = this.createDataset(x);
     let datasetTwo = this.createDataset(y);
 
-    if(datasetOne.length > datasetTwo.length) {
+    if (datasetOne.length > datasetTwo.length) {
       let length = datasetOne.length - datasetTwo.length;
       for (let index = 0; index < length; index++) {
-        datasetTwo.push(0);  
+        datasetTwo.push(0);
       }
     }
     else if (datasetOne.length < datasetTwo.length) {
       let length = datasetTwo.length - datasetOne.length;
       for (let index = 0; index < length; index++) {
-        datasetOne.push(0);  
+        datasetOne.push(0);
       }
     }
 
@@ -49,19 +53,19 @@ export class HeatMapComponent implements OnInit {
       .subscribe((locations) => {
         console.log("Locations");
         this.developerLocations = locations['results'];
-        console.log(this.developerLocations);
         this.developerLocations.forEach(location => {
           this.points.push(new google.maps.LatLng(location.lat, location.long));
         });
         this.heatMapLayer['initialized$'].subscribe(heatMap => {
-          // this.points = [
-          //   new google.maps.LatLng(43.65614403322342, -79.74013949586174)
-          // ];
           this.heatMap = heatMap;
           this.map = this.heatMap.getMap();
           this.heatMap.set('radius', this.heatMap.get('radius') ? null : 50);
           this.heatMap.set('opacity', this.heatMap.get('opacity') ? null : 0.3);
         });
+      });
+    this.userService.getAllUsersFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((users: User[]) => {
+        this.developers = users;
       });
     // this.heatMap.setMap(this.heatMap.getMap() ? null : this.map);
     // this.heatMap.set('radius', this.heatMap.get('radius') ? 50 : 50);
@@ -148,8 +152,8 @@ export class HeatMapComponent implements OnInit {
     }
 
     let dataset: number[] = [];
-    for(var key in dictionary) {
-      if(x.indexOf(key) > -1) {
+    for (var key in dictionary) {
+      if (x.indexOf(key) > -1) {
         console.log(key);
         dataset.push(dictionary[key]);
       }
@@ -157,6 +161,11 @@ export class HeatMapComponent implements OnInit {
 
     console.log(dataset);
     return dataset;
+  }
+
+  getAvatar(userId: any) {
+    let developer: User = this.developers.find(d => {return d.userId == userId });
+    return developer.avatar;
   }
 
 }
