@@ -94,6 +94,7 @@ import { SearchService } from './shared/services/search.service';
 import { LocationPipe } from './shared/pipes/location.pipe';
 import { DevfinderActivityComponent } from './devfinder-activity/devfinder-activity.component';
 import { DevfinderActivityService } from './shared/services/devfinder-activity.service';
+import { GuestDevfinderActivityComponent } from './guest-profile/guest-devfinder-activity/guest-devfinder-activity.component';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -156,7 +157,8 @@ const options: HighlightOptions = {
     TaggedQuestionsComponent,
     IssueCardTaggedComponent,
     LocationPipe,
-    DevfinderActivityComponent
+    DevfinderActivityComponent,
+    GuestDevfinderActivityComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
