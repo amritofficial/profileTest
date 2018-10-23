@@ -87,3 +87,7 @@
   .btnc-ghost-blue:active {
     background-color: #217dbb;
   }
+
+  .list-wrapper {
+    margin-bottom: 40px;
+  }
