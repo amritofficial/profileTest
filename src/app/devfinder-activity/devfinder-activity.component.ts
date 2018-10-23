@@ -26,7 +26,25 @@ function multiFormat(value) {
 })
 export class DevfinderActivityComponent implements OnInit {
   activity: DevfinderActivity;
-  calendarD: Calendar[] = [];
+  calendar: Calendar[] = [];
+  title = 'calendarHeat';
+  view: any[] = [800, 170];
+  colorScheme: any;
+  schemeType: string = 'ordinal';
+  selectedColorScheme: string;
+  rangeFillOpacity: number = 0.15;
+  calendarData: Calendar[];
+  showLegend = false;
+  gradient = false;
+  showXAxis = true;
+  showYAxis = true;
+  innerPadding = '10%';
+  tooltipDisabled = false;
+  chartType = "calendar";
+  width: number = 1000;
+  height: number = 300;
+  colorSets: any;
+
 
   constructor(private devfinderActivityService: DevfinderActivityService,
     private userService: UserService) {
@@ -63,70 +81,74 @@ export class DevfinderActivityComponent implements OnInit {
             seriesData.push(sd);
           });
           calendarData.series = seriesData;
-          this.calendarD.push(calendarData);
+          this.calendar.push(calendarData);
         });
         // the following code is to insert an empty cell into the table everytime the day changes
 
         // today
-        // const now = new Date();
-        // const todaysDay = now.getDate();
-        // const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
+        const now = new Date();
+        const todaysDay = now.getDate();
+        const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
 
-        // // Monday
-        // const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
-        // const thisMondayDay = thisMonday.getDate();
-        // const thisMondayYear = thisMonday.getFullYear();
-        // const thisMondayMonth = thisMonday.getMonth();
-        // const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
+        // Monday
+        const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
+        const thisMondayDay = thisMonday.getDate();
+        const thisMondayYear = thisMonday.getFullYear();
+        const thisMondayMonth = thisMonday.getMonth();
+        const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
 
-        // let series = this.calendarData[this.calendarData.length - 1].series;
-        // const date = new Date();
-        // let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
-        // let found = false;
-        // // perform a check if the day exists in the calendar
-        // if (seriesArray.length > 0) {
-        //   let found = false;
-        //   // it will insert that day if it doesnt exist
-        //   for (var i = 0; i < seriesArray.length; i++) {
-        //     if (seriesArray[i].name != weekdayName.format(date)) {
-        //       found = false;
-        //       this.calendarData[this.calendarData.length - 1].series.push({
-        //         date: new Date(),
-        //         name: weekdayName.format(date),
-        //         value: 0
-        //       });
-        //       this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
-        //       break;
-        //     }
-        //   }
-        //   // if it exists continue doing the same thing
-        //   this.devfinderActivityService.getActivity(this.userService.getCurrentUserId()).then((data) => {
-        //     if (data.length != 0) {
-        //       this.calendarD = data[0].attributes;
-        //       this.activity.calendar.forEach(calendar => {
-        //         let calendarData: Calendar = {
-        //           name: calendar.name,
-        //           series: []
-        //         }
-        //         let seriesData: Series[] = [];
-        //         calendar.series.forEach((series, i) => {
-        //           let sd: Series = {
-        //             name: series.name,
-        //             value: series.value,
-        //             date: new Date(JSON.parse(JSON.stringify(series.date)))
-        //           }
-        //           seriesData.push(sd);
-        //         });
-        //         calendarData.series = seriesData;
-        //         this.calendarD.push(calendarData);
-        //       });
-        //       this.calendarData = this.calendarD
-        //     }
-        //   });
-        // }
-      
-          this.calendarData = this.calendarD;
-        
+        let series = this.calendarData[this.calendarData.length - 1].series;
+        const date = new Date();
+        let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
+        // perform a check if the day exists in the calendar
+        if (seriesArray.length >= 0) {
+          let found = true;
+          // it will insert that day if it doesnt exist
+          for (var i = 0; i < seriesArray.length; i++) {
+            if (seriesArray[i].name != weekdayName.format(date)) {
+              found = false;
+              this.calendarData[this.calendarData.length - 1].series.push({
+                date: new Date(),
+                name: weekdayName.format(date),
+                value: 0
+              });
+              this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
+              break;
+            }
+          }
+
+          if (found == false) {
+            this.devfinderActivityService.getActivity(this.userService.getCurrentUserId()).then((data) => {
+              if (data.length != 0) {
+                this.calendar = data[0].attributes;
+                this.activity.calendar.forEach(calendar => {
+                  let calendarData: Calendar = {
+                    name: calendar.name,
+                    series: []
+                  }
+                  let seriesData: Series[] = [];
+                  calendar.series.forEach((series, i) => {
+                    let sd: Series = {
+                      name: series.name,
+                      value: series.value,
+                      date: new Date(JSON.parse(JSON.stringify(series.date)))
+                    }
+                    seriesData.push(sd);
+                  });
+                  calendarData.series = seriesData;
+                  this.calendar.push(calendarData);
+                });
+                this.calendarData = this.calendar
+              }
+            });
+          } else if (found == true) {
+            console.log("Day Found");
+            this.calendarData = this.calendar;
+          }
+          // if it exists continue doing the same thing
+        }
+        // this.calendarData = this.calendar;
+
       }
       else {
         this.devfinderActivityService.createActivity(activity).subscribe(data => {
@@ -136,24 +158,6 @@ export class DevfinderActivityComponent implements OnInit {
       }
     });
   }
-
-  title = 'calendarHeat';
-  view: any[] = [800, 170];
-  colorScheme: any;
-  schemeType: string = 'ordinal';
-  selectedColorScheme: string;
-  rangeFillOpacity: number = 0.15;
-  calendarData: Calendar[];
-  showLegend = false;
-  gradient = false;
-  showXAxis = true;
-  showYAxis = true;
-  innerPadding = '10%';
-  tooltipDisabled = false;
-  chartType = "calendar";
-  width: number = 1000;
-  height: number = 300;
-  colorSets: any;
 
   setColorScheme(name) {
     this.selectedColorScheme = name;
