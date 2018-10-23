@@ -56,7 +56,6 @@ export class DevfinderActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.calendarData = this.getCalendarData();
     let activity: DevfinderActivity = {
       calendar: this.calendarData,
       userId: this.userService.getCurrentUserId()
@@ -83,8 +82,10 @@ export class DevfinderActivityComponent implements OnInit {
           calendarData.series = seriesData;
           this.calendar.push(calendarData);
         });
+        this.calendarData = this.calendar;
         // the following code is to insert an empty cell into the table everytime the day changes
-
+        console.log("Checking")
+        console.log(this.calendarData);
         // today
         const now = new Date();
         const todaysDay = now.getDate();
@@ -100,27 +101,46 @@ export class DevfinderActivityComponent implements OnInit {
         let series = this.calendarData[this.calendarData.length - 1].series;
         const date = new Date();
         let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
+        console.log(seriesArray);
         // perform a check if the day exists in the calendar
         if (seriesArray.length >= 0) {
           let found = true;
+          let exists = false;
           // it will insert that day if it doesnt exist
-          for (var i = 0; i < seriesArray.length; i++) {
-            if (seriesArray[i].name != weekdayName.format(date)) {
-              found = false;
-              this.calendarData[this.calendarData.length - 1].series.push({
-                date: new Date(),
-                name: weekdayName.format(date),
-                value: 0
-              });
-              this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
-              break;
-            }
+          console.log(weekdayName.format(date));
+          let seriesDay = seriesArray.find(s => { return s.name == weekdayName.format(date) });
+          console.log(seriesDay);
+          if (seriesDay == undefined) {
+            found = false;
+            this.calendarData[this.calendarData.length - 1].series.push({
+              date: new Date(),
+              name: weekdayName.format(date),
+              value: 0
+            });
+            this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
           }
+          else {
+            found = true;
+          }
+          // for (var i = 0; i < seriesArray.length; i++) {
+          //   if (seriesArray[i].name == weekdayName.format(date)) {
+          //     found = false;
+          //     exists = true;
+          //     this.calendarData[this.calendarData.length - 1].series.push({
+          //       date: new Date(),
+          //       name: weekdayName.format(date),
+          //       value: 0
+          //     });
+          //     this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
+          //     break;
+          //   }
+          // }
 
           if (found == false) {
+            this.calendar = [];
             this.devfinderActivityService.getActivity(this.userService.getCurrentUserId()).then((data) => {
               if (data.length != 0) {
-                this.calendar = data[0].attributes;
+                this.activity = data[0].attributes;
                 this.activity.calendar.forEach(calendar => {
                   let calendarData: Calendar = {
                     name: calendar.name,
@@ -136,8 +156,11 @@ export class DevfinderActivityComponent implements OnInit {
                     seriesData.push(sd);
                   });
                   calendarData.series = seriesData;
+
                   this.calendar.push(calendarData);
                 });
+                console.log("Day not found")
+                console.log(this.calendar);
                 this.calendarData = this.calendar
               }
             });
@@ -151,6 +174,11 @@ export class DevfinderActivityComponent implements OnInit {
 
       }
       else {
+        this.calendarData = this.getCalendarData();
+        let activity: DevfinderActivity = {
+          calendar: this.calendarData,
+          userId: this.userService.getCurrentUserId()
+        }
         this.devfinderActivityService.createActivity(activity).subscribe(data => {
           console.log(data);
           console.log("SAVED ACTIVITY");
@@ -257,6 +285,13 @@ export class DevfinderActivityComponent implements OnInit {
         this.calendarData[this.calendarData.length - 1].series[i].value += 1;
         break;
       }
+    }
+    if (found == false) {
+      this.calendarData[this.calendarData.length - 1].series.push({
+        date: new Date(),
+        name: weekdayName.format(date),
+        value: 1
+      });
     }
     console.log("value should be inserted")
     console.log(this.calendarData);
