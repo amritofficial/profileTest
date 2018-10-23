@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DevfinderActivity } from 'app/shared/models/activity';
+import { UserService } from 'app/shared/services/user.service';
+import { DevfinderActivityService } from 'app/shared/services/devfinder-activity.service';
+import { Calendar } from 'app/shared/models/calendar';
+import { Series } from 'app/shared/models/series';
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
@@ -20,8 +25,11 @@ function multiFormat(value) {
   styleUrls: ['./devfinder-activity.component.css']
 })
 export class DevfinderActivityComponent implements OnInit {
+  activity: DevfinderActivity;
+  calendarD: Calendar[] = [];
 
-  constructor() {
+  constructor(private devfinderActivityService: DevfinderActivityService,
+    private userService: UserService) {
     Object.assign(this, {
       colorSets
     });
@@ -31,6 +39,102 @@ export class DevfinderActivityComponent implements OnInit {
 
   ngOnInit() {
     this.calendarData = this.getCalendarData();
+    let activity: DevfinderActivity = {
+      calendar: this.calendarData,
+      userId: this.userService.getCurrentUserId()
+    }
+    this.devfinderActivityService.getActivity(this.userService.getCurrentUserId()).then((data) => {
+      if (data.length != 0) {
+        console.log(data)
+        this.activity = data[0].attributes;
+        // to convert calendar series date from string to Date Format
+        this.activity.calendar.forEach(calendar => {
+          let calendarData: Calendar = {
+            name: calendar.name,
+            series: []
+          }
+          let seriesData: Series[] = [];
+          calendar.series.forEach((series, i) => {
+            let sd: Series = {
+              name: series.name,
+              value: series.value,
+              date: new Date(JSON.parse(JSON.stringify(series.date)))
+            }
+            seriesData.push(sd);
+          });
+          calendarData.series = seriesData;
+          this.calendarD.push(calendarData);
+        });
+        // the following code is to insert an empty cell into the table everytime the day changes
+
+        // today
+        // const now = new Date();
+        // const todaysDay = now.getDate();
+        // const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
+
+        // // Monday
+        // const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
+        // const thisMondayDay = thisMonday.getDate();
+        // const thisMondayYear = thisMonday.getFullYear();
+        // const thisMondayMonth = thisMonday.getMonth();
+        // const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
+
+        // let series = this.calendarData[this.calendarData.length - 1].series;
+        // const date = new Date();
+        // let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
+        // let found = false;
+        // // perform a check if the day exists in the calendar
+        // if (seriesArray.length > 0) {
+        //   let found = false;
+        //   // it will insert that day if it doesnt exist
+        //   for (var i = 0; i < seriesArray.length; i++) {
+        //     if (seriesArray[i].name != weekdayName.format(date)) {
+        //       found = false;
+        //       this.calendarData[this.calendarData.length - 1].series.push({
+        //         date: new Date(),
+        //         name: weekdayName.format(date),
+        //         value: 0
+        //       });
+        //       this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
+        //       break;
+        //     }
+        //   }
+        //   // if it exists continue doing the same thing
+        //   this.devfinderActivityService.getActivity(this.userService.getCurrentUserId()).then((data) => {
+        //     if (data.length != 0) {
+        //       this.calendarD = data[0].attributes;
+        //       this.activity.calendar.forEach(calendar => {
+        //         let calendarData: Calendar = {
+        //           name: calendar.name,
+        //           series: []
+        //         }
+        //         let seriesData: Series[] = [];
+        //         calendar.series.forEach((series, i) => {
+        //           let sd: Series = {
+        //             name: series.name,
+        //             value: series.value,
+        //             date: new Date(JSON.parse(JSON.stringify(series.date)))
+        //           }
+        //           seriesData.push(sd);
+        //         });
+        //         calendarData.series = seriesData;
+        //         this.calendarD.push(calendarData);
+        //       });
+        //       this.calendarData = this.calendarD
+        //     }
+        //   });
+        // }
+      
+          this.calendarData = this.calendarD;
+        
+      }
+      else {
+        this.devfinderActivityService.createActivity(activity).subscribe(data => {
+          console.log(data);
+          console.log("SAVED ACTIVITY");
+        });
+      }
+    });
   }
 
   title = 'calendarHeat';
@@ -39,7 +143,7 @@ export class DevfinderActivityComponent implements OnInit {
   schemeType: string = 'ordinal';
   selectedColorScheme: string;
   rangeFillOpacity: number = 0.15;
-  calendarData: any[];
+  calendarData: Calendar[];
   showLegend = false;
   gradient = false;
   showXAxis = true;
@@ -103,7 +207,8 @@ export class DevfinderActivityComponent implements OnInit {
         }
 
         // value
-        const value = dayOfWeek < 6 ? date.getMonth() + 1 : 0;
+        // const value = dayOfWeek < 6 ? date.getMonth() + 1 : 0;
+        const value = 0;
 
         series.push({
           date,
@@ -123,6 +228,36 @@ export class DevfinderActivityComponent implements OnInit {
 
   select(data) {
     console.log('Item clicked', data);
+  }
+
+  saveActivity() {
+    // today
+    const now = new Date();
+    const todaysDay = now.getDate();
+    const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
+
+    // Monday
+    const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
+    const thisMondayDay = thisMonday.getDate();
+    const thisMondayYear = thisMonday.getFullYear();
+    const thisMondayMonth = thisMonday.getMonth();
+    const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
+
+    let series = this.calendarData[this.calendarData.length - 1].series;
+    const date = new Date();
+    let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
+    let found = false;
+    for (var i = 0; i < seriesArray.length; i++) {
+      if (seriesArray[i].name == weekdayName.format(date)) {
+        found = true;
+        this.calendarData[this.calendarData.length - 1].series[i].value += 1;
+        break;
+      }
+    }
+    console.log("value should be inserted")
+    console.log(this.calendarData);
+    this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
+    // console.log(series)
   }
 
 }

@@ -93,6 +93,7 @@ import { IssueCardTaggedComponent } from './devfinder-portal/tagged-questions/is
 import { SearchService } from './shared/services/search.service';
 import { LocationPipe } from './shared/pipes/location.pipe';
 import { DevfinderActivityComponent } from './devfinder-activity/devfinder-activity.component';
+import { DevfinderActivityService } from './shared/services/devfinder-activity.service';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -189,7 +190,7 @@ const options: HighlightOptions = {
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService, SearchService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService, SearchService, DevfinderActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
