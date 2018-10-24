@@ -7,8 +7,8 @@
 <br>
 <hr>
 <ngui-map zoom="13" center="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}">
-  <custom-marker (initialized$)="onCustomMarkerInit($event)" (click)="openInfoWindow(i, location.userId)"
-    *ngFor="let location of (developerLocations | location); let i=index;" position="{{location?.lat}}, {{location?.long}}">
+  <custom-marker (initialized$)="onCustomMarkerInit($event)" (click)="openInfoWindow(i, location.userId)" *ngFor="let location of (developerLocations | location); let i=index;"
+    position="{{location?.lat}}, {{location?.long}}">
     <div>
       <img class="custom-marker" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png"
         alt="">
@@ -46,8 +46,19 @@
   <div class="card info-card box-shadow">
     <img style="border-radius: 4px;" src="../../assets/img/devfinder-portal.jpg" alt="">
   </div>
-  <div class="card result-container">
-    <h5 class="results-text">Results: 10 of 21</h5>
-    <result-card></result-card>
+  <div *ngIf="makeSearch">
+    <div class="card">
+      <h5 class="results-text">Results: {{ resultCards?.length }} of {{ resultCards?.length }}</h5>
+    </div>
+    <div class="card result-container">
+      <div class="result-list">
+        <div *ngFor="let result of resultCards;" class="result-holder">
+          <result-card [resultCard]="result"></result-card>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 2px" class="card">
+      <a (click)="clearSearchResults()"><h5 class="results-text">Clear Results</h5></a> 
+    </div>
   </div>
 </div>

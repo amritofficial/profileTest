@@ -13,8 +13,10 @@ import { TagService } from 'app/shared/services/tag.service';
 import { SearchService } from 'app/shared/services/search.service';
 import { PortalService } from 'app/shared/services/portal.service';
 import { WorkExperience } from 'app/shared/models/work-experience';
+import { ResultCard } from 'app/shared/view-models/result-card';
 
 var similarity = require('compute-cosine-similarity');
+var stringSimilarity = require('string-similarity');
 
 @Component({
   selector: 'app-heat-map',
@@ -41,6 +43,9 @@ export class HeatMapComponent implements OnInit {
     tags: ["javascript", "machine learning", "python"],
     userId: null
   };
+  cachedLocations: Location[] = [];
+  resultCards: ResultCard[] = [];
+  makeSearch: boolean = false;
 
   constructor(private locationService: LocationService,
     private userService: UserService,
@@ -50,16 +55,11 @@ export class HeatMapComponent implements OnInit {
     private portalService: PortalService) { }
 
   ngOnInit() {
-    let x = [1, 2, 3, 50];
-    let y = [3, 1, 22, 23];
-    let s = similarity(x, y);
-    console.log("similarity " + s);
-    // console.log(":::: ");
-    // console.log(s);
     this.locationService.getAllDevelopersLocation().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((locations) => {
         console.log("Locations");
         this.developerLocations = locations['results'];
+        this.cachedLocations = JSON.parse(JSON.stringify(this.developerLocations));
         this.developerLocations.forEach(location => {
           this.points.push(new google.maps.LatLng(location.lat, location.long));
         });
@@ -234,7 +234,7 @@ export class HeatMapComponent implements OnInit {
   }
 
   getUsername(userId: any) {
-    let developer: User = this.developers.find(d => { return d.userId == userId});
+    let developer: User = this.developers.find(d => { return d.userId == userId });
     if (developer == undefined) {
       return "Problem fetching name";
     } else {
@@ -243,7 +243,7 @@ export class HeatMapComponent implements OnInit {
   }
 
   getWork(userId: any) {
-    let work: WorkExperience = this.developersWorkExperiences.find(w => { return w.userId == userId});
+    let work: WorkExperience = this.developersWorkExperiences.find(w => { return w.userId == userId });
     if (work == undefined) {
       return "The user is jobless :(";
     } else {
@@ -252,54 +252,71 @@ export class HeatMapComponent implements OnInit {
   }
 
   getTags(userId: any) {
-    this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId});
+    this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId });
     return this.developerFinderTags == undefined ? ["javascript", "angular", "c#"] : this.developerFinderTags.tags;
   }
 
   searchDevelopers() {
     console.log("Searching Developers");
-    let search = this.search.replace(/\s/g, '');
-    console.log(search);
-    let searchTags: string[] = search.split(",");
-    console.log(searchTags);
-    this.processSearch(searchTags);
-    let x = this.searchService.searchDevelopers(searchTags, this.developersFinderTags, this.developers, this.developersProfile)
-    console.log("Service ");
-    console.log(x);
+    let searchStringWithSpace = this.createSearchStringWithSpace(this.search);
+    this.processSearch(searchStringWithSpace);
+    // let searchTags: string[] = search.split(",");
+    // console.log(searchTags);
+    // let x = this.searchService.searchDevelopers(searchTags, this.developersFinderTags, this.developers, this.developersProfile)
+    // console.log("Service ");
+    // console.log(x);
     this.search = "";
   }
 
-  processSearch(searchTags: string[]) {
-    let x = this.createDataset(searchTags);
-    this.developersFinderTags.forEach(tags => {
-      let y = this.createDataset(tags.tags);
-      let s = this.findSimilarity(x, y);
-      console.log("Similarity " + s);
-    });
+  createSearchStringWithSpace(searchWithCommas: string) {
+    let searchString = searchWithCommas.replace(/,/g, ' ');
+    return searchString;
   }
 
-  findSimilarity(datasetOne, datasetTwo) {
-
-    if (datasetOne.length > datasetTwo.length) {
-      let length = datasetOne.length - datasetTwo.length;
-      for (let index = 0; index < length; index++) {
-        datasetTwo.push(0);
+  processSearch(searchString: string) {
+    let searchedDevelopersLocation: Location[] = [];
+    this.developersFinderTags.forEach(finderTags => {
+      let finderTagArray = finderTags.tags.join();
+      let finderTagSearch = this.createSearchStringWithSpace(finderTagArray);
+      let similarity = stringSimilarity.compareTwoStrings(searchString, finderTagSearch);
+      let similarityPercentage = Math.round(similarity * 10000) / 100;
+      console.log(searchString);
+      console.log(finderTagSearch);
+      console.log(similarityPercentage);
+      let developer: User = this.developers.find(developer => { return developer.userId == finderTags.userId });
+      if (developer != undefined) {
+        let profile: Profile = this.developersProfile.find(profile => { return finderTags.userId == profile.userId });
+        let resultCard: ResultCard = {
+          avatar: developer.avatar,
+          distance: 0,
+          jobTitle: "Full-Stack Developer",
+          percentMatch: Math.round(similarityPercentage),
+          username: developer.username,
+          userId: developer.userId
+        }
+        if (similarityPercentage > 38) {
+          let location = this.developerLocations.find(location => { return location.userId == developer.userId })
+          if (location != undefined) {
+            searchedDevelopersLocation.push(location);
+          }
+          this.resultCards.push(resultCard);
+          this.resultCards.sort((a, b) => (a.percentMatch < b.percentMatch) ? 1 : ((b.percentMatch < a.percentMatch) ? -1 : 0));
+        }
       }
+    });
+    if (this.resultCards.length > 0) {
+      this.developerLocations = [];
+      this.developerLocations = searchedDevelopersLocation;
+      this.makeSearch = true;
     }
-    else if (datasetOne.length < datasetTwo.length) {
-      let length = datasetTwo.length - datasetOne.length;
-      for (let index = 0; index < length; index++) {
-        datasetOne.push(0);
-      }
-    }
-    let s = similarity(datasetOne, datasetTwo)
-    return Math.round(s * 10000) / 100;
+    console.log(searchedDevelopersLocation);
+    console.log(this.resultCards);
   }
 
   openInfoWindow(index, userId) {
     console.log(index, userId);
-    this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId});
-    this.ngUiMapComponent.openInfoWindow("marker"+index, this.customMarkers[index]);
+    this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId });
+    this.ngUiMapComponent.openInfoWindow("marker" + index, this.customMarkers[index]);
   }
 
 
@@ -308,7 +325,13 @@ export class HeatMapComponent implements OnInit {
   }
 
   infoWindowOptions() {
-    return { pixelOffset: { height: -45, width: 0} } 
+    return { pixelOffset: { height: -45, width: 0 } }
+  }
+
+  clearSearchResults() {
+    this.developerLocations = this.cachedLocations;
+    this.makeSearch = false;
+    this.resultCards = [];
   }
 
 }
