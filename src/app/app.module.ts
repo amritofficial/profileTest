@@ -95,6 +95,8 @@ import { LocationPipe } from './shared/pipes/location.pipe';
 import { DevfinderActivityComponent } from './devfinder-activity/devfinder-activity.component';
 import { DevfinderActivityService } from './shared/services/devfinder-activity.service';
 import { GuestDevfinderActivityComponent } from './guest-profile/guest-devfinder-activity/guest-devfinder-activity.component';
+import { DevfinderActivityFeedComponent } from './devfinder-activity-feed/devfinder-activity-feed.component';
+import { ActivityService } from './shared/services/activity.service';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -158,7 +160,8 @@ const options: HighlightOptions = {
     IssueCardTaggedComponent,
     LocationPipe,
     DevfinderActivityComponent,
-    GuestDevfinderActivityComponent
+    GuestDevfinderActivityComponent,
+    DevfinderActivityFeedComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
@@ -192,7 +195,7 @@ const options: HighlightOptions = {
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService, SearchService, DevfinderActivityService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService, SearchService, DevfinderActivityService, ActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
