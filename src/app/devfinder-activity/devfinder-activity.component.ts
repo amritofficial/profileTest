@@ -1,178 +1,61 @@
-import { Component, OnInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { PortalService } from 'app/shared/services/portal.service';
-import { OpenIssue } from 'app/shared/models/open-issue';
-import { QuestionThread } from 'app/shared/view-models/question-thread';
-import { DistanceService } from 'app/shared/services/distance.service';
-import { AnswerIssue } from 'app/shared/models/answer-issue';
-import { UserService } from 'app/shared/services/user.service';
+import { Component, OnInit } from '@angular/core';
 import { DevfinderActivity } from 'app/shared/models/activity';
+import { UserService } from 'app/shared/services/user.service';
+import { DevfinderActivityService } from 'app/shared/services/devfinder-activity.service';
 import { Calendar } from 'app/shared/models/calendar';
 import { Series } from 'app/shared/models/series';
-import { DevfinderActivityService } from 'app/shared/services/devfinder-activity.service';
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
 
+function multiFormat(value) {
+  if (value < 1000) return `${value.toFixed(2)}ms`;
+  value /= 1000;
+  if (value < 60) return `${value.toFixed(2)}s`;
+  value /= 60;
+  if (value < 60) return `${value.toFixed(2)}mins`;
+  value /= 60;
+  return `${value.toFixed(2)}hrs`;
+}
+
+
 @Component({
-  selector: 'question-thread',
-  templateUrl: './question-thread.component.html',
-  styleUrls: ['./question-thread.component.css']
+  selector: 'devfinder-activity',
+  templateUrl: './devfinder-activity.component.html',
+  styleUrls: ['./devfinder-activity.component.css']
 })
-export class QuestionThreadComponent implements OnInit, OnChanges {
-  private ngUnsubscribe = new Subject();
-  @ViewChild("codeTextArea") codeTextArea: ElementRef;
+export class DevfinderActivityComponent implements OnInit {
   activity: DevfinderActivity;
   calendar: Calendar[] = [];
+  title = 'calendarHeat';
+  view: any[] = [800, 170];
+  colorScheme: any;
+  schemeType: string = 'ordinal';
+  selectedColorScheme: string;
+  rangeFillOpacity: number = 0.15;
   calendarData: Calendar[];
+  showLegend = false;
+  gradient = false;
+  showXAxis = true;
+  showYAxis = true;
+  innerPadding = '10%';
+  tooltipDisabled = false;
+  chartType = "calendar";
+  width: number = 1000;
+  height: number = 300;
+  colorSets: any;
 
-  issueId: any;
-  codeActivated: boolean = false;
-  answer: string;
-  answerCode: string = '';
-  dummyCode: string = `
-  public static void main(String[] args) {
-    String username;
-    String city;
-    String postalCode;
-    
-    @Override
-    public void findLocation() {
 
-    }
-
-    public void storeLocation() {
-      
-    }
+  constructor(private devfinderActivityService: DevfinderActivityService,
+    private userService: UserService) {
+    Object.assign(this, {
+      colorSets
+    });
+    this.calendarData = this.getCalendarData();
+    this.setColorScheme('custom');
   }
-  `;
-  openedIssue: OpenIssue;
-  questionThread: QuestionThread;
-  issueAnswers: AnswerIssue[] = [];
-
-  constructor(private route: ActivatedRoute,
-    private portalService: PortalService,
-    private distanceService: DistanceService,
-    private userService: UserService,
-    private devfinderActivityService: DevfinderActivityService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      console.log("Activated Route");
-      console.log(params);
-      this.issueId = params.issueId;
-      this.getCurrentOpenIssue(params.issueId);
-    });
-    this.createDevfinderActivity();
-    // console.log(this.answer)
-  }
-
-  activateCodeMode() {
-    if (this.codeActivated === true) {
-      this.codeActivated = false;
-    }
-    else {
-      this.codeActivated = true;
-      // this.codeTextArea.nativeElement.focus();
-    }
-  }
-
-  ngOnChanges() {
-    console.log(this.answer)
-  }
-
-  getCurrentOpenIssue(issueId: any) {
-    this.portalService.getOpenIssueWithId(issueId).then((data) => {
-      if (!(data.length <= 0)) {
-        this.openedIssue = data[0].attributes;
-        this.issueAnswers = this.openedIssue.answers;
-        let issueTags: string[] = this.openedIssue.childrenTags;
-        issueTags.unshift(this.openedIssue.parentTag);
-        this.questionThread = {
-          username: this.openedIssue.username,
-          answers: this.openedIssue.answers,
-          distance: this.distanceService.calculateDistance(this.openedIssue.location),
-          issueCodeDescription: this.openedIssue.issueCodeDescription,
-          issueTags: issueTags,
-          issueTextDescription: this.openedIssue.issueTextDescription,
-          issueTitle: this.openedIssue.title,
-          timestamp: this.openedIssue.timestamp,
-          userId: this.openedIssue.userId
-        }
-      }
-      console.log(this.questionThread);
-    });
-  }
-
-  postAnswer() {
-    let issueAnswer: AnswerIssue = {
-      answerCodeDescription: this.answerCode,
-      answerDescription: this.answer,
-      user: this.userService.currentUser,
-      timestamp: new Date().getTime()
-    }
-    // console.log(issueAnswer);
-    let answerExists: Boolean;
-    answerExists = this.issueAnswers.find(a => {return a.user.userId === this.userService.currentUser.userId}) == null ? false: true;
-    console.log("Answer Exists: " + answerExists);
-    if(answerExists == false) {
-      this.issueAnswers.push(issueAnswer);
-      this.portalService.saveIssueAnswerWithIssueId(this.issueAnswers, this.issueId).then((updatedIssue) => {
-        console.log("Answered")
-        console.log(updatedIssue);
-        this.questionThread.answers = updatedIssue.attributes.answers;
-        console.log(this.questionThread);
-        this.updateActivity();
-      });
-
-    } else {
-      console.log("Answer already exists")
-    }
-    this.answer = "";
-    this.answerCode = "";
-    console.log(this.issueAnswers)
-  }
-
-  updateActivity() {
-    // today
-    const now = new Date();
-    const todaysDay = now.getDate();
-    const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
-
-    // Monday
-    const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
-    const thisMondayDay = thisMonday.getDate();
-    const thisMondayYear = thisMonday.getFullYear();
-    const thisMondayMonth = thisMonday.getMonth();
-    const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
-
-    let series = this.calendarData[this.calendarData.length - 1].series;
-    const date = new Date();
-    let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
-    let found = false;
-    for (var i = 0; i < seriesArray.length; i++) {
-      if (seriesArray[i].name == weekdayName.format(date)) {
-        found = true;
-        this.calendarData[this.calendarData.length - 1].series[i].value += 1;
-        break;
-      }
-    }
-    if (found == false) {
-      this.calendarData[this.calendarData.length - 1].series.push({
-        date: new Date(),
-        name: weekdayName.format(date),
-        value: 1
-      });
-    }
-    console.log("value should be inserted")
-    console.log(this.calendarData);
-    this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
-    // console.log(series)
-  }
-
-  createDevfinderActivity() {
-    // initializing object
     let activity: DevfinderActivity = {
       calendar: this.calendarData,
       userId: this.userService.getCurrentUserId()
@@ -201,7 +84,8 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
         });
         this.calendarData = this.calendar;
         // the following code is to insert an empty cell into the table everytime the day changes
-
+        console.log("Checking")
+        console.log(this.calendarData);
         // today
         const now = new Date();
         const todaysDay = now.getDate();
@@ -217,11 +101,15 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
         let series = this.calendarData[this.calendarData.length - 1].series;
         const date = new Date();
         let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
+        console.log(seriesArray);
         // perform a check if the day exists in the calendar
         if (seriesArray.length >= 0) {
           let found = true;
+          let exists = false;
           // it will insert that day if it doesnt exist
+          console.log(weekdayName.format(date));
           let seriesDay = seriesArray.find(s => { return s.name == weekdayName.format(date) });
+          console.log(seriesDay);
           if (seriesDay == undefined) {
             found = false;
             this.calendarData[this.calendarData.length - 1].series.push({
@@ -234,6 +122,19 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
           else {
             found = true;
           }
+          // for (var i = 0; i < seriesArray.length; i++) {
+          //   if (seriesArray[i].name == weekdayName.format(date)) {
+          //     found = false;
+          //     exists = true;
+          //     this.calendarData[this.calendarData.length - 1].series.push({
+          //       date: new Date(),
+          //       name: weekdayName.format(date),
+          //       value: 0
+          //     });
+          //     this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
+          //     break;
+          //   }
+          // }
 
           if (found == false) {
             this.calendar = [];
@@ -255,8 +156,11 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
                     seriesData.push(sd);
                   });
                   calendarData.series = seriesData;
+
                   this.calendar.push(calendarData);
                 });
+                console.log("Day not found")
+                console.log(this.calendar);
                 this.calendarData = this.calendar
               }
             });
@@ -281,6 +185,28 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
         });
       }
     });
+  }
+
+  setColorScheme(name) {
+    this.selectedColorScheme = name;
+    this.colorScheme = this.colorSets.find(s => s.name === name);
+  }
+
+  calendarAxisTickFormatting(mondayString: string) {
+    const monday = new Date(mondayString);
+    const month = monday.getMonth();
+    const day = monday.getDate();
+    const year = monday.getFullYear();
+    const lastSunday = new Date(year, month, day - 1);
+    const nextSunday = new Date(year, month, day + 6);
+    return lastSunday.getMonth() !== nextSunday.getMonth() ? monthName.format(nextSunday) : '';
+  }
+
+  calendarTooltipText(c): string {
+    return `
+      <span class="tooltip-label">${c.label} • ${c.cell.date.toLocaleDateString()}</span>
+      <span class="tooltip-val">${c.data.toLocaleString()}</span>
+    `;
   }
 
   getCalendarData(): any[] {
@@ -332,4 +258,56 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
     return calendarData;
   }
 
+  select(data) {
+    console.log('Item clicked', data);
+  }
+
+  saveActivity() {
+    // today
+    const now = new Date();
+    const todaysDay = now.getDate();
+    const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
+
+    // Monday
+    const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
+    const thisMondayDay = thisMonday.getDate();
+    const thisMondayYear = thisMonday.getFullYear();
+    const thisMondayMonth = thisMonday.getMonth();
+    const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
+
+    let series = this.calendarData[this.calendarData.length - 1].series;
+    const date = new Date();
+    let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
+    let found = false;
+    for (var i = 0; i < seriesArray.length; i++) {
+      if (seriesArray[i].name == weekdayName.format(date)) {
+        found = true;
+        this.calendarData[this.calendarData.length - 1].series[i].value += 1;
+        break;
+      }
+    }
+    if (found == false) {
+      this.calendarData[this.calendarData.length - 1].series.push({
+        date: new Date(),
+        name: weekdayName.format(date),
+        value: 1
+      });
+    }
+    console.log("value should be inserted")
+    console.log(this.calendarData);
+    this.devfinderActivityService.updateActivity(this.userService.getCurrentUserId(), this.calendarData);
+    // console.log(series)
+  }
+
 }
+
+export let colorSets = [
+  {
+    name: 'custom',
+    selectable: true,
+    group: 'Ordinal',
+    domain: [
+      '#e8eef1', '#2e7fc2'
+    ]
+  }
+]

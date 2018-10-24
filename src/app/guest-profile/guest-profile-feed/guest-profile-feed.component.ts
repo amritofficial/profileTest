@@ -29,8 +29,8 @@ export class GuestProfileFeedComponent implements OnInit, DoCheck, OnChanges {
   }
 
   ngDoCheck() {
-    console.log("Guest Feed from Feed Componenet");
-    console.log(this.guestFeed)
+    // console.log("Guest Feed from Feed Componenet");
+    // console.log(this.guestFeed)
   }
 
   ngOnChanges() {

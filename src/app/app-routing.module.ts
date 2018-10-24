@@ -22,6 +22,7 @@ import { QuestionThreadComponent } from "./devfinder-portal/question-thread/ques
 import { OpenIssueComponent } from "./devfinder-portal/open-issue/open-issue.component";
 import { HeatMapComponent } from "./devfinder-portal/heat-map/heat-map.component";
 import { TaggedQuestionsComponent } from "./devfinder-portal/tagged-questions/tagged-questions.component";
+import { DevfinderActivityComponent } from "./devfinder-activity/devfinder-activity.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -68,6 +69,7 @@ export const appRoutes: Routes = [
             { path: 'work-experience', component: GuestProfileWorkExperienceComponent },
             { path: 'links', component: GuestProfileLinksComponent }
         ]
-    }
+    },
+    {   path: 'activity', component: DevfinderActivityComponent}
     // { path: '**', redirectTo: 'dashboard' }
 ]
