@@ -90,6 +90,7 @@ export class QuestionThreadComponent implements OnInit, OnChanges {
         let issueTags: string[] = this.openedIssue.childrenTags;
         issueTags.unshift(this.openedIssue.parentTag);
         this.questionThread = {
+          objectId: null,
           username: this.openedIssue.username,
           answers: this.openedIssue.answers,
           distance: this.distanceService.calculateDistance(this.openedIssue.location),

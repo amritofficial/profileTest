@@ -21,9 +21,14 @@ export class DevfinderActivityFeedComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    this.getIssuesAndFilterUsers();
+  }
+
+  getIssuesAndFilterUsers() {
     this.activityService.getIssues().pipe(takeUntil(this.ngUnsubscribe)).subscribe((issues) => {
       if (issues['results'].length > 0) {
         this.issues = issues['results'];
+        console.log(this.issues);
         this.userService.getAllUsersFromFirebase().pipe(takeUntil(this.ngUnsubscribe)).subscribe((users: User[]) => {
           this.users = users;
           // console.log(this.issues);
@@ -49,7 +54,7 @@ export class DevfinderActivityFeedComponent implements OnInit {
   }
 
   getAvatar(userId: any) {
-    let user = this.filteredUsers.find(u => { return u.userId == userId});
+    let user = this.filteredUsers.find(u => { return u.userId == userId });
     let avatar = "";
     if (user != undefined) {
       avatar = user.avatar;
@@ -58,7 +63,7 @@ export class DevfinderActivityFeedComponent implements OnInit {
   }
 
   getUsername(userId: any) {
-    let user = this.filteredUsers.find(u => { return u.userId == userId});
+    let user = this.filteredUsers.find(u => { return u.userId == userId });
     let username = "";
     if (user != undefined) {
       username = user.username;
@@ -68,6 +73,10 @@ export class DevfinderActivityFeedComponent implements OnInit {
 
   getAnswers(issue: QuestionThread) {
     return issue.answers;
+  }
+
+  navigateToIssue(issue: QuestionThread) {
+    console.log()
   }
 
 }

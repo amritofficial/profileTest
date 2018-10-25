@@ -1,13 +1,6 @@
-<div class="ui-block-title">
-  <h6 class="title">Activity Feed</h6>
-  <a class="more"><svg class="olymp-three-dots-icon">
-      <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use>
-    </svg></a>
-</div>
-
 <ul class="widget w-activity-feed notification-list">
   <div *ngFor="let issue of issues; let i=index;">
-    <li>
+    <li style="cursor: pointer;" [routerLink]="['/devfinder-portal/question', issue?.objectId]">
       <div class="author-thumb">
         <img src="{{ getAvatar(issue?.userId) }}" alt="author">
       </div>
@@ -18,7 +11,7 @@
       </div>
     </li>
     <div *ngIf="issues[i].answers.length > 0">
-      <li *ngFor="let answer of issues[i].answers; let k=index;">
+      <li style="cursor: pointer;" *ngFor="let answer of issues[i].answers; let k=index;" [routerLink]="['/devfinder-portal/question', issue?.objectId]">
         <div class="author-thumb">
           <img src="{{ issues[i].answers[k].user?.avatar }}" alt="author">
         </div>
