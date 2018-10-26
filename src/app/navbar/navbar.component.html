@@ -308,7 +308,7 @@
                 </li>
               </div>
 
-              <div *ngIf="linkRequestArray?.length <= 0" class="no-requests">
+              <div *ngIf="linkRequestArray?.length <= 0 && approvedRequestArray?.length <= 0 && sentLinkRequestArray?.length <= 0" class="no-requests">
                 <p>No received requests at the movement</p>
               </div>
 
