@@ -35,3 +35,21 @@
     height: 30px;
     background: rgb(247, 247, 247);
 }
+
+.show-recevied-requests-active {
+    color: #ff5e3a;
+}
+
+.show-sent-requests-active {
+    color: #ff5e3a;
+}
+
+.sent-button {
+    background-color: rgb(145, 145, 145) !important;
+    margin-top: 0.1px;
+}
+
+.no-requests {
+    text-align: center;
+    margin-top: 120px;
+}

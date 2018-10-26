@@ -28,6 +28,8 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   messageRoomPaths: any[] = new Array();
   notificationMessages: Message[] = new Array();
   notificationCount: number = null;
+  showSentRequests: boolean = false;
+  showReceivedRequests: boolean = true;
 
   linkRequestArray: LinkRequest[] = [{
     from: this.userService.user,
@@ -42,6 +44,8 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     status: '',
     to: this.userService.user
   }];
+  
+  sentLinkRequestArrayWithSentStatus: LinkRequest[] = [];
 
   approvedRequestArray: any[] = [];
   showConnectionSuccess: boolean = false;
@@ -134,9 +138,15 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
 
+      for (let i = 0; i < this.sentLinkRequestArray.length; i++) {
+        if (this.sentLinkRequestArray[i].status === 'sent') {
+          this.sentLinkRequestArrayWithSentStatus.push(this.sentLinkRequestArray[i]);
+        }
+      }
       console.log(this.approvedSentRequestCount);
       // this.approvedSentRequestCount = this.sentLinkRequestArray.length;
       console.log(this.sentLinkRequestArray);
+      console.log(this.sentLinkRequestArrayWithSentStatus);
     });
   }
 
@@ -308,4 +318,14 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     return lastMessageArray;
   }
 
+  showRequests(requestType: string) {
+    if (requestType === 'sent') {
+      this.showReceivedRequests = false;
+      this.showSentRequests = true;
+    }
+    else if (requestType === 'received') {
+      this.showSentRequests = false;
+      this.showReceivedRequests = true;
+    }
+  }
 }
