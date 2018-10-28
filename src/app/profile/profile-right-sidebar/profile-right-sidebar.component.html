@@ -14,9 +14,9 @@
                 <img src="{{ link?.avatar }}" alt="author">
               </a>
             </li>
-            <li class="all-users">
-              <a href="#">+74</a>
-            </li>
+            <div style="margin-left: 20px;" *ngIf="links?.length <= 0">
+              <p>No links yet</p>
+            </div>
           </ul>
         </div>
       </div>
