@@ -18,15 +18,14 @@
     <div class="tab-content">
       <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
         <form>
-          <textarea class="form-control" name="feed-textarea" placeholder="Share what's in your mind?"></textarea>
-          <img style="height: 200px; width: 100%;" src="https://www.cambridgesuitestoronto.com/resourcefiles/attractionsmallimages/cn-tower-toronto-ontario-th.jpg"
-            alt="">
+          <textarea class="form-control" [(ngModel)]="feedBody" name="feed-textarea" placeholder="Share what's in your mind?"></textarea>
+          <img style="height: 50%;" src="{{ feedImageSrc }}" alt="">
           <div class="add-options-message">
-            <a (click)="selectImage($event)" class="options-message">
+            <input type="file" style="display: none;" #fileInput (change)="fileChangeListener($event)">
+            <a (click)="fileInput.click()" class="options-message">
               <span class="fa fa-image feed-options"></span>
             </a>
-
-            <button class="btnc btnc-filled-orange btnc-sm">Post Status</button>
+            <button (click)="postFeed()" class="btnc btnc-filled-orange btnc-sm">Post Status</button>
           </div>
 
         </form>

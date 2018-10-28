@@ -16,8 +16,8 @@
 }
 
 .feed-options:hover {
-    color: rgb(110, 110, 110);
-    transition-delay: 1s;
+    color: rgba(45, 146, 230, 0.95);
+    transition-duration: 0.2s;
 }
 
 .btnc {
@@ -125,4 +125,23 @@
     margin-left: -25px;
     font-size: 18px;
     color: rgb(78, 78, 78);
+}
+
+.select-image {
+  padding: 10px;
+  height: 120px;
+  width: 200px;
+  margin: 25px auto;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  color: white;
+  background-color: #19b9e7;
+  border-color: #19b9e7;
+  border-radius: 4px; 
+}
+
+.select-image input {
+  height: 280px;
+  width: 100%;
 }
