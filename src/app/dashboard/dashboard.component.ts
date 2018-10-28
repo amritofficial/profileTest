@@ -123,6 +123,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  selectImage() {
+    
+  }
+
   // likeFeed(feed: Feed) {
   //   let alreadyLiked: boolean = false;
   //   let userId = this.userService.getCurrentUserId();
