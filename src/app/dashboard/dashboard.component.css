@@ -2,3 +2,10 @@
     font-size: 24px;
     color: rgb(250, 250, 250);
 }
+
+.badge {
+    font-size: 12px;
+    padding: 5px;
+    background-color:rgba(45, 146, 230, 0.95);
+    margin: 2.5px;
+}

@@ -12,6 +12,8 @@ import { Like } from '../shared/models/like';
 import { Comment } from '../shared/models/comment';
 import { ActivatedRoute } from '@angular/router';
 import { RouteService } from '../shared/services/route.service';
+import { TagService } from 'app/shared/services/tag.service';
+import { FinderTags } from 'app/shared/models/finder-tags';
 
 @Component({
   selector: 'dashboard',
@@ -23,12 +25,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentUser: User = this.userService.user;
   feedList: Feed[] = new Array();
   commentBody: string = '';
+  finderTags: FinderTags;
+  links: User[] = [];
 
   constructor(private userService: UserService,
     private linkService: LinkService,
     private postService: PostService,
     private route: ActivatedRoute,
-    private routeService: RouteService) { }
+    private routeService: RouteService,
+    private tagService: TagService) { }
 
   ngOnInit() {
     this.userService.loadingUser = true;
@@ -48,6 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getCurrentReceivedRequests();
     this.getCurrentSentRequests();
     this.getGlobalFeed();
+    this.getFinderTags();
   }
 
   ngOnDestroy() {
@@ -58,6 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((user: User[]) => {
         this.linkService.links = user;
+        this.links = user;
         console.log("User Friends");
         console.log(this.linkService.links);
       });
@@ -103,6 +110,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
         return bTime - aTime;
       });
       console.log(this.feedList);
+    });
+  }
+
+  getFinderTags() {
+    this.tagService.getCurrentUserTags(this.userService.getCurrentUserId()).then((tags) => {
+      if (tags.length >=0) {
+        this.finderTags = tags[0].attributes;
+      }
+      console.log("Dashboard Finder Tags")
+      console.log(this.finderTags)
     });
   }
 
