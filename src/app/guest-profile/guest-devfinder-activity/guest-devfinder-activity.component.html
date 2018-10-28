@@ -1,6 +1,6 @@
 <!-- <button class="btn btn-primary" (click)="saveActivity()">Add Activity</button> -->
 <ngx-charts-heat-map
-    *ngIf="chartType === 'calendar'"
+    *ngIf="calendarData != null || calendarData != undefined"
     class="chart-container"
     [view]="view"
     [scheme]="colorScheme"
@@ -19,3 +19,6 @@
     [tooltipDisabled]="tooltipDisabled"
     (select)="select($event)">
 </ngx-charts-heat-map>
+<div *ngIf="calendarData != null || calendarData == undefined">
+    <p>No Activity</p>
+</div>
