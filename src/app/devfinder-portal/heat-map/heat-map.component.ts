@@ -14,6 +14,7 @@ import { SearchService } from 'app/shared/services/search.service';
 import { PortalService } from 'app/shared/services/portal.service';
 import { WorkExperience } from 'app/shared/models/work-experience';
 import { ResultCard } from 'app/shared/view-models/result-card';
+import { ANIMATION_TYPES } from 'ngx-loading';
 
 var similarity = require('compute-cosine-similarity');
 var stringSimilarity = require('string-similarity');
@@ -25,6 +26,7 @@ var stringSimilarity = require('string-similarity');
 })
 export class HeatMapComponent implements OnInit {
   private ngUnsubscribe = new Subject();
+  private ngxLoadingAnimationTypes = ANIMATION_TYPES;
   @ViewChild(HeatmapLayer) heatMapLayer: HeatmapLayer;
   @ViewChild(NguiMapComponent) ngUiMapComponent: NguiMapComponent;
   heatMap: google.maps.visualization.HeatmapLayer;
@@ -46,6 +48,7 @@ export class HeatMapComponent implements OnInit {
   cachedLocations: Location[] = [];
   resultCards: ResultCard[] = [];
   makeSearch: boolean = false;
+  loadingSearch: boolean = false;
 
   constructor(private locationService: LocationService,
     private userService: UserService,
@@ -259,7 +262,11 @@ export class HeatMapComponent implements OnInit {
   searchDevelopers() {
     console.log("Searching Developers");
     let searchStringWithSpace = this.createSearchStringWithSpace(this.search);
-    this.processSearch(searchStringWithSpace);
+    this.makeSearch = true;
+    this.loadingSearch = true;
+    setTimeout(()=> {
+       this.processSearch(searchStringWithSpace);
+    }, 3000);
     // let searchTags: string[] = search.split(",");
     // console.log(searchTags);
     // let x = this.searchService.searchDevelopers(searchTags, this.developersFinderTags, this.developers, this.developersProfile)
@@ -309,6 +316,7 @@ export class HeatMapComponent implements OnInit {
       this.developerLocations = searchedDevelopersLocation;
       this.makeSearch = true;
     }
+    this.loadingSearch = false;
     console.log(searchedDevelopersLocation);
     console.log(this.resultCards);
   }
