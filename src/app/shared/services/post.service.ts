@@ -41,4 +41,8 @@ export class PostService {
     return this.firebaseService.getGlobalFeed();
   }
 
+  saveFeedWithImage(feed: Feed, userId: any) {
+    return this.firebaseService.storeFeedWithImage(feed, userId);
+  }
+
 }

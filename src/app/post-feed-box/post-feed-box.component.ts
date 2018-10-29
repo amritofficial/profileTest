@@ -10,7 +10,7 @@ import { Feed } from 'app/shared/models/feed';
 })
 export class PostFeedBoxComponent implements OnInit {
   @Input() currentUser: User;
-  feedImageSrc: string;
+  feedImageSrc: any = null;
   onErrorImage: string = "https://www.cambridgesuitestoronto.com/resourcefiles/attractionsmallimages/cn-tower-toronto-ontario-th.jpg";
   feedBody: string = '';
 
@@ -42,15 +42,20 @@ export class PostFeedBoxComponent implements OnInit {
       comment: [],
       feedBody: this.feedBody,
       feedId: null,
-      feedImageUrl: "Image should be stored here",
+      feedImage: this.feedImageSrc,
       like: [],
       timeStamp: new Date().getTime(),
       user: this.currentUser
     }
-
-    this.postService.storeFeed(feed, this.currentUser.userId).then((data) => {
-      this.feedBody = "";
-      console.log("feedStored");
-    });
+    if(feed.feedImage === null) {
+      this.postService.storeFeed(feed, this.currentUser.userId).then((data)=> {
+        console.log("Feed Stored")
+      });
+    } else if(feed.feedImage !== null) {
+      this.postService.saveFeedWithImage(feed, this.currentUser.userId);
+    }
+    
+    this.feedImageSrc = null;
+    this.feedBody = "";
   }
 }

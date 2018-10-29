@@ -174,6 +174,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   createNotificationFromGlobalFeed() {
     this.postService.getGlobalFeed().pipe(takeUntil(this.ngUnsubscribe)).subscribe((feed) => {
       console.log("FROM NOTIFICATION COMPONENT");
+      const fourDaysTimeStamp = 4 * (60 * 60 * 24 * 1000);
       if (feed !== undefined || feed !== null) {
         this.feedList = [];
         this.globalFeednotificationList = [];
@@ -185,6 +186,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
               this.feedList.push(object[x]);
               this.globalFeednotificationList.push(object[x]);
             }
+            console.log(object[x].timeStamp);
           }
         }
       }

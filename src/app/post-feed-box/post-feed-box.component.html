@@ -19,7 +19,7 @@
       <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
         <form>
           <textarea class="form-control" [(ngModel)]="feedBody" name="feed-textarea" placeholder="Share what's in your mind?"></textarea>
-          <img style="height: 50%;" src="{{ feedImageSrc }}" alt="">
+          <img style="height: 280px; width: 100%;" src="{{ feedImageSrc }}" alt="">
           <div class="add-options-message">
             <input type="file" style="display: none;" #fileInput (change)="fileChangeListener($event)">
             <a (click)="fileInput.click()" class="options-message">
