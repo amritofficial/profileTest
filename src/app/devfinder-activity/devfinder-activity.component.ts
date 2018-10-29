@@ -102,12 +102,21 @@ export class DevfinderActivityComponent implements OnInit {
 
         if (thisDay.toString() == thisMonday.toString()) {
           console.log("Monday is today")
-          this.calendarData.push({
-            name: thisMonday.toString(),
-            series: []
-          });
+          if (this.calendarData[this.calendarData.length - 1].name !== thisMonday.toString()) {
+            console.log("Monday doesnt exist")
+            // console.log(this.calendarData[this.calendarData.length - 1].name + " : " + thisMonday.toString());
+            // let calendarTest = this.calendarData.find(c => { return c.name === thisMonday.toString});
+            // console.log(calendarTest);
+            this.calendarData.push({
+              name: thisMonday.toString(),
+              series: []
+            });
+          }
+          else {
+            console.log("Monday Exists");
+          }
         }
- 
+
         let series = this.calendarData[this.calendarData.length - 1].series;
         const date = new Date();
         let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
