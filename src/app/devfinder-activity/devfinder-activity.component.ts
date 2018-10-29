@@ -98,6 +98,16 @@ export class DevfinderActivityComponent implements OnInit {
         const thisMondayMonth = thisMonday.getMonth();
         const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
 
+        console.log("Monday " + thisMondayDay + " " + thisMonday + " :: " + thisDay);
+
+        if (thisDay.toString() == thisMonday.toString()) {
+          console.log("Monday is today")
+          this.calendarData.push({
+            name: thisMonday.toString(),
+            series: []
+          });
+        }
+ 
         let series = this.calendarData[this.calendarData.length - 1].series;
         const date = new Date();
         let seriesArray: any[] = this.calendarData[this.calendarData.length - 1].series;
