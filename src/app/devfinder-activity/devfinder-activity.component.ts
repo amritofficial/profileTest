@@ -100,6 +100,30 @@ export class DevfinderActivityComponent implements OnInit {
 
         console.log("Monday " + thisMondayDay + " " + thisMonday + " :: " + thisDay);
 
+        //To do, get the last element of an array, check if the name consists of the latest monday
+        // if not add monday alongside perform a check to add days to until the current day
+        // then link it with Monday code or we might not need it after
+
+        // for (let dayOfWeek = 7; dayOfWeek > 0; dayOfWeek--) {
+        //   const date = getDate(thisMondayDay - 1 + dayOfWeek);
+          
+        //   const series = [];
+        //   // skip future dates
+        //   if (date > now) {
+        //     continue;
+        //   }
+  
+        //   // value
+        //   // const value = dayOfWeek < 6 ? date.getMonth() + 1 : 0;
+        //   const value = 0;
+  
+        //   series.push({
+        //     date,
+        //     name: weekdayName.format(date),
+        //     value
+        //   });
+        // }
+
         if (thisDay.toString() == thisMonday.toString()) {
           console.log("Monday is today")
           if (this.calendarData[this.calendarData.length - 1].name !== thisMonday.toString()) {
