@@ -13,6 +13,8 @@ import { Profile } from '../models/profile';
 import { FinderTags } from '../models/finder-tags';
 import { OpenIssue } from '../models/open-issue';
 import { AnswerIssue } from '../models/answer-issue';
+import { DevfinderActivity } from '../models/activity';
+import { Calendar } from '../models/calendar';
 
 const Parse = require('parse');
 
@@ -278,6 +280,10 @@ export class ParseService {
     return this.http.get(Parse.serverURL + "/classes/tags", httpOptions);
   }
 
+  public getAllUsersProfile() {
+    return this.http.get(Parse.serverURL + "/classes/profile", httpOptions);
+  }
+
   public getAllDevFinderTags() {
     return this.http.get(Parse.serverURL + "/classes/devfinderTags", httpOptions);
   }
@@ -288,6 +294,10 @@ export class ParseService {
 
   public getIssues() {
     return this.http.get(Parse.serverURL + "/classes/issues", httpOptions);
+  }
+
+  public getAllWorkExperiences() {
+    return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
   }
 
   public async getOpenIssueWithId(issueId: any) {
@@ -357,4 +367,27 @@ export class ParseService {
     });
   }
 
+  public createDevfinderActivity(activity: DevfinderActivity) {
+    return this.http.post(Parse.serverURL + "/classes/devfinderActivity", activity, httpOptions);
+  }
+
+  public async getDevfinderActivity(userId: any) {
+    const devfinderActivity = Parse.Object.extend("devfinderActivity");
+    const query = new Parse.Query(devfinderActivity);
+    query.equalTo("userId", userId);
+
+    return await query.find();
+  }
+
+  public updateDevfinderActivity(userId: any, calendarData: Calendar[]) {
+    const devfinderActivity = Parse.Object.extend("devfinderActivity");
+    const query = new Parse.Query(devfinderActivity);
+    query.equalTo("userId", userId);
+    
+    return query.find().then((activity) => {
+      activity[0].set("calendar", calendarData);
+      console.log("Activity Updated")
+      return activity[0].save();
+    });
+  }
 }

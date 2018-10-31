@@ -1,6 +1,7 @@
 import { AnswerIssue } from "../models/answer-issue";
 
 export class QuestionThread {
+    public objectId: any;
     public issueTitle: string;
     public issueTextDescription: string;
     public issueCodeDescription: string;

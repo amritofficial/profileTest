@@ -19,6 +19,7 @@ export class ProfileFeedComponent implements OnInit {
   feedArray: Feed[] = [];
   feed: Feed = new Feed();
   commentBody: string = '';
+  currentUser: User;
   // feed: Feed = {
   //   timeStamp: null,
   //   feedBody: '',
@@ -57,6 +58,7 @@ export class ProfileFeedComponent implements OnInit {
     private postService: PostService) { }
 
   ngOnInit() {
+    this.getCurrentUserData();
     this.postService.getFeed(this.userService.getCurrentUserId()).subscribe((feed: Feed[]) => {
       this.feedArray = feed;
       this.feedArray.sort((a, b) => {
@@ -82,6 +84,15 @@ export class ProfileFeedComponent implements OnInit {
           this.getTime();
         });
         console.log(this.feed);
+      });
+  }
+
+  getCurrentUserData() {
+    this.userService.getCurrentUserDataFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((user: User) => {
+        this.currentUser = user;
+        console.log("Current User in profile Feed")
+        console.log(this.currentUser);
       });
   }
 

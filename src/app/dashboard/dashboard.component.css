@@ -2,3 +2,127 @@
     font-size: 24px;
     color: rgb(250, 250, 250);
 }
+
+.badge {
+    font-size: 12px;
+    padding: 5px;
+    background-color:rgba(45, 146, 230, 0.95);
+    margin: 2.5px;
+}
+
+.feed-options {
+    font-size: 28px; 
+    margin-top: -10px
+}
+
+.feed-options:hover {
+    color: rgb(110, 110, 110);
+    transition-delay: 1s;
+}
+
+.btnc {
+    color: #fff;
+    background-color: transparent;
+    outline: 0;
+    -moz-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    -webkit-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .btnc-square {
+    border: 0;
+  }
+  
+  .btnc-round {
+    border: 0;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    border-radius: 20px;
+  }
+  
+  .btnc-lg {
+    padding: 10px 37.5px 10px 37.5px;
+    font-size: 1.2em;
+  }
+  
+  .btnc-md {
+    padding: 7.5px 30px 7.5px 30px;
+    font-size: 1em;
+  }
+  
+  .btnc-sm {
+    padding: 6px 22.5px 6px 22.5px;
+    font-size: 0.8em;
+  }
+  
+  .btnc-filled-blue {
+    background-color: #38a9ff;
+  }
+  .btnc-filled-blue:hover {
+    background-color: rgb(24, 91, 136);
+  }
+  .btnc-filled-blue:active {
+    -moz-box-shadow: inset 0 0 100px #196090;
+    -webkit-box-shadow: inset 0 0 100px #196090;
+    box-shadow: inset 0 0 100px #196090;
+  }
+  
+  .btnc-filled-orange {
+    background-color: #ff723a;
+  }
+  
+  .btnc-filled-orange:hover {
+    background-color: #be562c;
+  }
+  
+  .btnc-ghost-blue {
+    border: 2px solid #3498db;
+  }
+  .btnc-ghost-blue:hover {
+    background-color: #3498db;
+  }
+  .btnc-ghost-blue:active {
+    background-color: #217dbb;
+  }
+
+  .status-header-wrapper {
+      height: 50px;
+      width: 100%;
+  }
+
+  .status-header-wrapper .wrapper {
+      padding: 10px;
+      margin-top: 25px;
+  }
+
+.get-inline {
+    display: inline-block;
+}
+
+.avatar {
+    width:50px;
+    margin-top: -30px;
+    border:3px solid lightgrey;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+}
+
+.username {
+    font-size: 14px;
+    position: absolute;
+    margin-top: -25px;
+    margin-left: 5px;
+    color: rgb(78, 78, 78);
+}
+
+.three-dots {
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -25px;
+    font-size: 18px;
+    color: rgb(78, 78, 78);
+}

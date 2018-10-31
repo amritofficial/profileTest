@@ -79,4 +79,8 @@ export class ProfileService {
   public getCurrentUserProfile(userId: any) {
     return this.parseService.getCurrentUserProfile(userId);
   }
+
+  public getAllUsersProfile() {
+    return this.parseService.getAllUsersProfile();
+  }
 }

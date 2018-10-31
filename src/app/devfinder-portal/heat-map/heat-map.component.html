@@ -7,31 +7,63 @@
 <br>
 <hr>
 <ngui-map zoom="13" center="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}">
-  <!-- <div id="floating-panel">
-    <button (click)="toggleHeatmap()">Toggle Heatmap</button>
-    <button (click)="changeGradient()">Change gradient</button>
-    <button (click)="changeRadius()">Change radius</button>
-    <button (click)="changeOpacity()">Change opacity</button>
-  </div> -->
-  <custom-marker *ngFor="let location of developerLocations;" position="{{location?.lat}}, {{location?.long}}">
+  <custom-marker (initialized$)="onCustomMarkerInit($event)" (click)="openInfoWindow(i, location.userId)" *ngFor="let location of (developerLocations | location); let i=index;"
+    position="{{location?.lat}}, {{location?.long}}">
     <div>
       <img class="custom-marker" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png"
         alt="">
-      <img class="custom-marker-avatar" src="https://firebasestorage.googleapis.com/v0/b/devfinder-chat.appspot.com/o/avatars%2Famrit%40test.com.jpg?alt=media&token=e4ed43de-3070-475b-b80f-ffa7a1cdae9d" />
+      <img class="custom-marker-avatar" src="{{ getAvatar(location?.userId) }}" />
     </div>
+    <info-window [options]="infoWindowOptions()" id="{{ location?.userId }}">
+      <div class="infoWindow" style="cursor: pointer;" [routerLink]="['../../guest-profile', location?.userId ]">
+        <div class="developer-avatar">
+          <img src="{{ getAvatar(location?.userId) }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
+            class="avatar" alt="">
+        </div>
+        <div class="developer-info">
+          <p class="developer-name">
+            {{ getUsername(location?.userId) }}
+          </p>
+          <p class="developer-location">
+            {{ getWork(location?.userId )}}
+          </p>
+          <div class="developer-finder-tags">
+            <span *ngFor="let tag of getTags(location?.userId) | slice:0:3" class="badge badge-primary">{{ tag }}</span>
+          </div>
+        </div>
+      </div>
+    </info-window>
   </custom-marker>
+
   <!-- <marker position="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}"></marker> -->
   <heatmap-layer [data]="points"></heatmap-layer>
 </ngui-map>
 <div class="sidenav">
   <div class="form-group">
-    <input class="form-control search-box box-shadow" id="pwd" placeholder="Search People, Skills or anything that makes sense">
+    <input class="form-control search-box box-shadow" [(ngModel)]="search" (keyup.enter)="searchDevelopers()" id="pwd"
+      placeholder="Search People, Skills or anything that makes sense">
   </div>
   <div class="card info-card box-shadow">
     <img style="border-radius: 4px;" src="../../assets/img/devfinder-portal.jpg" alt="">
   </div>
-  <div class="card result-container">
-    <h5 class="results-text">Results: 10 of 20</h5>
-    <result-card></result-card>
-  </div>
+  <div *ngIf="makeSearch">
+    <div class="card">
+      <h5 class="results-text">Results: {{ resultCards?.length }} of {{ resultCards?.length }}</h5>
+    </div>
+    <div class="card result-container">
+      <div class="result-list">
+        <ngx-loading [show]="loadingSearch" [config]="{
+            animationType: ngxLoadingAnimationTypes.wanderingCubes,
+            backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
+            primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
+        <div *ngFor="let result of resultCards;" class="result-holder">
+          <result-card [resultCard]="result"></result-card>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="resultCards?.length >= 0" style="margin-top: 2px" class="card">
+      <a (click)="clearSearchResults()">
+        <h5 class="results-text">Clear Results</h5>
+      </a>
+    </div>
 </div>

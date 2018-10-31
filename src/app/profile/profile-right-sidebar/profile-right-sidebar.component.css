@@ -1,0 +1,11 @@
+.devfinder-activity-container {
+    height: 200px;
+    width: 250px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.devfinder-activity-container .activity {
+    overflow-x: scroll;
+    margin-top: 10px;
+}

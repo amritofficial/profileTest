@@ -14,10 +14,21 @@
                 <img src="{{ link?.avatar }}" alt="author">
               </a>
             </li>
-            <li class="all-users">
-              <a href="#">+74</a>
-            </li>
+            <div style="margin-left: 20px;" *ngIf="guestLinks?.length <= 0">
+              <p>No links yet</p>
+            </div>
           </ul>
+        </div>
+      </div>
+
+      <div class="ui-block">
+        <div class="ui-block-title">
+          <h6 class="title">Devfinder Activity</h6>
+        </div>
+        <div class="ui-block-content devfinder-activity-container">
+          <div class="activity">
+            <guest-devfinder-activity></guest-devfinder-activity>
+          </div>
         </div>
       </div>
 
