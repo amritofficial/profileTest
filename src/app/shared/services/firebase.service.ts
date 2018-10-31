@@ -22,11 +22,12 @@ import { Comment } from '../models/comment';
 export class FirebaseService {
   currentFireUserData: AngularFireList<User>;
   private basePath: string = '/avatars';
+  private feedImageBasePath: string = '/feedImage';
   avatarUrl: string = '';
   uploadingAvatar: boolean = false;
   avatarUploaded: boolean = false;
   closeChooseAvatarModal = new BehaviorSubject<boolean>(false);
-  currentUser: User;  
+  currentUser: User;
   linkRequestSubject = new BehaviorSubject('sent');
   // private imageUrl = "amrit"
 
@@ -94,7 +95,7 @@ export class FirebaseService {
         // upload.imageUrl = uploadTask.snapshot.downloadURL;
         storageRef.getDownloadURL().then(url => {
           this.avatarUrl = url;
-          this.angularFireDatabase.object(`/users/${upload.user.userId}`).update({avatar: url});
+          this.angularFireDatabase.object(`/users/${upload.user.userId}`).update({ avatar: url });
           this.closeChooseAvatarModal.next(true);
         })
       }
@@ -113,7 +114,7 @@ export class FirebaseService {
 
   // the reason of this function is to refresh the profile url
   deleteAvatarUrl(userId: any) {
-    this.angularFireDatabase.object(`/users/${userId}`).update({avatar: ''});
+    this.angularFireDatabase.object(`/users/${userId}`).update({ avatar: '' });
   }
 
   sendLinkRequest(linkRequest: LinkRequest) {
@@ -141,8 +142,8 @@ export class FirebaseService {
 
   // toId is current user id and fromId is the person from whom the request has been received
   approveLinkRequest(request: LinkRequest) {
-    this.angularFireDatabase.database.ref(`/linkRequests/${request.to.userId}/received`).child(`${request.from.userId}`).remove().then(() =>{
-      this.angularFireDatabase.object(`/linkRequests/${request.from.userId}/sent/${request.to.userId}`).update({status: 'approved'}).then((data) =>{
+    this.angularFireDatabase.database.ref(`/linkRequests/${request.to.userId}/received`).child(`${request.from.userId}`).remove().then(() => {
+      this.angularFireDatabase.object(`/linkRequests/${request.from.userId}/sent/${request.to.userId}`).update({ status: 'approved' }).then((data) => {
         console.log("Approved");
         console.log(data);
         this.createLinksList(request);
@@ -190,19 +191,19 @@ export class FirebaseService {
   }
 
   likeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
-    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({like: likeArray});
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({ like: likeArray });
   }
 
   dislikeFeed(feedUserId: any, feedId: any, likeArray: Like[]) {
-    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({like: likeArray});
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({ like: likeArray });
   }
 
   commentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
-    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({ comment: commentArray });
   }
 
   deleteCommentFeed(feedUserId: any, feedId: any, commentArray: Comment[]) {
-    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({comment: commentArray});
+    return this.angularFireDatabase.object(`/feed/${feedUserId}/${feedId}`).update({ comment: commentArray });
   }
 
   getGlobalFeed() {
@@ -211,11 +212,11 @@ export class FirebaseService {
 
   // Change status of user from online to offline
   logoutUser(userId: any) {
-    this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 1});
+    this.angularFireDatabase.object(`/users/${userId}`).update({ userStatus: 1 });
   }
 
   loginUser(userId: any) {
-    this.angularFireDatabase.object(`/users/${userId}`).update({userStatus: 0});
+    this.angularFireDatabase.object(`/users/${userId}`).update({ userStatus: 0 });
   }
 
   getGlobalMessages() {
@@ -224,6 +225,39 @@ export class FirebaseService {
 
   getLastMessage(roomPath: any) {
     return this.angularFireDatabase.database.ref(`/messages/${roomPath}`);
+  }
+
+  storeFeedWithImage(feed: Feed, userId: any) {
+    let postNewKey = this.angularFireDatabase.database.ref().child('feed').push().key;
+    let path = `/feed/${userId}/${postNewKey}`;
+    feed.feedId = postNewKey;
+    if ((feed.feedImage !== null) || (feed.feedImage !== "" )|| (feed.feedImage != undefined)) {
+      console.log("CALLED")
+      let storageRef = firebase.storage().ref(`${this.feedImageBasePath}/${feed.user.userId}/${feed.feedId}.jpg`);
+      let uploadTask = storageRef.putString(feed.feedImage, 'data_url');
+
+      // storageRef.putString(upload.imageFile, 'data_url');
+      return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          console.log('Image Upload in progress');
+        },
+        (error) => {
+          console.log("HERE")
+          console.log(error)
+        },
+        () => {
+          console.log("DONE")
+          // upload.imageUrl = uploadTask.snapshot.downloadURL;
+          storageRef.getDownloadURL().then(url => {
+            feed.feedImage = url;
+            this.angularFireDatabase.object(path).update(feed);
+          });
+        }
+      );
+    } else if (feed.feedImage != null || feed.feedImage != "" || feed.feedImage != undefined) {
+      console.log("no image Found");
+      this.angularFireDatabase.object(path).update(feed);
+    }
   }
 
 }

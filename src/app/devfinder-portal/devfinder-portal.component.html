@@ -38,14 +38,14 @@
     <div class="col-lg-3">
       <div class="left-sidebar">
         <ul>
-          <li class="home active-ul-li">
+          <li [routerLink]="['home']" [routerLinkActive]="['active-ul-li']">
             <a>Home</a>
           </li>
           <li>
             DevFinder Portal
             <ol>
-              <li class="active-ol-li"><a>Tags</a></li>
-              <li><a>Developers</a></li>
+              <li [routerLink]="['tags']" [routerLinkActive]="['active-ol-li']"><a>Tags</a></li>
+              <li [routerLink]="['developers']" [routerLinkActive]="['active-ol-li']"><a>Developers</a></li>
             </ol>
           </li>
         </ul>
@@ -53,10 +53,7 @@
     </div>
     <div class="col-lg-9">
       <div class="main-content-container">
-        <div class="title-bar">
-          <p class="title">Top Issues</p>
-          <button class="btnc btnc-square btnc-sm btnc-filled-orange">Open Issue</button>
-        </div>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>

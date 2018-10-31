@@ -1,0 +1,210 @@
+/* For Title Bar of Component */
+
+.title-bar .title {
+    font-weight: 500;
+    display: inline-block;
+    font-size: 24px;
+    float: left;
+    color: rgb(46, 46, 46);
+    font-family: 'Lato', sans-serif;
+}
+
+.title-bar .description {
+    /* float: left; */
+    position: absolute;
+    font-size: 14px;
+    color: rgb(96, 96, 96);
+    font-family: 'Lato', sans-serif;
+    margin-top: 40px;
+    margin-left: 0px;
+}
+
+.title-bar-question p {
+  font-weight: 400;
+    font-size: 18px;
+    float: left;
+    color: rgb(46, 46, 46);
+    font-family: 'Lato', sans-serif;
+}
+
+.question-title-input input[type="text"] {
+  display: inline;
+    vertical-align: middle;
+    border: none;
+    padding: 0 .5rem;
+    height: 38px;
+    font-size: 0.8em;
+    width: 700px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.question-title-input input[type="text"]:focus {
+  background: #fff;
+  border: 3px solid #ccc;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.dropdown {
+  margin-left: -160px;
+  margin-top: 20px;
+}
+
+.dropdown-menu.show {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+button.btn {
+  background-color: #38a9ff;
+  border-color: #38a9ff;
+}
+
+.title-bar-tags p {
+  font-weight: 400;
+    font-size: 18px;
+    float: left;
+    color: rgb(46, 46, 46);
+    font-family: 'Lato', sans-serif;
+}
+
+
+.open-issue-box {
+  padding-top: 10px;
+  position: absolute;
+}
+
+.open-issue-box textarea {
+  min-height: 150px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.open-issue-code {
+  z-index: 999;
+  position: absolute;
+  margin-top: 50px;
+}
+
+.open-issue-code textarea {
+  min-height: 136.5px;
+  margin-left: 100.5%;
+  border-color: Transparent; 
+  overflow: auto;    
+  resize: none;
+}
+  
+.tools {
+  background-color: lightgrey;
+  height: 40px;
+  margin-bottom: 2px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.tools .code {
+  margin-top: 4px;
+  font-size: 22px;
+  width: 10px;
+  font-weight: bold;
+}
+
+.tools .code:hover {
+  color: #ff763a;
+  border-color: #ff763a;
+}
+
+.code-active {
+  color: #ff763a;
+  border-color: #ff763a;
+}
+
+.open-issue-helper {
+  background-color: lightgrey;
+  width: 97.5%;
+  min-height: 20px;
+  margin-top: 150px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.open-issue-button {
+  float: right;
+  margin-right: 18px;
+}
+
+.tag-input {
+  margin-top: 14px;
+  font-size: 12px;
+  padding: 2px;
+}
+
+  
+  .btnc {
+    color: #fff;
+    background-color: transparent;
+    outline: 0;
+    -moz-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    -webkit-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .btnc-square {
+    border: 0;
+  }
+  
+  .btnc-round {
+    border: 0;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    border-radius: 20px;
+  }
+  
+  .btnc-lg {
+    padding: 10px 37.5px 10px 37.5px;
+    font-size: 1.2em;
+  }
+  
+  .btnc-md {
+    padding: 7.5px 30px 7.5px 30px;
+    font-size: 1em;
+  }
+  
+  .btnc-sm {
+    padding: 6px 22.5px 6px 22.5px;
+    font-size: 0.8em;
+  }
+  
+  .btnc-filled-blue {
+    background-color: #38a9ff;
+  }
+  .btnc-filled-blue:hover {
+    background-color: rgb(24, 91, 136);
+  }
+  .btnc-filled-blue:active {
+    -moz-box-shadow: inset 0 0 100px #196090;
+    -webkit-box-shadow: inset 0 0 100px #196090;
+    box-shadow: inset 0 0 100px #196090;
+  }
+  
+  .btnc-filled-orange {
+    background-color: #ff723a;
+  }
+  
+  .btnc-filled-orange:hover {
+    background-color: #be562c;
+  }
+  
+  .btnc-ghost-blue {
+    border: 2px solid #3498db;
+  }
+  .btnc-ghost-blue:hover {
+    background-color: #3498db;
+  }
+  .btnc-ghost-blue:active {
+    background-color: #217dbb;
+  }

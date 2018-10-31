@@ -1,0 +1,20 @@
+<div class="title-bar">
+  <p class="title">Developers</p><br>
+  <button class="btnc btnc-square btnc-sm btnc-filled-orange" [routerLink]="['../dev-heat']">Find on DevHeat</button>
+  <p class="description">Find people with a common interest from all around the globe or in your demograph. Meet,
+    Network, Learn <br> or get your problem solved for just a price of a cup of coffee.</p>
+</div>
+<br>
+<br>
+<br>
+<hr>
+<div class="developers-wrapper">
+  <div class="grid-developers">
+    <div class="row">
+      <div *ngFor="let developer of developers | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-3">
+        <devfinder-developer [developer]="developer"></devfinder-developer>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>

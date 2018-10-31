@@ -1,0 +1,25 @@
+<mat-card class="custom-mat-card">
+  <div class="developer-avatar">
+    <img src="{{ developer?.user?.avatar }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"
+      class="avatar" alt="">
+  </div>
+  <div class="developer-info">
+    <p class="developer-name">
+      {{ developer?.user?.username}}
+    </p>
+    <p class="developer-location">
+      Toronto, Canada
+    </p>
+    <p *ngIf="!getDistanceBoolean()" class="developer-distance">
+      <br>
+    </p>
+    <p *ngIf="getDistanceBoolean()" class="developer-distance">
+      {{ developer?.distance }} Km Away
+    </p>
+  </div>
+  <div class="developer-finder-tags">
+    <span *ngFor="let tag of developer.tags.tags | slice:0:3" class="badge badge-primary">{{ tag }}</span>
+    <!-- <span class="badge badge-primary">Javascript</span>
+    <span class="badge badge-primary">MySql</span> -->
+  </div>
+</mat-card>

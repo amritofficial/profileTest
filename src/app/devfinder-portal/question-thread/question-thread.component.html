@@ -1,0 +1,77 @@
+<div class="title-bar">
+  <p class="title">{{ questionThread?.issueTitle }}</p>
+  <button class="btnc btnc-square btnc-sm btnc-filled-orange" [routerLink]="['../open-issue']">Open Issue</button>
+</div>
+<br>
+<br>
+<hr>
+<div class="question">
+  <div class="post-text">
+    <p>{{ questionThread?.issueTextDescription }}</p>
+  </div>
+  <br>
+  <div class="post-text">
+    <pre><code highlight [textContent]="questionThread?.issueCodeDescription"></code></pre>
+  </div>
+  <div class="post-tags">
+    <ul>
+      <li *ngFor="let tag of questionThread?.issueTags;">
+        <span class="badge badge-primary">{{ tag }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="posting-author">
+    <span class="timeposted">{{ questionThread?.timestamp | timeAgo }}</span>
+    <span class="title">by <a>{{ questionThread?.username }}</a></span>
+    <div class="distance">{{ questionThread?.distance }} Km Away</div>
+  </div>
+</div>
+<!-- Using the same CSS for answers too -->
+<div *ngFor="let answer of questionThread?.answers; let i=index;" class="answers">
+  <div class="title-bar-answer">
+    <p class="title">Answer {{ i+1 }}</p>
+  </div>
+  <br>
+  <hr>
+  <div class="question answers">
+    <div class="post-text">
+      <p>{{ answer?.answerDescription }}</p>
+    </div>
+    <br>
+    <div class="post-text">
+      <pre><code highlight [textContent]="answer?.answerCodeDescription"></code></pre>
+    </div>
+    <div class="posting-author">
+      <span class="timeposted">{{ answer?.timestamp | timeAgo }}</span>
+      <span class="title">by <a>{{ answer?.user?.username }}</a></span>
+      <div class="distance">1 Mile Away</div>
+    </div>
+  </div>
+</div>
+<br>
+<hr *ngIf="questionThread?.userId != userService?.currentUser?.userId">
+<div *ngIf="questionThread?.userId != userService?.currentUser?.userId">
+  <div class="title-bar-answer">
+    <p class="title">Post Answer</p>
+  </div>
+  <br>
+  <div class="post-answer-box">
+    <div class="container tools">
+      <div class="code" (click)="activateCodeMode()" [ngClass]=" codeActivated === true ? 'code-active' : ''">
+        <span class="fa fa-code"></span>
+      </div>
+    </div>
+    <textarea [(ngModel)]="answer" name="post-answer" id="post-answer" cols="100" rows="10"></textarea>
+  </div>
+  <div *ngIf="codeActivated" class="post-answer-code">
+    <textarea #codeTextArea name="post-answer-code" [(ngModel)]="answerCode" id="post-answer-code" cols="45" rows="10"></textarea>
+  </div>
+  <br>
+  <br>
+  <div class="post-answer-helper">
+    <p [innerHTML]="answer" style="white-space:pre-wrap;"></p>
+  </div>
+  <pre style="margin-bottom: 15px; width: 97.5%"><code highlight [textContent]="answerCode"></code></pre>
+  <button style="margin-bottom: 50px" (click)="postAnswer()" class="btnc btnc-square btnc-sm btnc-filled-blue post-answer-button">Post
+    Solution</button>
+</div>

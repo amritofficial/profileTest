@@ -1,0 +1,123 @@
+<ul class="widget w-activity-feed notification-list">
+  <div *ngFor="let issue of issues; let i=index;">
+    <li style="cursor: pointer;" [routerLink]="['/devfinder-portal/question', issue?.objectId]">
+      <div class="author-thumb">
+        <img src="{{ getAvatar(issue?.userId) }}" alt="author">
+      </div>
+      <div class="notification-event">
+        <a class="h6 notification-friend">{{ getUsername(issue?.userId) }}</a> opened an issue tagged <a class="notification-link">{{
+          issue?.parentTag }}</a>.
+        <span class="notification-date"><time class="entry-date updated">{{ issue?.timestamp | timeAgo }}</time></span>
+      </div>
+    </li>
+    <div *ngIf="issues[i].answers.length > 0">
+      <li style="cursor: pointer;" *ngFor="let answer of issues[i].answers; let k=index;" [routerLink]="['/devfinder-portal/question', issue?.objectId]">
+        <div class="author-thumb">
+          <img src="{{ issues[i].answers[k].user?.avatar }}" alt="author">
+        </div>
+        <div class="notification-event">
+          <a class="h6 notification-friend">{{ answer?.user?.username }}</a> answered an issue tagged
+          <a class="notification-link">{{ issue?.parentTag }}</a> opened by <a class="notification-link">{{ getUsername(issue?.userId) }}</a>
+          <span class="notification-date"><time class="entry-date updated">{{ answer?.timestamp | timeAgo }}</time></span>
+        </div>
+      </li>
+    </div>
+  </div>
+
+  <!-- <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar9-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Jake Parker </a> liked Nicholas Grissom’s <a class="notification-link">status
+        update.</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">5 mins ago</time></span>
+    </div>
+  </li>
+
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar50-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Mary Jane Stark </a> added 20 new photos to her <a class="notification-link">gallery
+        album.</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">12 mins ago</time></span>
+    </div>
+  </li>
+
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar51-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Nicholas Grissom </a> updated his profile <a class="notification-link">photo</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">1 hour ago</time></span>
+    </div>
+  </li>
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar48-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Marina Valentine </a> commented on Chris Greyson’s <a class="notification-link">status
+        update</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">1 hour ago</time></span>
+    </div>
+  </li>
+
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar52-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Green Goo Rock </a> posted a <a class="notification-link">status update</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">1 hour ago</time></span>
+    </div>
+  </li>
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Elaine Dreyfuss </a> liked your <a class="notification-link">blog post</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">2 hours ago</time></span>
+    </div>
+  </li>
+
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar10-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Elaine Dreyfuss </a> commented on your <a class="notification-link">blog post</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">2 hours ago</time></span>
+    </div>
+  </li>
+
+  <li>
+    <div class="author-thumb">
+      <img src="../../assets/img/avatar53-sm.jpg" alt="author">
+    </div>
+    <div class="notification-event">
+      <a class="h6 notification-friend">Bruce Peterson </a> changed his <a class="notification-link">profile picture</a>.
+      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">15 hours ago</time></span>
+    </div>
+  </li> -->
+
+</ul>
+
+<!-- <div *ngIf="issues[i].answers?.length > 0">
+    <li *ngFor="let answer of issues[i].answers">
+      <div class="author-thumb">
+        <img src="{{ answer?.user?.avatar }}" alt="author">
+      </div>
+      <div class="notification-event">
+        <a class="h6 notification-friend">{{ answer?.user?.username }}</a> answered an issue tagged
+        <a class="notification-link">{{
+              issue?.parentTag }}</a>.
+        opened by <a class="notification-link">{{ getUsername(issue?.userId) }}</a>
+        <span class="notification-date"><time class="entry-date updated">{{ answer?.timestamp | timeAgo }}</time></span>
+      </div>
+    </li>
+  </div> -->

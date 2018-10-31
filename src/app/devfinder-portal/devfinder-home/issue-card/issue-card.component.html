@@ -1,0 +1,29 @@
+<mat-card>
+  <div class="issue-summary">
+    <div class="issue-title">
+     <a [routerLink]="['../question', issueCard?.issueId ]"><p>{{ issueCard?.issueTitle }}</p></a> 
+    </div>
+    <div class="issue-tags">
+      <ul>
+        <li *ngFor="let tag of issueCard?.issueTags;">
+          <span class="badge badge-primary">{{ tag }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="posting-author">
+      <span class="timeposted">{{ issueCard?.timestamp | timeAgo }}</span>
+      <span class="title">by <a>{{ issueCard?.username }}</a></span>
+      <div class="distance">{{ issueCard?.distance }} Km Away</div>
+    </div>
+  </div>
+  <div class="issue-ap">
+    <div class="answers">
+      <span>{{ issueCard?.answerCount }}</span><br>
+      <span>answers</span>
+    </div>
+    <div class="poll">
+      <span>{{ issueCard?.pollCount }}</span><br>
+      <span>poll</span>
+    </div>
+  </div>
+</mat-card>

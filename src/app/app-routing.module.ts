@@ -13,6 +13,16 @@ import { GuestProfileComponent } from "./guest-profile/guest-profile.component";
 import { GuestProfileEducationComponent } from "./guest-profile/guest-profile-education/guest-profile-education.component";
 import { GuestProfileWorkExperienceComponent } from "./guest-profile/guest-profile-work-experience/guest-profile-work-experience.component";
 import { ProfileLinksComponent } from "./profile/profile-links/profile-links.component";
+import { DevfinderHomeComponent } from "./devfinder-portal/devfinder-home/devfinder-home.component";
+import { DevfinderTagsComponent } from "./devfinder-portal/devfinder-tags/devfinder-tags.component";
+import { DevfinderDevelopersComponent } from "./devfinder-portal/devfinder-developers/devfinder-developers.component";
+import { AuthGuard } from "./shared/services/auth-guard.service";
+import { GuestProfileLinksComponent } from "./guest-profile/guest-profile-links/guest-profile-links.component";
+import { QuestionThreadComponent } from "./devfinder-portal/question-thread/question-thread.component";
+import { OpenIssueComponent } from "./devfinder-portal/open-issue/open-issue.component";
+import { HeatMapComponent } from "./devfinder-portal/heat-map/heat-map.component";
+import { TaggedQuestionsComponent } from "./devfinder-portal/tagged-questions/tagged-questions.component";
+import { DevfinderActivityComponent } from "./devfinder-activity/devfinder-activity.component";
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: '/home/(form-outlet:login)', pathMatch: 'full' },
@@ -23,28 +33,43 @@ export const appRoutes: Routes = [
             { path: 'register', component: SignUpComponent, outlet: 'form-outlet' }
         ]
     },
-    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {
-        path: 'messenger', component: MessengerComponent
+        path: 'messenger', component: MessengerComponent, canActivate: [AuthGuard]
     },
     {
-        path: 'profile', component: ProfileComponent,
+        path: 'profile', component: ProfileComponent, canActivateChild: [AuthGuard],
         children: [
             { path: '', redirectTo: 'timeline', pathMatch: 'full' },
             { path: 'timeline', component: ProfileComponent },
             { path: 'education', component: ProfileEducationComponent },
             { path: 'work-experience', component: ProfileWorkExperienceComponent },
-            { path: 'links', component: ProfileLinksComponent}
+            { path: 'links', component: ProfileLinksComponent }
         ]
     },
-    { path: 'devfinder-portal', component: DevfinderPortalComponent },
     {
-        path: 'guest-profile/:guestId', component: GuestProfileComponent,
+        path: 'devfinder-portal', component: DevfinderPortalComponent, canActivateChild: [AuthGuard],
         children: [
-            { path: '', redirectTo: 'timeline', pathMatch: "full"},
-            { path: 'timeline', component: GuestProfileComponent},
-            { path: 'education', component: GuestProfileEducationComponent},
-            { path: 'work-experience', component: GuestProfileWorkExperienceComponent}
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: DevfinderHomeComponent },
+            { path: 'tags', component: DevfinderTagsComponent },
+            { path: 'developers', component: DevfinderDevelopersComponent },
+            { path: 'question/:issueId', component: QuestionThreadComponent },
+            { path: 'open-issue', component: OpenIssueComponent },
+            { path: 'dev-heat', component: HeatMapComponent },
+            { path: 'questions/tagged/:tagName', component: TaggedQuestionsComponent }
         ]
-    }
+    },
+    {
+        path: 'guest-profile/:guestId', component: GuestProfileComponent, canActivateChild: [AuthGuard],
+        children: [
+            { path: '', redirectTo: 'timeline', pathMatch: "full" },
+            { path: 'timeline', component: GuestProfileComponent },
+            { path: 'education', component: GuestProfileEducationComponent },
+            { path: 'work-experience', component: GuestProfileWorkExperienceComponent },
+            { path: 'links', component: GuestProfileLinksComponent }
+        ]
+    },
+    {   path: 'activity', component: DevfinderActivityComponent}
+    // { path: '**', redirectTo: 'dashboard' }
 ]

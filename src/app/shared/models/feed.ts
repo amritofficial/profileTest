@@ -7,6 +7,8 @@ export class Feed {
     public timeStamp: any;
     public feedBody: any;
     public feedId: any;
+    public feedImage?: any;
+    public feedVideo?: any;
     public like: Like[];
     public comment: Comment[];
 }

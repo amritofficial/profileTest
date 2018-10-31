@@ -1,0 +1,17 @@
+<div class="title-bar">
+  <p class="title">Tags</p><br>
+  <p class="description">Tags are used as a keyword to categorize the questions and answers based on the similarity.</p>
+</div>
+<br>
+<br>
+<hr>
+<div class="tags-wrapper">
+  <div class="grid-tags">
+    <div class="row">
+      <div *ngFor="let dv of tags | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-3">
+        <devfinder-question-tag [devfinderTag]="dv"></devfinder-question-tag>
+      </div><br>
+    </div>
+  </div>
+</div>
+<pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>

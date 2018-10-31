@@ -11,6 +11,10 @@ import 'rxjs/add/operator/map';
 import { User } from '../models/user';
 import { Profile } from '../models/profile';
 import { FinderTags } from '../models/finder-tags';
+import { OpenIssue } from '../models/open-issue';
+import { AnswerIssue } from '../models/answer-issue';
+import { DevfinderActivity } from '../models/activity';
+import { Calendar } from '../models/calendar';
 
 const Parse = require('parse');
 
@@ -31,7 +35,7 @@ export class ParseService {
     private http: HttpClient) {
     console.log('Parse initialized!')
     Parse.initialize("13161197ab22343bdb876503d3edf547cdc4b8bf", "412bf95c90ea08fc4c95cbdd75a404bea254872e");
-    Parse.serverURL = 'https://18.218.232.41/parse'
+    Parse.serverURL = 'http://18.218.232.41/parse'
   }
 
   public loginUsingRest(email: string, password: string) {
@@ -145,7 +149,7 @@ export class ParseService {
       headers: new HttpHeaders({
         'X-Parse-Application-Id': environment.parseServer.newAppId,
         'X-Parse-REST-API-Key': environment.parseServer.restNewKey,
-        "X-Parse-Session-Token": window.sessionStorage.getItem('session_token')
+        'X-Parse-Session-Token': window.sessionStorage.getItem('session_token') || ''
       })
     }
     return this.http.get(Parse.serverURL + "/users/me", httpCustomOption);
@@ -222,12 +226,18 @@ export class ParseService {
     return await query.find();
   }
 
-  public async getCurrentUserLocation(user: User) {
+  public async getCurrentUserLocation(userId: any) {
     const location = Parse.Object.extend("location");
     const query = new Parse.Query(location);
-    query.equalTo("userId", user);
+    query.equalTo("userId", userId);
 
     return await query.find();
+  }
+
+  public updateCurrentUserLocation(objectId: any) {
+    const location = Parse.Object.extend("location");
+    const query = new Parse.Query(location);
+    return query.get(objectId);
   }
 
   public async getGuestUserProfile(guestId: any) {
@@ -262,17 +272,122 @@ export class ParseService {
     return query.find();
   } 
 
-  // public getEducation() {
-  //   let education = Parse.Object.extend("Education");
-  //   let query = new Parse.Query(education);
-  //   query.get("Wk0YlAw5Bt").then((education) => {
-  //     console.log(education);
-  //   },
-  //   (error) => {
-  //     console.log(error);
-  //   }
-  //   )
-  // }
+  public getAllUsersLocation() {
+    return this.http.get(Parse.serverURL + "/classes/location", httpOptions);
+  }
 
+  public getAllUsersFinderTags() {
+    return this.http.get(Parse.serverURL + "/classes/tags", httpOptions);
+  }
 
+  public getAllUsersProfile() {
+    return this.http.get(Parse.serverURL + "/classes/profile", httpOptions);
+  }
+
+  public getAllDevFinderTags() {
+    return this.http.get(Parse.serverURL + "/classes/devfinderTags", httpOptions);
+  }
+
+  public saveIssue(openIssueData: OpenIssue) {
+    return this.http.post(Parse.serverURL + "/classes/issues", openIssueData, httpOptions);
+  }
+
+  public getIssues() {
+    return this.http.get(Parse.serverURL + "/classes/issues", httpOptions);
+  }
+
+  public getAllWorkExperiences() {
+    return this.http.get(Parse.serverURL + "/classes/workExperience", httpOptions);
+  }
+
+  public async getOpenIssueWithId(issueId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("objectId", issueId);
+
+    return await query.find();
+  }
+
+  public async getCurrentTagOpenIssuesCountWithTagId(tagId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("parentTagObjectId", tagId);
+
+    return query.count();
+  }
+
+  public async getOpenIssuesCountWithTagName(tagName: string) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("childrenTags", tagName);
+
+    return await query.count();
+  }
+
+  public async getDevCountWithTagName(tagName: string) {
+    const issues = Parse.Object.extend("tags");
+    const query = new Parse.Query(issues);
+    query.equalTo("tags", tagName);
+
+    return await query.count();
+  }
+
+  public async getDevWithTagName(tagName: string) {
+    const issues = Parse.Object.extend("tags");
+    const query = new Parse.Query(issues);
+    query.equalTo("tags", tagName);
+
+    return await query.find();
+  }
+
+  public async getIssuesWithTagId(tagId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("parentTagObjectId", tagId);
+
+    return await query.find();
+  }
+
+  public async getIssueWithIssueId(issueId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("objectId", issueId);
+
+    return await query.find();
+  }
+
+  public saveIssueAnswerWithIssueId(updatedAnswers: AnswerIssue[], issueId: any) {
+    const issues = Parse.Object.extend("issues");
+    const query = new Parse.Query(issues);
+    query.equalTo("objectId", issueId);
+
+    return query.find().then((issue) => {
+      issue[0].set("answers", updatedAnswers)
+      return issue[0].save();
+    });
+  }
+
+  public createDevfinderActivity(activity: DevfinderActivity) {
+    return this.http.post(Parse.serverURL + "/classes/devfinderActivity", activity, httpOptions);
+  }
+
+  public async getDevfinderActivity(userId: any) {
+    const devfinderActivity = Parse.Object.extend("devfinderActivity");
+    const query = new Parse.Query(devfinderActivity);
+    query.equalTo("userId", userId);
+
+    return await query.find();
+  }
+
+  public updateDevfinderActivity(userId: any, calendarData: Calendar[]) {
+    const devfinderActivity = Parse.Object.extend("devfinderActivity");
+    const query = new Parse.Query(devfinderActivity);
+    query.equalTo("userId", userId);
+    
+    return query.find().then((activity) => {
+      activity[0].set("calendar", calendarData);
+      console.log("Activity Updated")
+      return activity[0].save();
+    });
+  }
 }

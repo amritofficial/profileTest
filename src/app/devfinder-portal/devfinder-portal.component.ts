@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouteService } from '../shared/services/route.service';
+import { PortalService } from '../shared/services/portal.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { User } from 'firebase';
+import { UserService } from 'app/shared/services/user.service';
+import { LocationService } from 'app/shared/services/location.service';
 // import { google } from '@types/googlemaps';
 
 @Component({
@@ -9,6 +15,10 @@ import { RouteService } from '../shared/services/route.service';
   styleUrls: ['./devfinder-portal.component.css']
 })
 export class DevfinderPortalComponent implements OnInit {
+  private ngUnsubscribe = new Subject();
+
+  userList: User[] = new Array();
+
   @ViewChild('gmap') gmapElement: any;
   // map: google.maps.Map;
 
@@ -21,7 +31,10 @@ export class DevfinderPortalComponent implements OnInit {
   isTracking = false;
 
   constructor(private route: ActivatedRoute,
-    private routeService: RouteService) { }
+    private routeService: RouteService,
+    private portalService: PortalService,
+    private userService: UserService,
+    private locationService: LocationService) { }
 
 
   ngOnInit() {
@@ -29,6 +42,8 @@ export class DevfinderPortalComponent implements OnInit {
     if(this.route.snapshot.url[0].path === "devfinder-portal") {
       this.routeService.activatedRouteName = "DevFinder Portal";
     }
+    this.getAllUsers();
+    this.getCurrentUserLocation();
     // var mapProp = {
     //   center: new google.maps.LatLng(43.648647, -79.727653),
     //   zoom: 15,
@@ -146,6 +161,24 @@ export class DevfinderPortalComponent implements OnInit {
     // }
   }
 
+  getAllUsers() {
+    this.portalService.getAllUsersFromFirebase().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((users: User[]) => {
+        this.userList = users;
+        console.log(this.userList);
+      });
+  }
 
+  getCurrentUserLocation() {
+    let userId = this.userService.getCurrentUserId();
+    console.log("Current User Id" + userId);
+    this.locationService.getLocation(userId).then((location) => {
+      if (location.length != 0) {
+        this.locationService.currentLocation = location[0].attributes
+        // this.currentUserLocation = location[0].attributes;
+        // console.log(this.currentUserLocation);
+      }
+    });
+  }
 
 }

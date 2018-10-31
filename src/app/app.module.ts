@@ -6,12 +6,16 @@ import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatSidenavModule, MatCardModule, MatProgressSpinnerModule, MatRadioModule } from '@angular/material';
-import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule, NgbDatepickerModule, NgbButtonsModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoadingModule } from 'ngx-loading';
 import { HttpClientModule } from '@angular/common/http';
+import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
+import { NguiMapModule } from '@ngui/map';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -71,6 +75,35 @@ import { PostService } from './shared/services/post.service';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ProfileLinksComponent } from './profile/profile-links/profile-links.component';
 import { RouteService } from './shared/services/route.service';
+import { DevfinderHomeComponent } from './devfinder-portal/devfinder-home/devfinder-home.component';
+import { IssueCardComponent } from './devfinder-portal/devfinder-home/issue-card/issue-card.component';
+import { DevfinderTagsComponent } from './devfinder-portal/devfinder-tags/devfinder-tags.component';
+import { DevfinderDevelopersComponent } from './devfinder-portal/devfinder-developers/devfinder-developers.component';
+import { TagComponent } from './devfinder-portal/devfinder-tags/tag/tag.component';
+import { DeveloperComponent } from './devfinder-portal/devfinder-developers/developer/developer.component';
+import { PortalService } from './shared/services/portal.service';
+import { AuthGuard } from './shared/services/auth-guard.service';
+import { GuestProfileLinksComponent } from './guest-profile/guest-profile-links/guest-profile-links.component';
+import { QuestionThreadComponent } from './devfinder-portal/question-thread/question-thread.component';
+import { OpenIssueComponent } from './devfinder-portal/open-issue/open-issue.component';
+import { HeatMapComponent } from './devfinder-portal/heat-map/heat-map.component';
+import { DistanceService } from './shared/services/distance.service';
+import { TaggedQuestionsComponent } from './devfinder-portal/tagged-questions/tagged-questions.component';
+import { IssueCardTaggedComponent } from './devfinder-portal/tagged-questions/issue-card-tagged/issue-card-tagged.component';
+import { SearchService } from './shared/services/search.service';
+import { LocationPipe } from './shared/pipes/location.pipe';
+import { DevfinderActivityComponent } from './devfinder-activity/devfinder-activity.component';
+import { DevfinderActivityService } from './shared/services/devfinder-activity.service';
+import { GuestDevfinderActivityComponent } from './guest-profile/guest-devfinder-activity/guest-devfinder-activity.component';
+import { DevfinderActivityFeedComponent } from './devfinder-activity-feed/devfinder-activity-feed.component';
+import { ActivityService } from './shared/services/activity.service';
+import { PostFeedBoxComponent } from './post-feed-box/post-feed-box.component';
+import { LinkSuggestionsComponent } from './link-suggestions/link-suggestions.component';
+
+const options: HighlightOptions = {
+  theme: 'agate',
+  path: 'assets/js/highlight-js'
+};
 
 @NgModule({
   declarations: [
@@ -114,7 +147,25 @@ import { RouteService } from './shared/services/route.service';
     GuestFinderTagsComponent,
     LinkRequestCardComponent,
     TimeAgoPipe,
-    ProfileLinksComponent
+    ProfileLinksComponent,
+    DevfinderHomeComponent,
+    IssueCardComponent,
+    DevfinderTagsComponent,
+    DevfinderDevelopersComponent,
+    TagComponent,
+    DeveloperComponent,
+    GuestProfileLinksComponent,
+    QuestionThreadComponent,
+    OpenIssueComponent,
+    HeatMapComponent,
+    TaggedQuestionsComponent,
+    IssueCardTaggedComponent,
+    LocationPipe,
+    DevfinderActivityComponent,
+    GuestDevfinderActivityComponent,
+    DevfinderActivityFeedComponent,
+    PostFeedBoxComponent,
+    LinkSuggestionsComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
@@ -134,13 +185,21 @@ import { RouteService } from './shared/services/route.service';
     NgbDatepickerModule,
     NgbButtonsModule,
     MatRadioModule,
+    HighlightModule.forRoot({ theme: 'agate' }),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg'
     }),
+    NguiMapModule.forRoot({
+      apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyAzjU733dsOZlolvqWbhbs3MntDcf3oQXg' +
+        '&libraries=visualization',
+    }),
+    NgxPaginationModule,
+    NgbDropdownModule,
+    NgxChartsModule,
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
-  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService],
+  providers: [ProfileService, ParseService, AuthService, FirebaseService, MessengerService, MessengerUsersResolver, ChatService, UserService, GuestProfileService, LocationService, TagService, RequestService, LinkService, PostService, RouteService, PortalService, AuthGuard, DistanceService, SearchService, DevfinderActivityService, ActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

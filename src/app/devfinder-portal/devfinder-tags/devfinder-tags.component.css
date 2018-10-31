@@ -1,0 +1,32 @@
+/* For Title Bar of Component */
+
+.title-bar .title {
+    font-weight: 500;
+    display: inline-block;
+    font-size: 24px;
+    float: left;
+    color: rgb(46, 46, 46);
+    font-family: 'Lato', sans-serif;
+}
+
+.title-bar .description {
+    /* float: left; */
+    position: absolute;
+    font-size: 14px;
+    color: rgb(96, 96, 96);
+    font-family: 'Lato', sans-serif;
+    margin-top: 30px;
+    margin-left: 5px;
+}
+
+.title-bar button {
+    display: inline-block;
+    margin-top: 5px;
+    float: right;
+}
+
+.pagination {
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

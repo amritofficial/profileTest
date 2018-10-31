@@ -10,6 +10,9 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="widget w-personal-info item-block">
+          <li *ngIf="filteredWorkExperience.length <= 0 && !addWorkExperience">
+            <span class="title">Showcase your work here !</span>
+          </li>
           <li *ngFor="let work of filteredWorkExperience;">
             <mat-card *ngIf="!addWorkExperience">
               <span class="title">{{ work.jobTitle }}</span>

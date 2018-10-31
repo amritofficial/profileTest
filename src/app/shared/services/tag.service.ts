@@ -19,4 +19,8 @@ export class TagService {
     return this.parseService.updateCurrentUserFinderTags(objectId);
   }
 
+  getAllUsersFinderTags() {
+    return this.parseService.getAllUsersFinderTags();
+  }
+
 }

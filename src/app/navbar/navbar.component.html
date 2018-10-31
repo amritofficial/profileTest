@@ -231,7 +231,7 @@
 
 <header class="header" id="site-header">
 
-  <div class="page-title">
+  <div class="page-title" style="cursor: pointer;" [routerLink]="['/dashboard']">
     <h6>{{ routeService?.activatedRouteName }}</h6>
   </div>
 
@@ -243,7 +243,8 @@
       
     </form> -->
 
-    <a *ngIf="routeService?.activatedRouteName != 'DevFinder Portal'" [routerLink]="['/devfinder-portal']" class="link-find-friend">DevFinder Portal</a>
+    <a *ngIf="routeService?.activatedRouteName != 'DevFinder Portal'" [routerLink]="['/devfinder-portal']" class="link-find-friend">DevFinder
+      Portal</a>
 
     <div class="control-block">
 
@@ -254,12 +255,14 @@
         <div class="more-dropdown more-with-triangle triangle-top-center">
           <div class="ui-block-title ui-block-title-small">
             <h6 class="title">FRIEND REQUESTS</h6>
-            <a>Find Friends</a>
-            <a>Settings</a>
+            <a [ngStyle]="showSentRequests && { 'color': '#ff5e3a' }" (click)="showRequests('sent')">Sent Requests</a>
+            <a [ngStyle]="showReceivedRequests && { 'color': '#ff5e3a' }" (click)="showRequests('received')">Received
+              Requests</a>
           </div>
 
           <div class="notification-scroll" data-mcs-theme="dark">
-            <ul class="notification-list friend-requests">
+            <!-- Start Sent Requests -->
+            <ul *ngIf="showReceivedRequests" class="notification-list friend-requests received-requests">
               <li *ngFor="let request of linkRequestArray; let i=index;">
                 <div class="author-thumb">
                   <img src="{{request?.from?.avatar}}" alt="author">
@@ -305,9 +308,38 @@
                 </li>
               </div>
 
+              <div *ngIf="linkRequestArray?.length <= 0 && approvedRequestArray?.length <= 0 && sentLinkRequestArray?.length <= 0" class="no-requests">
+                <p>No received requests at the movement</p>
+              </div>
+
             </ul>
+            <!-- End Received Requests -->
+
+            <!-- Start Sent Requests -->
+            <ul *ngIf="showSentRequests" class="notification-list friend-requests sent-requests">
+              <li *ngFor="let sentRequest of sentLinkRequestArrayWithSentStatus; let i=index;">
+                <div class="author-thumb">
+                  <img src="{{sentRequest?.to?.avatar}}" alt="author">
+                </div>
+                <div class="notification-event">
+                  <a class="h6 notification-friend">{{ sentRequest?.to?.username }}</a>
+                  <!-- <span class="chat-message-item">Mutual Friend: Sarah Hetfield</span> -->
+                </div>
+                <span class="notification-icon">
+                  <a (click)="approveLinkRequest(request, i)" class="accept-request sent-button">
+                    Sent
+                  </a>
+                </span>
+              </li>
+
+
+              <div *ngIf="sentLinkRequestArrayWithSentStatus?.length <= 0" class="no-requests">
+                <p>No sent requests at the movement</p>
+              </div>
+
+            </ul>
+            <!-- End Sent Requests -->
           </div>
-          <!-- <a class="view-all bg-blue">Check all your Events</a> -->
         </div>
       </div>
 
@@ -363,7 +395,7 @@
                 </div>
                 <div class="notification-event">
                   <div>
-                    <a class="h6 notification-friend">{{ notification?.user?.username }}</a> posted to it's
+                    <a class="h6 notification-friend">{{ notification?.user?.username }}</a> posted to their
                     <a class="notification-link" [routerLink]="['/guest-profile', notification?.user?.userId]">timeline</a>.</div>
                   <span class="notification-date">
                     <time class="entry-date updated">{{ notification?.timeStamp | timeAgo}}</time>

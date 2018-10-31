@@ -5,15 +5,24 @@ import { User } from '../models/user';
 
 @Injectable()
 export class LocationService {
+  currentLocation: Location;
 
   constructor(private parseService: ParseService) { }
 
   saveLocation(location: Location) {
     return this.parseService.storeLocation(location);
+  } 
+
+  getLocation(userId: any) {
+    return this.parseService.getCurrentUserLocation(userId);
+  }
+  
+  updateLocation(objectId: any) {
+    return this.parseService.updateCurrentUserLocation(objectId);
   }
 
-  getLocation(user: User) {
-    return this.parseService.getCurrentUserLocation(user);
+  getAllDevelopersLocation() {
+    return this.parseService.getAllUsersLocation();
   }
 
 }
