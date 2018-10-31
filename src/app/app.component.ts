@@ -33,6 +33,12 @@ export class AppComponent implements OnInit{
         console.log(this.currentUrl)
         // window.scrollTo(0, 0);
       }
+
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/dashboard') {
+          window.scrollTo(0, 0);
+        }
+      }
     });
   }
 }

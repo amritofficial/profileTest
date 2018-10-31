@@ -18,7 +18,7 @@ import * as geoLib from 'geolib';
 })
 export class DevfinderDevelopersComponent implements OnInit {
   private ngUnsubscribe = new Subject();
-
+  p: number = 1;
   developers: Developer[] = new Array();
   users: User[] = new Array();
   currentUserLocation: Location;
@@ -98,7 +98,9 @@ export class DevfinderDevelopersComponent implements OnInit {
           developerObject.distance = this.usersDistance[k].distance;
         }
       }
-      this.developers.push(developerObject);
+      if (developerObject.user.userId != null) {
+        this.developers.push(developerObject);
+      }
     }
     console.log(this.developers);
   }

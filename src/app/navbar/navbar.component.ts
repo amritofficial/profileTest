@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     status: '',
     to: this.userService.user
   }];
-  
+
   sentLinkRequestArrayWithSentStatus: LinkRequest[] = [];
 
   approvedRequestArray: any[] = [];
@@ -174,6 +174,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   createNotificationFromGlobalFeed() {
     this.postService.getGlobalFeed().pipe(takeUntil(this.ngUnsubscribe)).subscribe((feed) => {
       console.log("FROM NOTIFICATION COMPONENT");
+      const fourDaysTimeStamp = 4 * (60 * 60 * 24 * 1000);
       if (feed !== undefined || feed !== null) {
         this.feedList = [];
         this.globalFeednotificationList = [];
@@ -181,12 +182,17 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
           let object = JSON.parse(JSON.stringify(feed[i]));
           this.feedList = [];
           for (var x in object) {
+            let time = new Date().getTime() - object[x].timeStamp;
             if (object[x].user.userId !== this.userService.currentUser.userId) {
               this.feedList.push(object[x]);
-              this.globalFeednotificationList.push(object[x]);
+              if (time < fourDaysTimeStamp) {
+                this.globalFeednotificationList.push(object[x]);
+              }
             }
+            console.log((new Date().getTime()) - object[x].timeStamp);
           }
         }
+        console.log("Four Day TimeStamp: " + fourDaysTimeStamp);
       }
       // this.getNotificationCount();
       console.log(this.feedList);

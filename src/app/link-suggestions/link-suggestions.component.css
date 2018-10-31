@@ -1,0 +1,11 @@
+.scroll-suggestions {
+    max-height: 250px !important;
+    overflow-y: scroll !important;
+}
+
+.cut-text { 
+    width: 85px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}

@@ -4,9 +4,8 @@
     <div>
       <div id="newsfeed-items-grid">
 
-        <div class="ui-block">
+        <!-- <div class="ui-block">
           <div class="news-feed-form">
-            <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
@@ -17,13 +16,10 @@
               </li>
             </ul>
 
-            <!-- Tab panes -->
             <div class="tab-content">
               <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
                 <form #feedForm="ngForm">
-                  <!-- <div class="author-thumb">
-                        <img src="../../assets/img/author-page.jpg" alt="author">
-                      </div> -->
+
                   <div class="form-group with-icon label-floating is-empty">
                     <span>{{ timeStamp | timeAgo }}</span>
                     <textarea class="form-control" name="feedBody" [(ngModel)]="feedBody" style="margin-left: -20px;"
@@ -56,8 +52,9 @@
 
             </div>
           </div>
-        </div>
+        </div> -->
 
+        <post-feed-box [currentUser]="currentUser"></post-feed-box>
         <div *ngFor="let feed of feedArray;" class="ui-block">
           <article class="hentry post">
 
@@ -89,7 +86,8 @@
             </div>
 
             <p>{{ feed?.feedBody }}</p>
-
+            <img src="{{ feed?.feedImage }}" style="height: 280px; width: 100%;" alt="">
+            
             <div class="post-additional-info inline-items">
 
               <a class="post-add-icon inline-items">
@@ -151,10 +149,6 @@
               <p style="margin-left: 45px;">{{ comment.commentBody }}</p>
             </li>
           </ul>
-
-          <!-- <a class="more-comments">View more comments
-            <span>+</span>
-          </a> -->
           <form class="comment-form inline-items">
 
             <div class="post__author author vcard inline-items">

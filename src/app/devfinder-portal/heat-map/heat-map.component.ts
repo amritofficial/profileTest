@@ -324,7 +324,7 @@ export class HeatMapComponent implements OnInit {
   openInfoWindow(index, userId) {
     console.log(index, userId);
     this.developerFinderTags = this.developersFinderTags.find(t => { return t.userId == userId });
-    this.ngUiMapComponent.openInfoWindow("marker" + index, this.customMarkers[index]);
+    this.ngUiMapComponent.openInfoWindow(userId, this.customMarkers[index]);
   }
 
 
