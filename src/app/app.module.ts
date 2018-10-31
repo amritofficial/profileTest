@@ -98,6 +98,7 @@ import { GuestDevfinderActivityComponent } from './guest-profile/guest-devfinder
 import { DevfinderActivityFeedComponent } from './devfinder-activity-feed/devfinder-activity-feed.component';
 import { ActivityService } from './shared/services/activity.service';
 import { PostFeedBoxComponent } from './post-feed-box/post-feed-box.component';
+import { LinkSuggestionsComponent } from './link-suggestions/link-suggestions.component';
 
 const options: HighlightOptions = {
   theme: 'agate',
@@ -163,7 +164,8 @@ const options: HighlightOptions = {
     DevfinderActivityComponent,
     GuestDevfinderActivityComponent,
     DevfinderActivityFeedComponent,
-    PostFeedBoxComponent
+    PostFeedBoxComponent,
+    LinkSuggestionsComponent
   ],
   entryComponents: [ProfileThumbEditComponent, ProfileLocationModalComponent],
   imports: [
