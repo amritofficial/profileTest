@@ -29,6 +29,11 @@ export class DevfinderActivityFeedComponent implements OnInit {
       if (issues['results'].length > 0) {
         this.issues = issues['results'];
         console.log(this.issues);
+        this.issues.sort((a, b) => {
+          var aTime = new Date(a.timestamp).getTime();
+          var bTime = new Date(b.timestamp).getTime();
+          return bTime - aTime;
+        });
         this.userService.getAllUsersFromFirebase().pipe(takeUntil(this.ngUnsubscribe)).subscribe((users: User[]) => {
           this.users = users;
           // console.log(this.issues);
