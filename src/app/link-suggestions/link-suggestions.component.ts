@@ -69,31 +69,33 @@ export class LinkSuggestionsComponent implements OnInit {
       let developer: User = this.developers.find(developer => { return developer.userId == finderTags.userId });
       console.log(similarityPercentage);
       let developerWorkExperience: WorkExperience[] = [];
-      this.guestProfileService.getGuestProfileWorkExperience(developer.userId).then((data) => {
-        if (data.length > 0) {
-          for (let i = 0; i < data.length; i++) {
-            var object = data[i];
-            developerWorkExperience.push(object.attributes);
+      if (developer != undefined) {
+        this.guestProfileService.getGuestProfileWorkExperience(developer.userId).then((data) => {
+          if (data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+              var object = data[i];
+              developerWorkExperience.push(object.attributes);
+            }
           }
-        }
-        if (similarityPercentage > 20) {
-          if (developer != undefined) {
-            let jobTitle;
-            if (developerWorkExperience.length > 0) {
-              jobTitle = developerWorkExperience[developerWorkExperience.length - 1].jobTitle;
+          if (similarityPercentage > 20) {
+            if (developer != undefined) {
+              let jobTitle;
+              if (developerWorkExperience.length > 0) {
+                jobTitle = developerWorkExperience[developerWorkExperience.length - 1].jobTitle;
+              }
+              else {
+                jobTitle = "Looking for job";
+              }
+              let linkSuggestion: LinkSuggestion = {
+                jobTitle: jobTitle,
+                user: developer
+              }
+              this.linkSuggestions.push(linkSuggestion);
             }
-            else {
-              jobTitle = "Looking for job";
-            }
-            let linkSuggestion: LinkSuggestion = {
-              jobTitle: jobTitle,
-              user: developer
-            }
-            this.linkSuggestions.push(linkSuggestion);
           }
-        }
-        console.log(developerWorkExperience);
-      });
+          console.log(developerWorkExperience);
+        });
+      }
 
 
       // if (developer != undefined) {
