@@ -8,6 +8,7 @@ import { User } from 'app/shared/models/user';
 import { GuestProfileService } from 'app/shared/services/guest-profile.service';
 import { WorkExperience } from 'app/shared/models/work-experience';
 import { LinkSuggestion } from 'app/shared/view-models/link-suggestion';
+import { LinkService } from 'app/shared/services/link.service';
 
 var stringSimilarity = require('string-similarity');
 
@@ -26,7 +27,8 @@ export class LinkSuggestionsComponent implements OnInit {
 
   constructor(private userService: UserService,
     private tagService: TagService,
-    private guestProfileService: GuestProfileService) { }
+    private guestProfileService: GuestProfileService,
+    private linkService: LinkService) { }
 
   ngOnInit() {
     this.currentUserId = this.userService.getCurrentUserId();
@@ -53,6 +55,12 @@ export class LinkSuggestionsComponent implements OnInit {
       this.developers = developers
       console.log("Developers: ")
       let currentUser = this.developers.find(d => { return d.userId == this.currentUserId });
+      // Remove developers who are already linked TODO
+      this.linkService.linkList(this.currentUserId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
+        links.forEach(link => {
+          this.developers.splice(this.developers.indexOf(link), 1);
+        });
+      });
       this.developers.splice(this.developers.indexOf(currentUser), 1);
       console.log(developers);
     });
