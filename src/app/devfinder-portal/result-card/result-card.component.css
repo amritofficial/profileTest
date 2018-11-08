@@ -1,14 +1,18 @@
 .result-card {
     margin: 5px;
     box-shadow: 0 0 8px rgb(65, 65, 65,  0.500);
+    transition: 0.2s box-shadow;
   }
   
   .result-card :hover {
     cursor: pointer;
+    /* box-shadow: 0 0 8px rgba(45, 146, 230, 0.95);
+    transition-delay: 0.5s; */
+    /* transition-duration: 0.2s; */
   }
   
   .avatar {
-    float: left;
+    /* float: left; */
     border-radius: 10px;
     padding: 5px;
   }
@@ -47,7 +51,7 @@
   
   .btn-options .btn-group {
     float: left;
-    margin-left: -30px;
+    margin-top: 10px;
   }
   
   button i {
@@ -77,4 +81,25 @@
     font-size: 12px;
     line-height: 1.42;
     border-radius: 15px;
+  }
+
+
+  /* NEW CSS */
+
+  .username {
+    float: left;
+    padding-top: 5px;
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+    font-weight: 1000;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+  }
+
+  .user-job-title {
+    font-size: 12px;
+    margin-top: 25px;
+    position: absolute;
+    color: rgb(102, 102, 102);
+    font-family: 'Lato', sans-serif;
   }
