@@ -1,10 +1,10 @@
 <div class="fixed-sidebar right">
-  <div class="fixed-sidebar-right sidebar--small" id="sidebar-right">
+  <div class="fixed-sidebar-right sidebar--small" id="sidebar-right" style="overflow: hidden; width: 190px !important;">
     <ngx-loading [show]="loading" [config]="{
         backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
         primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
 
-    <div *ngIf="!loading" class="mCustomScrollbar" data-mcs-theme="dark">
+    <div *ngIf="!loading" class="mCustomScrollbar" style="overflow-y: scroll;">
       <ul class="chat-users">
         <li *ngFor="let user of users;" (click)="selectedUserFromList(user)" class="inline-items js-chat-open">
           <div class="author-thumb">
@@ -16,20 +16,6 @@
       </ul>
     </div>
   </div>
-</div>
-
-<div class="fixed-sidebar right fixed-sidebar-responsive">
-
-  <div class="fixed-sidebar-right sidebar--small" id="sidebar-right-responsive">
-
-    <a class="olympus-chat inline-items js-chat-open">
-      <svg class="olymp-chat---messages-icon">
-        <use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use>
-      </svg>
-    </a>
-
-  </div>
-
 </div>
 
 <div class="chat-box">

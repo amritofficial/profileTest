@@ -5,6 +5,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { log } from 'util';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LinkService } from 'app/shared/services/link.service';
+import { UserService } from 'app/shared/services/user.service';
 
 @Component({
   selector: 'messenger-user-card',
@@ -19,17 +21,21 @@ export class MessengerUserCardComponent implements OnInit {
   users: User[];
   // selectedUserEntry: User;
 
-  constructor(private messengerService: MessengerService, public db: AngularFireDatabase) { 
+  constructor(private messengerService: MessengerService, 
+    public db: AngularFireDatabase,
+    private linkService: LinkService,
+    private userService: UserService) { 
    
   }
 
   ngOnInit() {
-    this.getAllUsers();
+    this.getLinks();
   }
 
-  getAllUsers() {
+  getLinks() {
     this.loading = true;
-    this.messengerService.getAllUsers()
+    let currentUserId = this.userService.getCurrentUserId();
+    this.linkService.linkList(currentUserId)
       .pipe(takeUntil(this.ngUnsubscribe)).subscribe((userData: User[]) => {
         // this.users = userData;
         this.users = userData;

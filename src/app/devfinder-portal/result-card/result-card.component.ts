@@ -14,4 +14,12 @@ export class ResultCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  resultCardMouseEnter(userId: any) {
+    console.log("Mouse Entered " + userId);
+  }
+
+  resultCardMouseLeave(userId: any) {
+    console.log("Mouse Left " + userId);
+  }
+
 }

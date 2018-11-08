@@ -6,6 +6,7 @@ import { User } from '../shared/models/user';
 import { ChatService } from '../shared/services/chat.service';
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
+import { LinkService } from 'app/shared/services/link.service';
 
 @Component({
   selector: 'user-list-bar',
@@ -21,20 +22,32 @@ export class UserListBarComponent implements OnInit {
   constructor(private firebaseService: FirebaseService,
     private chatService: ChatService,
     private authService: AuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private linkService: LinkService) { }
 
   ngOnInit() {
     this.loading = true;
     
-      this.userService.getAllUsersFromFirebase()
+    this.userService.getAllUsersFromFirebase()
         .pipe(takeUntil(this.ngUnsubscribe)).subscribe((users: User[]) => {
-          this.users = users;
+          // this.users = users;
           console.log("LIST OF USERS: ");
           console.log(this.users);
           this.userService.listOfUsers = users;
           this.loading = false;
-        });
+    });
+
+    let userId = this.userService.getCurrentUserId();
+    this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
+      console.log("Current User Links");
+      this.users = links;
+      console.log(links);
+    });
     
+  }
+
+  getCurrentUserLinks(userId: any) {
+
   }
 
   selectedUserFromList(user: User) {

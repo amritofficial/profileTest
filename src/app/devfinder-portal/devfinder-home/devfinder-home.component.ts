@@ -13,6 +13,7 @@ import { ANIMATION_TYPES } from 'ngx-loading';
   styleUrls: ['./devfinder-home.component.css']
 })
 export class DevfinderHomeComponent implements OnInit {
+  p: number = 1;
   private ngxLoadingAnimationTypes = ANIMATION_TYPES;
   private ngUnsubscribe = new Subject();
   openedIssues: OpenIssue[];

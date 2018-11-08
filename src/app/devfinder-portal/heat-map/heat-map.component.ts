@@ -62,6 +62,8 @@ export class HeatMapComponent implements OnInit {
       .subscribe((locations) => {
         console.log("Locations");
         this.developerLocations = locations['results'];
+        let developer = this.developerLocations.find(d => { return d.userId === this.userService.getCurrentUserId()});
+        this.developerLocations.splice(this.developerLocations.indexOf(developer), 1);
         this.cachedLocations = JSON.parse(JSON.stringify(this.developerLocations));
         this.developerLocations.forEach(location => {
           this.points.push(new google.maps.LatLng(location.lat, location.long));

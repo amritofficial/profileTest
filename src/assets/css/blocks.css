@@ -967,7 +967,9 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
     top:55px;
     z-index: 20;
     right: 0;
-    min-height: 100%; }
+    min-height: 100%; 
+    margin-right: -15px;
+  }
     .fixed-sidebar.right .mCustomScrollbar {
       max-height: calc(100vh - 210px); }
 
@@ -2027,7 +2029,6 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
 
 .chat-message-field .chat-message-item {
   float: left;
-  margin-top: 10px;
   font-size: 13px; }
 
 .chat-message-field .notification-date {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { User } from '../../shared/models/user';
 import { ParseService } from '../../shared/services/parse.service';
 import { MessengerService } from '../../shared/services/messenger.service';
@@ -11,8 +11,9 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './messenger-message-box.component.html',
   styleUrls: ['./messenger-message-box.component.css', '../../../assets/css/blocks.css', '../../../assets/css/theme-styles.css']
 })
-export class MessengerMessageBoxComponent implements OnInit, OnChanges {
+export class MessengerMessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   private ngUnsubscribe = new Subject();
+  @ViewChild('scrollChat') private scrollContainer: ElementRef;
   @Input() selectedUser: User;
 
   messageBody: string = '';
@@ -33,6 +34,8 @@ export class MessengerMessageBoxComponent implements OnInit, OnChanges {
       this.currentUserData = user;
       console.log(this.currentUserData);
     });
+
+    this.scrollToBottom();
   }
 
   ngOnChanges() {
@@ -45,6 +48,10 @@ export class MessengerMessageBoxComponent implements OnInit, OnChanges {
       });
     this.loading = false;
     console.log(this.selectedUser);
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
 
   formatAMPM() {
@@ -80,6 +87,12 @@ export class MessengerMessageBoxComponent implements OnInit, OnChanges {
     } else {
       return this.selectedUser.avatar !== null ? this.selectedUser.avatar : "https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png";
     }
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
 }
