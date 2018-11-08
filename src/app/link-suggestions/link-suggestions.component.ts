@@ -24,6 +24,7 @@ export class LinkSuggestionsComponent implements OnInit {
   developers: User[] = [];
   currentUserId: any;
   linkSuggestions: LinkSuggestion[] = [];
+  currentUserLinks: User[] = [];
 
   constructor(private userService: UserService,
     private tagService: TagService,
@@ -32,6 +33,7 @@ export class LinkSuggestionsComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserId = this.userService.getCurrentUserId();
+    this.getCurrentUserLinks();
     this.getAllDevelopers();
     this.getAllTags();
   }
@@ -55,14 +57,32 @@ export class LinkSuggestionsComponent implements OnInit {
       this.developers = developers
       console.log("Developers: ")
       let currentUser = this.developers.find(d => { return d.userId == this.currentUserId });
-      // Remove developers who are already linked TODO
+      this.developers.splice(this.developers.indexOf(currentUser), 1);
       this.linkService.linkList(this.currentUserId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
-        links.forEach(link => {
-          this.developers.splice(this.developers.indexOf(link), 1);
+        developers.forEach((developer, i) => {
+          links.forEach(link => {
+            if (developer.userId == link.userId) {
+              console.log("Already there")
+              console.log(developer)
+              this.developers.splice(this.developers.indexOf(developer), 1);
+            }
+          });
         });
       });
-      this.developers.splice(this.developers.indexOf(currentUser), 1);
       console.log(developers);
+    });
+  }
+
+  getCurrentUserLinks() {
+    // Remove developers who are already linked TODO
+    this.linkService.linkList(this.currentUserId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
+      this.currentUserLinks = links;
+      console.log(this.currentUserLinks)
+      // links.forEach(link => {
+      //   console.log("To Splice" + this.developers.indexOf(link));
+      //   console.log(link);
+      //   this.developers.splice(this.developers.indexOf(link), 1);
+      // });
     });
   }
 
