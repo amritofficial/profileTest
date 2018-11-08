@@ -1,12 +1,12 @@
 <ngx-loading [show]="loading" [config]="{
   backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
   primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
-<div class="chat-field">
+<div class="chat-field" style="height: 420px !important;">
   <div class="ui-block-title">
     <h6 class="title">{{ selectedUser.username }}</h6>
   </div>
 
-  <div class="message-scroll" data-mcs-theme="dark">
+  <div #scrollChat class="message-scroll" data-mcs-theme="dark">
     <ul *ngIf="selectedUser.userId === null" class="notification-list chat-message chat-message-field">
       <li>
         <div class="author-thumb">

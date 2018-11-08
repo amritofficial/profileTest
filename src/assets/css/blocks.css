@@ -2029,7 +2029,6 @@ fieldset[disabled] .checkbox, fieldset[disabled] .checkbox input[type=checkbox],
 
 .chat-message-field .chat-message-item {
   float: left;
-  margin-top: 10px;
   font-size: 13px; }
 
 .chat-message-field .notification-date {
