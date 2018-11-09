@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ResultCard } from 'app/shared/view-models/result-card';
 
 @Component({
@@ -8,6 +8,8 @@ import { ResultCard } from 'app/shared/view-models/result-card';
 })
 export class ResultCardComponent implements OnInit {
   @Input() resultCard: ResultCard;
+  @Output() mouseEnterEvent = new EventEmitter<any>();
+  @Output() mouseLeaveEvent = new EventEmitter<any>();
 
   constructor() { }
 
@@ -15,11 +17,11 @@ export class ResultCardComponent implements OnInit {
   }
 
   resultCardMouseEnter(userId: any) {
-    console.log("Mouse Entered " + userId);
+    this.mouseEnterEvent.emit(userId);
   }
 
   resultCardMouseLeave(userId: any) {
-    console.log("Mouse Left " + userId);
+    this.mouseLeaveEvent.emit(userId);
   }
 
 }

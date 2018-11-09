@@ -15,6 +15,7 @@ import { PortalService } from 'app/shared/services/portal.service';
 import { WorkExperience } from 'app/shared/models/work-experience';
 import { ResultCard } from 'app/shared/view-models/result-card';
 import { ANIMATION_TYPES } from 'ngx-loading';
+import { LocationPipe } from 'app/shared/pipes/location.pipe';
 
 var similarity = require('compute-cosine-similarity');
 var stringSimilarity = require('string-similarity');
@@ -22,7 +23,8 @@ var stringSimilarity = require('string-similarity');
 @Component({
   selector: 'app-heat-map',
   templateUrl: './heat-map.component.html',
-  styleUrls: ['./heat-map.component.css']
+  styleUrls: ['./heat-map.component.css'],
+  providers: [LocationPipe]
 })
 export class HeatMapComponent implements OnInit {
   private ngUnsubscribe = new Subject();
@@ -55,14 +57,15 @@ export class HeatMapComponent implements OnInit {
     private profileService: ProfileService,
     private tagService: TagService,
     private searchService: SearchService,
-    private portalService: PortalService) { }
+    private portalService: PortalService,
+    private locationPipe: LocationPipe) { }
 
   ngOnInit() {
     this.locationService.getAllDevelopersLocation().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((locations) => {
         console.log("Locations");
         this.developerLocations = locations['results'];
-        let developer = this.developerLocations.find(d => { return d.userId === this.userService.getCurrentUserId()});
+        let developer = this.developerLocations.find(d => { return d.userId === this.userService.getCurrentUserId() });
         this.developerLocations.splice(this.developerLocations.indexOf(developer), 1);
         this.cachedLocations = JSON.parse(JSON.stringify(this.developerLocations));
         this.developerLocations.forEach(location => {
@@ -266,8 +269,8 @@ export class HeatMapComponent implements OnInit {
     let searchStringWithSpace = this.createSearchStringWithSpace(this.search);
     this.makeSearch = true;
     this.loadingSearch = true;
-    setTimeout(()=> {
-       this.processSearch(searchStringWithSpace);
+    setTimeout(() => {
+      this.processSearch(searchStringWithSpace);
     }, 3000);
     // let searchTags: string[] = search.split(",");
     // console.log(searchTags);
@@ -342,6 +345,32 @@ export class HeatMapComponent implements OnInit {
     this.developerLocations = this.cachedLocations;
     this.makeSearch = false;
     this.resultCards = [];
+  }
+
+  //the method used to open info window
+  mouseEntered(userId) {
+    if (userId !== undefined) {
+      let index = this.getLocationIndex(userId);
+      console.log(index);
+      if (index >= 0) {
+        this.ngUiMapComponent.openInfoWindow(userId, this.customMarkers[index]);
+      }
+    }
+  }
+
+  //the method used to close info window
+  mouseLeft(userId) {
+    if (userId != undefined) {
+      this.ngUiMapComponent.closeInfoWindow(userId);
+    }
+  }
+
+  getLocationIndex(userId: any): number {
+    let locations: Location[] = this.locationPipe.transform(this.cachedLocations);
+    let location = locations.find(l => { return l.userId == userId });
+    let index = locations.indexOf(location);
+    console.log(locations);
+    return index;
   }
 
 }

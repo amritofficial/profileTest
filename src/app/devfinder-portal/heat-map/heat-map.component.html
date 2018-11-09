@@ -57,7 +57,7 @@
             backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
             primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
         <div *ngFor="let result of resultCards;" class="result-holder">
-          <result-card [resultCard]="result"></result-card>
+          <result-card (mouseEnterEvent)="mouseEntered($event)" (mouseLeaveEvent)="mouseLeft($event)" [resultCard]="result"></result-card>
         </div>
       </div>
     </div>
