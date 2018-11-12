@@ -41,10 +41,10 @@ content: "\2014 \2009";
 }
 
 .form-box {
-    margin-top: -25px;
+    margin-top: 20px;
     position: absolute;
-    margin-left: 950px;
-    width: 380px;
+    margin-left: 56.5%;
+    width: 420px;
 }
 
 .chat-box {
@@ -72,7 +72,7 @@ content: "\2014 \2009";
 .home-screen .home-image {
     position: absolute;
     height: 100%;
-    width: 75%;
+    width: 65%;
 }
 
 .home-screen .logo {
