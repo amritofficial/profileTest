@@ -42,6 +42,9 @@ content: "\2014 \2009";
 
 .form-box {
     margin-top: -90px;
+    position: absolute;
+    margin-left: 950px;
+    width: 380px;
 }
 
 .chat-box {
@@ -50,4 +53,32 @@ content: "\2014 \2009";
     z-index: 10000;
     margin-bottom: -20px;
     margin-left: 70%;
+}
+
+.home-screen {
+    z-index: 0;
+}
+
+.logo {
+    z-index: 999;
+}
+
+.logo img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.home-screen .home-image {
+    position: absolute;
+    height: 100%;
+    width: 75%;
+}
+
+.home-screen .logo {
+    position: absolute !important; 
+    z-index: 999 !important;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 30px;
 }

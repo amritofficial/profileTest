@@ -1,6 +1,10 @@
 <div class="home-body landing-page">
   <div class="content-bg-wrap">
-      <div class="content-bg"></div>
+    <div class="content-bg"></div>
+  </div>
+  <div class="home-screen">
+    <img src="../../assets/img/2x/Asset 1@2x.png" class="logo" alt="">
+    <img class="home-image" src="../../assets/img/devfinderhome wo logo.jpg" alt="">
   </div>
   <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
     <div class="container">
@@ -50,23 +54,24 @@
     <div class="inner-bg">
       <div class="container">
         <div class="row">
-          <div class="col-sm-7 text slogan">
-            <span class="quotes"><img src="../../assets/img/blockquote.png" width="40px" height="30px" alt=""></span>
+          <div class="col-sm-8 text slogan">
+            <!-- <span class="quotes"><img src="../../assets/img/blockquote.png" width="40px" height="30px" alt=""></span>
             <h2>
               <strong>For Developers, By <span style="color:white;text-decoration: underline; text-decoration-color: #0036ac">Developers</span></strong>
-            </h2>
-            
-            <div class="description">
+            </h2> -->
+
+            <!-- <div class="description">
               <p>
-                Welcome to <strong style="font-size: 18px;">DevFinder</strong>! The very First Social Media Platform to offer what you need! 
+                Welcome to <strong style="font-size: 18px;">DevFinder</strong>! The very First Social Media Platform to
+                offer what you need!
               </p>
-            </div>
+            </div> -->
             <div class="top-big-link">
-              <a class="btn btn-link-1" [routerLink]="[{outlets: {'form-outlet': ['login']}}]">Login</a>
-              <a class="btn btn-link-2" [routerLink]="[{outlets: {'form-outlet': ['register']}}]">Register</a>
+              <a style="border: 1px solid white !important;" class="btn btn-link-1" [routerLink]="[{outlets: {'form-outlet': ['login']}}]">Login</a>
+              <a style="border: 1px solid white !important;" class="btn btn-link-2" [routerLink]="[{outlets: {'form-outlet': ['register']}}]">Register</a>
             </div>
           </div>
-          <div class="col-sm-5 form-box">
+          <div class="col-sm-4 form-box">
             <router-outlet name="form-outlet"></router-outlet>
             <!-- <app-login></app-login> -->
             <!-- <app-sign-up></app-sign-up> -->

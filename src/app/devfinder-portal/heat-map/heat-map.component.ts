@@ -371,6 +371,6 @@ export class HeatMapComponent implements OnInit {
     let index = locations.indexOf(location);
     console.log(locations);
     return index;
-  }
+  } 
 
 }

@@ -6,7 +6,7 @@
 <br>
 <br>
 <hr>
-<ngui-map zoom="13" center="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}">
+<ngui-map zoom="13" center="{{locationService.currentLocation.lat}}, {{locationService.currentLocation.long}}" mapTypeId="terrain">
   <custom-marker (initialized$)="onCustomMarkerInit($event)" (click)="openInfoWindow(i, location.userId)" *ngFor="let location of (developerLocations | location); let i=index;"
     position="{{location?.lat}}, {{location?.long}}">
     <div>
@@ -14,7 +14,7 @@
         alt="">
       <img class="custom-marker-avatar" src="{{ getAvatar(location?.userId) }}" />
     </div>
-    <info-window [options]="infoWindowOptions()" id="{{ location?.userId }}">
+    <info-window [options]="infoWindowOptions()" id="{{ location.userId }}">
       <div class="infoWindow" style="cursor: pointer;" [routerLink]="['../../guest-profile', location?.userId ]">
         <div class="developer-avatar">
           <img src="{{ getAvatar(location?.userId) }}" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';"

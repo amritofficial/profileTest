@@ -141,7 +141,8 @@ ul.navbar-nav {
 .top-content .description a:focus { border-bottom: 1px dotted #fff; }
 
 .top-content .top-big-link {
-	margin-top: 35px;
+	margin-top: 200px;
+    margin-left: -175px;
 }
 /* 
 .form-top {
