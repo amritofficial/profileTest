@@ -12,7 +12,9 @@
   <div class="grid-developers">
     <div class="row">
       <div *ngFor="let developer of developers | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-3">
-        <devfinder-developer [developer]="developer"></devfinder-developer>
+        <a [routerLink]="['/guest-profile', developer?.user?.userId ]">
+          <devfinder-developer style="cursor: pointer" [developer]="developer"></devfinder-developer>
+        </a>
       </div>
     </div>
   </div>
