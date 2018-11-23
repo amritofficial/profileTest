@@ -13,11 +13,11 @@ import { LinkService } from 'app/shared/services/link.service';
   templateUrl: './user-list-bar.component.html',
   styleUrls: ['./user-list-bar.component.css', '../../assets/css/blocks.css', '../../assets/css/theme-styles.css']
 })
-export class UserListBarComponent implements OnInit {
+export class UserListBarComponent implements OnInit, OnChanges {
   private ngUnsubscribe = new Subject();
   selectedUser: User = { userId: null, avatar: '', email: '', username: '', userStatus: 1 };
   loading: boolean;
-  users: User[];
+  users: User[] = [];
 
   constructor(private firebaseService: FirebaseService,
     private chatService: ChatService,
@@ -27,23 +27,41 @@ export class UserListBarComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    
+
     this.userService.getAllUsersFromFirebase()
-        .pipe(takeUntil(this.ngUnsubscribe)).subscribe((users: User[]) => {
-          // this.users = users;
-          console.log("LIST OF USERS: ");
-          console.log(this.users);
-          this.userService.listOfUsers = users;
-          this.loading = false;
-    });
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe((users: User[]) => {
+        // this.users = users;
+        console.log("LIST OF USERS: ");
+        console.log(this.users);
+        this.userService.listOfUsers = users;
+        this.loading = false;
+      });
 
     let userId = this.userService.getCurrentUserId();
+    // the following code gets the links list for a currently logged in user.
+    // the loops are used to get the real time status if the user logged out/in the application
+    // so when the value changes instead of getting a stale link list, the code filters out the updated 
+    // user list from the global users
     this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
       console.log("Current User Links");
-      this.users = links;
-      console.log(links);
+      links.forEach(link => {
+        this.userService.getGuestUserFromFirebase(link.userId).pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((user: User) => {
+            let userChanged = this.users.find(u => { return u.userId === user.userId});
+            if (userChanged != undefined) {
+              this.users.forEach((user,i) => {
+                if (user.userId === userChanged.userId) {
+                  this.users.splice(i, 1);
+                }
+              });
+              this.users.push(user);
+            } else {
+              this.users.push(user);
+            }
+          });
+      });
     });
-    
+
   }
 
   getCurrentUserLinks(userId: any) {
@@ -57,6 +75,9 @@ export class UserListBarComponent implements OnInit {
     console.log(user);
   }
 
+  ngOnChanges() {
+    console.log("User Status Changed");
+  }
   // ngOnChanges() {
   //   if(this.authService.getAuthenticated()) {
   //     this.firebaseService.getAllFireUsers()

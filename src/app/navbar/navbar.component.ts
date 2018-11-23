@@ -13,6 +13,7 @@ import { MessengerService } from '../shared/services/messenger.service';
 import { LinkService } from '../shared/services/link.service';
 import { Message } from '../shared/models/message';
 import { RouteService } from '../shared/services/route.service';
+import { FirebaseService } from 'app/shared/services/firebase.service';
 
 @Component({
   selector: 'navbar',
@@ -61,6 +62,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     private messageService: MessengerService,
     private linkService: LinkService,
     private routeService: RouteService,
+    private firebaseService: FirebaseService,
     private router: Router) { }
 
   ngOnInit() {
@@ -108,7 +110,8 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   logoutUser() {
-    this.parseService.logoutUsingRest().subscribe(data => {
+    this.parseService.logoutUsingRest().pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
+      this.firebaseService.logoutUser(this.userService.getCurrentUserId());
       console.log("user logged out");
       window.sessionStorage.setItem("session_token", null);
       window.sessionStorage.setItem("current_user_id", null);

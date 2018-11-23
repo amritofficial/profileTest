@@ -10,7 +10,7 @@
           <div class="author-thumb">
             <img alt="author" [src]="user.avatar" height="30px" width="30px" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';" class="avatar">
             <span class="user-name">{{ user.username }}</span>
-            <span class="icon-status" [ngClass]="{'online' : user.userStatus == 0, offline: user.userStatus == 1}"></span>
+            <span class="icon-status" [ngClass]="{'online' : user?.userStatus == 0, offline: user?.userStatus == 1}"></span>
           </div>
         </li>
       </ul>
