@@ -9,10 +9,13 @@
     </div>
   </div>
   <div class="form-bottom">
+    <div *ngIf="showError" class="error">
+      <p>Invalid email or password</p>
+    </div>
     <form #loginForm="ngForm" role="form" action="" method="post" class="registration-form">
       <div class="form-group">
         <label class="sr-only" for="form-email-username">Email/Usermame</label>
-          <input type="text" name="form-first-name" [(ngModel)]="email" required placeholder="Email/Username" class="form-first-name form-control" id="form-first-name" ngModel>
+          <input type="email" name="form-first-name" [(ngModel)]="email" required placeholder="Email/Username" class="form-first-name form-control" id="form-first-name" ngModel>
         </div>
         <div class="form-group">
           <label class="sr-only" for="form-email">Password</label>

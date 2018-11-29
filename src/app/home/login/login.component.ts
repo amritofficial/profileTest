@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   loading: boolean = false;
+  showError: boolean = false;
 
   fireUsersArray: User;
 
@@ -38,6 +39,15 @@ export class LoginComponent implements OnInit {
         console.log(window.sessionStorage.getItem('current_user_id'));
         this.router.navigateByUrl('/dashboard');
         // window.sessionStorage.setItem
+      },
+      err => {
+        console.log("error occured")
+        console.log(err);
+        console.log(err.status);
+        if (err.status === 404) {
+          this.loading = false;
+          this.showError = true;
+        }
       });
     // this.authService.login(this.email, this.password)
     //   .subscribe(success => {

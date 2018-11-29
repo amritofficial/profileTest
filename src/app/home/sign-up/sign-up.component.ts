@@ -46,6 +46,7 @@ export class SignUpComponent implements OnInit {
 
   signupComplete: boolean = false;
   signupLoading: boolean;
+  showError: boolean = false;
 
   tags = [];
   mainStep: boolean = true;
@@ -273,6 +274,13 @@ export class SignUpComponent implements OnInit {
       // console.log(this.parseService.currentUser.id);
       // this.firebaseService.storeUserData(this.username, this.email, data.id);
       // console.log(data);
+    },
+    err => {
+      console.log("Error Occured")
+      console.log(err);
+      this.signupLoading = false;
+      this.showError = true;
+      console.log()
     })
     // this.authService.signup(this.username, this.email, this.password)
     //   .subscribe(success => {

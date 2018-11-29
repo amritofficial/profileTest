@@ -9,6 +9,9 @@
     </div>
   </div>
   <div class="form-bottom">
+    <div *ngIf="showError" class="error">
+      <p>User already exists</p>
+    </div>
     <form #registerForm="ngForm" role="form" action="" method="post" class="registration-form">
       <div class="form-group">
         <label class="sr-only" for="form-first-name">User name</label>

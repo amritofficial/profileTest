@@ -39,3 +39,11 @@
 .form-bottom form .input-error {
 	border-color: #19b9e7;
 }
+
+.error {
+	background-color: rgb(179, 0, 0, 0.6);
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+}
