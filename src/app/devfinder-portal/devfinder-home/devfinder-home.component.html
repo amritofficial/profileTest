@@ -8,7 +8,7 @@
   <hr>
   <div class="list-wrapper">
     <div class="issue-list">
-      <div *ngFor="let issue of issueCardArray | paginate: { itemsPerPage: 12, currentPage: p }">
+      <div *ngFor="let issue of issueCardArray | paginate: { itemsPerPage: 10, currentPage: p }">
         <issue-card [issueCard]="issue"></issue-card>
       </div>
     </div>

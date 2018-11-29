@@ -13,6 +13,7 @@ import { FinderTags } from '../shared/models/finder-tags';
 import { PostService } from '../shared/services/post.service';
 import { Feed } from '../shared/models/feed';
 import { LinkList } from '../shared/models/link-list';
+import { RouteService } from 'app/shared/services/route.service';
 
 @Component({
   selector: 'guest-profile',
@@ -63,9 +64,11 @@ export class GuestProfileComponent implements OnInit {
     private userService: UserService,
     private requestService: RequestService,
     private postService: PostService,
-    private linkService: LinkService) { }
+    private linkService: LinkService,
+    private routeService: RouteService) { }
 
   ngOnInit() {
+    this.routeService.activatedRouteName = "Guest Profile";
     this.route.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
       this.guestId = params.guestId;
       this.guestProfileService.guestId = this.guestId;
@@ -168,12 +171,13 @@ export class GuestProfileComponent implements OnInit {
     this.linkService.linkList(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((links: User[]) => {
       if (links.length !== 0) {
         links.forEach(link => {
-          if (link.userId !== this.guestId) {
-            this.guestStatus = '';
-          } else if (link.userId === this.guestId) {
+          console.log("inside the loop of link list");
+          console.log("userId " + link.userId);
+          if (link.userId === this.guestId) {
             this.guestStatus = 'approved';
           }
         });
+        console.log("Status " + this.guestStatus);
       }
     });
     this.requestService.getReceivedLinkRequest(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe((receivedRequest: LinkRequest[]) => {

@@ -29,6 +29,11 @@ export class DevfinderHomeComponent implements OnInit {
       .subscribe(data => {
         if(!(data['results'].length <=0)) {
           this.openedIssues = data['results'];
+          this.openedIssues.sort((a, b) => {
+            var aTime = new Date(a.timestamp).getTime();
+            var bTime = new Date(b.timestamp).getTime();
+            return bTime - aTime;
+          });
           this.createIssueCards();
         }
         console.log(this.openedIssues);

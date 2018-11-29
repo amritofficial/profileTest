@@ -1,4 +1,4 @@
-<div class="card result-card" (mouseenter)="resultCardMouseEnter(resultCard?.userId)" (mouseleave)="resultCardMouseLeave(resultCard?.userId)">
+<div class="card result-card" [routerLink]="['/guest-profile', resultCard?.userId ]" (mouseenter)="resultCardMouseEnter(resultCard?.userId)" (mouseleave)="resultCardMouseLeave(resultCard?.userId)">
   <div class="row">
     <div class="col-xs-5 col-md-5 col-lg-5">
       <div class="author-thumb">
