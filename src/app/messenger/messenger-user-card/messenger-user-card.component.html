@@ -8,7 +8,7 @@
       <img [src]="user.avatar" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';" width="35px" height="35px" alt="author">
     </div>
     <div class="notification-event">
-      <a href="#" class="h6 notification-friend">{{ user.username }}</a>
+      <a class="h6 notification-friend">{{ user?.username }}</a>
       <!-- <span class="chat-message-item">{{ lastMessage.body }}</span>
       <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time></span> -->
     </div>

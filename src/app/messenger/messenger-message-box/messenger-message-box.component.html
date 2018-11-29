@@ -3,7 +3,7 @@
   primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
 <div class="chat-field" style="height: 420px !important;">
   <div class="ui-block-title">
-    <h6 class="title">{{ selectedUser.username }}</h6>
+    <h6 class="title">{{ selectedUser?.username }}</h6>
   </div>
 
   <div #scrollChat class="message-scroll" data-mcs-theme="dark">
@@ -13,7 +13,7 @@
           <img src="../../assets/img/avatar10-sm.jpg" alt="author">
         </div>
         <div class="notification-event">
-          <a href="#" class="h6 notification-friend">Elaine Dreyfuss</a>
+          <a class="h6 notification-friend">Elaine Dreyfuss</a>
           <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
               8:10pm</time></span>
           <span class="chat-message-item">Hi James, How are your doing? Please remember that next week we are going to
@@ -26,7 +26,7 @@
           <img src="../../assets/img/author-page.jpg" alt="author">
         </div>
         <div class="notification-event">
-          <a href="#" class="h6 notification-friend">James Spiegel</a>
+          <a class="h6 notification-friend">James Spiegel</a>
           <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
               8:30pm</time></span>
           <span class="chat-message-item">Hi Elaine! I have a question, do you think that tomorrow we could talk to
@@ -46,7 +46,7 @@
           <img src="../../assets/img/avatar10-sm.jpg" alt="author">
         </div>
         <div class="notification-event">
-          <a href="#" class="h6 notification-friend">Elaine Dreyfuss</a>
+          <a class="h6 notification-friend">Elaine Dreyfuss</a>
           <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at
               9:56pm</time></span>
           <span class="chat-message-item">We’ll have to check that at the office and see if the client is on board with
@@ -61,10 +61,10 @@
           <img [src]="getAvatar(message)" onError="this.src='https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png';" alt="author">
         </div>
         <div class="notification-event" style="display: inline;">
-          <a href="#" class="h6 notification-friend">{{ message.user.username }}</a>
+          <a class="h6 notification-friend">{{ message?.user?.username }}</a>
           <span class="notification-date message-time"><time class="entry-date updated" datetime="2004-07-24T18:18">{{
-              message.timeSent }}</time></span><br>
-          <span class="chat-message-item">{{ message.body }}</span>
+              message?.timeSent }}</time></span><br>
+          <span class="chat-message-item">{{ message?.body }}</span>
         </div>
       </li>
 

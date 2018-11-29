@@ -22,8 +22,8 @@ export class DevfinderPortalComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   // map: google.maps.Map;
 
-  currentLat: any;
-  currentLong: any;
+  currentLat: any = 43.655361;
+  currentLong: any = -79.738167;
 
   currentLatLng: any;
   // marker: google.maps.Marker;

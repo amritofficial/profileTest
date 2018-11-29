@@ -70,6 +70,6 @@ export const appRoutes: Routes = [
             { path: 'links', component: GuestProfileLinksComponent }
         ]
     },
-    {   path: 'activity', component: DevfinderActivityComponent}
-    // { path: '**', redirectTo: 'dashboard' }
+    {   path: 'activity', component: DevfinderActivityComponent},
+    { path: '**', redirectTo: 'dashboard' }
 ]

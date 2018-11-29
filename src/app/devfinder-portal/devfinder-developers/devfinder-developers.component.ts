@@ -21,7 +21,13 @@ export class DevfinderDevelopersComponent implements OnInit {
   p: number = 1;
   developers: Developer[] = new Array();
   users: User[] = new Array();
-  currentUserLocation: Location;
+  currentUserLocation: Location = {
+    lat: 43.655361,
+    long: -79.738167,
+    postal: null,
+    status: "private",
+    userId: null
+  };
   usersLocation: Location[] = new Array();
   usersDistance: Distance[] = new Array();
   userFinderTags: FinderTags[] = [];
