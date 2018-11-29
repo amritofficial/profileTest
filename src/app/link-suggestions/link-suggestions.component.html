@@ -4,7 +4,7 @@
   </div>
 
   <ul class="widget w-friend-pages-added notification-list friend-requests scroll-suggestions">
-    <li *ngFor="let suggestion of linkSuggestions;" class="inline-items">
+    <li *ngFor="let suggestion of linkSuggestions;" class="inline-items" style="cursor: pointer" [routerLink]="['/guest-profile', suggestion?.user?.userId ]">
       <div class="author-thumb">
         <img src="{{ suggestion?.user?.avatar }}" alt="author">
       </div>

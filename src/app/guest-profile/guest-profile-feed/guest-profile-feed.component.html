@@ -4,7 +4,7 @@
     <div>
       <div id="newsfeed-items-grid">
 
-        <div *ngFor="let feed of guestFeed;" class="ui-block">
+        <div *ngFor="let feed of guestFeed;" class="ui-block" style="min-width: 545px;">
           <ngx-loading [show]="loadingFeed" [config]="{
               backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '10px',
               primaryColour: 'rgba(45, 146, 230, 1)', secondaryColour: 'rgba(45, 146, 230, 1)', tertiaryColour: 'rgba(45, 146, 230, 1)'}"></ngx-loading>
@@ -106,128 +106,6 @@
           </form>
 
         </div>
-
-        <div class="ui-block">
-          <article class="hentry post video">
-
-            <div class="post__author author vcard inline-items">
-              <img src="../../assets/img/author-page.jpg" alt="author">
-
-              <div class="author-date">
-                <a class="h6 post__author-name fn" href="02-ProfilePage.html">Amrit Singh</a> shared a
-                <a>link</a>
-                <div class="post__date">
-                  <time class="published" datetime="2017-03-24T18:18">
-                    7 hours ago
-                  </time>
-                </div>
-              </div>
-
-              <div class="more">
-                <span class="edit-icon fa fa-ellipsis-h clickable-edit-icons"></span>
-                <ul class="more-dropdown">
-                  <li>
-                    <a>Edit Post</a>
-                  </li>
-                  <li>
-                    <a>Delete Post</a>
-                  </li>
-                  <li>
-                    <a>Turn Off Notifications</a>
-                  </li>
-                  <li>
-                    <a>Select as Featured</a>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            <p>If someone missed it, check out the new song by System of a Revenge! I thinks they are going back to
-              their roots...</p>
-
-            <div class="post-video">
-              <div class="video-thumb">
-                <img src="../../assets/img/video5.jpg" alt="photo">
-                <a href="https://youtube.com/watch?v=excVFQ2TWig" class="play-video">
-                  <svg class="olymp-play-icon">
-                    <use xlink:href="icons/icons.svg#olymp-play-icon"></use>
-                  </svg>
-                </a>
-              </div>
-
-              <div class="video-content">
-                <a class="h4 title">System of a Revenge - Nothing Else Matters (LIVE)</a>
-                <p>Lorem ipsum dolor sit amet, consectetur ipisicing elit, sed do eiusmod tempo incididunt ut labore..</p>
-                <a class="link-site">YOUTUBE.COM</a>
-              </div>
-            </div>
-
-            <div class="post-additional-info inline-items">
-
-              <a class="post-add-icon inline-items">
-                <svg class="olymp-heart-icon">
-                  <use xlink:href="icons/icons.svg#olymp-heart-icon"></use>
-                </svg>
-                <span>15</span>
-              </a>
-
-              <ul class="friends-harmonic">
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic9.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic10.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic7.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic8.jpg" alt="friend">
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src="../../assets/img/friend-harmonic11.jpg" alt="friend">
-                  </a>
-                </li>
-              </ul>
-
-              <div class="names-people-likes">
-                <a>Jenny</a>,
-                <a>Robert</a> and
-                <br>13 more liked this
-              </div>
-
-              <div class="comments-shared">
-                <a class="post-add-icon inline-items">
-                  <svg class="olymp-speech-balloon-icon">
-                    <use xlink:href="icons/icons.svg#olymp-speech-balloon-icon"></use>
-                  </svg>
-                  <span>1</span>
-                </a>
-
-                <a class="post-add-icon inline-items">
-                  <svg class="olymp-share-icon">
-                    <use xlink:href="icons/icons.svg#olymp-share-icon"></use>
-                  </svg>
-                  <span>16</span>
-                </a>
-              </div>
-
-
-            </div>
-
-          </article>
-        </div>
-
       </div>
 
       <a id="load-more-button" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid">

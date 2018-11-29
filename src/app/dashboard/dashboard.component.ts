@@ -115,7 +115,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getFinderTags() {
     this.tagService.getCurrentUserTags(this.userService.getCurrentUserId()).then((tags) => {
-      if (tags.length >=0) {
+      if (tags.length > 0) {
         this.finderTags = tags[0].attributes;
       }
       console.log("Dashboard Finder Tags")

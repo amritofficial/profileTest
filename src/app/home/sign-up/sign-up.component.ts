@@ -16,6 +16,8 @@ import { Location } from '../../shared/models/location';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { RegisterUser } from '../../shared/models/register-user';
+import { TagService } from 'app/shared/services/tag.service';
+import { FinderTags } from 'app/shared/models/finder-tags';
 
 
 @Component({
@@ -77,6 +79,10 @@ export class SignUpComponent implements OnInit {
   schoolCity: string = 'Toronto';
   schoolCountry: string = 'Canada';
   programDescription: string = 'ABOUT SDNE'
+  finderTags: FinderTags = {
+    userId: null,
+    tags: []
+  };
 
   data2: any;
   imageSelected: boolean = false;
@@ -89,7 +95,8 @@ export class SignUpComponent implements OnInit {
     private authService: AuthService,
     private firebaseService: FirebaseService,
     private parseService: ParseService,
-    private userService: UserService) {
+    private userService: UserService,
+    private tagService: TagService) {
     //Cropper settings 2
     this.cropperSettings2 = new CropperSettings();
     this.cropperSettings2.width = 100;
@@ -172,7 +179,7 @@ export class SignUpComponent implements OnInit {
       long: this.currentLong,
       postal: this.postalCode,
       status: 'public',
-      userId: this.userService.currentUser.userId
+      userId: this.userService.getCurrentUserId()
     }
     return location;
   }
@@ -243,7 +250,13 @@ export class SignUpComponent implements OnInit {
         this.locationStep = false;
         this.finishRegisterStep = true;
       });
-
+    this.finderTags.userId = this.userService.getCurrentUserId();
+    this.finderTags.tags = this.tags;
+    this.tagService.saveFinderTags(this.finderTags)
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe((tags) => {
+        console.log(tags);
+        console.log("Success");
+      });
   }
 
   id = 0;
@@ -258,30 +271,27 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     this.signupLoading = true;
-    this.authService.signupUsingRest(this.email, this.password, this.username)
-    .subscribe((data: RegisterUser) => {
-      this.signupComplete = true;
-      window.sessionStorage.setItem('current_user_id', data.objectId);
-      window.sessionStorage.setItem('session_token', data.sessionToken);
-      this.firebaseService.storeUserData(this.username, this.email, data.objectId);
-      this.signupLoading = false;
-      // console.log(data);
-      // this.parseService.CurrentLoggedInUser.subscribe(data => {
-      //   console.log(data);
-      // }); 
-      // this.parseService.CurrentLoggedInUser
-      // console.log(object.id);
-      // console.log(this.parseService.currentUser.id);
-      // this.firebaseService.storeUserData(this.username, this.email, data.id);
-      // console.log(data);
-    },
-    err => {
-      console.log("Error Occured")
-      console.log(err);
-      this.signupLoading = false;
-      this.showError = true;
-      console.log()
-    })
+    this.authService.checkDuplicateEmail(this.email).then((data) => {
+      console.log(data);
+      if (data != 1) {
+        this.authService.signupUsingRest(this.email, this.password, this.username)
+          .subscribe((data: RegisterUser) => {
+            this.signupComplete = true;
+            window.sessionStorage.setItem('current_user_id', data.objectId);
+            window.sessionStorage.setItem('session_token', data.sessionToken);
+            this.firebaseService.storeUserData(this.username, this.email, data.objectId);
+            this.signupLoading = false;
+          },
+            err => {
+              console.log("Error Occured")
+              console.log(err);
+              this.signupLoading = false;
+              this.showError = true;
+              console.log()
+            });
+      }
+    });
+
     // this.authService.signup(this.username, this.email, this.password)
     //   .subscribe(success => {
     //     console.log(success);

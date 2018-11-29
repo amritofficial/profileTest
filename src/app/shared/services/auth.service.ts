@@ -23,6 +23,10 @@ export class AuthService {
     return this.parseService.registerUsingRest(email, password, username);
   }
 
+  checkDuplicateEmail(email: string) {
+    return this.parseService.checkDuplicateEmail(email);
+  }
+
   loginUsingRest(email: string, password: string) {
     return this.parseService.loginUsingRest(email, password);
   }

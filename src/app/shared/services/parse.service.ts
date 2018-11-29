@@ -205,6 +205,13 @@ export class ParseService {
     return await query.find();
   }
 
+  public checkDuplicateEmail(email: string) {
+    const user = Parse.Object.extend("User");
+    const query = new Parse.Query(user);
+    query.equalTo("email", email);
+    return query.count();
+  }
+
   public updateCurrentUserFinderTags(objectId: any) {
     const tags = Parse.Object.extend("tags");
     const query = new Parse.Query(tags);
