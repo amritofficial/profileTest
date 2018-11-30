@@ -290,6 +290,10 @@ export class SignUpComponent implements OnInit {
               console.log()
             });
       }
+      else if (data === 1) {
+        this.showError = true;
+        this.signupLoading = false;
+      }
     });
 
     // this.authService.signup(this.username, this.email, this.password)
